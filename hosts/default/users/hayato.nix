@@ -5,6 +5,7 @@
     hayato = {
       isNormalUser = true;
       extraGroups = ["wheel"];
+      shell = pkgs.zsh;
     };
   };
 }
