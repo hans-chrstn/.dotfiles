@@ -1,0 +1,8 @@
+{ config, pkgs, ... }:
+{
+  programs.git = {
+    enable = true;
+    userName = "hayato-oo";
+    userEmail = "xuhiko13@gmail.com";
+  };
+}
