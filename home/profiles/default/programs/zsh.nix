@@ -16,6 +16,12 @@
       cat = "bat";
       c = "code";
     };
+    zplug = {
+      enable = true;
+      plugins = [
+      ];
+    };
+
   };
   programs.starship = {
     enable = true;
