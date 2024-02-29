@@ -3,6 +3,7 @@
 {
   imports = [
     ./guest.nix
+    ./hayato.nix
 
   ];
 
