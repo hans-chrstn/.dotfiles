@@ -37,5 +37,6 @@
     unzip
     steam
     discord
+    github-desktop
   ];
 }
