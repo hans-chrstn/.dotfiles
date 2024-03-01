@@ -4,9 +4,14 @@
   inputs = {
     # Nixpkgs
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    #spicetify-nix
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
@@ -20,6 +25,7 @@
     self,
     nixpkgs,
     home-manager,
+    spicetify-nix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -70,6 +76,7 @@
         modules = [
           # > Our main home-manager configuration file <
           ./home/profiles/default/home.nix
+	  ./home/profiles/default/programs/spicetify.nix
         ];
       };
     };

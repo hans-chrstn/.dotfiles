@@ -5,5 +5,6 @@
     ./git.nix
     ./zsh.nix
     ./neovim.nix
+    ./spicetify.nix
   ];
 }

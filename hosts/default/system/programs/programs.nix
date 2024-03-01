@@ -2,7 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [ 
-
+    curl
+    jq
+    coreutils
 
 
   ];

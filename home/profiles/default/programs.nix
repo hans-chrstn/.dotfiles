@@ -9,8 +9,8 @@
   };
 
   home.packages = with pkgs; [
-    spotify
-    spicetify-cli
+    #spotify
+    #spicetify-cli
     wget
     floorp
     p7zip
