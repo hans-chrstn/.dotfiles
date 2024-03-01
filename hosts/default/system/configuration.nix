@@ -22,6 +22,8 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    ./network/system-network.nix
+    ./hardware/opengl.nix
     ./users
     ./programs
     ./core
@@ -83,10 +85,6 @@
   };
 
   # FIXME: Add the rest of your current configuration
-
-  # TODO: Set your hostname
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
 
   time.timeZone = "America/New_York";
   time.hardwareClockInLocalTime = true;
