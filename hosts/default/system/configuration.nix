@@ -23,8 +23,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     ./users
-    ./programs
-    ./core
+    ./programs/programs.nix
   ];
 
   nixpkgs = {
@@ -105,6 +104,25 @@
   };
   # TODO: This is just an example, be sure to use whatever bootloader you prefer
   
+  boot = {
+    initrd = {
+      kernelModules = ["i915"];
+    };
+    kernelParams = ["i915.force_probe=8a56"];
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        devices = ["nodev"];
+        efiSupport = true;
+        useOSProber = true;
+      };
+    };
+  };
+
+
+
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   #services.xserver.displayManager.sddm = {
@@ -128,6 +146,8 @@
   };
 
   services.xserver.libinput.enable = true;
+
+  programs.zsh.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
