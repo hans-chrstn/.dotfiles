@@ -6,4 +6,6 @@
 
 
   ];
+
+  programs.zsh.enable = true;
 }
