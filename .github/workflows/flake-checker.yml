@@ -1,0 +1,36 @@
+            - name: Nix Flake Checker
+  # You may pin to the exact commit or the version.
+  # uses: DeterminateSystems/flake-checker-action@4b90f9fc724969ff153fe1803460917c84fe00a3
+  uses: DeterminateSystems/flake-checker-action@v5
+  with:
+    # The path to the `flake.lock` file you want to check.
+
+    flake-lock-path: # optional, default is flake.lock
+    # Whether to check that the root Nixpkgs input is less than 30 days old.
+
+    check-outdated: # optional, default is true
+    # Whether to check that the root Nixpkgs input has the `NixOS` GitHub org as its owner.
+
+    check-owner: # optional, default is true
+    # Whether to check that the root Nixpkgs input has a supported Git ref. Currently supported
+refs: `nixos-22.11`, `nixos-22.11-small`, `nixos-23.05`, `nixos-23.05-small`, `nixos-unstable`,
+`nixos-unstable-small`, `nixpkgs-22.11-darwin`, `nixpkgs-23.05-darwin`, `nixpkgs-unstable`.
+
+    check-supported: # optional, default is true
+    # Whether to ignore a missing `flake.lock` file, where the path to the file is the value of
+`flake-lock-path` parameter. If set to `false` (the default is `true`), the Action throws
+an error and the job fails if the lockfile is missing.
+
+    ignore-missing-flake-lock: # optional, default is true
+    # The names of the Nixpkgs inputs you want to check. By default the checker only checks the
+`nixpkgs` but you can specify multiple names as a comma-separated list, such as
+`nixpkgs,nixpkgs-macos,nixpkgs-unstable`.
+
+    nixpkgs-keys: # optional, default is nixpkgs
+    # Fail with an exit code of 1 if any issues are encountered.
+    fail-mode: # optional
+    # Anonymously report the number of issues detected by the Nix Flake Checker. This reporting helps
+measure (and thereby improve) the effectiveness of the checker. Set to `false` to disable.
+
+    send-statistics: # optional, default is true
+          
