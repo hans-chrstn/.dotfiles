@@ -11,7 +11,6 @@
   home.packages = with pkgs; [
     spotify
     spicetify-cli
-    discord
     wget
     floorp
     p7zip
@@ -31,10 +30,12 @@
     rustc
     cargo
     protonvpn-gui
-    steam
     gnome.gnome-software 
     gnome.gnome-tweaks
     telegram-desktop
     hyprland
+    unzip
+    steam
+    discord
   ];
 }

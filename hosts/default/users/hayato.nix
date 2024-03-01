@@ -4,7 +4,7 @@
   users.users = {
     hayato = {
       isNormalUser = true;
-      extraGroups = ["wheel"];
+      extraGroups = ["wheel" "networkmanager" "admin"];
       shell = pkgs.zsh;
     };
   };
