@@ -2,25 +2,25 @@
 
 {
   home.packages = with pkgs; [
-    lsd
+    
   ];
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
-    shellAliases = {
-      ls = "lsd";
-      l = "ls -l";
-      la = "ls -la";
-      ip = "ip --color=auto";
-      cat = "bat";
-      c = "code";
-    };
-    zplug = {
-      enable = true;
-      plugins = [
-      ];
-    };
+
+    initExtra = ''
+      source ~/.dotfiles/home/profiles/default/configs/zsh/.p10k.zsh
+    '';
+
+    plugins = [ 
+      {
+       name = "powerlevel10k";
+       src = pkgs.zsh-powerlevel10k;
+       file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
 
   };
   programs.starship = {
