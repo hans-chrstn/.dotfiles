@@ -5,6 +5,7 @@
     curl
     jq
     coreutils
+    dmidecode
 
 
   ];
