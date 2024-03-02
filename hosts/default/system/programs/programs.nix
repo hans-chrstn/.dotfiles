@@ -6,6 +6,8 @@
     jq
     coreutils
     dmidecode
+    eww
+    pkg-config
 
 
   ];
