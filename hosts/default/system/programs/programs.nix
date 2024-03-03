@@ -6,11 +6,24 @@
     jq
     coreutils
     dmidecode
+    
+    #hyprland stuff
     eww
-    pkg-config
-
+    mako
+    libnotify
+    swww
+    kitty
+    networkmanagerapplet
+    rofi-wayland
+    #wofi
+    (waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      })
+    )
 
   ];
-
+  
+  xdg.portal.enable = true;
+  
   programs.zsh.enable = true;
 }

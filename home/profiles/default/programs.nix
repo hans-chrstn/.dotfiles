@@ -9,8 +9,6 @@
   };
 
   home.packages = with pkgs; [
-    #spotify
-    #spicetify-cli
     wget
     floorp
     p7zip
@@ -33,10 +31,12 @@
     gnome.gnome-software 
     gnome.gnome-tweaks
     telegram-desktop
-    hyprland
     unzip
     steam
     discord
     github-desktop
+
+    #test
+
   ];
 }

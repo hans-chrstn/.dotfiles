@@ -13,6 +13,9 @@
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    #hyprland
+    hyprland.url = "github:hyprwm/Hyprland";
+
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 
@@ -29,20 +32,19 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    # Supported systems for your flake packages, shell, etc.
-    systems = [
-      "x86_64-linux"
-    ];
+    # Supported system for your flake packages, shell, etc.
+    systems = [ "x86_64-linux" ];
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system: import ./pkgs {inherit pkgs;});
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+    formatter = forAllSystems (system: pkgs.alejandra);
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
@@ -53,6 +55,7 @@
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
+    devShells.x86_64-linux.default = (import ./shell.nix { inherit pkgs; });
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -71,12 +74,12 @@
     homeConfigurations = {
       # FIXME replace with your username@hostname
       default = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        inherit pkgs; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main home-manager configuration file <
-          ./home/profiles/default/home.nix
-	  ./home/profiles/default/programs/spicetify.nix
+          ./home/profiles/default/default.nix
+	  #./home/profiles/default/programs/spicetify.nix
         ];
       };
     };
