@@ -1,29 +1,17 @@
-const time = Variable('', {
-    poll: [1000, function() {
-        return Date().toString()
-    }],
+const testLabel = Widget.Label({
+  label: 'test',
 })
 
-const Bar = (/** @type {number} */ monitor) => Widget.Window({
-    monitor,
-    name: `bar${monitor}`,
-    anchor: ['top', 'left', 'right'],
-    exclusivity: 'exclusive',
-    child: Widget.CenterBox({
-        start_widget: Widget.Label({
-            hpack: 'center',
-            label: 'Welcome to AGS!',
-        }),
-        end_widget: Widget.Label({
-            hpack: 'center',
-            label: time.bind(),
-        }),
-    }),
+const testBar = Widget.Window({
+  name: 'bar'.
+  anchor: ['top', 'left', 'right'],
+  child: myLabel,
+
 })
 
 export default {
     windows: [
-	Bar(0),
-	Bar(1)
+	testBar(0),
+	testBar(1),
     ],
 }
