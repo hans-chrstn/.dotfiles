@@ -8,7 +8,6 @@
     dmidecode
     
     #editor
-    neovim
     xclip
     wl-clipboard
 
@@ -17,7 +16,6 @@
     hyprpicker
     hyprlock
     hypridle
-    #eww
     libnotify
     swww
     kitty
@@ -26,6 +24,7 @@
     slurp
     swaynotificationcenter
     fuzzel
+    neofetch
 
     #(waybar.overrideAttrs (oldAttrs: {
     #    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
