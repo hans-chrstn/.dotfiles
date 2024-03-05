@@ -35,6 +35,7 @@ pkgs.mkShell {
     gcc
     deno
     mdbook
+    ruby
 
     
     #waybar dependencies
