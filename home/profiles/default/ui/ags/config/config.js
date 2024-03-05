@@ -1,17 +1,17 @@
-const testLabel = Widget.Label({
-  label: 'test',
+const Bar = (monitor = 0) => Widget.Window({
+    monitor,
+    name: `bar${monitor}`,
+    anchor: ['top', 'left', 'right'],
+    child: Widget.Label({ label: date.bind() })
 })
 
-const testBar = Widget.Window({
-  name: 'bar'.
-  anchor: ['top', 'left', 'right'],
-  child: myLabel,
-
+const date = Variable('', {
+    poll: [1000, 'date'],
 })
 
-export default {
+App.config({
     windows: [
-	testBar(0),
-	testBar(1),
+        Bar(0), // can be instantiated for each monitor
+        Bar(1),
     ],
-}
+})

@@ -4,6 +4,7 @@
   imports = [
     ./location.nix
     ./power-button.nix
+    ./tlp.nix
 
   ];
 
