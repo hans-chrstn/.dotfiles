@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
-  imports = [
+  home.file.".config/fuzzel" = {
+    source = ./config;
 
-
-  ];
+  };
 
 }

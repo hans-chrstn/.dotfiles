@@ -1,7 +1,3 @@
-{ config, pkgs, ... }:
-
-{
-  home.file."/.config/swaync/style.css".text = ''
 * {
   all: unset;
   font-size: 14px;
@@ -271,8 +267,4 @@ trough {
   background: #51576d;
   border-radius: 8px;
   border: 1px solid #737994;
-}
-
-  '';
-
 }

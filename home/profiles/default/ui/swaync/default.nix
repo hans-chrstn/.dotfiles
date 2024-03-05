@@ -1,10 +1,9 @@
-{config, pkgs, inputs, ...}:
+{ inputs, pkgs, ... }:
 
 {
-  imports = [
-    ./style.nix
+  home.file.".config/swaync" = {
+    source = ./config;
 
+  };
 
-  ];
 }
-
