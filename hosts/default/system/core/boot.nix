@@ -2,6 +2,10 @@
 
 {
    boot = {
+    kernel.sysctl = {
+      "vm.swappiness" = 80;
+
+    };
     initrd = {
       kernelModules = ["i915"];
     };

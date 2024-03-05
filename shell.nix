@@ -29,6 +29,43 @@ pkgs.mkShell {
     openssl
     xcode-install
     gtk3 
+    rustc
+    cargo
+    rust-analyzer-unwrapped
+    gcc
+    deno
+    mdbook
+
+    
+    #waybar dependencies
+    gtkmm3
+    jsoncpp
+    libsigcxx
+    fmt
+    wayland
+    spdlog
+    pipewire 
+    libnl 
+    libappindicator-gtk3
+    libdbusmenu-gtk3 
+    libmpdclient 
+    libevdev
+    upower 
+    lutris-free
+    cmake
+    sndio
+    gtk-layer-shell
+    meson
+    scdoc
+    wayland-protocols
+
+    #eww
+    pango
+    rubyPackages_3_3.gdk_pixbuf2
+    cairo
+    rubyPackages_3_3.glib2
+    libgcc
+    glibc
   ];
 
 }

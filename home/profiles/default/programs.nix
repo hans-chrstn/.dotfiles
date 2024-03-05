@@ -35,6 +35,7 @@
     steam
     discord
     github-desktop
+    cartridges
 
     #test
 

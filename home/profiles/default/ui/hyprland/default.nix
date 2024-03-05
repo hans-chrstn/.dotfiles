@@ -1,10 +1,9 @@
-{  config, lib, pkgs, ... }:
+{  inputs, pkgs, ... }:
 
 {
-  imports = [
-  ./builder.nix
-  ./builder2.nix
+  home.file.".config/hypr" = {
+    source = ./config;
 
-  ];
 
+  };  
 }

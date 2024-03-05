@@ -3,8 +3,9 @@
 {
   imports = [
   ./hyprland
-  ./waybar
   ./fuzzel
+  ./swaync
+  ./ags
 
   ];
 

@@ -19,6 +19,10 @@
         plugin = gruvbox-nvim;
         config = "colorscheme gruvbox";
       }
+      {
+        plugin = yuck-vim; 
+	config = "";
+      }
     ];
   };
 }

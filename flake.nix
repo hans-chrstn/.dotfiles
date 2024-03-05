@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/master";
@@ -16,24 +17,27 @@
     #hyprland
     hyprland.url = "github:hyprwm/Hyprland";
 
-    # TODO: Add any other flake you might need
-    # hardware.url = "github:nixos/nixos-hardware";
+    #rust
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
+    #ags
+    ags.url = "github:Aylur/ags";
+
+    #neovim-nightly
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    spicetify-nix,
     ...
   } @ inputs: let
     inherit (self) outputs;
-    # Supported system for your flake packages, shell, etc.
     systems = [ "x86_64-linux" ];
+
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
     # This is a function that generates an attribute by calling a function you
     # pass to it, with each system as an argument
@@ -55,31 +59,25 @@
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
+    
+
     devShells.x86_64-linux.default = (import ./shell.nix { inherit pkgs; });
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+
     nixosConfigurations = {
-      # FIXME replace with your hostname
       default = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main nixos configuration file <
           ./hosts/default/system/configuration.nix
         ];
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      # FIXME replace with your username@hostname
       default = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs; # Home-manager requires 'pkgs' instance
+        inherit pkgs; 
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main home-manager configuration file <
           ./home/profiles/default/default.nix
-	  #./home/profiles/default/programs/spicetify.nix
         ];
       };
     };

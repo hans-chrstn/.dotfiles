@@ -7,19 +7,30 @@
     coreutils
     dmidecode
     
+    #editor
+    neovim
+    xclip
+    wl-clipboard
+
     #hyprland stuff
-    eww
-    mako
+    xdg-desktop-portal-hyprland
+    hyprpicker
+    hyprlock
+    hypridle
+    #eww
     libnotify
     swww
     kitty
     networkmanagerapplet
-    rofi-wayland
-    #wofi
-    (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    )
+    grim
+    slurp
+    swaynotificationcenter
+    fuzzel
+
+    #(waybar.overrideAttrs (oldAttrs: {
+    #    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    #  })
+    #)
 
   ];
   
