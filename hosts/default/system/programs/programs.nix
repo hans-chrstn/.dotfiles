@@ -12,6 +12,17 @@
     xclip
     wl-clipboard
 
+    lunarvim
+
+    #terminals
+    kitty
+    tmux
+    lf
+
+    #img
+    ueberzug
+
+
     #hyprland stuff
     xdg-desktop-portal-hyprland
     hyprpicker
@@ -19,14 +30,13 @@
     hypridle
     libnotify
     swww
-    kitty
     networkmanagerapplet
     grim
     slurp
     swaynotificationcenter
     fuzzel
     neofetch
-    lunarvim
+
 
     #test
 

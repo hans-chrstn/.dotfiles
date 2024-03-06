@@ -43,7 +43,6 @@ pkgs.mkShell {
     jsoncpp
     libsigcxx
     fmt
-    wayland
     spdlog
     pipewire 
     libnl 
@@ -58,7 +57,6 @@ pkgs.mkShell {
     gtk-layer-shell
     meson
     scdoc
-    wayland-protocols
 
     #eww
     pango

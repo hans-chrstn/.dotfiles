@@ -92,12 +92,12 @@
 
   # TODO: This is just an example, be sure to use whatever bootloader you prefer
   
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.enable = true;
+  #services.xserver.displayManager.gdm = {
+  #  enable = true;
+  #  wayland = true;
+  #};
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
