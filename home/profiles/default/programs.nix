@@ -25,8 +25,5 @@
     github-desktop
     cartridges
 
-    #test
-    hyprlock
-
   ];
 }

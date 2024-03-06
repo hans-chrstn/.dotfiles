@@ -24,10 +24,11 @@
     #hyprland stuff
     xdg-desktop-portal-hyprland
     hyprpicker
-    #hyprlock
+    hyprlock
     hypridle
+    hyprpaper
     libnotify
-    swww
+    #swww
     grim
     slurp
     swaynotificationcenter
@@ -47,6 +48,7 @@
   ];
   
   xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   
   programs.zsh.enable = true;
 }
