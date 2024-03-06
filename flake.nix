@@ -15,6 +15,7 @@
 
     #hyprland
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock.url = "github:hyprwm/hyprlock";
 
     #rust
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -25,6 +26,7 @@
 
     #neovim-nightly
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
 
   };
 

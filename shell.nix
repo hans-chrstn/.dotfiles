@@ -70,6 +70,11 @@ pkgs.mkShell {
     gnumake
     nodejs_21
     ripgrep
+
+    #hypr
+    cairo
+    libdrm
+    mesa
   ];
 
 }

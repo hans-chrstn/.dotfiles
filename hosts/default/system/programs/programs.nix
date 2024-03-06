@@ -1,4 +1,4 @@
-{ configs, pkgs, ... }:
+{  pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [ 
@@ -16,12 +16,9 @@
 
     #terminals
     kitty
-    tmux
-    lf
 
-    #img
-    ueberzug
-
+    #filemanager
+    ranger
 
     #hyprland stuff
     xdg-desktop-portal-hyprland

@@ -7,5 +7,6 @@
     ./programs
     ./fonts/fonts.nix
     ./ui
+    ./configs
   ];
 }
