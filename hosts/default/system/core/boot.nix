@@ -2,8 +2,10 @@
 
 {
    boot = {
+     supportedFilesystems = ["ntfs"];
+
     kernel.sysctl = {
-      "vm.swappiness" = 80;
+      "vm.swappiness" = 30;
 
     };
     initrd = {

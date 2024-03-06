@@ -6,6 +6,7 @@
     jq
     coreutils
     dmidecode
+    ntfs3g
     
     #editor
     xclip
@@ -25,6 +26,9 @@
     swaynotificationcenter
     fuzzel
     neofetch
+    lunarvim
+
+    #test
 
     #(waybar.overrideAttrs (oldAttrs: {
     #    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];

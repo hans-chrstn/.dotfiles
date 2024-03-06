@@ -5,6 +5,7 @@
   ./hyprland
   ./swaync
   ./ags
+  ./kitty
 
   ];
 

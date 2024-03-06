@@ -67,6 +67,11 @@ pkgs.mkShell {
     rubyPackages_3_3.glib2
     libgcc
     glibc
+
+    #lunarvim
+    gnumake
+    nodejs_21
+    ripgrep
   ];
 
 }
