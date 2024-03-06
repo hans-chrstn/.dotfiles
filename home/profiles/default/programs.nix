@@ -26,6 +26,7 @@
     cartridges
 
     #test
+    hyprlock
 
   ];
 }

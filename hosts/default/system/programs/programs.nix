@@ -1,6 +1,7 @@
-{  pkgs, ... }:
+{ inputs, outputs, pkgs, ... }:
 
 {
+  
   environment.systemPackages = with pkgs; [ 
     curl
     jq
@@ -23,16 +24,17 @@
     #hyprland stuff
     xdg-desktop-portal-hyprland
     hyprpicker
-    hyprlock
+    #hyprlock
     hypridle
     libnotify
     swww
-    networkmanagerapplet
     grim
     slurp
     swaynotificationcenter
     fuzzel
     neofetch
+    brightnessctl
+    playerctl
 
 
     #test

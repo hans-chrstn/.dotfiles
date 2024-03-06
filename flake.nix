@@ -15,7 +15,10 @@
 
     #hyprland
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprlock.url = "github:hyprwm/hyprlock";
+    hyprlock.inputs.nixpkgs.follows = "nixpkgs";
 
     #rust
     rust-overlay.url = "github:oxalica/rust-overlay";

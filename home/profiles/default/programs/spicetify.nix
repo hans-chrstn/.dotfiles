@@ -18,9 +18,7 @@ in
       theme = spicePkgs.themes.Default;
 
       enabledCustomApps = with spicePkgs.apps; [
-       lyrics-plus
        marketplace
-       localFiles
       ];
 
       enabledExtensions = with spicePkgs.extensions; [

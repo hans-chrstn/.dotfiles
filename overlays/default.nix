@@ -14,7 +14,7 @@
 
   overlays = [
     inputs.neovim-nightly-overlay.overlay
-
+    inputs.hyprlock.overlay
 
   ];
 
