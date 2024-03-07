@@ -9,9 +9,13 @@
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
+    shellAliases = {
+
+    };
 
     initExtra = ''
       source ~/.dotfiles/home/profiles/default/configs/zsh/.p10k.zsh
+
     '';
 
     plugins = [ 

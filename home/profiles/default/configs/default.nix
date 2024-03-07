@@ -1,0 +1,10 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ./ranger
+
+
+  ];
+
+}
