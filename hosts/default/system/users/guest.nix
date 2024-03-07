@@ -4,7 +4,7 @@
   users.users = {
     guest = {
       isNormalUser = true;
-      extraGroups = ["wheel"];
+      extraGroups = ["guest"];
     };
   };
 }

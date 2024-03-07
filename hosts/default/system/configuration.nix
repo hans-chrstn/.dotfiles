@@ -22,8 +22,13 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    ./network/system-network.nix
+    ./hardware/opengl.nix
+    ./services
+    ./drivers
     ./users
-    ./programs/programs.nix
+    ./programs
+    ./core
   ];
 
   nixpkgs = {
@@ -32,7 +37,6 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
-      outputs.overlays.unstable-packages
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -83,71 +87,26 @@
 
   # FIXME: Add the rest of your current configuration
 
-  # TODO: Set your hostname
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
 
-  time.timeZone = "America/New_York";
-  time.hardwareClockInLocalTime = true;
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
+
   # TODO: This is just an example, be sure to use whatever bootloader you prefer
   
-  boot = {
-    initrd = {
-      kernelModules = ["i915"];
-    };
-    kernelParams = ["i915.force_probe=8a56"];
-    kernelPackages = pkgs.linuxPackages_latest;
-    loader = {
-      efi.canTouchEfiVariables = true;
-      grub = {
-        enable = true;
-        devices = ["nodev"];
-        efiSupport = true;
-        useOSProber = true;
-      };
-    };
-  };
-
-
-
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.sddm = {
-    #enable = true;
-    #wayland.enable = true;
-  #};
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "";
-
-  services.printing.enable = true;
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+  services.xserver.displayManager.gdm = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+    wayland = true;
   };
+  services.xserver.displayManager.gdm.settings = {
+    daemon = {
+      AutomaticLogin="hayato";
+      AutomaticLoginEnable=true;
 
-  services.xserver.libinput.enable = true;
+    };
 
-  programs.zsh.enable = true;
+
+  };
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
