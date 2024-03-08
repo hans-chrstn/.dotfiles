@@ -2,8 +2,6 @@
 hyprlock &
 hypridle&
 hyprpaper&
-#swww init &
-#sleep 0.1 &&
-#swww img ~/.dotfiles/wallpaper/19.png &
-swaync
+ags -c ~/.dotfiles/home/profiles/default/ui/ags/config/config.js &
+wl-gammarelay-rs
 
