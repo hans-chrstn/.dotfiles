@@ -10,6 +10,7 @@
     ntfs3g
     iw
     polkit_gnome
+    dbus
 
     steam
     lutris
@@ -37,6 +38,7 @@
     ranger
 
     #hyprland stuff
+    xdg-desktop-portal-hyprland
     hyprpicker
     hyprlock
     hypridle

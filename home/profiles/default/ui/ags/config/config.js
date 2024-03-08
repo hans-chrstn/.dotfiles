@@ -72,6 +72,7 @@ export default {
     quicksettings: 500,
     launcher: 500,
     bar0: 350,
+    bar1: 350,
     session: 350,
   },
 };

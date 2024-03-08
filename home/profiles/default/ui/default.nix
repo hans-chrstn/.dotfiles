@@ -3,7 +3,7 @@
 {
   imports = [
   ./hyprland
-  ./swaync
+  ./fuzzel
   ./ags
   ./kitty
 
