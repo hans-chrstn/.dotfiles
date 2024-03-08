@@ -52,14 +52,14 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
-      programs = {
-        neovim = {
-          enable = true;
-          extraConfig = ''
-            set clipboard+=unnamedplus
-          '';
-        };
-      };
+      #programs = {
+      #  neovim = {
+      #    enable = true;
+      #    extraConfig = ''
+      #      set clipboard+=unnamedplus
+      #    '';
+      #  };
+      #};
     };
   };
 
