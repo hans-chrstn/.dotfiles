@@ -19,6 +19,7 @@ in
 
       enabledCustomApps = with spicePkgs.apps; [
        marketplace
+       localFiles
       ];
 
       enabledExtensions = with spicePkgs.extensions; [
