@@ -7,6 +7,6 @@ sleep 1
 pkill -e xdg-desktop-portal-hyprland
 pkill -e xdg-desktop-portal-wlr
 pkill xdg-desktop-portal
-/usr/lib/xdg-desktop-portal-hyprland &
+/etc/systemd/user/xdg-desktop-portal-hyprland.service &
 sleep 2
-/usr/lib/xdg-desktop-portal &
+/etc/systemd/user/xdg-desktop-portal.service &

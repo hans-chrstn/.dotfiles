@@ -3,16 +3,8 @@
 {
   networking.hostName = "nixos";
   
-  #nextdns
   networking = {
-    #nameservers = [
-    #  "45.90.28.0"
-    #  "45.90.30.0"
-    #  "2a07:a8c0::56:47dd"
-    #  "2a07:a8c1::56:47dd"
-    #];
     networkmanager = {
-    #  dns = "systemd-resolved";
       enable = true;
     };
   };

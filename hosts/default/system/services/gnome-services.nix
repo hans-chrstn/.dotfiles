@@ -6,9 +6,6 @@
 #      gnome.gnome-settings-daemon
 #    ];
 #
-#    gnome.gnome-keyring.enable = true;
 #
-#    gvfs.enable = true;
 #  };
-  services.gvfs.enable = true;
 }

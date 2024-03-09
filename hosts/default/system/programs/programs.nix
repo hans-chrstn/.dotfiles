@@ -10,7 +10,13 @@
     ntfs3g
     iw
     polkit_gnome
+    libva-utils
     dbus
+    parted
+    wayland-protocols
+    wayland-utils
+    wlroots
+    xwaylandvideobridge
 
     steam
     lutris
@@ -37,8 +43,13 @@
     #filemanager
     ranger
 
-    #hyprland stuff
+    #portals
     xdg-desktop-portal-hyprland
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+
+    #hyprland stuff
+    hyprland-protocols
     hyprpicker
     hyprlock
     hypridle
@@ -83,11 +94,15 @@
 
   ];
   
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ 
-    pkgs.xdg-desktop-portal-gtk 
-    pkgs.xdg-desktop-portal
-  ];
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-gtk 
+      pkgs.xdg-desktop-portal
+    ];
+  };
+
 
   
   programs.zsh.enable = true;
