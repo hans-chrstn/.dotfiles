@@ -5,7 +5,7 @@
      supportedFilesystems = ["ntfs"];
 
     kernel.sysctl = {
-      "vm.swappiness" = 30;
+      "vm.swappiness" = 60;  #default = 60
 
     };
     initrd = {
@@ -28,6 +28,7 @@
         devices = ["nodev"];
         efiSupport = true;
         useOSProber = true;
+        theme = pkgs.sleek-grub-theme;
       };
     };
     tmp.cleanOnBoot = true;

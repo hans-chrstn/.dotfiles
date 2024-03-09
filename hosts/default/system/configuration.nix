@@ -22,8 +22,8 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    ./network/system-network.nix
-    ./hardware/opengl.nix
+    ./network
+    ./hardware
     ./services
     ./drivers
     ./users

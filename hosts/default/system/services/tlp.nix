@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 
 {
+  #performance
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+  };
   services.tlp = {
     enable = true; 
     settings = {
