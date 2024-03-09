@@ -6,6 +6,7 @@
   ./fuzzel
   ./ags
   ./kitty
+  ./neofetch
 
   ];
 
