@@ -8,5 +8,7 @@
     ./localization.nix
 
   ];
+  
+  zramSwap.enable = true;
 
 }

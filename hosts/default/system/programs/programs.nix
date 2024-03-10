@@ -9,7 +9,6 @@
     dmidecode
     ntfs3g
     iw
-    polkit_gnome
     libva-utils
     dbus
     parted
@@ -18,7 +17,6 @@
     wlroots
     xwaylandvideobridge
 
-    steam
     lutris
 
     floorp
@@ -94,15 +92,7 @@
 
   ];
   
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ 
-      pkgs.xdg-desktop-portal-gtk 
-      pkgs.xdg-desktop-portal
-    ];
-  };
-
+  programs.steam.enable = true;
 
   
   programs.zsh.enable = true;
