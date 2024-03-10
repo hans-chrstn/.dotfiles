@@ -15,7 +15,8 @@ in
   programs.spicetify =
     {
       enable = true;
-      theme = spicePkgs.themes.Default;
+      #theme = spicePkgs.themes.Bloom;
+      #colorScheme = "dark";
 
       enabledCustomApps = with spicePkgs.apps; [
        marketplace
@@ -23,7 +24,6 @@ in
       ];
 
       enabledExtensions = with spicePkgs.extensions; [
-
       ];    
     };
 }
