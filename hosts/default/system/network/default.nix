@@ -60,7 +60,6 @@
   
   systemd.services.networkManagerRestart = {
     description = "Restart NetworkManger.service every reboot";
-    #script = [ pkgs.coreutils bin/networkmanager restart ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.networkmanager}/bin/NetworkManager restart";
