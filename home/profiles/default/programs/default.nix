@@ -7,5 +7,6 @@
     ./neovim.nix
     ./spicetify.nix
     ./nix-index.nix
+    ./emacs.nix
   ];
 }

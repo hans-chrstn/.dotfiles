@@ -30,6 +30,11 @@
     #neovim-nightly
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
+    #emacs-overlay
+    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
+
 
   };
 
