@@ -91,9 +91,14 @@
     ffmpeg
 
   ];
+
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs;
+
+  };
   
   programs.steam.enable = true;
 
-  
   programs.zsh.enable = true;
 }
