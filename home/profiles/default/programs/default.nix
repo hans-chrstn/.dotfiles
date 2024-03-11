@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ./git.nix
-    ./zsh.nix
-    ./neovim.nix
-    ./spicetify.nix
-    ./nix-index.nix
-    ./emacs.nix
+    ./git
+    ./zsh
+    ./neovim
+    ./spicetify
+    ./nix-index
+    ./emacs
   ];
 }
