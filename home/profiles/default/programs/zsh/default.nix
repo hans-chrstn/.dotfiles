@@ -14,7 +14,7 @@
     };
 
     initExtra = ''
-      source ~/.dotfiles/home/profiles/default/configs/zsh/.p10k.zsh
+      source ~/.dotfiles/home/profiles/default/programs/zsh/config/.p10k.zsh
 
     '';
 
