@@ -7,6 +7,7 @@
   ./ags
   ./kitty
   ./neofetch
+  ./eww
 
   ];
 

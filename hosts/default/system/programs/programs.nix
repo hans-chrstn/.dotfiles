@@ -85,6 +85,18 @@
     eza
     bat
     pipewire
+    eww
+      #pango
+      #gdk-pixbuf
+      #cairo
+      #gcc
+    gtk3.dev
+    gtk-layer-shell.dev
+    pango.dev
+    gdk-pixbuf.dev
+    cairo.dev
+    glib.dev
+    libgcc
 
     #downloader
     yt-dlp
