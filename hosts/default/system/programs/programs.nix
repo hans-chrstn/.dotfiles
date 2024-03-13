@@ -24,6 +24,7 @@
     unzip
     p7zip
     wget
+    atool
 
     wine
     winetricks
@@ -62,6 +63,17 @@
     wl-gammarelay-rs
     btop
     cava
+    file
+    libglvnd
+    libwebp
+    mesa
+    libdrm
+    libxkbcommon
+
+    #weather
+    tenki
+    wego
+
 
     #ags
     upower
@@ -86,10 +98,6 @@
     bat
     pipewire
     eww
-      #pango
-      #gdk-pixbuf
-      #cairo
-      #gcc
     gtk3.dev
     gtk-layer-shell.dev
     pango.dev
@@ -101,6 +109,7 @@
     #downloader
     yt-dlp
     ffmpeg
+
 
   ];
 

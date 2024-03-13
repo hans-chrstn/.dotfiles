@@ -7,6 +7,6 @@
     ./neovim
     ./spicetify
     ./nix-index
-    ./emacs
+    ./vscode
   ];
 }
