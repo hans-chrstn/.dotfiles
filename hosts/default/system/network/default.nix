@@ -62,8 +62,11 @@
     description = "Restart NetworkManger.service every reboot";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.networkmanager}/bin/NetworkManager restart";
-      Restart = "always";
+      Type = "exec";
+      ExecStart = "${pkgs.networkmanager}/bin/NetworkManager";
+      Restart = "on-failure";
+      RestartSec = "5";
+      RemainAfterExit = "yes";
     };
   };
 

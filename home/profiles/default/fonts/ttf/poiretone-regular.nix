@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "PoiretOne-Regular";
+    description = "${pname}";
     homepage = "https://github.com/hans-chrstn/fonts/releases/tag/Public";
     license = lib.licenses.unfree;
   };

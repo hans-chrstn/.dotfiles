@@ -72,8 +72,6 @@
 
     #weather
     tenki
-    wego
-
 
     #ags
     upower
