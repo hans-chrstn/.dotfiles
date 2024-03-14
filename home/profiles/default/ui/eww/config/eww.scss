@@ -14,8 +14,6 @@ $surface-red: #f87070;
   color: rgba($surface-fg, 0.8);
 }
 
-.net-box,
-.bat-box,
 .tm-box {
   label {
     font-size: 2em;
@@ -55,15 +53,6 @@ $surface-red: #f87070;
   padding-right: 0.2em;
   font-family: Iosevka;
   font-weight: 400;
-}
-
-.sundial-lbl {
-  font-size: 1.5em;
-  font-weight: bold;
-  border-radius: 0.2em;
-  padding: 0.4em;
-  padding-bottom: 0.5em;
-  font-family: "Poiret One";
 }
 
 // vim:ft=scss

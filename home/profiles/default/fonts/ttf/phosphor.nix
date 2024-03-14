@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Phosphor";
+    description = "${pname}";
     homepage = "https://github.com/hans-chrstn/fonts/releases/tag/Public";
     license = lib.licenses.unfree;
   };
