@@ -61,6 +61,7 @@
   systemd.services.networkManagerRestart = {
     description = "Restart NetworkManger.service every reboot";
     wantedBy = [ "multi-user.target" ];
+    after = [ "graphical-session.target" ];
     serviceConfig = {
       Type = "exec";
       ExecStart = "${pkgs.networkmanager}/bin/NetworkManager";

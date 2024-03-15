@@ -16,6 +16,9 @@
     wayland-utils
     wlroots
     xwaylandvideobridge
+    intel-gpu-tools
+    nix-prefetch-git
+    fzf
 
     lutris
 
@@ -103,6 +106,7 @@
     cairo.dev
     glib.dev
     libgcc
+    bluez
 
     #downloader
     yt-dlp
