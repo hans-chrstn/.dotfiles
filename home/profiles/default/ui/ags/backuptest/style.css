@@ -1,0 +1,66 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: "FreeSans", sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+window.bar {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    color: white;
+}
+
+button {
+    min-width: 9px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 48%;
+    border: none;
+    border-top: none;
+    outline: none;
+}
+
+button:active {
+    background-color: @theme_selected_bg_color;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+label {
+    font-weight: bold;
+}
+
+.workspaces {
+    margin: 9px;
+    border-radius: 99px;
+    font-size: 3px;
+}
+
+.workspaces button.focused {
+    min-width: 24px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.client-title {
+    color: @theme_selected_bg_color;
+}
+
+.notification {
+    color: yellow;
+}
+
+.left_bar {
+    margin: 0px 30px;
+}
+
+.right_bar {
+    margin: 0px 18px;
+}
+
+progress,
+highlight {
+    min-height: 8px;
+}

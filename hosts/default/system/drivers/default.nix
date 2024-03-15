@@ -5,6 +5,7 @@
     ./audio.nix
     ./print.nix
     ./touchpad.nix
+    ./bluetooth.nix
 
   ];
 
