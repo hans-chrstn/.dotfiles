@@ -45,6 +45,9 @@
   home = {
     username = "hayato";
     homeDirectory = "/home/hayato";
+    sessionVariables = {
+      EDITOR = "lvim";
+    };
   };
 
   # Enable home-manager and git
