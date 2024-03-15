@@ -7,7 +7,6 @@
     toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
   in
   {
-    defaultEditor = true;
     enable = true;
 
     viAlias = true;

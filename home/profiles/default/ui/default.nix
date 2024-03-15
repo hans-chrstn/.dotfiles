@@ -8,6 +8,7 @@
   ./kitty
   ./neofetch
   ./eww
+  ./cursor
 
   ];
 
