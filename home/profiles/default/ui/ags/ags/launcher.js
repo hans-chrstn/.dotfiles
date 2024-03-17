@@ -1,7 +1,4 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-
+import { Widget, App, Applications } from "./imports.js";
 const WINDOW_NAME = 'applauncher';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
@@ -97,9 +94,11 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 // there needs to be only one instance
 export const applauncher = Widget.Window({
     name: WINDOW_NAME,
-    popup: true,
+    setup: self => self.keybind("Escape", () => {
+        App.closeWindow(WINDOW_NAME)
+    }),
     visible: false,
-    focusable: true,
+    keymode: "on-demand",
     child: Applauncher({
         width: 500,
         height: 500,

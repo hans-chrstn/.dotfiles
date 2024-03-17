@@ -9,6 +9,7 @@
   ./neofetch
   ./eww
   ./cursor
+  ./lf
 
   ];
 

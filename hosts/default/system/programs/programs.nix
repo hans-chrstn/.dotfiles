@@ -43,7 +43,8 @@
     kitty
 
     #filemanager
-    ranger
+    lf
+    pistol
 
     #portals
     xdg-desktop-portal-hyprland
