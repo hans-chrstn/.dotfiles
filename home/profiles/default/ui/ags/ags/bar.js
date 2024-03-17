@@ -1,13 +1,6 @@
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-const network = await Service.import('network')
+import { Hyprland, Notifications, Mpris, Audio, Battery, SystemTray, App, Widget, Utils } from "./imports.js";
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js'; 
+const network = await Service.import('network') 
 import { applauncher } from './launcher.js';
 
 const WifiIndicator = () => Widget.Box({
@@ -27,10 +20,10 @@ const WiredIndicator = () => Widget.Label({
 		})
 
 const NetworkIndicator = () => Widget.Stack({
-    items: [
-        ['wifi', WifiIndicator()],
-        ['wired', WiredIndicator()],
-    ],
+    children: {
+        'wifi': WifiIndicator(),
+        'wired': WiredIndicator(),
+    },
     shown: network.bind('primary').transform(p => p || 'wifi'),
 })
 
@@ -42,7 +35,7 @@ const Workspaces = () => Widget.Box({
     class_name: 'workspaces',
     children: Hyprland.bind('workspaces').transform(ws => {
         return ws.map(({ id }) => Widget.Button({
-            on_clicked: () => Hyprland.sendMessage(`dispatch workspace ${id}`),
+            on_clicked: () => Hyprland.messageAsync(`dispatch workspace ${id}`),
             child: Widget.Label(``),
             class_name: Hyprland.active.workspace.bind('id')
                 .transform(i => `${i === id ? 'focused' : ''}`),
