@@ -1,0 +1,39 @@
+.audio_menu {
+    background-color: rgba($color: #000000, $alpha: 0.9);
+    border-radius: 8px;
+    border: 2px solid white;
+    padding: 8px;
+}
+
+.audio_menu_header {
+    font-weight: bold;
+    font-size: large;
+}
+
+.audio_menu_title {
+    margin-right: 50px;
+    margin-left: 1px;
+}
+
+.audio_menu_button {
+    margin-top: 8px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.audio_menu_button:hover {
+    background-color: #222;
+}
+
+.audio_menu_button:active {
+    background-color: #111;
+}
+
+.audio_menu_exit:hover {
+    color: #f66;
+}
+
+.audio_menu_exit, .audio_menu_button {
+    transition: all 0.2s ease;
+}

@@ -1,0 +1,6 @@
+(defwidget lock []
+  (box
+           :class "lockLayout"
+           (button 
+                   :onclick "scripts/hyprlock.sh"
+                   (label :text ""))))

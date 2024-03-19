@@ -19,6 +19,7 @@
     intel-gpu-tools
     nix-prefetch-git
     fzf
+    wirelesstools
 
     lutris
 
@@ -45,6 +46,8 @@
     #filemanager
     lf
     pistol
+    zathura 
+    less
 
     #portals
     xdg-desktop-portal-hyprland
@@ -112,6 +115,9 @@
     #downloader
     yt-dlp
     ffmpeg
+
+    #cracked prismlauncher
+    prismlauncher
 
 
   ];
