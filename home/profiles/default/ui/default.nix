@@ -7,7 +7,7 @@
   ./ags
   ./kitty
   ./neofetch
-  ./eww
+#  ./eww
   ./cursor
   ./lf
 

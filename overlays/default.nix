@@ -15,8 +15,8 @@
   overlays = [
     inputs.neovim-nightly-overlay.overlay
     inputs.hyprlock.overlay
-    inputs.emacs-overlay.overlay
     inputs.rust-overlay.overlay
+    inputs.prismlauncher.overlay
 
   ];
 
