@@ -1,0 +1,6 @@
+(defpoll clock_time :interval "5s" "date '+\%I:\%M \%p'")
+(defpoll date :interval "300s" "date '+\%F'")
+
+(defvar pfp "assets/pfp.png")
+(defvar fullpfp "assets/fullpfp.png")
+(defvar workspaceIcon "assets/ws-inactive.png")

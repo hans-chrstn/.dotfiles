@@ -1,0 +1,10 @@
+(defwidget clock []
+  (box
+    :class "clock"
+    :tooltip date
+    (button
+      :onclick ""
+      (box
+        :class "button-clock"
+        clock_time))))
+        
