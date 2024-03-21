@@ -13,7 +13,7 @@
 
   #screensharing
   services = {
-    tumbler.enable = true;
+#    tumbler.enable = true;
     gvfs.enable = true;
 #    gnome = {
 #      sushi.enable = true;
@@ -21,7 +21,7 @@
 #    };
     dbus = {
       enable = true;
-      implementation = "broker";
+      implementation = "dbus";
     };
   };
 
