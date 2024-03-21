@@ -1,0 +1,39 @@
+(defvar lock-reveal false)
+(defwidget lock []
+           (box
+                    :class "lockLayout"
+                    (eventbox 
+                             :onhoverlost "''${EWW_CMD} update lock-reveal=false"
+                             :onhover "''${EWW_CMD} update lock-reveal=true"
+                             :class "lock-b"
+                             :onmiddleclick "eww open lockpopup --toggle"
+                             (box 
+                                  (revealer :reveal lock-reveal
+                                            :transition "crossfade"
+                                            :duration "1000ms"
+                                            (box
+                                                  :class "lock-l1"
+                                                  (button
+                                                        :class "reboot"
+                                                        :onclick "systemctl reboot"
+                                                        (label :text "󰜉"))
+                                                 (button
+                                                       :class "shutdown"
+                                                       :onclick "shutdown -h now"
+                                                       (label :text "⏻"))))
+                                  (button :onclick "scripts/hyprlock.sh"
+                                          (label :text ""))
+                                  (revealer :reveal lock-reveal
+                                           :transition "crossfade"
+                                           :duration "1000ms"
+                                           (box
+                                                 :class "lock-r1"
+                                                 (button
+                                                       :class "suspend"
+                                                       :onclick "systemctl suspend"
+                                                       (label :text "⏾"))
+                                                (button
+                                                      :class "logout"
+                                                      :onclick "loginctl terminate-user $USER"
+                                                      (label :text "󰍃"))))))))
+  

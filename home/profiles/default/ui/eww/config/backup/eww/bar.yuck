@@ -1,0 +1,61 @@
+;;left
+(include "widgets/workspaces/workspaces.yuck")
+;;center
+(include "widgets/lock/lock.yuck")
+(include "widgets/lockpopup/lockpopup.yuck")
+;;right
+(include "widgets/clock/clock.yuck")
+(include "widgets/pfp/pfp.yuck")
+(include "widgets/network/network.yuck")
+
+;;variables
+(include "vars/variables.yuck")
+
+
+(defwindow bar
+           :monitor 1 
+           :exclusive true 
+           :stacking "fg"
+           :windowtype "normal"
+           :hexpand true
+           :vexpand false
+           :geometry (geometry
+                      :x "0%"
+                      :y "1%"
+                      :width "70%"
+                      :height "5%"
+                      :anchor "top center")
+  (bar_layout))
+
+(defwidget bar_layout []
+  (box
+           :class "bar_layout"
+           :orientation "h"
+           (left)
+           (center)
+           (right)))
+
+(defwidget left []
+  (box
+           :class "left"
+           :space-evenly false
+           :orientation "h"
+           (workspaces)))
+           
+(defwidget center []
+  (box
+           :class "center"
+           :orientation "h"
+           (lock)))
+
+(defwidget right []
+  (box
+           :class "right"
+           :orientation "h"
+           :spacing 10 
+           :space-evenly false
+           (network)
+           (clock)
+           (pfp)))
+           
+           

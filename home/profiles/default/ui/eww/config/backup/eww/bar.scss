@@ -1,0 +1,26 @@
+@import "widgets/lock/lock.scss";
+@import "widgets/clock/clock.scss";
+@import "widgets/lockpopup/lockpopup.scss";
+@import "widgets/network/network.scss";
+@import "widgets/workspaces/workspaces.scss";
+
+
+* { all: unset; }
+
+.bar {
+    margin: 8px 0px;
+    background-color: #211f1f;
+    border-radius: 10px;
+}
+
+.right {
+    margin-left: 170px;
+}
+
+//.button {
+//}
+
+.button:hover {
+    background-color: #262222;
+}
+
