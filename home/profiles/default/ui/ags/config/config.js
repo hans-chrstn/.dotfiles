@@ -46,7 +46,7 @@ function addWindows(windows) {
 }
 
 idle(() => addWindows([
-  Bar(0),
+//  Bar(0),
   Bar(1),
   CornerTopleft(),
   CornerTopright(),

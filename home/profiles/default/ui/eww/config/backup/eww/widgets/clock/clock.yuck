@@ -1,11 +1,12 @@
 (defwidget clock []
   (box
     :class "clock"
-    :tooltip date
-    (button
-      :onclick ""
+    (eventbox
+      :cursor "pointer"
+      :onhover "eww open moment --toggle"
+      :onhoverlost "eww open moment --toggle"
       :class "button-clock"
       (box
         :class "button-clock-text"
-        clock_time))))
+        "${hour}:${minute}"))))
         
