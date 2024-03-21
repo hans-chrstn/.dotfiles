@@ -1,5 +1,5 @@
 (defwidget pfp []
            (box :class "pfp" :space-evenly false :vexpand false
-                (image :image-width 42 :image-height 42 :path "${pfp}"
+                (image :image-width 42 :image-height 38 :path "${pfp}"
                        (button
                                 :onclick "eww open lockpopup --t"))))

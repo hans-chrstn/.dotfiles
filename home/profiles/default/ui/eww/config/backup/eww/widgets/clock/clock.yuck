@@ -4,7 +4,8 @@
     :tooltip date
     (button
       :onclick ""
+      :class "button-clock"
       (box
-        :class "button-clock"
+        :class "button-clock-text"
         clock_time))))
         

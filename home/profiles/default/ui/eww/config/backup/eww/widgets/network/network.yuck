@@ -1,6 +1,7 @@
 (defwidget network []
-           (box :class "network" :space-evenly false :vexpand false 
-                (button :onclick "" :class "button-network"
-                        (label :text "  "))
-                (button :onclick "" :class "button-network"
-                        (label :text " 󰤨 "))))
+           (box :class "network" :space-evenly false :vexpand false :spacing 10 
+                (label :text "  " :class "bar-text"
+                       (button :onclick "" :class "button-network")) 
+                (label :text " 󰤨 " :class "bar-text"
+                       (button :onclick "" :class "button-network"))))
+                                        

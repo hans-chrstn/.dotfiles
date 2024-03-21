@@ -1,11 +1,12 @@
 .clock {
-    font-size: 18px;
     font-family: "SF Mono";
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #2b2a27;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #151714;
+    margin: 9px 0px;
+    font-size: 15px;
 }
 
-.button-clock {
-    margin: 2px 10px;
+.button-clock-text {
+    margin: 0px 10px;
 }
