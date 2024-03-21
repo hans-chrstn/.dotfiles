@@ -13,17 +13,15 @@
 
 
 (defwindow bar
-           :monitor 1 
-           :exclusive true 
-           :stacking "fg"
+           :monitor 0 
+           :exclusive false 
+           :stacking "bg"
            :windowtype "normal"
-           :hexpand true
-           :vexpand false
            :geometry (geometry
                       :x "0%"
                       :y "1%"
-                      :width "70%"
-                      :height "5%"
+                      :width "85%"
+                      :height "7%"
                       :anchor "top center")
   (bar_layout))
 
@@ -52,7 +50,7 @@
   (box
            :class "right"
            :orientation "h"
-           :spacing 10 
+           :spacing 5 
            :space-evenly false
            (network)
            (clock)

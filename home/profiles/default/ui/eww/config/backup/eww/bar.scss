@@ -8,19 +8,14 @@
 * { all: unset; }
 
 .bar {
-    margin: 8px 0px;
-    background-color: #211f1f;
+    background-color: #0a0a0a;
     border-radius: 10px;
 }
 
 .right {
-    margin-left: 170px;
+    margin-left: 125px;
 }
 
-//.button {
-//}
-
-.button:hover {
-    background-color: #262222;
+.left {
+    margin-left: 20px;
 }
-

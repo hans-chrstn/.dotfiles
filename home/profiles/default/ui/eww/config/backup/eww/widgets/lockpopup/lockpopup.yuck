@@ -1,62 +1,18 @@
 (defwindow lockpopup
-           :monitor 1
+           :monitor 0 
            :exclusive "false"
            :stacking "fg"
            :geometry (geometry :x "0%"
-                               :y "2%"
+                               :y "10%"
                                :width "40%"
                                :height "60%"
                                :anchor "top center")
-           (lPop))
+           (dash))
 
-(defwidget lPop []
+(defwidget dash []
            (box :class "dash-parent" :spacing 20 :orientation "h"
                 (box :class "dash-body-left" :space-evenly "false" :orientation "v" :spacing 20
                      (box :orientation "h" :spacing 20
                           (overlay 
                                    (box :class "dash-fullpfp")
                                    (box :class "dash-gradient"))))))
-                                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(defwidget oldlPop []
-           (box :class "parent" :space-evenly "false" :orientation "v" 
-                (box :class "header" :space-evenly "false"
-                     (label :text "Quick Settings" :class "title")
-                     (button 
-                            :class "exit"
-                            :onclick "eww open lockpopup --toggle"
-                            (label :text "x")))
-                (box :class "body" :space-evenly "false" :orientation "v"
-                     (button
-                            :class "button"
-                            :vexpand "false"
-                            :onclick "systemctl suspend"
-                            (label :text "󰤄"))
-                     (button
-                            :class "button"
-                            :vexpand "false"
-                            :onclick "shutdown -h now"
-                            (label :text "⏻")))))
-                
