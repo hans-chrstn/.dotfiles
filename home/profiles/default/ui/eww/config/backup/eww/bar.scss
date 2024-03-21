@@ -3,6 +3,7 @@
 @import "widgets/lockpopup/lockpopup.scss";
 @import "widgets/network/network.scss";
 @import "widgets/workspaces/workspaces.scss";
+@import "widgets/calendar/calendar.scss";
 
 
 * { all: unset; }
@@ -13,7 +14,7 @@
 }
 
 .right {
-    margin-left: 125px;
+    margin-right: 20px;
 }
 
 .left {

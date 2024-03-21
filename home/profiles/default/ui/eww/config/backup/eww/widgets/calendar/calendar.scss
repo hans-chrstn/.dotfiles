@@ -1,0 +1,80 @@
+.moment {
+  background: #0a0a0a;
+  padding: 1.2rem;
+  font-family: "SF Mono";
+  border-radius: 10px;
+}
+
+calendar {
+  font-family: "SF Mono";
+
+  &:selected {
+    color: #0a0a0a;
+  }
+
+  &:indeterminate {
+    color: rgba(205, 219, 249, 0.3);
+  }
+}
+
+
+.bgblue {
+  background: blue;
+}
+
+.bgred {
+  background: red;
+}
+
+.bgpink {
+  background: magenta;
+}
+
+.moment_calendar {
+  background-color: #0a0a0a;
+  border-radius: 10px;
+
+  .moment_cal-box {
+    padding: 0 1rem;
+    background-color: #151714;
+    border-radius: 5px;
+
+    margin: 0.4em;
+
+
+    .moment_day-names {
+      font-family: "SF Mono";
+      margin: 0.1em 0.5em 0.5em;
+      font-size: 16px;
+      color: #662836;
+    }
+
+    .moment_cal {
+      font-size: 17px;
+      padding: 1em .6em 0.3em;
+    }
+  }
+}
+
+.m {
+  font-family: "SF Mono";
+  font-size: 1.2rem;
+  color: #7584c7;
+}
+
+.moment_month-year {
+  font-family: "SF Mono";
+  font-size: 1.3rem;
+  margin: 1rem 0;
+}
+
+.moment_up {
+  padding: 18px;
+  background: #0a0a0a;
+}
+
+.mo {
+  font-family: "SF Mono";
+  font-size: 4rem;
+}
+
