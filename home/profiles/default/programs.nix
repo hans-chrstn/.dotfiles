@@ -1,4 +1,4 @@
-{config, pkgs, inputs, ...}:
+{ pkgs, ...}:
 
 {
   nixpkgs = {
@@ -15,6 +15,7 @@
     telegram-desktop
     github-desktop
     cartridges
+    prismlauncher-unwrappped
 
   ];
 }
