@@ -16,7 +16,7 @@
     inputs.neovim-nightly-overlay.overlay
     inputs.hyprlock.overlay
     inputs.rust-overlay.overlay
-    inputs.prismlauncher.overlay
+    inputs.prismlauncher.overlay.default
 
   ];
 

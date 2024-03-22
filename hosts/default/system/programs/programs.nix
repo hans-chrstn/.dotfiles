@@ -102,6 +102,8 @@
     eza
     bat
     pipewire
+
+    #eww
     eww
     gtk3.dev
     gtk-layer-shell.dev
@@ -111,24 +113,16 @@
     glib.dev
     libgcc
     bluez
+    code-minimap
+    pamixer
 
     #downloader
     yt-dlp
     ffmpeg
 
     #cracked prismlauncher
-    prismlauncher
-
+    prismlauncher-unwrapped
 
   ];
 
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-
-  };
-  
-  programs.steam.enable = true;
-
-  programs.zsh.enable = true;
 }
