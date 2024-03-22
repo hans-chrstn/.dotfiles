@@ -1,3 +1,5 @@
+(include "widgets/lockpopup/widgets/sundial.yuck")
+
 (defvar statsreveal false)
 (defwidget dash []
            (box :class "dash-parent" :spacing 20 :orientation "h"
@@ -27,6 +29,7 @@
 (defwidget qs-widget []
            (box :orientation "v" :spacing 20
                 (box :class "dashwidget" :orientation "v" :space-evenly false :spacing 10
+                       (sundial)
                        (eventbox :class "hypr-reload"
                                  :onclick "hyprctl reload"
                                  :cursor "pointer"
