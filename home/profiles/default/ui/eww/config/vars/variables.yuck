@@ -1,10 +1,18 @@
-(defpoll hour :interval "60s" "date '+%H'")
-(defpoll minute :interval "60s" "date '+%M'")
-(defpoll day :interval "600s" "date '+%A'")
-(defpoll month_year :interval "24h" "date '+%B %Y'")
-(defpoll calendar_day :interval "10h" "date '+%d'")
-(defpoll calendar_year :interval "10h" "date '+%Y'")
+(defpoll weathericon :interval "2h" "scripts/weather icon")
+(defpoll weatherimage :interval "2h" "scripts/weather image")
+(defpoll current_temp :interval "2h" "scripts/weather current_temp")
+(defpoll current_desc :interval "2h" "scripts/weather weather_desc")
 
+(defpoll brightness :interval "60s"
+                    :initial 0
+                    `brightnessctl -m -d intel_backlight | awk -F, '{printf "%.2f", substr($4, 0, length($4)-1)}'`)
+(defpoll volume :interval "60s" 
+                :initial 0
+                `pamixer --get-volume`)
+
+(defpoll ESSID_WLAN :interval "5m" "nmcli c | grep wlp2s0 | awk '{print ($1)}'")
+(defpoll net :interval "5m"
+             :initial "0" `nmcli -t -f SIGNAL,ACTIVE device wifi | awk -F':' '{if($2=="yes")print$1}'`)
 
 (defvar pfp "assets/pfp.png")
 (defvar static-cat "assets/static_cat.png")

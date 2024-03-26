@@ -3,7 +3,9 @@
 pkgs.mkShell {
   name = "default";
   buildInputs = with pkgs; [
-    libwebp
+    nodejs_21
+    nodePackages.eslint
+
   ];
 
 }

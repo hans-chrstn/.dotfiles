@@ -1,66 +1,50 @@
 * {
-	padding: 0;
-	margin: 0;
-	font-family: "FreeSans", sans-serif;
-	font-weight: bold;
-	font-size: 15px;
+  all: unset;
+  font-family: SF Mono;
 }
 
-window.bar {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-    color: white;
+.bar_layout {
+  margin: 10px 15rem;
+  padding: 0px 5px;
+  border-radius: 10px;
+  background-color: #0a0a0a;
 }
 
-button {
-    min-width: 9px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 48%;
-    border: none;
-    border-top: none;
-    outline: none;
+.icon {
+  font-size: 16px;
+  margin: 0px 12px;
 }
 
-button:active {
-    background-color: @theme_selected_bg_color;
+/* POWERBAR */
+.sys_powerbar {
+  border-radius: 12px;
+  background-color: #151714;
+  padding: 10px 12px;
+  margin: 8px;
 }
 
-button:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+/* SYSTEM [LEFT] */
+.system_left {
+  background-color: #151714;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 10px;
+  margin: 8px 3px;
 }
 
-label {
-    font-weight: bold;
+/* SYSTEM [RIGHT] */
+.system_right {
+  background-color: #151714;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 10px;
+  margin: 8px 3px;
 }
 
-.workspaces {
-    margin: 9px;
-    border-radius: 99px;
-    font-size: 3px;
+/* PROFILE */
+.profile {
+  background-image: url("${App.configDir}/assets/pfp.png");
+  background-size: 32px 32px;
 }
 
-.workspaces button.focused {
-    min-width: 24px;
-    border-radius: 99px;
-    background: rgba(255, 255, 255, 1);
-}
-
-.client-title {
-    color: @theme_selected_bg_color;
-}
-
-.notification {
-    color: yellow;
-}
-
-.left_bar {
-    margin: 0px 30px;
-}
-
-.right_bar {
-    margin: 0px 18px;
-}
-
-progress,
-highlight {
-    min-height: 8px;
-}
+/*# sourceMappingURL=style.css.map */

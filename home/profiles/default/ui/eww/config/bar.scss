@@ -1,12 +1,15 @@
-@import "widgets/lock/lock.scss";
-@import "widgets/clock/clock.scss";
-@import "widgets/lockpopup/lockpopup.scss";
-@import "widgets/network/network.scss";
-@import "widgets/workspaces/workspaces.scss";
-@import "widgets/calendar/calendar.scss";
+@import "scss/lock/lock.scss";
+@import "scss/lockpopup/lockpopup.scss";
+@import "scss/system/system.scss";
+@import "scss/workspaces/workspaces.scss";
+@import "scss/calendar/calendar.scss";
+@import "scss/pfp/pfp.scss";
 
 
-* { all: unset; }
+* { all: unset;
+    font-family: SF Mono;
+//    color: #a1bdce;
+  }
 
 .bar {
     background-color: #0a0a0a;

@@ -5,7 +5,17 @@
 
   ];
 
-  environment.sessionVariables = {
+	services = {
+		fwupd =	{
+			enable = true;
+		};
+		thermald = {
+			enable = true;
+		};
+	};
+
+  environment.variables = {
+    VDPAU_DRIVER = "va_gl";
     POLKIT_AUTH_AGENT = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
     GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
     LIBVA_DRIVER_NAME = "iHD";
@@ -19,11 +29,23 @@
     SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
     CLUTTER_BACKEND = "wayland";
-    WLR_RENDERER = "vulkan";
+#    WLR_RENDERER = "vulkan";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     GTK_USE_PORTAL = "1";
     NIXOS_XDG_OPEN_USE_PORTAL = "1";
+    ANKI_WAYLAND = "1";
+#    __GL_GSYNC_ALLOWED = "0";
+#    __GL_VRR_ALLOWED = "1";
+    DISABLE_QT5_COMPAT = "0";
+    DIRENV_LOG_FORMAT = "";
+    WLR_DRM_NO_ATOMIC = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+    WLR_BACKEND = "vulkan";
+    WLR_DRM_DEVICES = "/dev/dri/card0";
+
     EDITOR = "lvim";
     VISUAL = "lvim";
   }; 

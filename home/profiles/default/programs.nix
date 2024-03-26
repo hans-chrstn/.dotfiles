@@ -15,7 +15,9 @@
     telegram-desktop
     github-desktop
     cartridges
-    prismlauncher-unwrappped
+    prismlauncher
+    webcord-vencord
+    obsidian
 
   ];
 }

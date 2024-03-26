@@ -6,6 +6,7 @@
     ./print.nix
     ./touchpad.nix
     ./bluetooth.nix
+    ./fstrim.nix
 
   ];
 

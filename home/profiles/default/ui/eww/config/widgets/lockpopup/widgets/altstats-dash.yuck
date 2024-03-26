@@ -1,0 +1,10 @@
+(defvar statsreveal false)
+(defwidget altstats-dash []
+           (eventbox :onhover "${EWW_CMD} update statsreveal=true"
+                     :onhoverlost "${EWW_CMD} update statsreveal=false" 
+                     (box :class "altstats-dash" :space-evenly false :orientation "v"
+                          (label :text "")
+                          (revealer :reveal statsreveal
+                                    :transition "slidedown"
+                                    :duration "1000ms"
+                                    (label :text " 󰻠 ${round(EWW_CPU.avg, 0)}% | 󰍛 ${round(EWW_RAM.used_mem_perc, 0)}% | 󱛟 ${round(EWW_DISK['/'].used_perc, 0)}%")))))

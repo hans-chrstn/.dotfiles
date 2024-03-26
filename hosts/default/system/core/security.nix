@@ -44,6 +44,11 @@
   boot.kernelModules = ["tcp_bbr"];
 
   security = {
+    pam.services = {
+      hyprlock = {
+        text = "auth include login";
+      };
+    };
     # userland niceness
     rtkit.enable = true;
 

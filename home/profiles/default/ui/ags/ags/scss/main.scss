@@ -1,0 +1,65 @@
+* {
+    all: unset;
+    font-family: SF Mono;
+  }
+
+.bar_layout{
+    margin: 10px 15rem;
+    padding: 0px 5px;
+    border-radius: 10px;
+    background-color: #0a0a0a;
+}
+
+.left_bar {
+
+}
+
+.center_bar {
+
+}
+
+.right_bar {
+
+}
+
+.icon {
+    font-size: 16px;
+    margin: 0px 12px;
+}
+// LEFT //
+
+
+
+// CENTER //
+/* POWERBAR */
+.sys_powerbar {
+    border-radius: 12px;
+    background-color: #151714;
+    padding: 10px 12px;
+    margin: 8px;
+
+}
+
+// RIGHT //
+/* SYSTEM [LEFT] */
+.system_left {
+    background-color: #151714;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 10px;
+    margin: 8px 3px;
+}
+/* SYSTEM [RIGHT] */
+.system_right {
+    background-color: #151714;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 10px;
+    margin: 8px 3px; 
+    
+}
+/* PROFILE */
+.profile {
+    background-image: url('${App.configDir}/assets/pfp.png');
+    background-size: 32px 32px;
+}
