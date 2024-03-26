@@ -1,0 +1,54 @@
+.control {
+  border-radius: 10px;
+  background: #0a0a0a;
+  padding: 1rem;
+}
+
+.sliders {
+  border-radius: 10px;
+  background: #151714;
+  padding: 2rem;
+}
+
+.volscale trough {
+  min-width: 8rem;
+  min-height: 16px;
+  background: rgba(#151714, 0.4);
+  border-radius: 10px;
+}
+
+.volscale trough highlight {
+  border-radius: 10px;
+  background: green;
+}
+
+.brightscale trough {
+  min-width: 8rem;
+  min-height: 16px;
+  background: rgba(#151714, 0.4);
+  border-radius: 10px;
+}
+
+.brightscale trough highlight {
+  border-radius: 10px;
+  background: yellow;
+}
+
+.profile {
+  padding: 0.5rem;
+}
+
+.scaleicon {
+  font-size: 18px;
+}
+
+.musicbutton {
+  padding: 1rem;
+  font-size: 30px;
+}
+
+.musicbuttons {
+  background: #151714;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}

@@ -1,5 +1,7 @@
+(include "widgets/pfp/widgets/control.yuck")
 (defwidget pfp []
            (box :class "pfp" :space-evenly false :vexpand false
-                (image :image-width 42 :image-height 38 :path "${pfp}"
-                       (button
-                                :onclick "eww open lockpopup --t"))))
+                (eventbox :onclick "eww open control --toggle"
+                          :cursor "pointer"
+                          (image :image-width 42 :image-height 38 :path "${pfp}"))))
+                

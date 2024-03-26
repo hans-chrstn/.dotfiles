@@ -1,51 +1,16 @@
-(include "widgets/lockpopup/widgets/sundial.yuck")
+(include "widgets/lockpopup/widgets/altstats-dash.yuck")
+(include "widgets/lockpopup/widgets/fullpfp-dash.yuck")
+(include "widgets/lockpopup/widgets/qs-dash.yuck")
 
-(defvar statsreveal false)
 (defwidget dash []
            (box :class "dash-parent" :spacing 20 :orientation "h"
                 (box :class "dash-body-left" :space-evenly "false" :orientation "v" :spacing 20
                      (box :orientation "h" :spacing 20
-                          (pfpwidget)
-                          (qs-widget))
+                          (fullpfp-dash)
+                          (qs-dash))
                      (box :orientation "h" :space-evenly false :spacing 20
-                          (overlay :class "altstats" 
-                                   (altstats))))))
+                          (overlay :class "altstats-dash" 
+                                   (altstats-dash))))))
                                
-(defwidget altstats []
-           (eventbox :onhover "${EWW_CMD} update statsreveal=true"
-                     :onhoverlost "${EWW_CMD} update statsreveal=false" 
-                     (box :class "altstats" :space-evenly false :orientation "v"
-                          (label :text "")
-                          (revealer :reveal statsreveal
-                                    :transition "slidedown"
-                                    :duration "1000ms"
-                                    (label :text " 󰻠 ${round(EWW_CPU.avg, 0)}% | 󰍛 ${round(EWW_RAM.used_mem_perc, 0)}%")))))
 
-(defwidget pfpwidget []
-           (overlay  
-                    (box :class "dash-fullpfp")
-                    (box :class "dash-gradient")))
 
-(defwidget qs-widget []
-           (box :orientation "v" :spacing 20
-                (box :class "dashwidget" :orientation "v" :space-evenly false :spacing 10
-                       (sundial)
-                       (eventbox :class "hypr-reload"
-                                 :onclick "hyprctl reload"
-                                 :cursor "pointer"
-                                 (label :text " 󰑓 "))
-                       (eventbox :class "placeholder"
-                                 :onclick "notify-send 'hello'"
-                                 :cursor "pointer"
-                                 (label :text "p")))))
-
-(defwindow lockpopup
-          :monitor 0 
-          :exclusive "false"
-          :stacking "fg"
-          :geometry (geometry :x "0%"
-                              :y "10%"
-                              :width "50%"
-                              :height "70%"
-                              :anchor "top center")
-          (dash))                                    

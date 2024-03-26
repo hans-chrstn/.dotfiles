@@ -9,11 +9,15 @@
 
     };
     initrd = {
-      kernelModules = ["i915"];
+      kernelModules = [
+        "i915"
+      ];
     };
 
     kernelParams = [
       "i915.force_probe=8a56"
+      "1915.enable_guc=3"
+      "i915.fastboot=1"
       "quiet"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
@@ -33,5 +37,6 @@
     };
     tmp.cleanOnBoot = true;
   }; 
+
 
 }

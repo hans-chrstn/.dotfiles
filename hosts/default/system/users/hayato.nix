@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  environment.sessionVariables = {
+    EDITOR = "lvim";
+    VISUAL = "lvim";
+  };
   users.users = {
     hayato = {
       isNormalUser = true;

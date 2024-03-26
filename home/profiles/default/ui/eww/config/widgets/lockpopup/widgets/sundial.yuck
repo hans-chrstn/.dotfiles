@@ -1,3 +1,0 @@
-(defwidget sundial []
-           (label :class "sundial" :hexpand true
-                  :text {(hour >= 2 && hour <= 4 ? "Early Morning")}))

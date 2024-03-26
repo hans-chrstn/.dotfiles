@@ -1,0 +1,101 @@
+.moment {
+  background: #0a0a0a;
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+
+calendar {
+  &:selected {
+    color: #aa0a0a;
+  }
+
+  &:indeterminate {
+    color: rgba(205, 219, 249, 0.3);
+  }
+}
+
+
+.bgblue {
+  background: blue;
+}
+
+.bgred {
+  background: red;
+}
+
+.bgpink {
+  background: magenta;
+}
+
+.moment_calendar {
+  background-color: #0a0a0a;
+  border-radius: 10px;
+
+  .moment_cal-box {
+    padding: 0 1rem;
+    background-color: #151714;
+    border-radius: 5px;
+
+    margin: 0.4em;
+
+
+    .moment_day-names {
+      margin: 0.1em 0.5em 0.5em;
+      font-size: 16px;
+      color: #662836;
+    }
+
+    .moment_cal {
+      font-size: 17px;
+      padding: 1em .6em 0.3em;
+    }
+  }
+}
+
+.m {
+  font-size: 1.2rem;
+  color: #7584c7;
+}
+
+.moment_month-year {
+  font-size: 1.3rem;
+  margin: 1rem 0;
+}
+
+.moment_up {
+  padding: 18px;
+  background: #0a0a0a;
+}
+
+.mo {
+  font-size: 4rem;
+}
+
+.woverlay {
+  background: linear-gradient(to right, rgba(#0a0a0a, 0.44), rgba(#151714, 0.66));
+
+}
+
+// WEATHER WINDOW
+.weatherimage {
+  min-height: 150px;
+  min-width: 350px;
+  border-radius: 10px;
+  background-position: bottom;
+}
+
+.ok {
+  padding: 3rem;
+}
+
+.wtemp {
+ font-size: 2.3em;
+}
+
+.wicon {
+  font-size: 4.3rem;
+}
+
+.wdesc {
+  font-size: 1.4rem;
+}

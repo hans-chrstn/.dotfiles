@@ -1,16 +1,24 @@
 ;;left
 (include "widgets/workspaces/workspaces.yuck")
+
 ;;center
 (include "widgets/lock/lock.yuck")
 (include "widgets/lockpopup/lockpopup.yuck")
+
 ;;right
-(include "widgets/clock/clock.yuck")
 (include "widgets/pfp/pfp.yuck")
-(include "widgets/network/network.yuck")
+(include "widgets/system/system.yuck")
 (include "widgets/calendar/calendar.yuck")
+
 ;;variables
 (include "vars/variables.yuck")
 
+; ██████╗  █████╗ ██████╗ ███████╗
+; ██╔══██╗██╔══██╗██╔══██╗██╔════╝
+; ██████╔╝███████║██████╔╝███████╗
+; ██╔══██╗██╔══██║██╔══██╗╚════██║
+; ██████╔╝██║  ██║██║  ██║███████║
+; ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 
 (defwindow bar
            :monitor 0 
@@ -20,18 +28,54 @@
            :geometry (geometry
                       :x "0%"
                       :y "1%"
-                      :width "85%"
-                      :height "7%"
+                      :width "80%"
+                      :height "50px"
                       :anchor "top center")
   (bar_layout))
 
 (defwidget bar_layout []
-  (centerbox
-           :class "bar_layout"
+  (box
+           :class "bar"
            :orientation "h"
            (left)
            (center)
            (right)))
+
+(defwindow moment
+    :monitor 0 
+    :geometry (geometry :x "10%"
+                        :y "10%"
+                        :anchor "top right")
+    :stacking "fg"
+    :exclusive false 
+    (moment))
+
+(defwindow batcirc 
+           :monitor 0 
+           :excluse false
+           :stacking "fg"
+           :geometry (geometry :x "10%"
+                               :y "10%"
+                               :anchor "top right")
+           (bat))
+
+(defwindow lockpopup
+          :monitor 0 
+          :exclusive "false"
+          :stacking "fg"
+          :geometry (geometry :x "0%"
+                              :y "10%"
+                              :width "50%"
+                              :height "70%"
+                              :anchor "top center")
+          (dash))                                    
+
+; ██╗     ███████╗███████╗████████╗
+; ██║     ██╔════╝██╔════╝╚══██╔══╝
+; ██║     █████╗  █████╗     ██║
+; ██║     ██╔══╝  ██╔══╝     ██║
+; ███████╗███████╗██║        ██║
+; ╚══════╝╚══════╝╚═╝        ╚═╝
 
 (defwidget left []
   (box
@@ -40,13 +84,27 @@
            :space-evenly false
            :orientation "h"
            (workspaces)))
-           
+
+;  ██████╗███████╗███╗   ██╗████████╗███████╗██████╗
+; ██╔════╝██╔════╝████╗  ██║╚══██╔══╝██╔════╝██╔══██╗
+; ██║     █████╗  ██╔██╗ ██║   ██║   █████╗  ██████╔╝
+; ██║     ██╔══╝  ██║╚██╗██║   ██║   ██╔══╝  ██╔══██╗
+; ╚██████╗███████╗██║ ╚████║   ██║   ███████╗██║  ██║
+;  ╚═════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝          
+
 (defwidget center []
   (box
            :class "center"
            :orientation "h"
            :halign "center"
            (lock)))
+
+; ██████╗ ██╗ ██████╗ ██╗  ██╗████████╗
+; ██╔══██╗██║██╔════╝ ██║  ██║╚══██╔══╝
+; ██████╔╝██║██║  ███╗███████║   ██║
+; ██╔══██╗██║██║   ██║██╔══██║   ██║
+; ██║  ██║██║╚██████╔╝██║  ██║   ██║
+; ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
 
 (defwidget right []
   (box
@@ -55,8 +113,8 @@
            :spacing 5 
            :space-evenly false
            :halign "end"
-           (network)
-           (clock)
+           (system-left)
+           (system-right)
            (pfp)))
            
            

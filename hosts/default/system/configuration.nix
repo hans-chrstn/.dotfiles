@@ -5,7 +5,6 @@
   outputs,
   lib,
   config,
-  pkgs,
   ...
 }: {
   # You can import other NixOS modules here
@@ -71,12 +70,6 @@
     config.nix.registry;
 
   nix.settings = {
-    trusted-substituters = [
-      "https://cache.garnix.io"
-    ];
-    trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
     # Deduplicate and optimize nix store

@@ -1,6 +1,11 @@
 {
   description = "Your new nix config";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.garnix.io" ];
+    extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  };
+
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -30,9 +35,6 @@
     #neovim-nightly
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     
-    #cracked prismlauncher
-    prismlauncer.url = "github:julcioo/PrismLauncher-Cracked";
-
   };
 
   outputs = {

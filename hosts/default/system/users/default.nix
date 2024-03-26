@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./guest.nix
+#    ./guest.nix
     ./hayato.nix
 
   ];

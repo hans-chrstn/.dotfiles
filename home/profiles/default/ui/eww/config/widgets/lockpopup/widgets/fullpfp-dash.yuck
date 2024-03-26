@@ -1,0 +1,4 @@
+(defwidget fullpfp-dash []
+           (overlay  
+                    (box :class "dash-fullpfp")
+                    (box :class "dash-gradient")))

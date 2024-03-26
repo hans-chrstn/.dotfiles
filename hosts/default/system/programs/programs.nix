@@ -1,7 +1,6 @@
 { inputs, outputs, pkgs, ... }:
 
 {
-  
   environment.systemPackages = with pkgs; [ 
     curl
     jq
@@ -20,6 +19,14 @@
     nix-prefetch-git
     fzf
     wirelesstools
+    socat
+
+    #mediaplayer
+    vlc
+    ffmpegthumbnailer
+
+    #sr
+    obs-studio
 
     lutris
 
@@ -48,6 +55,7 @@
     pistol
     zathura 
     less
+    highlight
 
     #portals
     xdg-desktop-portal-hyprland
@@ -83,7 +91,6 @@
     #ags
     upower
     libdbusmenu-gtk3
-    networkmanager
     gobject-introspection
     gjs
     glib
@@ -105,6 +112,10 @@
 
     #eww
     eww
+    mpd
+    mpc-cli
+    networkmanagerapplet
+    dmenu
     gtk3.dev
     gtk-layer-shell.dev
     pango.dev
@@ -121,8 +132,9 @@
     ffmpeg
 
     #cracked prismlauncher
-    prismlauncher-unwrapped
+    prismlauncher
 
   ];
 
+  services.mpd.enable = true;
 }
