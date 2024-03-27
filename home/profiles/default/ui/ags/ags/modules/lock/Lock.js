@@ -1,4 +1,6 @@
 import { Utils } from '../../utils/imports.js';
+import PowerButton from './utils/PowerButton.js'
+
 export default () => Widget.Box({
     class_name: 'sys_powerbar',
     children: [
@@ -12,62 +14,32 @@ export default () => Widget.Box({
 
 
 
-const Lock = () => Widget.Box({
+const Lock = () => PowerButton({
     class_name: 'icon',
-    children: [
-        Widget.Button({
-            on_clicked: () => Utils.execAsync('hyprlock'),
-            child: Widget.Label({
-                label: ''
-            }) 
-        }),
-    ],
+    on_clicked: () => Utils.execAsync('hyprlock'),
+    label: ''
 });
 
-const Reboot = () => Widget.Box({
+const Reboot = () => PowerButton({
     class_name: 'icon',
-    children: [
-        Widget.Button({
-            on_clicked: () => Utils.execAsync('hyprlock'),
-            child: Widget.Label({
-                label: ''
-            }) 
-        }),
-    ],
+    on_clicked: () => Utils.execAsync(['systemctl', 'reboot']),
+    label: ''
 });
 
-const Suspend = () => Widget.Box({
+const Suspend = () => PowerButton({
     class_name: 'icon',
-    children: [
-        Widget.Button({
-            on_clicked: () => Utils.execAsync('hyprlock'),
-            child: Widget.Label({
-                label: '⏾'
-            }) 
-        }),
-    ],
+    on_clicked: () => Utils.execAsync(['systemctl', 'suspend']),
+    label: '⏾'
 });
 
-const Shutdown = () => Widget.Box({
+const Shutdown = () => PowerButton({
     class_name: 'icon',
-    children: [
-        Widget.Button({
-            on_clicked: () => Utils.execAsync('hyprlock'),
-            child: Widget.Label({
-                label: '⏻'
-            }) 
-        }),
-    ],
+    on_clicked: () => Utils.execAsync(['shutdown', '-h', 'now']),
+    label: '⏻'
 });
 
-const Logout = () => Widget.Box({
+const Logout = () => PowerButton({
     class_name: 'icon',
-    children: [
-        Widget.Button({
-            on_clicked: () => Utils.execAsync('hyprlock'),
-            child: Widget.Label({
-                label: '󰍃'
-            }) 
-        }),
-    ],
+    on_clicked: () => Utils.execAsync(['loginctl', 'terminate-user', '$USER']),
+    label: '󰍃'
 });
