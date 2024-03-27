@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+sleep 1 &
 hyprlock &
 hypridle&
 hyprpaper&
