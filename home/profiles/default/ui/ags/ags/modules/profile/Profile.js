@@ -7,6 +7,6 @@ export default () => Widget.Button({
         size: 38,
     }),
     on_clicked: () => {
-
+        App.toggleWindow('');
     },
 });
