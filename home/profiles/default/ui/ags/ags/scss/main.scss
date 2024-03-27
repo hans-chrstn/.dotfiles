@@ -2,71 +2,29 @@
     all: unset;
     font-family: SF Mono;
   }
+// GENERAL
+@import "colors";
 
-.bar_layout{
-    margin: 10px 5rem;
-    padding: 0px 5px;
-    border-radius: 10px;
-    background-color: #0a0a0a;
-}
-
-.icon {
-    font-size: 18px;
-    margin: 0px 12px;
-    color: #f9f9f9;
-}
-
-// LEFT //
+// WIDGETS
+@import "bar";
+@import "powerbar";
+@import "icon";
+@import "system";
+@import "workspaces";
+@import "profile";
 
 
 
-// CENTER //
-/* POWERBAR */
-.sys_powerbar {
-    border-radius: 10px;
-    background-color: #151714;
-    padding: 5px 0px;
-    margin: 9px 0px;
-}
-.sys_powerbar_icons {
-    padding: 0px 15px;
-    font-size: 14px;
-}
+
+
+
+
+
 
 // RIGHT //
-/* SYSTEM [LEFT] */
-.system_left {
-    background-color: #151714;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    padding: 5px;
-    margin: 9px 3px;
-}
-/* SYSTEM [RIGHT] */
-.system_right {
-    background-color: #151714;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding: 5px;
-    margin: 9px 3px; 
-    
-}
-/* PROFILE */
-.profile {
-    margin: 0px 15px 0px 5px;
-}
-/* WORKSPACES */
-.static_cat {
-    margin: 0px 5px 0px 15px;
-}
 
-.ws-container {
-    margin: 9px 0px;
-    border-radius: 15px;
-    background-color: #151714;
-}
-.ws_icon {
-    padding: 0px 10px;
-    font-size: 14px;
 
-}
+
+
+
+
