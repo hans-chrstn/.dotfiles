@@ -8,37 +8,37 @@ export default ({
     interval = 1000,
     class_name = 'icon',
     ...rest } = {}) => Widget.EventBox({
-        on_hover: (box) => {
-            box.child.children[1].reveal_child = true
-        },
-        on_hover_lost: (box) => {
-            box.child.children[1].reveal_child = false
-        },
-        child: Widget.Box({
-            children: [
-                Widget.Label({
-                    class_name: `${class_name}`,
-                    ...rest,
+    on_hover: (box) => {
+        box.child.children[1].reveal_child = true;
+    },
+    on_hover_lost: (box) => {
+        box.child.children[1].reveal_child = false;
+    },
+    child: Widget.Box({
+        children: [
+            Widget.Label({
+                class_name: `${class_name}`,
+                ...rest,
+                setup: self => self.poll(interval, () => {
+                    const formattedTime = currentTime.format(format) || 'wrong format';
+                    self.label = `${formattedTime}`;
+                })
+            }),
+            Widget.Revealer({
+                reveal_child: false,
+                transition: 'slide_left',
+                transitionDuration: 1000,
+                child: Widget.Label({
                     setup: self => self.poll(interval, () => {
-                        const formattedTime = currentTime.format(format) || 'wrong format';
-                        self.label = `${formattedTime}`;
+                        const[hour, min] = [currentTime.get_hour(), currentTime.get_minute()];
+                        const timeOfDay = getTimeOfDay(hour, min);
+                        self.label = `| ${timeOfDay}`;
                     })
-                }),
-                Widget.Revealer({
-                    reveal_child: false,
-                    transition: 'slide_left',
-                    transitionDuration: 1000,
-                    child: Widget.Label({
-                        setup: self => self.poll(interval, () => {
-                            const[hour, min] = [currentTime.get_hour(), currentTime.get_minute()];
-                            const timeOfDay = getTimeOfDay(hour, min);
-                            self.label = `| ${timeOfDay}`;
-                        })
-                    })
-                }),
-            ],
-        })
-    });
+                })
+            }),
+        ],
+    })
+});
 
 // Function to determine the time of day
 function getTimeOfDay(hour, min) {

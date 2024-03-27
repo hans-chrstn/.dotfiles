@@ -3,7 +3,7 @@ import Profile from './modules/profile/Profile.js';
 import Workspaces from './modules/workspaces/workspaces.js';
 import { SystemLeft, SystemRight } from './modules/system/System.js';
 
-import { Utils, App } from './utils/imports.js';
+import { Widget } from './utils/imports.js';
 
 const Left = () => Widget.Box({
     class_name: 'left_bar',

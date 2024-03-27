@@ -1,11 +1,11 @@
-import { Widget, Utils, Hyprland } from '../../utils/imports.js';
+import { Widget, App, Hyprland } from '../../utils/imports.js';
 
 export default () => Widget.EventBox({
     on_hover: (box) => {
-        box.child.children[1].reveal_child = true
+        box.child.children[1].reveal_child = true;
     },
     on_hover_lost: (box) => {
-        box.child.children[1].reveal_child = false
+        box.child.children[1].reveal_child = false;
     },
     class_name: 'workspaces',
     child: Widget.Box({
@@ -42,26 +42,26 @@ const WorkspaceButton = (i) => Widget.Button({
     })
 })
     .hook(Hyprland.active.workspace, (button) => {
-      button.toggleClassName("active", Hyprland.active.workspace.id === i);
+        button.toggleClassName('active', Hyprland.active.workspace.id === i);
     });
 
 const Workspaces = () => Widget.EventBox({
-  child: Widget.Box({
-    class_name: "ws_container",
-    children: Array.from({length: 10}, (_, i) => i + 1).map(i => WorkspaceButton(i)),
-  })
-    .hook(Hyprland, (box) => {
-      box.children.forEach((button, i) => {
-        const ws = Hyprland.getWorkspace(i + 1);
-        const ws_before = Hyprland.getWorkspace(i);
-        const ws_after = Hyprland.getWorkspace(i + 2);
-        //toggleClassName is not part od Gtk.Widget, but we know box.children only includes AgsWidgets
-        //@ts-ignore
-        button.toggleClassName("occupied", ws?.windows > 0);
-        //@ts-ignore
-        button.toggleClassName("occupied-left", !ws_before || ws_before?.windows <= 0);
-        //@ts-ignore
-        button.toggleClassName("occupied-right", !ws_after || ws_after?.windows <= 0);
-      });
-    }, "notify::workspaces")
+    child: Widget.Box({
+        class_name: 'ws_container',
+        children: Array.from({length: 10}, (_, i) => i + 1).map(i => WorkspaceButton(i)),
+    })
+        .hook(Hyprland, (box) => {
+            box.children.forEach((button, i) => {
+                const ws = Hyprland.getWorkspace(i + 1);
+                const ws_before = Hyprland.getWorkspace(i);
+                const ws_after = Hyprland.getWorkspace(i + 2);
+                //toggleClassName is not part od Gtk.Widget, but we know box.children only includes AgsWidgets
+                //@ts-ignore
+                button.toggleClassName('occupied', ws?.windows > 0);
+                //@ts-ignore
+                button.toggleClassName('occupied-left', !ws_before || ws_before?.windows <= 0);
+                //@ts-ignore
+                button.toggleClassName('occupied-right', !ws_after || ws_after?.windows <= 0);
+            });
+        }, 'notify::workspaces')
 });

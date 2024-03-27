@@ -2,7 +2,7 @@ import { Widget } from '../../../utils/imports.js';
 import WeatherService from './WeatherService.js';
 
 export default () => Widget.Box({
-    class_name: "weather",
+    class_name: 'weather',
     children: [
         Weather(),
     ],
@@ -26,16 +26,16 @@ const Weather = () => Widget.EventBox({
                 transition: 'slide_left',
                 transitionDuration: 1000,
                 child: Widget.Box({
-                  children: [
-                      Widget.Label({
-                          class_name: 'icon_revealer',
-                          label: WeatherService.bind('temp').transform(temp => temp + '' + ' | ')
-                      }),
-                      Widget.Label({
-                          class_name: 'icon_revealer',
-                          label: WeatherService.bind('description')
-                      }),
-                  ],
+                    children: [
+                        Widget.Label({
+                            class_name: 'icon_revealer',
+                            label: WeatherService.bind('temp').transform(temp => temp + '' + ' | ')
+                        }),
+                        Widget.Label({
+                            class_name: 'icon_revealer',
+                            label: WeatherService.bind('description')
+                        }),
+                    ],
                 })
             }),  
         ],
