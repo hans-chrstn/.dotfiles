@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>【 Hans' Hyprland dotfiles 】</h1>
+    <h1>【 My NixOS dotfiles 】</h1>
     <h3></h3>
 </div>
 
