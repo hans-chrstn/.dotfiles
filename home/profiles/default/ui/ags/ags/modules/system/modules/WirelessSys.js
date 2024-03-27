@@ -18,15 +18,15 @@ const updateWirelessIcon = () => {
             return '󰤨';
         } 
     } 
-    return '󰤯'
+    return '󰤯';
 };
 
 export default () => Widget.EventBox({
     on_hover: (box) => {
-        box.child.children[1].reveal_child = true 
+        box.child.children[1].reveal_child = true;
     },
     on_hover_lost: (box) => {
-        box.child.children[1].reveal_child = false
+        box.child.children[1].reveal_child = false;
     },
     child: Widget.Box({
         hpack: 'end',
@@ -36,8 +36,8 @@ export default () => Widget.EventBox({
                 label: updateWirelessIcon(),
                 setup: self => { self 
                     .hook(Network, (self) => {
-                        self.label = updateWirelessIcon()
-                    })
+                        self.label = updateWirelessIcon();
+                    });
                 }, 
             }),
             Widget.Revealer({

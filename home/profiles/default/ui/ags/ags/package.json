@@ -1,0 +1,20 @@
+{
+    "name": "ags-config",
+    "version": "0.0.1",
+    "description": "my AGS configuration",
+    "main": "config.js",
+    "author": "hans-chrstn",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hans-chrstn/dotfiles.git"
+    }, 
+    "devDependencies": {
+        "@girs/gtk-3.0": "^3.24.39-3.2.2",
+        "@typescript-eslint/eslint-plugin": "^5.33.0",
+        "@typescript-eslint/parser": "^5.33.0",
+        "eslint": "^8.44.0"
+    },
+    "dependencies": {
+        "fzf": "^0.5.2"
+    }
+}

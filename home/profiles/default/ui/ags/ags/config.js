@@ -1,28 +1,28 @@
 import Bar from './bar.js';
 import { Utils, App } from './utils/imports.js';
-/* dir var */
+import Gio from 'gi://Gio';
+
 const scss = `${App.configDir}/scss/main.scss`;
 const css = `${App.configDir}/style.css`;
-const icons = `${App.configDir}/assets/icons`;
+const icons = `${App.configDir}/modules/icons`;
 
-/* scss applies to css */
 async function applyStyle() {
-    Utils.exec(`sass ${scss} ${css}`)
+    Utils.exec(`sass ${scss} ${css}`);
+    console.log('[LOG] SCSS Applied');
     App.resetCss();
     App.applyCss(css);
-    console.log('[LOG] Styles loaded')
+    console.log('[LOG] Styles Loaded');
 
 }
-applyStyle().catch(print);
 
-/* auto-reloads css when main.scss changes */
 Utils.monitorFile(
-    `${App.configDir}/scss/`,
-    function() {
-        applyStyle()
-    },
-    'directory',
-)
+    `${App.configDir}/scss/`, (_, eventType) => {
+        if(eventType === Gio.FileMonitorEvent.CHANGES_DONE_HINT) {
+            applyStyle();
+        }
+    });
+
+applyStyle();
 
 /**
  * @param {import('types/@girs/gtk-3.0/gtk-3.0').Gtk.Window[]} windows
@@ -35,13 +35,12 @@ Utils.idle(() => addWindows([
     Bar(0),
 ]));
 
-/* load */
 App.config({
     style: css,
     icons: icons,
     closeWindowDelay: {
          
-        "bar0": 4000, // milliseconds
+        'bar0': 4000, // milliseconds
         
     },
     onConfigParsed: function() {
@@ -53,9 +52,9 @@ App.config({
     },
     */
     
-    /* notificationPopupTimeout: number; */
-    /* notificationForceTimeout: boolean; */
+    notificationPopupTimeout: 5000,
+    notificationForceTimeout: true,
+    cacheCoverArt: true,
     /* cacheNotificationActions: boolean; */
-    /* cacheCoverArt: boolean; */
     /* maxStreamVolume: number; */
-})
+});
