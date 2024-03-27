@@ -38,7 +38,7 @@ const WorkspaceButton = (i) => Widget.Button({
             .catch(logError),
     child: Widget.Label({
         label: toJapaneseNumeral(i),
-        class_name: 'ws_icon'
+        class_name: 'ws_button_label'
     })
 })
     .hook(Hyprland.active.workspace, (button) => {
@@ -47,7 +47,7 @@ const WorkspaceButton = (i) => Widget.Button({
 
 const Workspaces = () => Widget.EventBox({
   child: Widget.Box({
-    class_name: "ws-container",
+    class_name: "ws_container",
     children: Array.from({length: 10}, (_, i) => i + 1).map(i => WorkspaceButton(i)),
   })
     .hook(Hyprland, (box) => {

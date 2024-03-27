@@ -10,12 +10,6 @@
   background-color: #0a0a0a;
 }
 
-.icon {
-  font-size: 18px;
-  margin: 0px 12px;
-  color: #f9f9f9;
-}
-
 /* POWERBAR */
 .sys_powerbar {
   border-radius: 10px;
@@ -23,10 +17,18 @@
   padding: 5px 0px;
   margin: 9px 0px;
 }
-
-.sys_powerbar_icons {
+.sys_powerbar .sys_powerbar_icons {
   padding: 0px 15px;
   font-size: 14px;
+  color: #f9f9f9;
+  transition: all 200ms;
+}
+
+.icon {
+  font-size: 18px;
+  margin: 0px 12px;
+  color: #f9f9f9;
+  transition: all 200ms;
 }
 
 /* SYSTEM [LEFT] */
@@ -47,25 +49,50 @@
   margin: 9px 3px;
 }
 
-/* PROFILE */
-.profile {
-  margin: 0px 15px 0px 5px;
-}
-
 /* WORKSPACES */
 .static_cat {
   margin: 0px 5px 0px 15px;
 }
 
-.ws-container {
+.ws_container {
   margin: 9px 0px;
   border-radius: 15px;
+  background-color: #0a0a0a;
+}
+.ws_container .ws_button {
+  transition: all 200ms;
+  padding: 0px 10px;
+}
+.ws_container .ws_button.occupied {
   background-color: #151714;
+  border-top: 1px solid #0a0a0a;
+  border-bottom: 1px solid #0a0a0a;
+}
+.ws_container .ws_button.occupied.occupied-left {
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-left: 1px solid #0a0a0a;
+}
+.ws_container .ws_button.occupied.occupied-right {
+  border-bottom-right-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-right: 1px solid #0a0a0a;
+}
+.ws_container .ws_button:not(.occupied) {
+  border-radius: 1rem;
+}
+.ws_container .ws_button.active .ws-button-label {
+  background-color: #151714;
+  color: #f9f9f9;
+  border-radius: 1rem;
+}
+.ws_container .ws_button .ws-button-label {
+  min-width: 2rem;
 }
 
-.ws_icon {
-  padding: 0px 10px;
-  font-size: 14px;
+/* PROFILE */
+.profile {
+  margin: 0px 15px 0px 5px;
 }
 
 /*# sourceMappingURL=style.css.map */
