@@ -32,7 +32,7 @@ function addWindows(windows) {
 }
 
 Utils.idle(() => addWindows([
-    Bar(1),
+    Bar(0),
 ]));
 
 /* load */
@@ -40,9 +40,9 @@ App.config({
     style: css,
     icons: icons,
     closeWindowDelay: {
-        /* 
-        "window-name": 500, // milliseconds
-        */
+         
+        "bar0": 4000, // milliseconds
+        
     },
     onConfigParsed: function() {
         /* code that runs after this object is loaded */

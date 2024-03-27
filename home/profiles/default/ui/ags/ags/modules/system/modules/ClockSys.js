@@ -7,13 +7,6 @@ export default () => Widget.Box({
             format: '%H:%M',
             class_name: 'icon'
         }), 
-        Widget.EventBox({
-            class_name: 'clock_button',
-            cursor: 'pointer',
-            onHover: () => {
-                print('hello')
-            },
-        }),
     ],
     
 })
