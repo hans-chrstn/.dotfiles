@@ -1,17 +1,35 @@
-import { Battery } from '../../../utils/imports.js';
+import { Battery, Widget } from '../../../utils/imports.js';
 
-export default () => Widget.Box({
-    children: [
-        Widget.Label({
-            class_name: 'icon',
-            label: updateBatteryIcon(),
-            setup: self => { self
-                .hook(Battery, (self) => {
-                    self.label = updateBatteryIcon()  
-                }) 
-            },
-        }),
-    ],
+export default () => Widget.EventBox({
+    on_hover: (box) => {
+        box.child.children[1].reveal_child = true
+    },
+    on_hover_lost: (box) => {
+        box.child.children[1].reveal_child = false
+    },
+    child: Widget.Box({
+        children: [
+            Widget.Label({
+                class_name: 'icon',
+                label: updateBatteryIcon(),
+                setup: self => { self
+                    .hook(Battery, (self) => {
+                        self.label = updateBatteryIcon()  
+                    }) 
+                },
+            }),
+            Widget.Revealer({
+                reveal_child: false,
+                transition: 'slide_left',
+                transitionDuration: 1000,
+                child: Widget.Label({
+                    class_name: 'icon_revealer',
+                    label: Battery.bind('percent')
+                        .transform(percent => String(percent || 'N/A') + '%'),
+                })
+            }),
+        ],
+    })
 });
 const updateBatteryIcon = () => {
     const bpercent = Battery.percent;

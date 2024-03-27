@@ -1,4 +1,4 @@
-import { Network } from '../../../utils/imports.js';
+import { Network, Widget } from '../../../utils/imports.js';
 /* 
     just some weird shenanigans stuff that i thought about
 */
@@ -21,17 +21,37 @@ const updateWirelessIcon = () => {
     return '󰤯'
 };
 
-export default () => Widget.Box({
-    hpack: 'end',
-    children: [
-        Widget.Label({
-            class_name: 'icon',
-            label: updateWirelessIcon(),
-            setup: self => { self 
-                .hook(Network, (self) => {
-                    self.label = updateWirelessIcon()
+export default () => Widget.EventBox({
+    on_hover: (box) => {
+        box.child.children[1].reveal_child = true 
+    },
+    on_hover_lost: (box) => {
+        box.child.children[1].reveal_child = false
+    },
+    child: Widget.Box({
+        hpack: 'end',
+        children: [
+            Widget.Label({
+                class_name: 'icon',
+                label: updateWirelessIcon(),
+                setup: self => { self 
+                    .hook(Network, (self) => {
+                        self.label = updateWirelessIcon()
+                    })
+                }, 
+            }),
+            Widget.Revealer({
+                class_name: 'icon',
+                reveal_child: false,
+                transition: 'slide_left',
+                transitionDuration: 1000,
+                child: Widget.Label({
+                    class_name: 'icon_revealer',
+                    label: Network.wifi.bind('ssid')
+                        .transform(ssid => ssid || 'N/A')
                 })
-            }, 
-        }),
-    ],
+            }),
+        ],
+    })
+    
 });
