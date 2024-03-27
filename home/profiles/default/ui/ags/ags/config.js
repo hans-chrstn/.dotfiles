@@ -1,5 +1,5 @@
-import { Bar } from './bar.js';
-import { Utils } from './utils/imports.js';
+import Bar from './bar.js';
+import { Utils, App } from './utils/imports.js';
 /* dir var */
 const scss = `${App.configDir}/scss/main.scss`;
 const css = `${App.configDir}/style.css`;
@@ -24,11 +24,21 @@ Utils.monitorFile(
     'directory',
 )
 
+/**
+ * @param {import('types/@girs/gtk-3.0/gtk-3.0').Gtk.Window[]} windows
+ */
+function addWindows(windows) {
+    windows.forEach(win => App.addWindow(win));
+}
+
+Utils.idle(() => addWindows([
+    Bar(1),
+]));
+
 /* load */
 App.config({
     style: css,
     icons: icons,
-    windows: [Bar(1)],
     closeWindowDelay: {
         /* 
         "window-name": 500, // milliseconds

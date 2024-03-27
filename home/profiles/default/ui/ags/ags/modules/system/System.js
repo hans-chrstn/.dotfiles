@@ -1,10 +1,14 @@
-import { Network } from '../../utils/imports.js';
-import Clock from '../clock/Clock.js';
+import WirelessSys from './modules/WirelessSys.js';
+import BatterySys from './modules/BatterySys.js';
+import ClockSys from './modules/ClockSys.js';
+import WeatherSys from './modules/WeatherSys.js';
+
 export const SystemLeft = () => Widget.Box({
     class_name: 'system_left',
     children: [
+        WeatherSys(),
         BatterySys(),
-        WifiSys(),
+        WirelessSys(),
         
     ],
 });
@@ -12,53 +16,11 @@ export const SystemLeft = () => Widget.Box({
 export const SystemRight = () => Widget.Box({
     class_name: 'system_right',
     children: [
-        Clock(),
+        ClockSys(),
     ],
 });
 
-const updateNetworkIcon = () => {
-    if (Network.wifi.internet == 'connected') 
-        return '󰤨'
-    return "󰤯"
-};
 
-const Test = () => Widget.Box({
-    children: [
-        Widget.Revealer({
-            revealChild: false,
-            transition: 'slide_right',
-            transitionDuration: 1000,
-            child: Widget.Label({
-                label: Network.wifi.bind('ssid')
-                    .transform(ssid => ssid || 'Unknown'),
-            })
-        }),
-    ],
-    
-});
 
-const WifiSys = () => Widget.Box({
-    hpack: 'end',
-    children: [
-        Widget.Label({
-            class_name: 'icon',
-            label: updateNetworkIcon(),
-            setup: self => { self 
-                .hook(Network, (self) => {
-                    self.label = updateNetworkIcon()
-                })
-            }, 
-        }),
-    ],
-});
-
-const BatterySys = () => Widget.Box({
-    children: [
-        Widget.Label({
-            class_name: 'icon',
-            label: '󰁹', 
-        }),
-    ],
-});
 
 

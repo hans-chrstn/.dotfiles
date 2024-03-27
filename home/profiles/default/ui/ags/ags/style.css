@@ -4,47 +4,52 @@
 }
 
 .bar_layout {
-  margin: 10px 15rem;
+  margin: 10px 9rem;
   padding: 0px 5px;
   border-radius: 10px;
   background-color: #0a0a0a;
 }
 
 .icon {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0px 12px;
+  color: #f9f9f9;
 }
 
 /* POWERBAR */
 .sys_powerbar {
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: #151714;
-  padding: 10px 12px;
-  margin: 8px;
+  padding: 5px 25px;
+  margin: 8px 0px;
 }
 
 /* SYSTEM [LEFT] */
 .system_left {
   background-color: #151714;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  padding: 10px;
-  margin: 8px 3px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 5px;
+  margin: 9px 3px;
 }
 
 /* SYSTEM [RIGHT] */
 .system_right {
   background-color: #151714;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  padding: 10px;
-  margin: 8px 3px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 5px;
+  margin: 9px 3px;
 }
 
 /* PROFILE */
 .profile {
-  background-image: url("${App.configDir}/assets/pfp.png");
-  background-size: 32px 32px;
+  margin: 0px 15px 0px 5px;
+}
+
+/* WORKSPACES */
+.workspaces_icon {
+  margin: 0px 5px 0px 15px;
 }
 
 /*# sourceMappingURL=style.css.map */

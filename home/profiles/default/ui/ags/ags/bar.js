@@ -1,5 +1,9 @@
 import Lock from './modules/lock/Lock.js';
+import Profile from './modules/profile/Profile.js';
+import Workspaces from './modules/workspaces/workspaces.js';
 import { SystemLeft, SystemRight } from './modules/system/System.js';
+
+import { Utils, App } from './utils/imports.js';
 
 const Left = () => Widget.Box({
     class_name: 'left_bar',
@@ -7,6 +11,7 @@ const Left = () => Widget.Box({
     vertical: false,
     hpack: 'start',
     children: [
+        Workspaces(),
     ],
 });
 
@@ -28,21 +33,22 @@ const Right = () => Widget.Box({
     children: [
         SystemLeft(), 
         SystemRight(),
+        Profile(),
     ],
 
 });
 
-
-export const Bar = (monitor = 0) => Widget.Window({
+const BarWindow = (monitor = 0) => Widget.Window({
     anchor: ['top', 'left', 'right'],
-    name: `bar-${monitor}`,
+    name: `bar${monitor}`,
     monitor,
     exclusivity: 'exclusive',
     child: Widget.CenterBox({
         class_name: 'bar_layout',
         start_widget: Left(),
         center_widget: Center(),
-        end_widget: Right(),
-
-    }),
+        end_widget: Right(), 
+    })
 });
+
+export default BarWindow;
