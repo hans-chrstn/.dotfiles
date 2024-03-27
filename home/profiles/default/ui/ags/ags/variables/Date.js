@@ -44,7 +44,7 @@ export default ({
 function getTimeOfDay(hour, min) {
     if (hour >= 1 && hour < 5) {
         return 'Dawn';
-    } else if (hour === 5 && min < 30) {
+    } else if (hour === 5 && hour < 7) {
         return 'Morning';
     } else if (hour >= 7 && hour < 11) {
         return 'Early Morning';
