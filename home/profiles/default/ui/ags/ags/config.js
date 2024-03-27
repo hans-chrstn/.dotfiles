@@ -40,7 +40,7 @@ App.config({
     icons: icons,
     closeWindowDelay: {
          
-        'bar0': 4000, // milliseconds
+        'bar0': 1000, // milliseconds
         
     },
     onConfigParsed: function() {

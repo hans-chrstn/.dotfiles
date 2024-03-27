@@ -38,7 +38,7 @@ const Right = () => Widget.Box({
 
 });
 
-const BarWindow = (monitor = 0) => Widget.Window({
+export default (monitor = 0) => Widget.Window({
     anchor: ['top', 'left', 'right'],
     name: `bar${monitor}`,
     monitor,
@@ -51,4 +51,3 @@ const BarWindow = (monitor = 0) => Widget.Window({
     })
 });
 
-export default BarWindow;
