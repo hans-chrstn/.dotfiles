@@ -5,7 +5,7 @@
 
 <div align="center"> 
 
-![]()
+![meow](https://github.com/hans-chrstn/.dotfiles/blob/main/home/profiles/default/ui/ags/ags/assets/pfp.png)
 ![]()
 ![]()
 ![]() 
