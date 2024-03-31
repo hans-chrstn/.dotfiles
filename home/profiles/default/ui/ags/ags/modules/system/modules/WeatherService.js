@@ -57,15 +57,20 @@ class WeatherService extends Service {
                 this.updateProperty('temp', Number(weatherData['current_condition'][0]['temp_C']));
                 this.updateProperty('description', weatherData['current_condition'][0]['weatherDesc'][0]['value']);
                 const weatherCode = weatherData['current_condition'][0]['weatherCode'];
-                const sunriseHour = weatherData['weather'][0]['astronomy'][0]['sunrise'].split(':')[0];
-                const sunsetHour = weatherData['weather'][0]['astronomy'][0]['sunset'].split(':')[0];
+                const sunriseHour = parseInt(weatherData['weather'][0]['astronomy'][0]['sunrise'].split(':')[0]);
+                const sunsetHour = parseInt(weatherData['weather'][0]['astronomy'][0]['sunset'].split(':')[0]) + 12; // + 12 converts to 24hr lolz
                 const curHour = new Date().getHours();
-                const timeOfDay = (curHour >= sunriseHour && curHour <= sunsetHour) ? 'day' : 'night';
+                const timeOfDay = curHour >= sunriseHour && curHour <= sunsetHour ? 'day' : 'night';
                 this.updateProperty('icon', icons.weather[timeOfDay][weatherCode]
                 || icons.weather['day'][weatherCode] // fallback to day
                 || '');
+                //console.log('Sunrise Hour:', sunriseHour);
+                //console.log('Sunset Hour:', sunsetHour);
+                //console.log('Current Hour:', curHour);
             })
             .catch(logError);
+
+            
     }
 }
 

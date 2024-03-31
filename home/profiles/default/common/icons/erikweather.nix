@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   weathericonserik = fetchurl {
     url = "https://github.com/hans-chrstn/.fonts/releases/download/Public/WeatherIconsErik.zip";
-    sha256 = "sha256-9er95WdP4izlmm5+3Kb8CYNr3Y2KRhOkpi3U4Y/RZZw=";
+    sha256 = "sha256-9CW/u7QXNdDCbZAVKNCi2kt9sSgA1DBX+Sk1QxUK1Cs=";
   };
 
   nativeBuildInputs = [ p7zip ];
