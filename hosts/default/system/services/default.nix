@@ -12,6 +12,7 @@
     ./gnome-services.nix
     ./greetd.nix
     ./logind.nix
+    ./mpd.nix
 
 
   ];

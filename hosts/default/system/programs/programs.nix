@@ -136,10 +136,7 @@
 
     #games
     gamescope
-
+    prismlauncher
   ];
 
-  services.mpd.enable = true;
-
-  programs.thunar.enable = true;
 }

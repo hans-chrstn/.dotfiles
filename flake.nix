@@ -21,13 +21,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
-    # OVERLAYS
-
     ags = {
       url = "github:Aylur/ags";
     };
+    prismlauncher = {
+      url = "github:julcioo/PrismLauncher-Cracked";
+    };
 
+    # OVERLAYS
     hyprland = {
       url = "github:hyprwm/Hyprland";
     };

@@ -15,9 +15,9 @@
     telegram-desktop
     github-desktop
     cartridges
-    prismlauncher
     webcord-vencord
     obsidian
+    lightworks
 
   ];
 }
