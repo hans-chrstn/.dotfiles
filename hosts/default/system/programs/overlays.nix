@@ -8,5 +8,6 @@
     inputs.hypridle.overlays.default
     inputs.hyprpaper.overlays.default
     inputs.hyprcursor.overlays.default
+    inputs.prismlauncher.overlays.default
   ];
 }
