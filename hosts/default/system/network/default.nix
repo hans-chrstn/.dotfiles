@@ -24,15 +24,12 @@
     networkmanager = {
       enable = true;
     };
-  };
 
-#      [Resolve]
-#      DNS=45.90.28.0#25f5a7.dns.nextdns.io
-#      DNS=2a07:a8c0::#25f5a7.dns.nextdns.io
-#      DNS=45.90.30.0#25f5a7.dns.nextdns.io
-#      DNS=2a07:a8c1::#25f5a7.dns.nextdns.io
-#      DNSOverTLS=yes
-#      MulticastDNS=resolve
+#    firewall = {
+#      enable = true;
+#    };
+#    nftables.enable = true;
+  };
 
   services.resolved = {
     enable = true;

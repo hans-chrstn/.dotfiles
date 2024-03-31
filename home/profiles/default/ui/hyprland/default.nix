@@ -1,14 +1,9 @@
-{  inputs, outputs, lib, pkgs, ... }:
+{  inputs, pkgs, ... }:
 
 {
 
-  imports = [
-
-  ];
-
   home.file.".config/hypr" = {
     source = ./config;
-
-
   };  
-}
+
+ }

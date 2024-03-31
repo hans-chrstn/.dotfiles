@@ -8,7 +8,6 @@ export default ({
     class_name: `${class_name}`,
     ...rest,
     child: Widget.Button({
-        cursor: 'pointer',
         on_clicked: on_clicked,
         child: Widget.Label({
             label: label

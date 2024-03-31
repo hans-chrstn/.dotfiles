@@ -1,23 +1,30 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   # greetd display manager
-#  services.greetd = let
-#    session = {
-#      command = "${lib.getExe config.programs.hyprland.package}";
-#      user = "hayato";
-#    };
-#  in {
-#    enable = true;
-#    settings = {
-#      terminal.vt = 1;
-#      default_session = session;
-#      initial_session = session;
-#    };
-#  };
+  services.greetd = let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+    session = "${pkgs.hyprland}/bin/Hyprland";
+    username = "hayato";
+  in {
+    enable = true;
+    package = pkgs.greetd.tuigreet;
+    settings = {
+      terminal.vt = 1;
+      initial_session = {
+	command = "${session}";
+	user = "${username}";
+      };
+      default_session = {
+        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time -cmd ${session}";
+        user = "greeter";
+      };
+    };
+  };
 
   # unlock GPG keyring on login
-#  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 }

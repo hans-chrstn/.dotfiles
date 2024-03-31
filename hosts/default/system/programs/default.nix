@@ -6,6 +6,7 @@
     ./hyprland.nix
     ./steam.nix
     ./zsh.nix
+    ./overlays.nix
 
   ];
 

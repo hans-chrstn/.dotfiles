@@ -33,6 +33,7 @@ function addWindows(windows) {
 
 Utils.idle(() => addWindows([
     Bar(0),
+//    Bar(1),
 ]));
 
 App.config({
