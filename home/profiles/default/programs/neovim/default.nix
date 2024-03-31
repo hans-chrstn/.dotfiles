@@ -21,18 +21,26 @@
     ];
 
     plugins = with pkgs.vimPlugins; [
+#      {
+#        plugin = gruvbox-nvim;
+#        config = "colorscheme gruvbox";
+#      }
+#      {
+#        plugin = lazy-nvim;
+#        config = toLua "require(\"lazy\").setup()";
+#      }
+#      {
+#        plugin = comment-nvim;
+#        config = toLua "require(\"Comment\").setup()";
+#      }
       {
-        plugin = gruvbox-nvim;
-        config = "colorscheme gruvbox";
+        plugin = nvchad;
       }
       {
-        plugin = lazy-nvim;
-        config = toLua "require(\"lazy\").setup()";
-      }
-      {
-        plugin = comment-nvim;
-        config = toLua "require(\"Comment\").setup()";
+        plugin = nvchad-ui;
       }
     ];
   };
+
+
 }

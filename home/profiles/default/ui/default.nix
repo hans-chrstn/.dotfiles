@@ -10,6 +10,8 @@
 #  ./eww
   ./cursor
   ./lf
+  ./btop
+  ./obs
 
   ];
 

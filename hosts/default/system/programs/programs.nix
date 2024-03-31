@@ -20,10 +20,12 @@
     fzf
     wirelesstools
     socat
+    rust-bin.stable.latest.default
 
     #mediaplayer
     vlc
     ffmpegthumbnailer
+    ffmpeg
 
     #sr
     obs-studio
@@ -40,8 +42,6 @@
     wine
     winetricks
 
-    discord
-    
     #editor
     xclip
     wl-clipboard
@@ -52,10 +52,8 @@
 
     #filemanager
     lf
-    pistol
     zathura 
-    less
-    highlight
+    ctpv
 
     #portals
     xdg-desktop-portal-hyprland
@@ -63,6 +61,8 @@
     xdg-desktop-portal-gtk
 
     #hyprland stuff
+    hyprlang
+    hyprcursor
     hyprland-protocols
     hyprpicker
     hyprlock
@@ -84,6 +84,7 @@
     mesa
     libdrm
     libxkbcommon
+    cmake
 
     #weather
     tenki
@@ -129,12 +130,16 @@
 
     #downloader
     yt-dlp
-    ffmpeg
 
-    #cracked prismlauncher
-    prismlauncher
+    #bootables
+    ventoy
+
+    #games
+    gamescope
 
   ];
 
   services.mpd.enable = true;
+
+  programs.thunar.enable = true;
 }

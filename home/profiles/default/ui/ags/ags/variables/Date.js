@@ -1,10 +1,10 @@
 import Glib from 'gi://GLib';
-import { Widget } from '../utils/imports.js';
+import { Widget, Utils } from '../utils/imports.js';
 
-const currentTime = Glib.DateTime.new_now_local();
+/* const currentTime = Glib.DateTime.new_now_local(); */
 
 export default ({
-    format = '%H:%M:%S %B %e, %A',
+/*     format = '%H:%M:%S %B %e, %A', */
     interval = 1000,
     class_name = 'icon',
     ...rest } = {}) => Widget.EventBox({
@@ -19,10 +19,15 @@ export default ({
             Widget.Label({
                 class_name: `${class_name}`,
                 ...rest,
+                /*
                 setup: self => self.poll(interval, () => {
-                    const formattedTime = currentTime.format(format) || 'wrong format';
-                    self.label = `${formattedTime}`;
-                })
+                const formattedTime = currentTime.format(format) || 'wrong format';
+                self.label = `${formattedTime}`;
+                }) 
+                */
+                setup: self => self.poll(interval, self => Utils.execAsync(['date', '+%H:%M'])
+                    .then(date => self.label = date)),
+                  
             }),
             Widget.Revealer({
                 reveal_child: false,
@@ -30,6 +35,7 @@ export default ({
                 transitionDuration: 1000,
                 child: Widget.Label({
                     setup: self => self.poll(interval, () => {
+                        const currentTime = Glib.DateTime.new_now_local();
                         const[hour, min] = [currentTime.get_hour(), currentTime.get_minute()];
                         const timeOfDay = getTimeOfDay(hour, min);
                         self.label = `| ${timeOfDay}`;

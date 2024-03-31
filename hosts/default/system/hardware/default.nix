@@ -5,6 +5,8 @@
 
   ];
 
+  hardware.cpu.intel.updateMicrocode = true;
+
 	services = {
 		fwupd =	{
 			enable = true;
@@ -24,7 +26,7 @@
     GDK_BACKEND = "wayland";
 #    __GLX_VENDOR_LIBRARY_NAME = "mesa";
     #WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
+#    NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
     SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
@@ -39,12 +41,12 @@
 #    __GL_VRR_ALLOWED = "1";
     DISABLE_QT5_COMPAT = "0";
     DIRENV_LOG_FORMAT = "";
-    WLR_DRM_NO_ATOMIC = "1";
+#    WLR_DRM_NO_ATOMIC = "1";
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
     QT_QPA_PLATFORMTHEME = "qt5ct";
-    WLR_BACKEND = "vulkan";
-    WLR_DRM_DEVICES = "/dev/dri/card0";
+#    WLR_BACKEND = "vulkan";
+#    WLR_DRM_DEVICES = "/dev/dri/card0";
 
     EDITOR = "lvim";
     VISUAL = "lvim";

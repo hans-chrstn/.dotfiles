@@ -5,20 +5,34 @@ set drawbox false
 set mouse true
 set icons true
 set ignorecase true
-set previewer ~/.config/lf/lf_kitty_preview
-set cleaner ~/.config/lf/lf_kitty_clean
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 set cursorpreviewfmt "\033[7;2m"
 
 
+
+
 # COMMANDS
 cmd open &{{
     case $(file --mime-type -Lb $f) in
         text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        application/pdf) nohup zathura $fx > /dev/null 2> /dev/null &;;
         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
+}}
+
+cmd recol ${{
+    w=$(tput cols)
+    if [ $w -le 80 ]; then
+        lf -remote "send $id :set nopreview; set ratios 1" || exit 0
+    else
+        lf -remote "send $id set ratios 1:2:3; set preview" || exit 0
+    fi
 }}
 
 cmd trash %set -f; mv $fx ~/.trash
@@ -141,17 +155,19 @@ map ttt ${{lvim}}
 # Movement
 map gtr cd ~/.trash
 
-map gv. cd ~/Videos
+map gv cd ~/Videos
 
-map gp. cd ~/Pictures
+map gp cd ~/Pictures
 map gps cd ~/Pictures/Screenshots
-
 map gw. cd ~/.wallpapers
+map gd. /home/hayato/.dotfiles/
+map gl. ~/.lvim
+map gf. ~/.fonts
+map gfl. ~/.floorp
 
-map gd cd ~/Documents
-
+map gdc cd ~/Documents
 map gD cd ~/Downloads
-map ge cd ~ 
+map gcd cd ~ 
 
 map gc cd ~/.config
 

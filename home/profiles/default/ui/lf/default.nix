@@ -1,14 +1,8 @@
-{ ... }:
+{ config, ... }:
 
 {
 
-  imports = [
-
-  ];
-
-  home.file.".config/lf" = {
-    source = ./config;
-
-
+  xdg.configFile."lf" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./config;
   };  
 }

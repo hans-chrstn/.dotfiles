@@ -27,7 +27,7 @@
     };
   };
   services.openssh = {
-    enable = true;
+    enable = false; #true;
     settings = {
       # Forbid root login through SSH.
       PermitRootLogin = "no";

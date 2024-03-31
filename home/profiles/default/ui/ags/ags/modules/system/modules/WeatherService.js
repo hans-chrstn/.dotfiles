@@ -60,7 +60,7 @@ class WeatherService extends Service {
                 const sunriseHour = weatherData['weather'][0]['astronomy'][0]['sunrise'].split(':')[0];
                 const sunsetHour = weatherData['weather'][0]['astronomy'][0]['sunset'].split(':')[0];
                 const curHour = new Date().getHours();
-                const timeOfDay = curHour >= sunriseHour && curHour <= sunsetHour + 12 ? 'day' : 'night';
+                const timeOfDay = (curHour >= sunriseHour && curHour <= sunsetHour) ? 'day' : 'night';
                 this.updateProperty('icon', icons.weather[timeOfDay][weatherCode]
                 || icons.weather['day'][weatherCode] // fallback to day
                 || '');

@@ -9,6 +9,5 @@
 
   ];
   
-  zramSwap.enable = true;
 
 }
