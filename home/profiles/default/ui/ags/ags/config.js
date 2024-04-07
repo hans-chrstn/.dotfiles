@@ -1,4 +1,5 @@
 import Bar from './bar.js';
+import AppLauncher from './modules/profile/modules/Launcher.js';
 import { Utils, App } from './utils/imports.js';
 import Gio from 'gi://Gio';
 
@@ -33,7 +34,8 @@ function addWindows(windows) {
 
 Utils.idle(() => addWindows([
     Bar(0),
-//    Bar(1),
+    Bar(1),
+    AppLauncher(),
 ]));
 
 App.config({
@@ -41,7 +43,8 @@ App.config({
     icons: icons,
     closeWindowDelay: {
          
-        'bar0': 1000, // milliseconds
+        'bar0': 500, // milliseconds
+        'bar1': 500,
         
     },
     onConfigParsed: function() {

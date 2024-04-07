@@ -1,7 +1,9 @@
 * {
     all: unset;
     font-family: SF Mono;
+    border-radius: 10px;
   }
+
 // GENERAL
 @import "colors";
 
@@ -12,6 +14,8 @@
 @import "system";
 @import "workspaces";
 @import "profile";
+@import "sys_tray";
+@import "launcher";
 
 
 

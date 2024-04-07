@@ -1,18 +1,16 @@
-{ pkgs, inputs, ... }:
+{ pkgs, config, ... }:
 
 {
-  programs.neovim = 
-  let
-    toLua = str: "lua << EOF\n${str}\nEOF\n";
-    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-  in
-  {
+  programs.neovim = {
     enable = true;
 
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    
+    withNodeJs = true;
+    withPython3 = true;
+    withRuby = true;
+
     extraPackages = with pkgs; [
       xclip
       wl-clipboard
@@ -21,26 +19,16 @@
     ];
 
     plugins = with pkgs.vimPlugins; [
-#      {
-#        plugin = gruvbox-nvim;
-#        config = "colorscheme gruvbox";
-#      }
-#      {
-#        plugin = lazy-nvim;
-#        config = toLua "require(\"lazy\").setup()";
-#      }
-#      {
-#        plugin = comment-nvim;
-#        config = toLua "require(\"Comment\").setup()";
-#      }
-      {
-        plugin = nvchad;
-      }
-      {
-        plugin = nvchad-ui;
-      }
+
     ];
   };
 
+  xdg.configFile = {
+    "nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/profiles/default/programs/neovim/config/";
+    };
+
+
+  };
 
 }

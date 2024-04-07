@@ -1,4 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -6,6 +6,7 @@
     ./security.nix
     ./time.nix
     ./localization.nix
+    ./perf.nix
 
   ];
   

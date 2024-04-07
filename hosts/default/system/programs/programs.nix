@@ -2,9 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [ 
+    # PKG UTILS
     curl
     jq
     coreutils
+    usbutils
     dmidecode
     ntfs3g
     iw
@@ -16,51 +18,15 @@
     wlroots
     xwaylandvideobridge
     intel-gpu-tools
+    vdpauinfo
     nix-prefetch-git
     fzf
     wirelesstools
     socat
     rust-bin.stable.latest.default
+    cage
 
-    #mediaplayer
-    vlc
-    ffmpegthumbnailer
-    ffmpeg
-
-    #sr
-    obs-studio
-
-    lutris
-
-    floorp
-
-    unzip
-    p7zip
-    wget
-    atool
-
-    wine
-    winetricks
-
-    #editor
-    xclip
-    wl-clipboard
-    lunarvim
-
-    #terminals
-    kitty
-
-    #filemanager
-    lf
-    zathura 
-    ctpv
-
-    #portals
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-
-    #hyprland stuff
+    # HYPRLAND ECOSYSTEM | EXTRAPKGS
     hyprlang
     hyprcursor
     hyprland-protocols
@@ -86,10 +52,7 @@
     libxkbcommon
     cmake
 
-    #weather
-    tenki
-
-    #ags
+    # AGS WIDGET | EXTRAPKGS | REQs
     upower
     libdbusmenu-gtk3
     gobject-introspection
@@ -98,22 +61,15 @@
     gtk-layer-shell
     gtk3
     gtk4
-    gnome.gnome-bluetooth
     nodejs_21
     typescript
     meson
-    #ags widget
     dart-sass
-    morewaita-icon-theme
-    sptlrx
-    cascadia-code
     eza
     bat
     pipewire
-
-    #eww
-    eww
     mpd
+    mpv
     mpc-cli
     networkmanagerapplet
     dmenu
@@ -128,15 +84,57 @@
     code-minimap
     pamixer
 
-    #downloader
+    # DOWNLOADS YT MP4/MP3's
     yt-dlp
 
-    #bootables
+    # USB BOOT
     ventoy
 
-    #games
-    gamescope
-    prismlauncher
+    # DELL
+    dell-command-configure
+
+    # SECURE BOOT KEY MANAGER
+    sbctl
+
+    # MEDIAPLAYER
+    vlc
+    ffmpegthumbnailer
+    ffmpeg
+
+    # SCREEN RECORD
+    obs-studio
+
+
+    # BROWSER
+    floorp
+
+    # COMPRESS & ARCHIVE TOOLS
+    unzip
+    p7zip
+    wget
+    atool
+
+    # RUN WIN EXE's
+    winetricks
+    wineWowPackages.waylandFull
+    lutris
+
+    # EDITOR | EXTRAPKGS
+    lunarvim
+    xclip
+    wl-clipboard
+
+    # TERMINALS
+    kitty
+
+    # FILE MANAGER | EXTRAPKGS
+    lf
+    zathura 
+    ctpv
+    
+    # TIME
+    tenki
+
   ];
 
 }

@@ -17,7 +17,5 @@
     cartridges
     webcord-vencord
     obsidian
-    lightworks
-
   ];
 }

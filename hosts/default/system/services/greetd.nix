@@ -1,29 +1,36 @@
 {
-  config,
-  lib,
+  inputs,
   pkgs,
   ...
-}: {
+}: 
+let
+  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  hyprland-session = "${pkgs.hyprland}/bin/Hyprland -c /home/hayato/.config/hypr/hyprland.conf";
+in
+{
   # greetd display manager
-  services.greetd = let
-    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-    session = "${pkgs.hyprland}/bin/Hyprland";
-    username = "hayato";
-  in {
+  services.greetd =  {
     enable = true;
-    package = pkgs.greetd.tuigreet;
     settings = {
       terminal.vt = 1;
-      initial_session = {
-	command = "${session}";
-	user = "${username}";
-      };
       default_session = {
-        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time -cmd ${session}";
+        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session}";
         user = "greeter";
       };
     };
   };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal"; # Without this errors will spam on screen
+    # Without these bootlogs will spam on screen
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
+  };
+
 
   # unlock GPG keyring on login
   security.pam.services.greetd.enableGnomeKeyring = true;

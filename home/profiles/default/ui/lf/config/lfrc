@@ -150,7 +150,7 @@ map au extract
 map ddD trash
 map tc clear_trash
 map tr restore_trash
-map ttt ${{lvim}}
+map ttt ${{nvim}}
 
 # Movement
 map gtr cd ~/.trash
@@ -161,7 +161,6 @@ map gp cd ~/Pictures
 map gps cd ~/Pictures/Screenshots
 map gw. cd ~/.wallpapers
 map gd. /home/hayato/.dotfiles/
-map gl. ~/.lvim
 map gf. ~/.fonts
 map gfl. ~/.floorp
 
@@ -198,4 +197,3 @@ map y
 %mkdir -p ~/.wallpapers
 %mkdir -p ~/.icons
 %mkdir -p ~/.fonts
-%mkdir -p ~/.lvim

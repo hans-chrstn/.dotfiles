@@ -1,4 +1,4 @@
-import { Network, Widget } from '../../../utils/imports.js';
+import { Network, Widget, Utils } from '../../../utils/imports.js';
 /* 
     just some weird shenanigans stuff that i thought about
 */
@@ -28,6 +28,7 @@ export default () => Widget.EventBox({
     on_hover_lost: (box) => {
         box.child.children[1].reveal_child = false;
     },
+    on_primary_click: () => Utils.exec('nm-connection-editor'),
     child: Widget.Box({
         hpack: 'end',
         children: [

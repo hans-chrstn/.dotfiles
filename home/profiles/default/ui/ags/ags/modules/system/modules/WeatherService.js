@@ -57,7 +57,7 @@ class WeatherService extends Service {
                 this.updateProperty('temp', Number(weatherData['current_condition'][0]['temp_C']));
                 this.updateProperty('description', weatherData['current_condition'][0]['weatherDesc'][0]['value']);
                 const weatherCode = weatherData['current_condition'][0]['weatherCode'];
-                const sunriseHour = parseInt(weatherData['weather'][0]['astronomy'][0]['sunrise'].split(':')[0]);
+                const sunriseHour = parseInt(weatherData['weather'][0]['astronomy'][0]['sunrise'].split(':')[0]); //old is parseint on both sunrise/setHour eg. 'parseInt()'
                 const sunsetHour = parseInt(weatherData['weather'][0]['astronomy'][0]['sunset'].split(':')[0]) + 12; // + 12 converts to 24hr lolz
                 const curHour = new Date().getHours();
                 const timeOfDay = curHour >= sunriseHour && curHour <= sunsetHour ? 'day' : 'night';
