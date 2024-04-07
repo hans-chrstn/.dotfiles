@@ -4,17 +4,17 @@
   networking = {
     hostName = "nixos";  # DISCOVERABLE NETWORK NAME
     nameservers = [
-      #nextdns
-#      "45.90.28.0#25f5a7.dns.nextdns.io"
-#      "2a07:a8c0::#25f5a7.dns.nextdns.io"
-#      "45.90.30.0#25f5a7.dns.nextdns.io"
-#      "2a07:a8c1::#25f5a7.dns.nextdns.io"
-      #quad9
+      # NEXTDNS
+      #"45.90.28.0#25f5a7.dns.nextdns.io"
+      #"2a07:a8c0::#25f5a7.dns.nextdns.io"
+      #"45.90.30.0#25f5a7.dns.nextdns.io"
+      #"2a07:a8c1::#25f5a7.dns.nextdns.io"
+      # QUAD9
       "9.9.9.9"
       "149.112.112.112"
       "2620:fe::fe"
       "2620:fe::9"
-      #cloudflare
+      # CLOUDFLARE
       "1.1.1.1"
       "2606:4700:4700::1111"
       "1.0.0.1"
@@ -25,10 +25,10 @@
       enable = true;
     };
 
-#    firewall = {
-#      enable = true;
-#    };
-#    nftables.enable = true;
+    firewall = {
+      enable = true;
+    };
+    #nftables.enable = true;
   };
 
   services.resolved = {
@@ -78,20 +78,6 @@
     })
   '';
   
-#   systemd.services.networkManagerRestart = {
-#    description = "Restart NetworkManger.service every reboot";
-#    wantedBy = [ "multi-user.target" ];
-#    wants = [ "multi-user.target" ];
-#    after = [ "multi-user.target" ];
-#    serviceConfig = {
-#      Type = "simple";
-#      ExecStart = "${pkgs.networkmanager}/bin/NetworkManager";
-#      Restart = "always";
-#      RestartSec = "5";
-#    };
-#  };
-
-
   # Don't wait for network startup
 #  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
 }

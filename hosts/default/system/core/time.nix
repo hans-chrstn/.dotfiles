@@ -1,7 +1,8 @@
-{  config, pkgs, ... }:
+{ ... }:
 
 {
   time.timeZone = "America/New_York";
-#  time.hardwareClockInLocalTime = true;
+  # USES LOCAL TIME IN HARDWARE IF YOU DUAL BOOTED IN WINDOWS
+  #time.hardwareClockInLocalTime = true;
 
 }

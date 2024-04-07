@@ -1,3 +1,0 @@
-const VBar = () => Widget.Window({
-    
-})

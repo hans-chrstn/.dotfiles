@@ -1,7 +1,7 @@
 import Lock from './modules/lock/Lock.js';
 import Profile from './modules/profile/Profile.js';
 import Workspaces from './modules/workspaces/workspaces.js';
-import { SystemLeft, SystemRight } from './modules/system/System.js';
+import { SystemLeft, SystemRight, SysTray } from './modules/system/System.js';
 
 import { Widget } from './utils/imports.js';
 
@@ -31,6 +31,7 @@ const Right = () => Widget.Box({
     vertical: false,
     hpack: 'end',
     children: [
+        SysTray(),
         SystemLeft(), 
         SystemRight(),
         Profile(),

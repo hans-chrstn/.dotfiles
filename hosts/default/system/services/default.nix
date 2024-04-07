@@ -2,45 +2,18 @@
 
 {
 
-  #workaround the ssh issue
-  services.sshd.enable = false;
-
   imports = [
+    ./envar.nix
     ./location.nix
-    ./power-button.nix
-    ./tlp.nix
     ./gnome-services.nix
     ./greetd.nix
     ./logind.nix
     ./mpd.nix
-
-
+    ./dbus.nix
+    ./portals.nix
   ];
 
-  #screensharing
-  services = {
-#    tumbler.enable = true;
-    gvfs.enable = true;
-    gnome = {
-      sushi.enable = true;
-      gnome-keyring.enable = true;
-    };
-    dbus = {
-      enable = true;
-      implementation = "dbus";
-    };
-  };
-
-
-  #portals
-  xdg.portal = {
-    enable = true;
-#    wlr.enable = true;
-    extraPortals = [ 
-      pkgs.xdg-desktop-portal-gtk 
-      pkgs.xdg-desktop-portal
-    ];
-  }; 
+ 
 
 
 }

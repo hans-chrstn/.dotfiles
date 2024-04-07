@@ -2,7 +2,7 @@ import { Widget, App } from '../../utils/imports.js';
 import MusicBar from './modules/Music.js';
 
 export default () => Widget.EventBox({
-    on_hover: (box) => {
+    on_secondary_click: (box) => {
         box.child.children[1].reveal_child = true;
     },
     on_hover_lost: (box) => {
@@ -11,8 +11,11 @@ export default () => Widget.EventBox({
     child: Widget.Box({
         children: [
             Widget.Button({
-                on_clicked: () => {
-                    App.toggleWindow('');
+                on_primary_click: () => {
+                    App.toggleWindow('applauncher');
+                },
+                on_secondary_click: () => {
+                    App.closeWindow('applauncher');
                 },
                 child: Widget.Icon({
                     class_name: 'profile',
