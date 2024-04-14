@@ -14,18 +14,25 @@
     telegram-desktop
     github-desktop
     webcord-vencord
-#    obsidian
+    #obsidian
+
+    #nur.repos.iagocq.ultimmc
 
     # RUST OVERLAY
     rust-bin.stable.latest.default
 
     # HYPRLAND ECOSYSTEM | EXTRAPKGS
+    xdg-desktop-portal-hyprland
     hyprlang
     hyprcursor
     hyprlock
     hypridle
     hyprpaper
     hyprland-protocols
+    libdrm
+    pipewire
+    sdbus-cpp
+    wayland-protocols
     hyprpicker
     hyprshot
     fuzzel

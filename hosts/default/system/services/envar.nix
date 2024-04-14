@@ -6,7 +6,7 @@
     POLKIT_AUTH_AGENT = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
     GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
     LIBVA_DRIVER_NAME = "iHD"; #"i965";
-    MESA_GL_VERSION_OVERRIDE = "4.5";
+    #MESA_GL_VERSION_OVERRIDE = "4.5";
     GBM_BACKEND = "iHD";
     XDG_SESSION_TYPE = "wayland";
     GDK_BACKEND = "wayland";
@@ -17,12 +17,12 @@
     GTK_USE_PORTAL = "1";
     NIXOS_XDG_OPEN_USE_PORTAL = "1";
     ANKI_WAYLAND = "1";
-    DISABLE_QT5_COMPAT = "0";
+    #DISABLE_QT5_COMPAT = "0";
     DIRENV_LOG_FORMAT = "";
-    QT_QPA_PLATFORM = "wayland";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-#    XDG_CURRENT_DESKTOP = "Hyprland";
+    #QT_QPA_PLATFORM = "wayland";
+    #QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
+    #QT_QPA_PLATFORMTHEME = "qt5ct";
+    XDG_CURRENT_DESKTOP = "Hyprland";
 #    XDG_SESSION_DESKTOP = "Hyprland";
 #    WLR_BACKEND = "vulkan";
 #    WLR_DRM_DEVICES = "/dev/dri/card0";

@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [ 
+    # FLAKED
+    #inputs.nix-inspect.packages.${pkgs.system}.default
+
     # PKG UTILS
     curl
     jq
