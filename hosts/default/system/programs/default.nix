@@ -8,6 +8,7 @@
     ./overlays.nix
     ./thunar.nix
     ./neovim.nix
+    ./hyprland.nix
 
   ];
 

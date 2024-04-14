@@ -25,9 +25,17 @@
       url = "github:Aylur/ags";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+    };
+
     # OVERLAYS
     hyprland = {
       url = "github:hyprwm/Hyprland";
+    };
+
+    xdg-desktop-portal-hyprland = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
     };
 
     hyprsplit = {

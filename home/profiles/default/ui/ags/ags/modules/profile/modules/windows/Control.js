@@ -1,16 +1,5 @@
-import { App, Audio, Notifications, Utils, Widget } from '../../../../utils/imports.js';
+import { App, Notifications, Utils, Widget } from '../../../../utils/imports.js';
 import Icon from '../../../icons/icons.js';
-
-const VolumeSlider = (type = 'speaker') => Widget.Box({
-    class_name: 'vol_box',
-    child: Widget.Slider({
-        class_name: 'vol_slider',
-        hexpand: true,
-        drawValue: false,
-        onChange: ({ value }) => Audio[type].volume = value,
-        value: Audio[type].bind('volume'),
-    })
-});
 
 const Noisy = () => Widget.Label({
     label: Icon.notification.noisy,
@@ -70,7 +59,6 @@ const Control = () => Widget.Box({
                         label: Icon.reload,
                     })
                 }),
-                VolumeSlider('speaker'),
             ],
         }),
     ],
