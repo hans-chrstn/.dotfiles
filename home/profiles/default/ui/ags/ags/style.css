@@ -134,4 +134,56 @@
   border-radius: 10px;
 }
 
+.calendar_box {
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 73px 0px 0px;
+}
+.calendar_box .calendar_label {
+  background-color: #151714;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.resource_box {
+  border-radius: 10px;
+  background-color: #0a0a0a;
+  min-width: 100px;
+  min-height: 100px;
+  margin: 0px 73px 0px 0px;
+  padding: 10px;
+}
+.resource_box .resource_box2 {
+  background-color: #151714;
+  padding: 25px;
+}
+.resource_box .resource_box2 .resource_battery {
+  min-width: 50px;
+  min-height: 50px;
+  color: aqua;
+}
+
+.control_box {
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  margin-right: 73px;
+  padding: 10px;
+  min-width: 300px;
+  min-height: 400px;
+}
+.control_box .control_box2 {
+  margin: 5px 0px;
+  border-radius: 10px;
+  background-color: #151714;
+  padding: 10px;
+}
+.control_box .control_box2 .control_profile_label {
+  margin: 0px 18px 0px 10px;
+}
+
+.vol_slider {
+  background-color: red;
+}
+
 /*# sourceMappingURL=style.css.map */

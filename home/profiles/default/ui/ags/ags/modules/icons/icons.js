@@ -1,9 +1,54 @@
 export default {
+    reload: '\udb81\udc53',
+    notification: {
+        noisy: '\udb80\udd78',
+        dnd: '\udb82\ude93',
+    },
     mpris: {
         playing: '\udb81\udd99',
         paused: '\udb81\udd99',
         stopped: '\udb81\udd99',
     },
+    battery: {
+        bat: {
+            10: '',
+            20: '',
+            30: '',
+            40: '',
+            50: '',
+            60: '',
+            70: '',
+            80: '',
+            90: '',
+            100: '',
+        },
+        charging: {
+            10: '',
+            20: '',
+            30: '',
+            40: '',
+            50: '',
+            60: '',
+            70: '',
+            80: '',
+            90: '',
+            100: '',
+        },
+    },
+
+    bluetooth: {
+        enabled: '\udb80\udcaf',
+        disabled: '\udb80\udcb2',
+    },
+
+    wifi: {
+        disabled: '\udb82\udd2e',
+        weak: '\udb82\udd1f',
+        average: '\udb82\udd22',
+        good: '\udb82\udd25',
+        great: '\udb82\udd28',
+    },
+    
     weather: {
         day: {
             '113': '\udb81\udd99', //'Sunny',

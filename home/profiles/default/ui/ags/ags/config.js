@@ -1,5 +1,8 @@
 import Bar from './bar.js';
-import AppLauncher from './modules/profile/modules/Launcher.js';
+import AppLauncher from './modules/launcher/Launcher.js';
+import Calendar from './modules/system/modules/window/Calendar.js';
+import Control from './modules/profile/modules/windows/Control.js';
+import Resource from './modules/system/modules/window/Resource.js';
 import { Utils, App } from './utils/imports.js';
 import Gio from 'gi://Gio';
 
@@ -36,6 +39,9 @@ Utils.idle(() => addWindows([
     Bar(0),
     Bar(1),
     AppLauncher(),
+    Calendar(),
+    Resource(),
+    Control(),
 ]));
 
 App.config({

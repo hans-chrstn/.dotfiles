@@ -1,4 +1,4 @@
-import { Widget, App, Applications } from '../../../utils/imports.js';
+import { Widget, App, Applications } from '../../utils/imports.js';
 
 const WINDOW_NAME = 'applauncher';
 

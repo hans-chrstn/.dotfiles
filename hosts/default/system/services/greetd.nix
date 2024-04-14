@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }: 
@@ -14,7 +13,7 @@ in
     settings = {
       terminal.vt = 1;
       default_session = {
-        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session}";
+        command = "${tuigreet} --time --remember --remember-session"; #--sessions ${hyprland-session} #--remember --remember-session
         user = "greeter";
       };
     };

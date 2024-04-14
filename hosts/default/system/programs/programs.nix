@@ -1,4 +1,4 @@
-{ inputs, outputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [ 
@@ -10,6 +10,7 @@
     dmidecode
     ntfs3g
     iw
+    nil
     libva-utils
     dbus
     parted
@@ -25,25 +26,9 @@
     socat
     rust-bin.stable.latest.default
     cage
-
-    # HYPRLAND ECOSYSTEM | EXTRAPKGS
-    hyprlang
-    hyprcursor
-    hyprland-protocols
-    hyprpicker
-    hyprlock
-    hypridle
-    hyprpaper
-    libnotify
-    grim
-    slurp
-    fuzzel
-    neofetch
     brightnessctl
     playerctl
     wl-gammarelay-rs
-    btop
-    cava
     file
     libglvnd
     libwebp
@@ -51,8 +36,6 @@
     libdrm
     libxkbcommon
     cmake
-
-    # AGS WIDGET | EXTRAPKGS | REQs
     upower
     libdbusmenu-gtk3
     gobject-introspection
@@ -83,6 +66,7 @@
     bluez
     code-minimap
     pamixer
+    libnotify
 
     # DOWNLOADS YT MP4/MP3's
     yt-dlp
@@ -101,10 +85,6 @@
     ffmpegthumbnailer
     ffmpeg
 
-    # SCREEN RECORD
-    obs-studio
-
-
     # BROWSER
     floorp
 
@@ -113,11 +93,6 @@
     p7zip
     wget
     atool
-
-    # RUN WIN EXE's
-    winetricks
-    wineWowPackages.waylandFull
-    lutris
 
     # EDITOR | EXTRAPKGS
     lunarvim
@@ -131,9 +106,6 @@
     lf
     zathura 
     ctpv
-    
-    # TIME
-    tenki
 
   ];
 

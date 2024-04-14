@@ -24,13 +24,15 @@
     ags = {
       url = "github:Aylur/ags";
     };
-    prismlauncher = {
-      url = "github:julcioo/PrismLauncher-Cracked";
-    };
 
     # OVERLAYS
     hyprland = {
       url = "github:hyprwm/Hyprland";
+    };
+
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
     };
 
     hyprlang = {
@@ -88,7 +90,7 @@
       default = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./hosts/default/system/configuration.nix
+          ./hosts/default/system/default.nix
         ];
       };
     };
