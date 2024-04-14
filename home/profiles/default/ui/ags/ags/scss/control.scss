@@ -1,0 +1,22 @@
+.control_box {
+    background-color: $default_bg;
+    border-radius: 10px;
+    margin-right: 73px;
+    padding: 10px;
+    min-width: 300px;
+    min-height: 400px;
+    .control_box2 {
+        margin: 5px 0px;
+        border-radius: 10px;
+        background-color: $default_fg;
+        padding: 10px;
+        .control_profile_label {
+            margin: 0px 18px 0px 10px;
+        }
+    }
+    
+}
+
+.vol_slider {
+    background-color: red;
+}

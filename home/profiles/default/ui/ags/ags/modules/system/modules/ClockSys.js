@@ -7,16 +7,7 @@ export default () => Widget.Box({
         Date({
             class_name: 'icon'
         }), 
-        /* 
-        Widget.Button({
-            on_clicked: () => {
-                App.toggleWindow('calendar');
-            },
-            on_secondary_click: () => {
-                App.closeWindow('calendar');
-            },
-        }),
-        */
+
     ],
     
 });

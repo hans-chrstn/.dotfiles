@@ -1,4 +1,4 @@
-import { Battery, Widget } from '../../../utils/imports.js';
+import { App, Battery, Widget } from '../../../utils/imports.js';
 
 export default () => Widget.EventBox({
     on_hover: (box) => {
@@ -9,14 +9,19 @@ export default () => Widget.EventBox({
     },
     child: Widget.Box({
         children: [
-            Widget.Label({
-                class_name: 'icon',
-                label: updateBatteryIcon(),
-                setup: self => { self
-                    .hook(Battery, (self) => {
-                        self.label = updateBatteryIcon();  
-                    }); 
+            Widget.Button({
+                on_clicked: () => {
+                    App.toggleWindow('resource');
                 },
+                child:Widget.Label({
+                    class_name: 'icon',
+                    label: updateBatteryIcon(),
+                    setup: self => { self
+                        .hook(Battery, (self) => {
+                            self.label = updateBatteryIcon();  
+                        }); 
+                    },
+                }), 
             }),
             Widget.Revealer({
                 reveal_child: false,
@@ -71,7 +76,7 @@ const updateBatteryIcon = () => {
     */
     const selectedIcons = bcharging ? icons.charging : icons.notCharging;
     /* 
-    here, icon is set to 'Unknown' at default.
+    here, icon is set to 'N/A' at default.
     the for statement, we loop range through each number specified
     in the selectedIcons object.
     then, we check bpercent if its less than or equal to the 

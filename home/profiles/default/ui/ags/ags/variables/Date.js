@@ -1,5 +1,5 @@
 import Glib from 'gi://GLib';
-import { Widget, Utils } from '../utils/imports.js';
+import { App, Widget, Utils } from '../utils/imports.js';
 
 /* const currentTime = Glib.DateTime.new_now_local(); */
 
@@ -16,18 +16,25 @@ export default ({
     },
     child: Widget.Box({
         children: [
-            Widget.Label({
-                class_name: `${class_name}`,
-                ...rest,
-                /*
-                setup: self => self.poll(interval, () => {
-                const formattedTime = currentTime.format(format) || 'wrong format';
-                self.label = `${formattedTime}`;
-                }) 
-                */
-                setup: self => self.poll(interval, self => Utils.execAsync(['date', '+%H:%M'])
-                    .then(date => self.label = date)),
-                  
+            Widget.Button({
+                on_clicked: () => {
+                    App.toggleWindow('calendar');
+                },
+                on_secondary_click: () => {
+                    App.closeWindow('calendar');
+                },
+                child: Widget.Label({
+                    class_name: `${class_name}`,
+                    ...rest,
+                    /*
+                    setup: self => self.poll(interval, () => {
+                    const formattedTime = currentTime.format(format) || 'wrong format';
+                    self.label = `${formattedTime}`;
+                    }) 
+                    */
+                    setup: self => self.poll(interval, self => Utils.execAsync(['date', '+%H:%M'])
+                        .then(date => self.label = date)),
+                })
             }),
             Widget.Revealer({
                 reveal_child: false,

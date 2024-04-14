@@ -1,4 +1,4 @@
-{config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.dconf.enable = true;
@@ -14,6 +14,7 @@
   ];
   
   virtualisation = {
+    waydroid.enable = true;
     libvirtd = {
       enable = true;
       qemu = {

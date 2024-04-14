@@ -2,6 +2,7 @@ import WirelessSys from './modules/WirelessSys.js';
 import BatterySys from './modules/BatterySys.js';
 import ClockSys from './modules/ClockSys.js';
 import WeatherSys from './modules/WeatherSys.js';
+import Bluez from './modules/Bluez.js';
 import { Widget, SystemTray } from '../../utils/imports.js';
 import Gdk from 'gi://Gdk?version=3.0';
 
@@ -24,6 +25,7 @@ export const SystemLeft = () => Widget.Box({
     children: [
         WeatherSys(),
         BatterySys(),
+        Bluez(),
         WirelessSys(),
         
     ],

@@ -12,10 +12,10 @@ export default () => Widget.EventBox({
         children: [
             Widget.Button({
                 on_primary_click: () => {
-                    App.toggleWindow('applauncher');
+                    App.toggleWindow('control');
                 },
                 on_secondary_click: () => {
-                    App.closeWindow('applauncher');
+                    App.closeWindow('control');
                 },
                 child: Widget.Icon({
                     class_name: 'profile',
