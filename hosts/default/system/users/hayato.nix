@@ -11,6 +11,7 @@
       extraGroups = [
         "wheel" 
 	      "networkmanager" 
+        "wireshark"
 	      "admin"
 	      "adbusers"
 	      "input"
@@ -21,15 +22,6 @@
       ];
 
       shell = pkgs.zsh;
-    };
-  };
-  services.openssh = {
-    enable = true; #true;
-    settings = {
-      # Forbid root login through SSH.
-      PermitRootLogin = "no";
-      # Use keys only. Remove if you want to SSH using password (not recommended)
-      PasswordAuthentication = false;
     };
   };
 }

@@ -1,0 +1,50 @@
+/* WORKSPACES */
+.static_cat {
+    margin: 0px 5px 0px 15px;
+}
+
+.ws_container {
+    margin: 9px 0px;
+    border-radius: 15px;
+    background-color: $default_bg;
+
+    .ws_button{
+        transition: all 200ms;
+        padding: 0px 10px;
+        &.occupied {
+            background-color: $default_fg;
+            border-top: 1px solid $default_bg;
+            border-bottom: 1px solid $default_bg;
+
+            &.occupied-left {
+                border-bottom-left-radius: 1rem;
+                border-top-left-radius: 1rem;
+                border-left: 1px solid $default_bg;
+            }
+
+            &.occupied-right {
+                border-bottom-right-radius: 1rem;
+                border-top-right-radius: 1rem;
+                border-right: 1px solid $default_bg;
+            }
+        }
+
+        &:not(.occupied) {
+            border-radius: 1rem;
+        }
+
+        &.active {
+            .ws-button-label {
+                background-color: $default_fg;
+                color: $white;
+                border-radius: 1rem;
+            }
+        }
+
+        .ws-button-label {
+            min-width: 2rem;
+        }
+
+    }
+     
+}

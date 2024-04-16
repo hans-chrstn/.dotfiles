@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ inputs, pkgs, ...}:
 
 {
   nixpkgs = {
@@ -17,6 +17,8 @@
     #obsidian
 
     #nur.repos.iagocq.ultimmc
+    # GAMES
+    inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
 
     # RUST OVERLAY
     rust-bin.stable.latest.default
@@ -35,7 +37,6 @@
     wayland-protocols
     hyprpicker
     hyprshot
-    fuzzel
     neofetch
     btop
     cava
