@@ -29,6 +29,11 @@
       url = "github:nix-community/NUR";
     };
 
+    prismlauncher = {
+      url = "github:julcioo/PrismLauncher-Cracked";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # OVERLAYS
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -101,6 +106,12 @@
           ./hosts/default/system/default.nix
         ];
       };
+      exploit = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/exploit/system/default.nix
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -109,6 +120,13 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home/profiles/default/default.nix
+        ];
+      };
+      exploit = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home/profiles/exploit/default.nix
         ];
       };
     };

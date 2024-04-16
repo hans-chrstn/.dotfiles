@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,6 +7,5 @@
     ./neovim
     ./spicetify
     ./nix-index
-    ./vscode
   ];
 }
