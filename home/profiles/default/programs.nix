@@ -10,11 +10,21 @@
 
   home.packages = with pkgs; [
     libreoffice-qt
-    zulu8
     telegram-desktop
     github-desktop
     webcord-vencord
     #obsidian
+    #lightworks
+    protonvpn-gui
+
+    glxinfo
+
+
+    # DOWNLOADS PUBLIC GOOGLE DRIVE STUFF
+    gdown
+
+    # JAVA
+    zulu
 
     #nur.repos.iagocq.ultimmc
     # GAMES
@@ -50,6 +60,8 @@
     lutris
     protontricks
     cartridges
+    heroic
+    gogdl
 
     # TIME
     tenki

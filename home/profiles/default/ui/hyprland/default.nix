@@ -28,6 +28,10 @@
 
       bindl = [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioStop, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
       ];
 
       bindel = [
@@ -37,6 +41,12 @@
       ];
 
       bind = [
+          ", XF86HomePage, split:workspace, 1"
+          ", XF86Mail, exec, spotify"
+          ", Pause, exec, floorp"
+          ", Scroll_Lock, exec, pokemmo"
+          ", Menu, exec, $terminal"
+
           "$mainMod, Print, exec, hyprshot -m region"
           "$mainMod SHIFT, Print, exec, hyprshot -m window"
           "$mainMod ALT, Print, exec, hyprshot -m output"
@@ -67,8 +77,8 @@
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
+          "$mainMod, mouse_down, split:workspace, e+1"
+          "$mainMod, mouse_up, split:workspace, e-1"
 
           "ALT, Tab, cyclenext"
           "ALT Shift, Tab, cyclenext, prev"
@@ -256,6 +266,8 @@
 
       exec-once = [
         "bash ~/.dotfiles/home/profiles/default/ui/hyprland/config/start.sh"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
+        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
         ];
     };
   };

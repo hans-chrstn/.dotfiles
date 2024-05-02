@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-   boot = {
-     supportedFilesystems = ["ntfs"];
+  boot = {
+    supportedFilesystems = ["ntfs"];
+
+    kernelModules = [
+        "acpi_call"
+    ];
+
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
     kernel.sysctl = {
       "vm.swappiness" = 60;  #default = 60

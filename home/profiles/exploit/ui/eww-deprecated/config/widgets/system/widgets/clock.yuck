@@ -1,0 +1,38 @@
+(defvar showsundial false)
+(defwidget clock []
+           (box :class "sys_clock"
+                (eventbox :cursor "pointer"
+                          :onclick "eww open moment --toggle"
+                          :onhoverlost "${EWW_CMD} update showsundial=false"
+                          :onhover "${EWW_CMD} update showsundial=true"
+                          (box :space-evenly false
+                               :class "sys_clock_box"
+                               (label :text "${formattime(EWW_TIME, '%H')}:${formattime(EWW_TIME, '%M')}"
+                                      :class "sys_show_clock_text")
+                               (revealer :reveal showsundial 
+                                         :transition "slideleft"
+                                         :duration "1000ms" 
+                                         (box :space-evenly false 
+                                              :class "sys_show_sundial"
+                                              (button :onclick ""
+                                                      (sundial :hour {formattime(EWW_TIME, '%H')}
+                                                               :min {formattime(EWW_TIME, '%M')}
+                                                               :default ""))))))))
+
+
+(defwidget sundial [ hour min default]
+  (label :class "sundial_lbl" :halign "end" :hexpand true
+         :text {hour >= 1 && hour < 5 ? "Dawn" :
+                hour == 5 && hour < 7 ? "Morning" :
+                  hour >= 7 && hour < 11 ? "Early Morning" :
+                    hour >= 11 && hour < 12 ? "Late Morning" :
+                      hour == 12 && min <= 29 ? "Midday" :
+                        hour == 12 && min >= 30 ? "Afternoon" :
+                          hour >= 13 && hour < 16 ? "Early Afternoon" :
+                            hour == 16 && min <= 59 ? "Late Afternoon" :
+                              hour >= 17 && hour < 19 ? "Evening" :
+                                hour >= 19 && hour < 21 ? "Early Evening" :
+                                  hour >= 21 && hour <= 23 ? "Late Evening" :
+                                    hour == 0 && min <= 59 ? "Midnight" :
+                                      default}))
+        

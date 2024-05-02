@@ -31,9 +31,8 @@ export default () => Widget.EventBox({
                 transition: 'slide_left',
                 transitionDuration: 1000,
                 child: Widget.Button({
-                    
-                    on_secondary_click: () => {
-                        Utils.execAsync(['bluetooth', 'off']);
+                    on_clicked: () => {
+                        Utils.execAsync('blueman-manager');
                     },
                     child: Widget.Label({
                         label: Bluetooth.bind('name').transform(bn => bn || 'N/A'),

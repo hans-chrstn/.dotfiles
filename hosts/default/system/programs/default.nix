@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./programs.nix
     ./steam.nix
     ./zsh.nix
     ./overlays.nix

@@ -1,0 +1,26 @@
+(defvar showwifi false)
+(defwidget wifi []
+           (eventbox :onhover "${EWW_CMD} update showwifi=true"
+                     :onhoverlost "${EWW_CMD} update showwifi=false"
+                     (box :vexpand false :hexpand false :space-evenly false
+                          (network :strength net 
+                                   :offline "󰤫" 
+                                   :excellent "󰤨" 
+                                   :good "󰤢"
+                                   :okay "󰤢" 
+                                   :slow "󰤟")
+                          (revealer :reveal showwifi
+                                    :transition "slideright"
+                                    :duration "1000ms"
+                                    (label :class "sys_show_net"
+                                           :text ESSID_WLAN)))))
+
+(defwidget network [strength offline excellent good okay slow]
+           (box :class "sys_net_box"
+                :space-evenly false
+                (label :class "sys_show_net_text" 
+                       :text {strength == "" ? offline :
+                                              strength < 26 ? slow :
+                                                strength < 51 ? okay :
+                                                    strength < 76 ? good : 
+                                                      excellent})))

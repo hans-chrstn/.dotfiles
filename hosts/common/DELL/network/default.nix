@@ -26,7 +26,7 @@
     };
 
     firewall = {
-      enable = true;
+      enable = false;
     };
     #nftables.enable = true;
   };
