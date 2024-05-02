@@ -102,7 +102,6 @@
     overlays = import ./overlays {inherit inputs;};
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
-    devShells.default = forAllSystems (system: import ./shell.nix nixpkgs.legacyPackages.${system});
 
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
