@@ -14,7 +14,7 @@
       #MESA_GL_VERSION_OVERRIDE = "4.5";
       GBM_BACKEND = "iHD";
       XDG_SESSION_TYPE = "wayland";
-      GDK_BACKEND = "wayland";
+      #GDK_BACKEND = "wayland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
       MOZ_ENABLE_WAYLAND = "1";

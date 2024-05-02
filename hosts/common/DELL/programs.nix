@@ -6,6 +6,7 @@
     #inputs.nix-inspect.packages.${pkgs.system}.default
 
     # PKG UTILS
+    openssl
     acpi
     pciutils
     glib-networking
@@ -39,8 +40,6 @@
     file
     libglvnd
     libwebp
-    mesa
-    libdrm
     libxkbcommon
     cmake
     upower
@@ -51,7 +50,7 @@
     gtk-layer-shell
     gtk3
     gtk4
-    nodejs_21
+    nodejs
     typescript
     meson
     dart-sass
@@ -93,7 +92,7 @@
     ffmpeg
 
     # BROWSER
-    floorp
+    #floorp
 
     # COMPRESS & ARCHIVE TOOLS
     unzip

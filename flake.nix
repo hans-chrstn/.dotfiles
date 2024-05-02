@@ -11,6 +11,11 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    nix-snapd = {
+      url = "github:io12/nix-snapd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,8 +1,0 @@
-#in flake directory, it calls outs nixosConfigurations in flake.nix
-sudo nixos-rebuild switch --flake .#
-#near flake as well, this calls out the homeConfigurations in flake.nix
-home-manager switch --flake .#
-
-#installs
-nix shell nixpkgs#home-manager
-
