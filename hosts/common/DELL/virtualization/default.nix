@@ -11,6 +11,12 @@
     spice-protocol
     win-virtio
     win-spice
+    libguestfs
+    dmg2img
+    tesseract
+    cdrtools
+    nettools
+    screen
   ];
   
   virtualisation = {

@@ -1,6 +1,14 @@
 { ... }:
 
 {
+
+  # REBUILD
+  nix.settings = {
+      cores = 4;
+      max-jobs = 4;
+  };
+
+
   # Microcodes for Intel
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -54,7 +62,7 @@
       CPU_DRIVER_OPMODE_ON_BAT="active"; # active or passive
 
       CPU_SCALING_GOVERNOR_ON_AC="performance"; # performance or powersave
-      CPU_SCALING_GOVERNOR_ON_BAT="powersave"; # performance or powersave
+      CPU_SCALING_GOVERNOR_ON_BAT="performance"; # performance or powersave
 
       # DO NOT USE ON ACTIVE OPMODE. USE CPU_MIN/MAX_PERF INSTEAD
       #CPU_SCALING_MIN_FREQ_ON_AC=500;   # Set minimum frequency to 800 MHz on AC power
@@ -64,14 +72,14 @@
       
 
       CPU_ENERGY_PERF_POLICY_ON_AC="performance"; # performance, balance_performance, default, balance_power, power
-      CPU_ENERGY_PERF_POLICY_ON_BAT="power"; # performance, balance_performance, default, balance_power, power
+      CPU_ENERGY_PERF_POLICY_ON_BAT="performance"; # performance, balance_performance, default, balance_power, power
 
       CPU_MIN_PERF_ON_AC=0; # based on 0 - 100%
       CPU_MAX_PERF_ON_AC=100; # based on 0 - 100%
       CPU_MIN_PERF_ON_BAT=0; # based on 0 - 100%
-      CPU_MAX_PERF_ON_BAT=70; # based on 0 - 100%
+      CPU_MAX_PERF_ON_BAT=80; # based on 0 - 100%
 
-      # WIFI powermanagemeny  
+      # WIFI powermanagement  
       WIFI_PWR_ON_AC="off";
       WIFI_PWR_ON_BAT="off";
       # Wake on lan (WOL) 
@@ -88,7 +96,7 @@
 
       # PCIe ASPM
       PCIE_ASPM_ON_AC="performance"; # default, performance, powersave, powersupersave
-      PCIE_ASPM_ON_BAT="powersupersave";
+      PCIE_ASPM_ON_BAT="performance";
 
       # MUST BE ON ACTIVE MODE TO ENABLE
       CPU_HWP_DYN_BOOST_ON_AC=1; # 0 or 1

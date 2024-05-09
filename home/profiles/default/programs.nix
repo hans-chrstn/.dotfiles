@@ -10,11 +10,11 @@
 
   home.packages = with pkgs; [
     libreoffice-qt
-    telegram-desktop
-    github-desktop
-    webcord-vencord
+    #telegram-desktop
+    #github-desktop
+    #webcord-vencord
     #obsidian
-    #lightworks
+    lightworks
     protonvpn-gui
 
     glxinfo
@@ -55,8 +55,8 @@
     obs-studio
 
     # GAMING
-    winetricks
-    wineWowPackages.waylandFull
+    #winetricks
+    wineWowPackages.unstable
     lutris
     protontricks
     cartridges

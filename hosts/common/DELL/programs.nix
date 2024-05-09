@@ -5,7 +5,16 @@
     # FLAKED
     #inputs.nix-inspect.packages.${pkgs.system}.default
 
+    # DEV ENV
+    python3Full
+    nodejs
+    nodePackages.sass
+    typescript
+
     # PKG UTILS
+    fd
+    shellcheck
+    ripgrep
     openssl
     acpi
     pciutils
@@ -50,8 +59,6 @@
     gtk-layer-shell
     gtk3
     gtk4
-    nodejs
-    typescript
     meson
     dart-sass
     eza
@@ -78,7 +85,7 @@
     yt-dlp
 
     # USB BOOT
-    ventoy
+    ventoy-full
 
     # DELL
     dell-command-configure
