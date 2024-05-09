@@ -41,7 +41,7 @@
 
     # OVERLAYS
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
     };
 
     xdg-desktop-portal-hyprland = {
