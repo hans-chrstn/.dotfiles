@@ -35,6 +35,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    spicetify-nix-darwin = {
+      url = "github:Believer1/spicetify-nix";
+    };
+
     ags = {
       url = "github:Aylur/ags";
     };
