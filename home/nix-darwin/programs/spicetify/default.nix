@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, outputs, ... }:
+{ pkgs, lib, inputs, ... }:
 let
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in
@@ -14,7 +14,9 @@ in
   # configure spicetify :)
   programs.spicetify =
     {
-      enable = false;
+      enable = true;
+      #theme = spicePkgs.themes.Bloom;
+      #colorScheme = "dark";
 
       enabledCustomApps = with spicePkgs.apps; [
        marketplace
