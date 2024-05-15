@@ -4,6 +4,9 @@
   nixConfig = {
     extra-substituters = [ "https://cache.garnix.io" ];
     extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    substituers = [
+      "https://cache.nixos.org"
+    ];
   };
 
   inputs = {
@@ -13,6 +16,12 @@
 
     nix-snapd = {
       url = "github:io12/nix-snapd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix-Darwin
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,97 +49,94 @@
     };
 
     # OVERLAYS
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
-    };
+    #hyprland = {
+    #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
+    #};
 
-    xdg-desktop-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-    };
-
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    hyprlang = {
-      url = "github:hyprwm/hyprlang";
-    };
+    #hyprsplit = {
+    #  url = "github:shezdy/hyprsplit";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
 
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-    };
-
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-    };
-
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-    };
-
-    hyprcursor = {
-      url = "github:hyprwm/hyprcursor";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    nix-darwin,
     ...
   } @ inputs: let
     inherit (self) outputs;
-    systems = [ 
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
+    # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
     overlays = import ./overlays {inherit inputs;};
+    # These are usually stuff you would upstream into nixpkgs
     nixosModules = import ./modules/nixos;
+    # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
-    nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/default/system/default.nix
+    darwinConfigurations = {
+      "nix-darwin" = nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit inputs outputs; };
+        modules = [ 
+          ./hosts/nix-darwin/default.nix
+
         ];
       };
+    };
+
+    nixosConfigurations = {
+      hayato = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/hayato/default.nix
+        ];
+      };
+
       exploit = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./hosts/exploit/system/default.nix
+          ./hosts/exploit/default.nix
         ];
       };
     };
 
     homeConfigurations = {
-      default = home-manager.lib.homeManagerConfiguration {
+      hayato = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home/profiles/default/default.nix
+          ./home/hayato/default.nix
         ];
       };
-      exploit = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
+
+      "nix-darwin" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+        extraSpecialArgs = { inherit inputs outputs; };
         modules = [
-          ./home/profiles/exploit/default.nix
+          ./home/nix-darwin/default.nix
         ];
       };
     };
