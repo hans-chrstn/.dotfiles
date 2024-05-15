@@ -2,7 +2,6 @@
 {
 
   imports = [
-    ./spicetify
     ./git
   ];
 }
