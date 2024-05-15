@@ -1,8 +1,0 @@
-(defwidget qs-dash []
-           (box :orientation "v" :spacing 20
-                (box :class "qs-dash" :orientation "v" :space-evenly false :spacing 10
-                       (eventbox :class "hypr-reload"
-                                 :onclick "hyprctl reload"
-                                 :cursor "pointer"
-                                 (label :text " 󰑓 ")))))
-                       

@@ -1,0 +1,8 @@
+{ ... }:
+
+{
+  imports = [
+    ./git
+    ./spicetify
+  ];
+}
