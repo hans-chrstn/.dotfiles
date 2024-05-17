@@ -48,14 +48,10 @@
     hyprpicker
     hyprshot
     neofetch
-    btop
-    cava
-
-    # SCREEN RECORD
-    obs-studio
+    lf
 
     # GAMING
-    #winetricks
+    winetricks
     wineWowPackages.unstable
     lutris
     protontricks
