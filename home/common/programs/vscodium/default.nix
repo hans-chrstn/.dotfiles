@@ -13,6 +13,7 @@
     userSettings = {
       "workbench.colorTheme" = "Catppuccin Mocha";
       "window.menuBarVisibility" = "toggle";
+      "workbench.startupEditor" = "none";
     };
   };
 }

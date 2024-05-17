@@ -14,6 +14,7 @@
     ./programs/hyprland
     ./programs/neofetch
     ./programs/nix-index
+    ./programs/vscodium
   ];
 
 }
