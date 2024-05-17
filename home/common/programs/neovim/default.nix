@@ -25,10 +25,8 @@
 
   xdg.configFile = {
     "nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/profiles/default/programs/neovim/config/";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/neovim/config/";
     };
-
-
   };
 
 }

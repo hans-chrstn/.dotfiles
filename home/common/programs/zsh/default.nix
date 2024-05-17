@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
 
-  home.file.".config/fsh" = {
-    source = ./fsh;
+  xdg.configFile."fsh" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/zsh/fsh/";
   };
 
   programs.zsh = {
@@ -47,8 +47,8 @@
        src = pkgs.fetchFromGitHub {
          owner = "Aloxaf";
          repo = "fzf-tab";
-         rev = "bf3ef5588af6d3bf7cc60f2ad2c1c95bca216241";
-         sha256 = "0hv21mp6429ny60y7fyn4xbznk31ab4nkkdjf6kjbnf6bwphxxnk";
+         rev = "c7fb028ec0bbc1056c51508602dbd61b0f475ac3";
+         sha256 = "061jjpgghn8d5q2m2cd2qdjwbz38qrcarldj16xvxbid4c137zs2";
        };
       }
     ];

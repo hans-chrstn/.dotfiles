@@ -4,5 +4,6 @@
   imports = [
     ./git
     ./spicetify
+    ./vscode
   ];
 }
