@@ -9,5 +9,10 @@
       catppuccin.catppuccin-vsc
       vscodevim.vim
     ];
+
+    userSettings = {
+      "workbench.colorTheme" = "Catppuccin Mocha";
+      "window.menuBarVisibility" = "toggle";
+    };
   };
 }
