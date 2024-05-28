@@ -9,6 +9,7 @@
     ./thunar.nix
     ./neovim.nix
     ./hyprland.nix
+    ./wireshark.nix
 
   ];
 
