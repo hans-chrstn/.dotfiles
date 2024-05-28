@@ -14,6 +14,7 @@
     ./drivers
     ./core
     ./virtualization
+    ./users
   ];
 
   # REMOVES UNNECESSARY PREINSTALLED PKGS

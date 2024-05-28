@@ -52,15 +52,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # OVERLAYS
-    #hyprland = {
-    #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
-    #};
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
+    };
 
-    #hyprsplit = {
-    #  url = "github:shezdy/hyprsplit";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     hyprlock = {
       url = "github:hyprwm/hyprlock";
@@ -116,13 +115,6 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/hayato/default.nix
-        ];
-      };
-
-      exploit = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/exploit/default.nix
         ];
       };
     };

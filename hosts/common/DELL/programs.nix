@@ -10,6 +10,13 @@
     nodejs
     nodePackages.sass
     typescript
+    clang-tools
+
+    qt6.full
+
+    # LANG
+    ibus
+    ibus-engines.hangul
 
     # PKG UTILS
     fd

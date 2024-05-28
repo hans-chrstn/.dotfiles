@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./opengl.nix
+    ./firmware.nix
 
   ];
 

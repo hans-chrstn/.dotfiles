@@ -4,22 +4,22 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = ["--all"];
-    #plugins = [
-    #  inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
-    #];
+    plugins = [
+      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+    ];
     settings = {
       "$mainMod" = "SUPER";
       "$menu" = "ags -t applauncher";
       "$fileManager" = "kitty -e lf";
       "$terminal" = "kitty";
 
-      #plugin = {
-      #  hyprsplit = {
-      #    "count" = "10"; 
-      #  };
-      #};
+      plugin = {
+        hyprsplit = {
+          "count" = "10"; 
+        };
+      };
 
       bindm = [
           "$mainMod, mouse:272, movewindow"
@@ -41,8 +41,8 @@
       ];
 
       bind = [
-          #", XF86HomePage, split:workspace, 1"
-          ", XF86HomePage, workspace, 1"
+          ", XF86HomePage, split:workspace, 1"
+          #", XF86HomePage, workspace, 1"
           ", XF86Mail, exec, spotify"
           ", Pause, exec, floorp"
           ", Scroll_Lock, exec, pokemmo"
@@ -78,10 +78,10 @@
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
-          #"$mainMod, mouse_down, split:workspace, e+1"
-          #"$mainMod, mouse_up, split:workspace, e-1"
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
+          "$mainMod, mouse_down, split:workspace, e+1"
+          "$mainMod, mouse_up, split:workspace, e-1"
+          #"$mainMod, mouse_down, workspace, e+1"
+          #"$mainMod, mouse_up, workspace, e-1"
 
 
           "ALT, Tab, cyclenext"
@@ -118,13 +118,13 @@
             in
               builtins.toString (x + 1 - (c * 10));
           in [
-            #"$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
-            #"$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
-            #"$mainMod ALT, ${ws}, split:movetoworkspacesilent, ${toString (x + 1)}"
-            #"$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
-            #"$mainMod ALT, T, split:grabroguewindows"
-            "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-            "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+            "$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
+            "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
+            "$mainMod ALT, ${ws}, split:movetoworkspacesilent, ${toString (x + 1)}"
+            "$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
+            "$mainMod ALT, T, split:grabroguewindows"
+            #"$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+            #"$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
 
           ]
         )
@@ -141,10 +141,10 @@
       ];
 
       input = {
-        "kb_layout" = "us";
+        "kb_layout" = "us, kr";
         "kb_variant" = "";
         "kb_model" = "";
-        "kb_options" = "";
+        "kb_options" = "grp:win_space_toggle";
         "kb_rules" = "";
         "numlock_by_default" = "true";
         "follow_mouse" = "1";
