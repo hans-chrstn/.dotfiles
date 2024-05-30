@@ -23,7 +23,7 @@
     { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
       options = [
-	"umask=0077"
+	      "umask=0077"
       ]; 
     };
   #ad901ac7-d9be-4d19-b397-99498257e037
