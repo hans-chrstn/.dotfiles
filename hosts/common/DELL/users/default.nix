@@ -2,8 +2,8 @@
 
 {
   environment.sessionVariables = {
-    EDITOR = "lvim";
-    VISUAL = "lvim";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
   users.users = {
     hayato = {

@@ -19,7 +19,7 @@
 
     initExtra = ''
       source ~/.dotfiles/home/common/programs/zsh/config/.p10k.zsh
-      export EDITOR=lvim
+      export EDITOR=nvim
       export VISUAL="$EDITOR"
       export FZF_DEFAULT_OPTS=" \
       --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \

@@ -31,7 +31,7 @@
     username = "hayato";
     homeDirectory = "/home/hayato";
     sessionVariables = {
-      EDITOR = "lvim";
+      EDITOR = "nvim";
     };
   };
 
