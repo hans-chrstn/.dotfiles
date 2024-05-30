@@ -287,27 +287,27 @@
 #    zmap
 
     # PASSWORD | HASHING
-#    chntpw
-#    crowbar
-#    authoscope
-#    bruteforce-luks
-#    brutespray
-#    crunch
-#    h8mail
-#    hashcat
-#    hashcat-utils
-#    hashdeep
-#    john
-#    hcxtools
-#    legba
-#    medusa
-#    nasty
-#    ncrack
-#    nth
-#    phrasendrescher
-#    python3Packages.patator
-#    thc-hydra
-#    truecrack
+    chntpw
+    crowbar
+    authoscope
+    bruteforce-luks
+    brutespray
+    crunch
+    h8mail
+    hashcat
+    hashcat-utils
+    hashdeep
+    john
+    hcxtools
+    legba
+    medusa
+    nasty
+    ncrack
+    nth
+    phrasendrescher
+    python3Packages.patator
+    thc-hydra
+    truecrack
 
     # PACKET GEN
 #    boofuzz
