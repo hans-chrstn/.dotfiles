@@ -42,8 +42,8 @@
 
       # REMOTE
       RUST_BACKTRACE="1";
-      EDITOR = "lvim";
-      VISUAL = "lvim";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
   };
 }

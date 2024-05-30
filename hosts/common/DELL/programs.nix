@@ -14,10 +14,6 @@
 
     qt6.full
 
-    # LANG
-    ibus
-    ibus-engines.hangul
-
     # PKG UTILS
     fd
     shellcheck
@@ -115,7 +111,7 @@
     atool
 
     # EDITOR | EXTRAPKGS
-    lunarvim
+    #lunarvim
     xclip
     wl-clipboard
 
