@@ -14,8 +14,6 @@
     extraPackages = with pkgs; [
       xclip
       wl-clipboard
-      lua-language-server
-      stylua
     ];
 
     plugins = with pkgs.vimPlugins; [

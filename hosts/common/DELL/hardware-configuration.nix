@@ -8,27 +8,72 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "uas" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.initrd.luks.devices."enc" = {
+    device = "/dev/sda1";
+    preLVM = true;
+  };
 
-  #a52d1b39-1dfb-440d-bd93-6c05864906ee
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
+      fsType = "btrfs";
+      options = [ "subvol=root" "compress=zstd" "noatime" ];
     };
-  #B948-7C10
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=home" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/snap" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=snap" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=nix" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/lib/libvirt" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=libvirt" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/lib/snapd" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=varlibsnapd" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/snap" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=varsnap" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=log" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
-      options = [
-	      "umask=0077"
-      ]; 
+      options = [ "umask=0077" ];
     };
-  #ad901ac7-d9be-4d19-b397-99498257e037
+
   swapDevices =
-    [ 
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -41,4 +86,8 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nix.settings.max-jobs = lib.mkDefault 4;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # High-DPI console
+  console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
 }

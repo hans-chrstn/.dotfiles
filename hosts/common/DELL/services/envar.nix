@@ -4,6 +4,7 @@
   environment = {
     localBinInPath = true;
     variables = {
+      LIBVIRTD_ARGS="";
       NIXOS_CONFIG_DIR = "$HOME/.dotfiles/";
       NIXPKGS_ALLOW_INSECURE = "1";
       NIXPKGS_ALLOW_UNFREE = "1";

@@ -19,7 +19,6 @@
 
     glxinfo
 
-
     # DOWNLOADS PUBLIC GOOGLE DRIVE STUFF
     gdown
 
@@ -48,7 +47,6 @@
     hyprpicker
     hyprshot
     neofetch
-    lf
 
     # GAMING
     winetricks
@@ -61,8 +59,5 @@
 
     # TIME
     tenki
-
-    # BROWSER
-    floorp
   ];
 }

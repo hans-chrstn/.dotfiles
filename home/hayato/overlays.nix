@@ -5,6 +5,7 @@
     inputs.rust-overlay.overlays.default
     inputs.hyprlock.overlays.default
     inputs.nur.overlay
+    inputs.hyprland.overlays.default
 
     # Add overlays your own flake exports (from overlays and pkgs dir):
     outputs.overlays.additions
