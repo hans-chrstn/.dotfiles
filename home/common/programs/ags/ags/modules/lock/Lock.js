@@ -37,7 +37,7 @@ const PowerMenu = () => Widget.EventBox({
 });
 
 const Lock = () => PowerButton({
-    on_clicked: () => Utils.execAsync(['hyprlock', '-c', '~/.dotfiles/home/common/programs/hyprland/config/hyprlock.conf']),
+    on_clicked: () => Utils.execAsync(['hyprlock', '-c', '/home/hayato/.dotfiles/home/common/programs/hyprland/config/hyprlock.conf']),
     label: ''
 });
 

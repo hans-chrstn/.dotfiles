@@ -3,6 +3,8 @@
   imports = [
     ./fonts
     ./programs/ags
+    ./programs/lazygit
+    ./programs/dconf
     ./programs/lf
     ./programs/obs
     ./programs/zsh
@@ -15,6 +17,7 @@
     ./programs/neofetch
     ./programs/nix-index
     ./programs/vscodium
+    ./programs/firefox
   ];
 
 }

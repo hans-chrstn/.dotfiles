@@ -11,6 +11,10 @@
     nodePackages.sass
     typescript
     clang-tools
+    clang
+    gcc
+    cl
+    zig
 
     qt6.full
 

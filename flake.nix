@@ -14,6 +14,11 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-snapd = {
       url = "github:io12/nix-snapd";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +42,11 @@
 
     spicetify-nix-darwin = {
       url = "github:Believer1/spicetify-nix";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ags = {

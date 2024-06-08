@@ -1,12 +1,24 @@
-{ inputs, ... }:
+{ inputs, outputs, ... }:
 {
-  /*
-    OVERLAYS ARE SOMETHING THAT GOES ABOVE A PACKAGE
-    IN SUMMARY, THIS OVERLAYS GO ABOVE THE PACKAGES I INSTALLED
-    IN RETURN I CAN USE NIGHTLY PKGS & BLEEDING EDGE UPDATES
-  */
-  nixpkgs.overlays = [
+
+   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
     inputs.hyprlock.overlays.default
-  ];
+    inputs.nur.overlay
+    inputs.hyprland.overlays.default
+
+    # Add overlays your own flake exports (from overlays and pkgs dir):
+    outputs.overlays.additions
+    outputs.overlays.modifications
+
+    # You can also add overlays exported from other flakes:
+    # neovim-nightly-overlay.overlays.default
+
+    # Or define it inline, for example:
+    # (final: prev: {
+    #   hi = final.hello.overrideAttrs (oldAttrs: {
+    #     patches = [ ./change-hello-to-hi.patch ];
+    #   });
+    # })
+  ]; 
 }
