@@ -1,5 +1,7 @@
 return {
   "folke/trouble.nvim",
   cmd = "Trouble",
-  opts = {},
+  config = function()
+    require("trouble").setup()
+  end
 }
