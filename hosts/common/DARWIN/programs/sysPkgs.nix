@@ -29,6 +29,7 @@
     eza
     bat
     code-minimap
+    w3m
     
     # EDITORS | EXTRA PKGS 
     neovim
@@ -48,6 +49,7 @@
 
     # TERMINAL 
     kitty
+    wezterm
 
     # FILE MANAGER
     lf

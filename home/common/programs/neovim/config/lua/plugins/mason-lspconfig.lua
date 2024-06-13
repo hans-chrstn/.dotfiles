@@ -1,5 +1,6 @@
 return {
   "williamboman/mason-lspconfig.nvim",
+  after = { "mason.nvim", "nvim-lspconfig" },
   config = function()
     require("mason-lspconfig").setup({
       ensure_installed = { 

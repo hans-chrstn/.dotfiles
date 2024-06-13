@@ -18,6 +18,7 @@
     ./programs/nix-index
     ./programs/vscodium
     ./programs/firefox
+    ./programs/wezterm
   ];
 
 }

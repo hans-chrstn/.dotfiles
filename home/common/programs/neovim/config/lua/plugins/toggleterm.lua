@@ -1,9 +1,11 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  cmd = "ToggleTerm",
+  event = "BufReadPost",
   config = function()
     local Terminal = require("toggleterm.terminal").Terminal
-    local lazygit = Terminal:new({ 
+    local lazygit = require("toggleterm.terminal").Terminal:new({ 
       cmd = "lazygit",
       hidden = true,
       direction = "float",
@@ -23,11 +25,11 @@ return {
       lazygit:toggle()
     end
 
-    vim.keymap.set("n", "<leader>oo", ":ToggleTerm name=$fx <CR>", {
+    vim.keymap.set("n", "<leader>oo", ":ToggleTerm <CR>", {
       noremap = true,
       silent = true,
     })
-    vim.keymap.set("n", "<leader>o0", ":ToggleTerm direction=vertical name=$fx <CR>", {
+    vim.keymap.set("n", "<leader>o0", ":ToggleTerm direction=vertical <CR>", {
       noremap = true,
       silent = true,
     })

@@ -12,8 +12,8 @@
     settings = {
       "$mainMod" = "SUPER";
       "$menu" = "ags -t applauncher";
-      "$fileManager" = "kitty -e lf";
-      "$terminal" = "kitty";
+      "$fileManager" = "wezterm start -- lf";
+      "$terminal" = "wezterm";
 
       plugin = {
         hyprsplit = {

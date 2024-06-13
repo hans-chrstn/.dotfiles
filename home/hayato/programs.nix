@@ -16,6 +16,7 @@
     obsidian
     lightworks
     protonvpn-gui
+    w3m
 
     glxinfo
 
@@ -49,9 +50,17 @@
     neofetch
 
     # GAMING
-    winetricks
-    wineWowPackages.unstable
-    lutris
+    (lutris.override {
+      extraPkgs = pkgs: [
+        jansson
+        winetricks
+        (wineWowPackages.full.override {
+          wineRelease = "staging";
+          mingwSupport = true;
+        })
+      ];
+    })
+    
     protontricks
     cartridges
     heroic
