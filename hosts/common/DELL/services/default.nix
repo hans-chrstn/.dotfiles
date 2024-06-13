@@ -13,6 +13,7 @@
     ./dbus.nix
     ./xdg.nix
     ./ssh.nix
+    ./samba.nix
   ];
 
  

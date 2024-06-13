@@ -15,6 +15,7 @@
     gcc
     cl
     zig
+    jansson
 
     qt6.full
 
@@ -87,6 +88,7 @@
     code-minimap
     pamixer
     libnotify
+    cifs-utils
 
     # DOWNLOADS YT MP4/MP3's
     yt-dlp
@@ -120,7 +122,8 @@
     wl-clipboard
 
     # TERMINALS
-    kitty
+    #kitty
+    wezterm
 
     # FILE MANAGER | EXTRAPKGS
     lf

@@ -83,9 +83,9 @@
       CPU_ENERGY_PERF_POLICY_ON_AC="performance"; # performance, balance_performance, default, balance_power, power
       CPU_ENERGY_PERF_POLICY_ON_BAT="performance"; # performance, balance_performance, default, balance_power, power
 
-      CPU_MIN_PERF_ON_AC=0; # based on 0 - 100%
+      CPU_MIN_PERF_ON_AC=40; # based on 0 - 100%
       CPU_MAX_PERF_ON_AC=100; # based on 0 - 100%
-      CPU_MIN_PERF_ON_BAT=0; # based on 0 - 100%
+      CPU_MIN_PERF_ON_BAT=40; # based on 0 - 100%
       CPU_MAX_PERF_ON_BAT=80; # based on 0 - 100%
 
       # WIFI powermanagement  

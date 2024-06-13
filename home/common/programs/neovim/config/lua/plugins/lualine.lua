@@ -1,9 +1,9 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  event = "VimEnter",
   config = function()
-    local trouble = require("trouble")
-    local symbols = trouble.statusline({
+    local symbols = require("trouble").statusline({
       mode = "lsp_document_symbols",
       groups = {},
       title = false,
