@@ -28,13 +28,13 @@
       DISABLE_QT5_COMPAT = "0";
       DIRENV_LOG_FORMAT = "";
       LIBSEAT_BACKEND = "logind";
+      NIXOS_OZONE_WL = "1";
       #QT_QPA_PLATFORM = "wayland";
       #QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
       #QT_QPA_PLATFORMTHEME = "qt5ct";
       #WLR_BACKEND = "vulkan";
       WLR_DRM_DEVICES = "/dev/dri/card1";
       #WLR_NO_HARDWARE_CURSORS = "1";
-      #NIXOS_OZONE_WL = "1";
       #WLR_DRM_NO_ATOMIC = "1";
       #WLR_RENDERER = "vulkan";
       #__GL_GSYNC_ALLOWED = "0";

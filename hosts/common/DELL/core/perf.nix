@@ -40,6 +40,7 @@
   # Performance
   powerManagement = {
     enable = true;
+    cpuFreqGovernor = "performance";
   };
 
   services.tlp = {
@@ -55,20 +56,20 @@
       # Kernel
       NMI_WATCHDOG=0;
       # FREQ GOV
-      INTEL_GPU_MIN_FREQ_ON_AC=500;
-      INTEL_GPU_MIN_FREQ_ON_BAT=500;
-      INTEL_GPU_MAX_FREQ_ON_AC=900;
-      INTEL_GPU_MAX_FREQ_ON_BAT=700;
-      INTEL_GPU_BOOST_FREQ_ON_AC=900;
-      INTEL_GPU_BOOST_FREQ_ON_BAT=700;
+      #INTEL_GPU_MIN_FREQ_ON_AC=500;
+      #INTEL_GPU_MIN_FREQ_ON_BAT=500;
+      #INTEL_GPU_MAX_FREQ_ON_AC=900;
+      #INTEL_GPU_MAX_FREQ_ON_BAT=700;
+      #INTEL_GPU_BOOST_FREQ_ON_AC=900;
+      #INTEL_GPU_BOOST_FREQ_ON_BAT=700;
       # DELL IS UPTO 1100 
 
       # not available on DELL laptop
       #PLATFORM_PROFILE_ON_AC="performance"; # performance, low-power, balanced
       #PLATFORM_PROFILE_ON_BAT="performance"; # performance, low-power, balanced
 
-      CPU_DRIVER_OPMODE_ON_AC="active"; # active or passive
-      CPU_DRIVER_OPMODE_ON_BAT="active"; # active or passive
+      #CPU_DRIVER_OPMODE_ON_AC="active"; # active or passive
+      #CPU_DRIVER_OPMODE_ON_BAT="active"; # active or passive
 
       CPU_SCALING_GOVERNOR_ON_AC="performance"; # performance or powersave
       CPU_SCALING_GOVERNOR_ON_BAT="performance"; # performance or powersave
@@ -83,16 +84,22 @@
       CPU_ENERGY_PERF_POLICY_ON_AC="performance"; # performance, balance_performance, default, balance_power, power
       CPU_ENERGY_PERF_POLICY_ON_BAT="performance"; # performance, balance_performance, default, balance_power, power
 
-      CPU_MIN_PERF_ON_AC=40; # based on 0 - 100%
+      #CPU_MIN_PERF_ON_AC=40; # based on 0 - 100%
+      #CPU_MAX_PERF_ON_AC=100; # based on 0 - 100%
+      #CPU_MIN_PERF_ON_BAT=40; # based on 0 - 100%
+      #CPU_MAX_PERF_ON_BAT=80; # based on 0 - 100%
+
+      CPU_MIN_PERF_ON_AC=0; # based on 0 - 100%
       CPU_MAX_PERF_ON_AC=100; # based on 0 - 100%
-      CPU_MIN_PERF_ON_BAT=40; # based on 0 - 100%
-      CPU_MAX_PERF_ON_BAT=80; # based on 0 - 100%
+      CPU_MIN_PERF_ON_BAT=0; # based on 0 - 100%
+      CPU_MAX_PERF_ON_BAT=100; # based on 0 - 100%
+
 
       # WIFI powermanagement  
-      WIFI_PWR_ON_AC="off";
-      WIFI_PWR_ON_BAT="off";
+      #WIFI_PWR_ON_AC="off";
+      #WIFI_PWR_ON_BAT="off";
       # Wake on lan (WOL) 
-      WOL_DISABLE="N"; # Y or N
+      #WOL_DISABLE="N"; # Y or N
 
 
       # TO HELL WITH BOOST
@@ -100,16 +107,16 @@
       CPU_BOOST_ON_BAT=0; # 0 or 1
 
       # power management for PCIe devices
-      RUNTIME_PM_ON_AC="on"; # on disables, auto enables
-      RUNTIME_PM_ON_BAT="auto"; # on disables, auto enables
+      #RUNTIME_PM_ON_AC="on"; # on disables, auto enables
+      #RUNTIME_PM_ON_BAT="auto"; # on disables, auto enables
 
       # PCIe ASPM
-      PCIE_ASPM_ON_AC="performance"; # default, performance, powersave, powersupersave
-      PCIE_ASPM_ON_BAT="performance";
+      #PCIE_ASPM_ON_AC="performance"; # default, performance, powersave, powersupersave
+      #PCIE_ASPM_ON_BAT="performance";
 
       # MUST BE ON ACTIVE MODE TO ENABLE
-      CPU_HWP_DYN_BOOST_ON_AC=1; # 0 or 1
-      CPU_HWP_DYN_BOOST_ON_BAT=1; # 0 or 1
+      #CPU_HWP_DYN_BOOST_ON_AC=1; # 0 or 1
+      #CPU_HWP_DYN_BOOST_ON_BAT=1; # 0 or 1
 
       # Save long term battery health (NOT SUPPORTED ON DELL)
       #START_CHARGE_THRESH_BAT0=40;

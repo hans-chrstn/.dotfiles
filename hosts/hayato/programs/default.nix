@@ -10,6 +10,7 @@
     ./neovim.nix
     ./hyprland.nix
     ./wireshark.nix
+    ./nix-ld.nix
 
   ];
 

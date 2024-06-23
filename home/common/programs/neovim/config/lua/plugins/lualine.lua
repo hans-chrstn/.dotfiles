@@ -13,16 +13,16 @@ return {
     })
     require("lualine").setup({
       options = {
-        theme = "dracula"
+        theme = "dracula",
       },
       sections = {
         lualine_c = {
           {
             symbols.get,
             cond = symbols.has,
-          }
-        }
+          },
+        },
       },
     })
-  end
+  end,
 }

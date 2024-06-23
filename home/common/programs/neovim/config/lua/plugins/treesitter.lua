@@ -1,13 +1,27 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  event = "BufRead",
-  config = function() 
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = { "cpp", "lua", "javascript" },
-      sync_install = false,
-      highlight = { enable = true },
-      indent = { enable = true },  
-    })
-  end
+	"nvim-treesitter/nvim-treesitter",
+	build = ":TSUpdate",
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			ensure_installed = {
+				"nix",
+				"vim",
+				"vimdoc",
+				"lua",
+				"javascript",
+				"cpp",
+				"c",
+				"python",
+				"bash",
+				"rust",
+				"typescript",
+				"cmake",
+				"css",
+				"scss",
+			},
+			sync_install = false,
+			highlight = { enable = true },
+			indent = { enable = true },
+		})
+	end,
 }

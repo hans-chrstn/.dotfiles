@@ -6,9 +6,16 @@
     #inputs.nix-inspect.packages.${pkgs.system}.default
 
     # DEV ENV
-    python3Full
+    (python3.withPackages(ps: with ps; [
+      pip
+      tkinter
+    ])) 
+    (lua.withPackages(ls: with ls; [
+      luarocks
+    ]))
     nodejs
     nodePackages.sass
+    eslint_d
     typescript
     clang-tools
     clang
@@ -113,23 +120,28 @@
     # COMPRESS & ARCHIVE TOOLS
     unzip
     p7zip
+    unrar
     wget
     atool
 
     # EDITOR | EXTRAPKGS
-    #lunarvim
     xclip
     wl-clipboard
+    tree-sitter
+    stylua
+    neovim
 
     # TERMINALS
     #kitty
     wezterm
+    konsole
 
     # FILE MANAGER | EXTRAPKGS
     lf
     zathura 
     ctpv
 
+    protonvpn-cli
   ];
 
 }
