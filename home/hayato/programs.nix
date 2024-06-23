@@ -15,7 +15,6 @@
     webcord-vencord
     obsidian
     lightworks
-    protonvpn-gui
     w3m
 
     glxinfo

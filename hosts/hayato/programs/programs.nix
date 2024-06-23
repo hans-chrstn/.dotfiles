@@ -6,6 +6,7 @@
     ifuse
     # GAMING
     winetricks
+    steam-run
     (lutris.override {
       extraPkgs = pkgs: [
         

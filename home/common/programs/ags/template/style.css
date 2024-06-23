@@ -1,0 +1,12 @@
+* {
+  all: unset;
+  font-family: SF Mono;
+  border-radius: 10px;
+}
+
+.bar_layout {
+  margin: 5px;
+  padding: 0px 2px;
+}
+
+/*# sourceMappingURL=style.css.map */

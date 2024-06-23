@@ -225,7 +225,7 @@
       };
 
       master = {
-        "new_is_master" = "true";
+        new_status = "master";
       };
 
       gestures = {

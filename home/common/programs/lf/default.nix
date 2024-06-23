@@ -157,6 +157,12 @@
         }}
       '';
 
+      unrar = ''
+        ''${{
+          unrar x $fx
+        }}
+      '';
+
       chmod = ''
         ''${{
           printf "Mode Bits: "
@@ -191,7 +197,8 @@
       "`" = "!true";
       ap = "p7z";
       at = "tar";
-      au = "extract";
+      ax = "extract";
+      au = "unrar";
       az = "zip";
       ch = "chmod";
       cc = "clear";

@@ -5,7 +5,7 @@ return {
   event = "BufWinEnter",
   priority = 1000,
   config = function()
-    vim.cmd('colorscheme catppuccin-mocha')
+    vim.cmd("colorscheme catppuccin-mocha")
     require("catppuccin").setup({
       --[[ term_colors = true,
       integrations = {
@@ -15,7 +15,7 @@ return {
         neotree = true,
         dashboard = true,
         bufferline = true,
-      } ]] 
+      } ]]
     })
-  end
+  end,
 }

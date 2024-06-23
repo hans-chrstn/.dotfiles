@@ -4,8 +4,7 @@ return {
   cmd = "ToggleTerm",
   event = "BufReadPost",
   config = function()
-    local Terminal = require("toggleterm.terminal").Terminal
-    local lazygit = require("toggleterm.terminal").Terminal:new({ 
+    local lazygit = require("toggleterm.terminal").Terminal:new({
       cmd = "lazygit",
       hidden = true,
       direction = "float",
@@ -21,11 +20,11 @@ return {
       end,
     })
 
-    function _lazygit_toggle()
+    function Lazygit_toggle()
       lazygit:toggle()
     end
 
-    vim.keymap.set("n", "<leader>oo", ":ToggleTerm <CR>", {
+    vim.keymap.set("n", "<leader>oo", ":ToggleTerm direction=horizontal <CR>", {
       noremap = true,
       silent = true,
     })
@@ -33,7 +32,7 @@ return {
       noremap = true,
       silent = true,
     })
-    vim.keymap.set("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", { 
+    vim.keymap.set("n", "<leader>gg", "<cmd>lua Lazygit_toggle()<CR>", {
       noremap = true,
       silent = true,
     })
@@ -48,5 +47,5 @@ return {
       autochdir = false,
       autoscroll = true,
     })
-  end
+  end,
 }
