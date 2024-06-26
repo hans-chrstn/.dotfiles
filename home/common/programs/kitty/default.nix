@@ -8,7 +8,7 @@
     };
     theme = "Catppuccin-Mocha";
     font = {
-      name = "SF Mono Regular";
+      name = "SF Mono Medium";
       size = 12.0;
     };
 
@@ -55,7 +55,7 @@
 
     settings = {
       bold_font = "SF Mono Bold";
-      italic_font = "SF Mono Regular Italic";
+      italic_font = "SF Mono Heavy Italic";
       bold_italic_font = "SF Mono Bold Italic";
       cursor_shape = "block";
       cursor_blink_interval = "0";
@@ -76,9 +76,9 @@
     };
 
     extraConfig = ''
-      font_features SFMono-Regular +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+      font_features SFMono-Medium +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
       font_features SFMono-Bold +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
-      font_features SFMono-RegularItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+      font_features SFMono-HeavyItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
       font_features SFMono-BoldItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
     '';
   };

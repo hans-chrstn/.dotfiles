@@ -12,8 +12,8 @@
     settings = {
       "$mainMod" = "SUPER";
       "$menu" = "ags -t applauncher";
-      "$fileManager" = "wezterm start -- lf";
-      "$terminal" = "wezterm";
+      "$fileManager" = "kitty -e lf";
+      "$terminal" = "kitty";
 
       plugin = {
         hyprsplit = {
@@ -109,6 +109,9 @@
           "$mainMod SHIFT, W, exec, ags -t bar0"
           "$mainMod ALT, W, exec, ags -t bar1"
           "$mainMod, R, exec, $menu"
+          
+          "$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
+          "$mainMod ALT, T, split:grabroguewindows"
       ]
       ++ (
         builtins.concatLists (builtins.genList (
@@ -121,8 +124,7 @@
             "$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
             "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
             "$mainMod ALT, ${ws}, split:movetoworkspacesilent, ${toString (x + 1)}"
-            "$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
-            "$mainMod ALT, T, split:grabroguewindows"
+
             #"$mainMod, ${ws}, workspace, ${toString (x + 1)}"
             #"$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
 

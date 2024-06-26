@@ -1,0 +1,31 @@
+.powermenu_box {
+  border-radius: 16px;
+  background-color: $default_bg;
+  padding: 12px;
+  margin-right: 15px;
+  margin-top: 10px;
+  min-width: 120px;
+  min-height: 50px;
+  .powermenu_shutdown {
+    
+  }
+  .powermenu_reboot {
+
+  }
+  .powermenu_logout {
+
+  }
+  .powermenu_lock {
+
+  }
+  .powermenu_suspend {
+
+  }
+}
+
+.powermenu_lock,
+.powermenu_reboot,
+.powermenu_logout,
+.powermenu_suspend,
+.powermenu_shutdown {
+}
