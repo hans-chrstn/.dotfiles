@@ -10,11 +10,12 @@ return {
     config = function()
       require("mason-tool-installer").setup({
         ensure_installed = {
-          "pylint",
           "eslint_d",
 
           "stylua",
           "prettier",
+          "black",
+          "isort",
 
           "lua-language-server",
           "rust-analyzer",
@@ -24,7 +25,6 @@ return {
           "typescript-language-server",
           "jdtls",
           "marksman",
-          "pyright",
           "nil",
           "bash-language-server",
         },
@@ -33,19 +33,40 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    event = { "BufRead", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("lspconfig").lua_ls.setup({})
-      require("lspconfig").rust_analyzer.setup({})
-      require("lspconfig").clangd.setup({})
-      require("lspconfig").cssls.setup({})
-      require("lspconfig").html.setup({})
-      require("lspconfig").tsserver.setup({})
-      require("lspconfig").jdtls.setup({})
-      require("lspconfig").marksman.setup({})
-      require("lspconfig").pyright.setup({})
-      require("lspconfig").nil_ls.setup({})
-      require("lspconfig").bashls.setup({})
+      local lspconfig = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities
+      })
+      lspconfig.clangd.setup({
+        capabilities = capabilities
+      })
+      lspconfig.cssls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.html.setup({
+        capabilities = capabilities
+      })
+      lspconfig.tsserver.setup({
+        capabilities = capabilities
+      })
+      lspconfig.jdtls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.marksman.setup({
+        capabilities = capabilities
+      })
+      lspconfig.nil_ls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.bashls.setup({
+        capabilities = capabilities
+      })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})

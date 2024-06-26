@@ -1,0 +1,36 @@
+.network_box {
+  background-color: $default_bg;
+  padding: 12px;
+  margin-left: 15px;
+  border-radius: 16px;
+  min-width: 120px;
+}
+
+.network_speed,
+.network_name,
+.network_icon,
+.network_internet {
+  color: $greyish;
+  font-family: Bebas Neue;
+}
+
+.network_icon {
+  font-size: 20px;
+}
+
+.network_internet {
+  margin-left: 14px;
+  font-size: 20px;
+}
+
+.network_name {
+  margin-top: 10px;
+  color: $bluish;
+}
+
+.network_name,
+.network_speed {
+  font-size: 16px;
+}
+
+

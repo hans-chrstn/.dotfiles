@@ -1,0 +1,37 @@
+.wb_box {
+  border-radius: 16px;
+  background-color: $default_bg;
+  padding: 12px;
+  margin-left: 15px;
+  min-width: 120px;
+}
+
+.weather_location_name,
+.weather_icon,
+.weather_temp,
+.weather_description,
+.weather_windspeed, 
+.weather_humidity {
+  color: $greyish;
+  font-family: Bebas Neue;
+}
+
+.weather_icon {
+  margin-bottom: 10px;
+  font-size: 45px;
+}
+
+.weather_temp {
+  font-size: 30px;
+  margin-left: 28px;
+}
+
+.weather_description {
+  color: $bluish;
+}
+
+.weather_description,
+.weather_windspeed,
+.weather_humidity {
+  font-size: 16px;
+}

@@ -1,0 +1,33 @@
+.wifimenu_box {
+  border-radius: 16px;
+  border: 2px solid $dark_bluish;
+  min-width: 300px;
+  min-height: 130px;
+  background-color: $default_bg;
+  margin-left: 330px;
+  margin-top: 105px;
+  padding: 10px;
+  .wifimenu_title {
+    font-family: Bebas Neue;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .wifimenu_close {
+    margin-bottom: 7px;
+    margin-right: 2px;
+  }
+
+  .wifimenu_scrollable {
+
+    .wifimenu_scrollable_box {
+      border-radius: 16px;
+      .wifimenu_ssid {
+
+      }
+      .wifimenu_check {
+
+      }
+    }
+  }
+}

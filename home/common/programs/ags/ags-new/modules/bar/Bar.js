@@ -1,4 +1,6 @@
-import { Widget } from './utils/imports.js';
+import { Widget } from '../../utils/imports.js';
+import Power from './Power.js';
+import Clock from './Clock.js';
 
 const Left = () => Widget.Box({
     class_name: 'left_bar',
@@ -15,6 +17,7 @@ const Center = () => Widget.Box({
     vertical: false,
     hpack: 'center',
     children: [
+      Clock(),
     ],
 });
 
@@ -24,6 +27,7 @@ const Right = () => Widget.Box({
     vertical: false,
     hpack: 'end',
     children: [
+      Power(),
     ],
 
 });

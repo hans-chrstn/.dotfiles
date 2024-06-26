@@ -19,6 +19,7 @@
     ./programs/vscodium
     ./programs/firefox
     ./programs/wezterm
+    ./programs/emacs
   ];
 
 }

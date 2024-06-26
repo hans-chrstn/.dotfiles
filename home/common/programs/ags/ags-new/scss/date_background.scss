@@ -1,0 +1,27 @@
+.day,
+.date,
+.sundial {
+  color: $black;
+}
+
+.day {
+  font-size: 40px;
+  padding-left: 175px;
+  font-family: Bebas Neue;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 16px;
+  padding-left: 200px;
+  color: $greyish;
+}
+
+.sundial {
+  font-size: 20px;
+  padding-right: 40px;
+}
+
+.db_box {
+  padding-top: 30px;
+}

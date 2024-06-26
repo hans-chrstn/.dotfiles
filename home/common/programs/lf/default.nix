@@ -186,6 +186,7 @@
       l = "";
       L = "";
       m = "";
+      n = "";
       o = "";
       p = "";
       r = "";
@@ -231,7 +232,7 @@
       rR = "reload";
       shl = "shell";
       tt = "tag-toggle";
-      tT = ''''$${pkgs.neovim}/bin/nvim'';
+      nv = ''''$${pkgs.neovim}/bin/nvim'';
       uu = "unselect";
       xx = ''''$$f'';
       xX = ''!''$f"'';

@@ -4,8 +4,15 @@
   }
 
 // GENERAL
-@import "colors";
+@import 'colors';
 
 // WIDGETS
-@import "bar";
-
+@import 'bar';
+@import 'clock';
+@import 'power';
+@import 'powermenu';
+@import 'date_background';
+@import 'weather_background';
+@import 'network_background';
+@import 'wifimenu';
+@import 'launcher';
