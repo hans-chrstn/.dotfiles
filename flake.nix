@@ -53,6 +53,15 @@
       url = "github:Aylur/ags";
     };
 
+    astal = {
+      url = "github:Aylur/Astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    libastal-auth = {
+      url = "github:astal-sh/auth";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
     };

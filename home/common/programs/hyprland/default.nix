@@ -162,15 +162,15 @@
         "gaps_in" = "2";
         "gaps_out" = "3"; 
         "border_size" = "2";
-        "col.active_border" = "rgba(CBA6F7C8) rgba(F38BA8C8) 45degb";
-        "col.inactive_border" = "rgba(1e1e1ec8) rgba(F38BA8C8) 45degb";
+        "col.active_border" = "rgba(364f6dc8) rgba(4f6a8cee) 45degb";
+        "col.inactive_border" = "rgba(1e1e1ec8) rgba(4f6a8cee) 45degb";
         "layout" = "dwindle";
         "allow_tearing" = "false";
       };
 
       group = {
-        "col.border_active" = "rgba(CBA6F7C8) rgba(A6E3A1C8) 45degb";
-        "col.border_inactive" = "rgba(1e1e1eC8) rgba(A6E3A1C8) 45degb";
+        "col.border_active" = "rgba(364f6dc8) rgba(4f6a8cee) 45degb";
+        "col.border_inactive" = "rgba(1e1e1ec8) rgba(4f6a8cee) 45degb";
     
         groupbar = {
           "enabled" = "false";
@@ -192,7 +192,7 @@
           "brightness" = "0.9";
         };
 
-        "drop_shadow" = "false"; 
+        "drop_shadow" = "true"; 
         "dim_inactive" = "false";
         "dim_strength" = "0.1";
         "dim_special" = "0";

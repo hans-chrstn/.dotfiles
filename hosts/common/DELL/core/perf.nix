@@ -44,7 +44,7 @@
   };
 
   services.tlp = {
-    enable = true; 
+    enable = false; 
     settings = {
       #fix when overheating on power, not on battery
       #TLP_DEFAULT_MODE="BAT";
@@ -135,7 +135,7 @@
     };
   };
   # For TLP to work, Disable.
-  services.power-profiles-daemon.enable = false;
+  services.power-profiles-daemon.enable = true;
 
 
 }

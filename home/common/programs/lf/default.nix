@@ -106,8 +106,8 @@
                 ;;
               python | p | py | pyt | pyth | pytho | PYTHON | P | PY | PYT | PYTH | PYTHO)
                 shebang="#!/usr/bin/env python"
-                echo $shebang > "$ans.sh"
-                $EDITOR "$ans.sh"
+                echo $shebang > "$ans.py"
+                $EDITOR "$ans.py"
                 break
                 ;;
               q | Q)

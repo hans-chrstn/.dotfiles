@@ -1,0 +1,15 @@
+
+.bdate {
+  padding-top: 30px;
+  min-width: 315px;
+  .bdate-day {
+    font-size: 40px;
+    font-family: Bebas Neue;
+    font-weight: bold;
+    color: $black;
+  }
+  .bdate-date {
+    color: $greyish;
+    font-size: 16px;
+  }
+}

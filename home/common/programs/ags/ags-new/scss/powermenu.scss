@@ -6,21 +6,7 @@
   margin-top: 10px;
   min-width: 120px;
   min-height: 50px;
-  .powermenu_shutdown {
-    
-  }
-  .powermenu_reboot {
-
-  }
-  .powermenu_logout {
-
-  }
-  .powermenu_lock {
-
-  }
-  .powermenu_suspend {
-
-  }
+  transition: 100ms ease;
 }
 
 .powermenu_lock,
@@ -28,4 +14,6 @@
 .powermenu_logout,
 .powermenu_suspend,
 .powermenu_shutdown {
+  font-size: 20px;
+  padding: 0px 5px 0px 5px;
 }

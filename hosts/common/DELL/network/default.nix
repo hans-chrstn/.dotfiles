@@ -27,7 +27,37 @@
 
     firewall = {
       enable = true;
+      allowedTCPPorts = [
+        47984
+        47989
+        47990
+        48010
+      ];
+      allowedUDPPorts = [
+        51820
+      ];
+      allowedUDPPortRanges = [
+        { from = 47998; to = 48000; }
+        { from = 8000; to = 8010; }
+      ];
     };
+    # wireguard = {
+    #   interfaces = {
+    #     wg0 = {
+    #       ips = [ "10.0.0.1/24" ];
+    #       listenPort = 51820;
+    #       privateKeyFile = "/home/hayato/.wg-keys/wg0.key";
+    #       peers = [
+    #         {
+    #           publicKey = "WTK+EaXBXAO5hdQG1UsT5wcXIxgT6v7cayDOn+XhiyQ=";
+    #           allowedIPs = [ "0.0.0.0/0" ];
+    #           endpoint = "132.145.219.63:51820";
+    #           persistentKeepalive = 25;
+    #         }
+    #       ];
+    #     };
+    #   };
+    # };
     #nftables.enable = true;
   };
 

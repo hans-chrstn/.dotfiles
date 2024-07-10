@@ -1,0 +1,25 @@
+.bresource {
+  background-color: $default-bg;
+  padding: 12px;
+  margin-left: 15px;
+  border-radius: 16px;
+  min-width: 280px;
+  min-height: 80px;
+  .bresource-circ-box {
+    padding: 8px;
+    .bresource-circ-battery-inner {
+      font-size: 3px;
+      color: $greyish;
+    }
+    .bresource-circ-battery-outer {
+      font-size: 3px;
+      color: $bluish;
+    }
+  }
+  .bresource-label {
+    .bresource-label-battery {
+      font-family: Bebas Neue;
+      margin: 4px 0px 0px 20px;
+    }
+  }
+}

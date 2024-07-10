@@ -1,4 +1,5 @@
 # security tweaks borrowed from @hlissner
+{ pkgs, ... }:
 {
   boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the
@@ -44,6 +45,12 @@
   boot.kernelModules = ["tcp_bbr"];
 
   security = {
+    wrappers.sunshine = {
+      owner = "hayato";
+      group = "wheel";
+      capabilities = "cap_sys_admin+p";
+      source = "${pkgs.sunshine}/bin/sunshine";
+    };
     protectKernelImage = true;
     krb5.enable = true;
     # userland niceness

@@ -1,0 +1,33 @@
+.bweather-box {
+  border-radius: 16px;
+  background-color: $default-bg;
+  padding: 12px;
+  margin-left: 15px;
+  min-width: 120px;
+  min-height: 120px;
+  .bweather-icon {
+    margin-bottom: 10px;
+    font-size: 45px;
+  }
+  .bweather-temp {
+    font-size: 30px;
+    margin-left: 28px;
+  }
+  .bweather-desc {
+    color: $bluish;
+  }
+  .bweather-desc,
+  .bweather-windspeed,
+  .bweather-humidity {
+    font-size: 16px;
+  }
+}
+
+.bweather-icon,
+.bweather-temp,
+.bweather-desc,
+.bweather-windspeed,
+.bweather-humidity {
+  color: $greyish;
+  font-family: Bebas Neue;
+}

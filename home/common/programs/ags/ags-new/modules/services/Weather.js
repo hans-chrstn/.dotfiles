@@ -1,5 +1,5 @@
 import icons from '../icons/Icons.js';
-import { Utils, Service } from '../../utils/imports.js';
+import { Utils, Service } from '../../lib/Imports.js';
 
 class WeatherService extends Service {
   static {
