@@ -1,11 +1,14 @@
-import Bar from './modules/bar/Bar.js';
-import PowerMenu from './modules/bar/window/PowerMenu.js';
-import { Utils, App } from './utils/imports.js';
+import { Utils, App } from './lib/Imports.js';
 import Gio from 'gi://Gio';
+import { forMonitors } from './lib/Utils.js';
+import Bar from './modules/bar/Bar.js';
 import BackgroundWidget from './modules/background/BackgroundWidget.js';
+import PowerMenu from './modules/bar/modules/windows/PowerMenu.js';
+import PowerMenuVerify from './modules/bar/modules/windows/PowerMenuVerify.js';
+import WifiMenu from './modules/background/modules/windows/WifiMenu.js';
 import AppLauncher from './modules/launcher/Launcher.js';
-import WifiMenu from './modules/background/windows/WifiMenu.js';
-import PowerMenuVerify from './modules/bar/window/PowerMenuVerify.js';
+import Greetd from './modules/greetd/Greetd.js';
+import BluetoothMenu from './modules/bar/modules/Bluetooth.js';
 
 const scss = `${App.configDir}/scss/main.scss`;
 const css = `${App.configDir}/style.css`;
@@ -37,12 +40,14 @@ function addWindows(windows) {
 }
 
 Utils.idle(() => addWindows([
-  Bar(1),
-  BackgroundWidget(1),
+  ...forMonitors(Bar),
+  ...forMonitors(BackgroundWidget),
   AppLauncher(),
   PowerMenu(),
   WifiMenu(),
   PowerMenuVerify(),
+  Greetd(),
+  BluetoothMenu(),
 ]));
 
 App.config({

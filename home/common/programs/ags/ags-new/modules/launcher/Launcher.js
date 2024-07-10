@@ -1,8 +1,7 @@
-import { Widget, App, Applications } from '../../utils/imports.js';
+import { Widget, App, Applications } from '../../lib/Imports.js';
 
 const WINDOW_NAME = 'applauncher';
 
-/** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
     class_name: 'launcher_button',
     on_clicked: () => {

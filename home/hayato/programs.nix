@@ -25,9 +25,7 @@
     # JAVA
     zulu
 
-    #nur.repos.iagocq.ultimmc
-    # GAMES
-    inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+
 
     # RUST OVERLAY
     rust-bin.stable.latest.default
@@ -59,11 +57,15 @@
         })
       ];
     })
-    
     protontricks
     cartridges
     heroic
     gogdl
+    sunshine
+
+    # GAMES
+    inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+    #nur.repos.iagocq.ultimmc
 
     # TIME
     tenki

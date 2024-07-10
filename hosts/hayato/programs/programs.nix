@@ -5,6 +5,7 @@
     libimobiledevice
     ifuse
     # GAMING
+    sunshine
     winetricks
     steam-run
     (lutris.override {
@@ -20,6 +21,9 @@
     cartridges
     heroic
     gogdl
+
+    # VPNs
+    wireguard-tools
   ];
 
 }

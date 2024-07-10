@@ -1,4 +1,4 @@
-import { App, Service } from "../../utils/imports.js";
+import { App, Service } from "../../lib/Imports.js";
 
 class PowerMenu extends Service {
   static {
@@ -29,10 +29,6 @@ class PowerMenu extends Service {
       reboot: ["systemctl reboot", "Reboot"],
       logout: ["loginctl kill-user 1000", "Logout"],
       shutdown: ["shutdown now", "Shutdown"],
-      lock: [
-        "hyprlock -c /home/hayato/.dotfiles/common/programs/hyprland/config/hyprlock.conf",
-        "lock",
-      ],
     }[action];
 
     this.notify("cmd");

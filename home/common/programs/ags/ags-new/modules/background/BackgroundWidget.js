@@ -1,6 +1,7 @@
-import WeatherBackground from './WeatherBackground.js';
-import DateBackground from './DateBackground.js';
-import NetworkBackground from './NetworkBackground.js';
+import { Widget } from '../../lib/Imports.js';
+import WeatherBackground from './modules/WeatherBackground.js';
+import DateBackground from './modules/DateBackground.js';
+import NetworkBackground from './modules/NetworkBackground.js';
 
 const BackgroundWidget = () => Widget.Box({
   vertical: true,

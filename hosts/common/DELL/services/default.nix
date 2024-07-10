@@ -14,6 +14,8 @@
     ./xdg.nix
     ./ssh.nix
     ./samba.nix
+    ./avahi.nix
+    ./zerotier.nix
   ];
 
  

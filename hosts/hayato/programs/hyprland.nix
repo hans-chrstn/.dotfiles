@@ -5,8 +5,11 @@
   };
 
   security = {
-    pam.services.hyprlock.text = ''
-      auth include login
-    '';
+    pam.services = {
+      hyprlock.text = ''
+        auth include login
+      '';
+      ags = {};
+    };
   };
 }

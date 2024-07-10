@@ -20,12 +20,16 @@
     nodePackages.sass
     eslint_d
     typescript
+    bun
+    sassc
     clang-tools
     clang
     gcc
     cl
     zig
     jansson
+    cmake
+    pkg-config
 
     qt6.full
 
@@ -68,7 +72,6 @@
     libglvnd
     libwebp
     libxkbcommon
-    cmake
     upower
     libdbusmenu-gtk3
     gobject-introspection

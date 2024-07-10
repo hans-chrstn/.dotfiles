@@ -1,6 +1,6 @@
-import { Widget } from '../../utils/imports.js';
-import Power from './Power.js';
-import Clock from './Clock.js';
+import { Widget } from '../../lib/Imports.js';
+import Power from './modules/Power.js';
+import Clock from './modules/Clock.js';
 
 const Left = () => Widget.Box({
     class_name: 'left_bar',

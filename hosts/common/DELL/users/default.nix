@@ -5,6 +5,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
   users.users = {
     hayato = {
       isNormalUser = true;

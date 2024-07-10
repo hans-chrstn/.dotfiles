@@ -28,7 +28,18 @@
   margin-top: 10px;
   min-width: 120px;
   min-height: 50px;
+  transition: 100ms ease;
 }
+
+.powermenu_lock,
+.powermenu_reboot,
+.powermenu_logout,
+.powermenu_suspend,
+.powermenu_shutdown {
+  font-size: 20px;
+  padding: 0px 5px 0px 5px;
+}
+
 .day,
 .date,
 .sundial {
@@ -37,7 +48,7 @@
 
 .day {
   font-size: 40px;
-  padding-left: 175px;
+  padding-left: 190px;
   font-family: Bebas Neue;
   font-weight: bold;
 }
@@ -185,6 +196,30 @@
   margin: 8px;
   background-color: #151714;
   border-radius: 10px;
+}
+
+.powermenu_verify_box {
+  border-radius: 16px;
+  border: 2px solid #343860;
+  min-width: 300px;
+  min-height: 130px;
+  background-color: #0c0d19;
+  padding: 10px;
+}
+.powermenu_verify_box .powermenu_verify_button_box {
+  padding-bottom: 10px;
+}
+
+.greetd_box {
+  background-color: #0c0d19;
+}
+
+.bluetoothmenu_box {
+  background-color: #0c0d19;
+  border-radius: 16px;
+  padding: 10px;
+  min-width: 300px;
+  min-height: 130px;
 }
 
 /*# sourceMappingURL=style.css.map */

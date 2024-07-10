@@ -1,0 +1,11 @@
+.powermenu_verify_box {
+  border-radius: 16px;
+  border: 2px solid $dark_bluish;
+  min-width: 300px;
+  min-height: 130px;
+  background-color: $default_bg;
+  padding: 10px;
+  .powermenu_verify_button_box {
+    padding-bottom: 10px;
+  }
+}

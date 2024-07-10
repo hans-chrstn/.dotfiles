@@ -3,6 +3,7 @@
   imports = [
     ./fonts
     ./programs/ags
+    ./programs/astal
     ./programs/lazygit
     ./programs/dconf
     ./programs/lf
