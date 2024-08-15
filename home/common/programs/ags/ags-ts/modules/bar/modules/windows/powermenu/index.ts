@@ -28,7 +28,7 @@ export default () => Widget.Window({
       PowerButton('logout'),
       Widget.Button({
         className: 'power-menu-lock',
-        on_clicked: () => Utils.execAsync(['hyprlock', '-c', '/home/hayato/.dotfiles/home/common/programs/hyprland/config/hyprlock.conf']),
+        on_clicked: () => Utils.execAsync(['hyprlock']),
         child: Widget.Label(Icons.power.lock)
       })
     ],

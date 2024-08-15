@@ -46,7 +46,7 @@
     hyprshot
     neofetch
 
-    # GAMING
+    #GAMING
     (lutris.override {
       extraPkgs = pkgs: [
         jansson
@@ -65,7 +65,7 @@
 
     # GAMES
     inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
-    #nur.repos.iagocq.ultimmc
+    nur.repos.iagocq.ultimmc
 
     # TIME
     tenki

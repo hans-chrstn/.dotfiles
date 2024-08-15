@@ -4,8 +4,6 @@
   imports = [
     ./programs.nix
     ./overlays.nix
-    ./programs
-    ./tools.nix
     ../common/dell.nix
   ];
 
