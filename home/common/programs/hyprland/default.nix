@@ -55,7 +55,7 @@
           "$mainMod, Q, exec, $terminal"
           "$mainMod, C, killactive"
           "$mainMod, M, exit"
-          "$mainMod, E, exec, $fileManager" 
+          "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating"
           "$mainMod, P, pseudo" # dwindle
           "$mainMod, J, togglesplit" # dwindle
@@ -103,7 +103,7 @@
 
           "$mainMod, Kp_left, exec, busctl --user call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n 1000"
           "$mainMod, Kp_right, exec, busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -1000"
-          "$mainMod, Kp_up, exec, brightnessctl set 96000"  
+          "$mainMod, Kp_up, exec, brightnessctl set 96000"
           "$mainMod, Kp_down, exec, brightnessctl set 10000"
 
           "$mainMod SHIFT, W, exec, ags -t bar0"
@@ -134,7 +134,9 @@
       );
 
       monitor = [
-        ",highres,auto,1"
+        "HDMI-A-2,highres,0x0,1"
+	      "HDMI-A-1,highres,1920x0,1"
+        "eDP-1,highres,0x0,1"
       ];
         
       env = [
@@ -155,12 +157,12 @@
           "middle_button_emulation" = "true";
           "clickfinger_behavior" = "true";
         };
-        "sensitivity" = "0"; 
+        "sensitivity" = "0";
       };
 
       general = {
         "gaps_in" = "2";
-        "gaps_out" = "3"; 
+        "gaps_out" = "3";
         "border_size" = "2";
         "col.active_border" = "rgba(364f6dc8) rgba(4f6a8cee) 45degb";
         "col.inactive_border" = "rgba(1e1e1ec8) rgba(4f6a8cee) 45degb";
@@ -182,7 +184,7 @@
 
         blur = {
           "enabled" = "false";
-          "special" = "false"; 
+          "special" = "false";
           "size" = "5";
           "passes" = "4";
           "ignore_opacity" = "true";
@@ -192,7 +194,7 @@
           "brightness" = "0.9";
         };
 
-        "drop_shadow" = "true"; 
+        "drop_shadow" = "true";
         "dim_inactive" = "false";
         "dim_strength" = "0.1";
         "dim_special" = "0";
@@ -205,7 +207,7 @@
           "md3_decel, 0.05, 0.7, 0.1, 1"
           "md3_accel, 0.3, 0, 0.8, 0.15"
           "overshot, 0.05, 0.9, 0.1, 1.1"
-          "crazyshot, 0.1, 1.5, 0.76, 0.92" 
+          "crazyshot, 0.1, 1.5, 0.76, 0.92"
           "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
           "fluent_decel, 0.1, 1, 0, 1"
           "easeInOutCirc, 0.85, 0, 0.15, 1"
@@ -274,7 +276,7 @@
       };
 
       exec-once = [
-        "bash ~/.dotfiles/home/common/programs/hyprland/config/start.sh"
+        #"bash ~/.dotfiles/home/common/programs/hyprland/config/start.sh"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_THEME"
         ];

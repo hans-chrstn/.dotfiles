@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-snapd = {
       url = "github:io12/nix-snapd";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +41,7 @@
     };
 
     spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix"; #the-argus
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -53,15 +58,6 @@
       url = "github:Aylur/ags";
     };
 
-    astal = {
-      url = "github:Aylur/Astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    libastal-auth = {
-      url = "github:astal-sh/auth";
-    };
-
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -72,7 +68,7 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #"github:hyprwm/Hyprland";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     };
 
     hyprsplit = {
@@ -136,6 +132,13 @@
           ./hosts/hayato/default.nix
         ];
       };
+
+      mishima = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/mishima/default.nix
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -144,6 +147,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home/hayato/default.nix
+        ];
+      };
+
+      mishima = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home/mishima/default.nix
         ];
       };
 

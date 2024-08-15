@@ -7,7 +7,7 @@
 
   programs.ags = {
     enable = true;
-    configDir = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/ags/ags-new";
+    configDir = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/ags/ags-ts";
     extraPackages = with pkgs; [
       gtksourceview
       webkitgtk
