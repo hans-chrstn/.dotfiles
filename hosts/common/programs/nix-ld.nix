@@ -63,6 +63,7 @@
       pipewire
       gtk3
       glib
+      glibc
       gdk-pixbuf
       dbus
       cups

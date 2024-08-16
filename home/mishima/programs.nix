@@ -49,6 +49,8 @@
         })
       ];
     })
+    bottles
+    protonup-qt
     protontricks
     cartridges
     heroic
