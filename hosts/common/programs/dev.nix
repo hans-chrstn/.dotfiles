@@ -6,6 +6,8 @@
       pip
       tkinter
       debugpy
+      requests
+      psutil
     ])) 
     (lua.withPackages(ls: with ls; [
       luarocks
