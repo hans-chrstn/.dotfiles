@@ -19,6 +19,8 @@
     ./hardware/secureboot.nix
     #./hardware/print.nix
 
+    ./filesystem
+
     ./programs/dev.nix
     ./programs/filemanager.nix
     #./programs/misc.nix
