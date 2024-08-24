@@ -2,10 +2,18 @@
   description = "Your new nix config";
 
   nixConfig = {
-    extra-substituters = [ "https://cache.garnix.io" ];
-    extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    extra-substituters = [
+
+    ];
+    trusted-public-keys = [
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
     substituers = [
+      "https://cache.garnix.io"
       "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
     ];
   };
 
@@ -41,7 +49,7 @@
     };
 
     spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix"; #the-argus
+      url = "github:Gerg-L/spicetify-nix"; #the-argus #Gerg-L
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -68,7 +76,7 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.41.2&submodules=1";
     };
 
     hyprsplit = {

@@ -2,6 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [ 
+    home-manager
+    hyprutils
+    egl-wayland
     # FLAKED
     #inputs.nix-inspect.packages.${pkgs.system}.default
 
