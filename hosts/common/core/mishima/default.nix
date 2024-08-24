@@ -4,6 +4,21 @@
   imports = [
     ./hardware-configuration.nix
   ];
+
+  nix = {
+    settings = {
+      cores = 12;
+      max-jobs = 4;
+      auto-optimise-store = true;
+    };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
   boot = {
     supportedFilesystems = ["ntfs"];
 
