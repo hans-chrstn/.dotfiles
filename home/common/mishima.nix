@@ -6,7 +6,7 @@
     ./programs/lazygit
     ./programs/dconf
     ./programs/lf
-    #./programs/obs
+    ./programs/obs
     ./programs/zsh
     ./programs/btop
     ./programs/cava
