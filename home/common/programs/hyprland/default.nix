@@ -4,21 +4,20 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = ["--all"];
     plugins = [
-      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+      #inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
     ];
     settings = {
       "$mainMod" = "SUPER";
       "$menu" = "ags -t applauncher";
-      "$fileManager" = "kitty -e lf";
-      "$terminal" = "kitty";
+      "$fileManager" = "wezterm start -- yazi"; #"kitty -e yazi";
+      "$terminal" = "wezterm";
 
       plugin = {
-        hyprsplit = {
-          "count" = "10"; 
-        };
+        #hyprsplit = {
+        #  "count" = "10"; 
+        #};
       };
 
       bindm = [
@@ -41,8 +40,8 @@
       ];
 
       bind = [
-          ", XF86HomePage, split:workspace, 1"
-          #", XF86HomePage, workspace, 1"
+          #", XF86HomePage, split:workspace, 1"
+          ", XF86HomePage, workspace, 1"
           ", XF86Mail, exec, spotify"
           ", Pause, exec, floorp"
           ", Scroll_Lock, exec, pokemmo"
@@ -78,10 +77,10 @@
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
-          "$mainMod, mouse_down, split:workspace, e+1"
-          "$mainMod, mouse_up, split:workspace, e-1"
-          #"$mainMod, mouse_down, workspace, e+1"
-          #"$mainMod, mouse_up, workspace, e-1"
+          #"$mainMod, mouse_down, split:workspace, e+1"
+          #"$mainMod, mouse_up, split:workspace, e-1"
+          "$mainMod, mouse_down, workspace, e+1"
+          "$mainMod, mouse_up, workspace, e-1"
 
 
           "ALT, Tab, cyclenext"
@@ -110,8 +109,8 @@
           "$mainMod ALT, W, exec, ags -t bar1"
           "$mainMod, R, exec, $menu"
           
-          "$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
-          "$mainMod ALT, T, split:grabroguewindows"
+          #"$mainMod SHIFT, T, split:swapactiveworkspaces, current +1"
+          #"$mainMod ALT, T, split:grabroguewindows"
       ]
       ++ (
         builtins.concatLists (builtins.genList (
@@ -121,12 +120,12 @@
             in
               builtins.toString (x + 1 - (c * 10));
           in [
-            "$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
-            "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
-            "$mainMod ALT, ${ws}, split:movetoworkspacesilent, ${toString (x + 1)}"
+            #"$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
+            #"$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
+            #"$mainMod ALT, ${ws}, split:movetoworkspacesilent, ${toString (x + 1)}"
 
-            #"$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-            #"$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+            "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+            "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
 
           ]
         )
@@ -134,8 +133,8 @@
       );
 
       monitor = [
-        "HDMI-A-2,highres,0x0,1"
-	      "HDMI-A-1,highres,1920x0,1"
+        "HDMI-A-2,1920x1080@100,0x0,1"
+	      "HDMI-A-1,1920x1080@60,1920x0,1"
         "eDP-1,highres,0x0,1"
       ];
         

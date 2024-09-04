@@ -23,7 +23,7 @@
 
     ./programs/dev.nix
     ./programs/filemanager.nix
-    #./programs/misc.nix
+    ./programs/misc.nix
     ./programs/package-utils.nix
     ./programs/terminal.nix
     ./programs/zsh.nix

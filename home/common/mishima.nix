@@ -20,11 +20,13 @@
     ./programs/neofetch
     ./programs/nix-index
     ./programs/vscodium
-    ./programs/firefox
+    #./programs/firefox
     ./programs/wezterm
     ./programs/emacs
     ./programs/git
     ./programs/spicetify
+    ./programs/yazi
+    ./programs/zen
   ];
 
 }

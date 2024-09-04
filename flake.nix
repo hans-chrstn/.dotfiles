@@ -1,10 +1,7 @@
 {
-  description = "Your new nix config";
+  description = "Flake by Mishima";
 
   nixConfig = {
-    extra-substituters = [
-
-    ];
     trusted-public-keys = [
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -22,6 +19,19 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    wezterm = {
+      url = "github:wez/wezterm/main?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    yazi = {
+      url = "github:sxyazi/yazi";
+    };
+
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix-Darwin
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +58,7 @@
     };
 
     spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix"; #the-argus #Gerg-L
+      url = "github:Gerg-L/spicetify-nix"; 
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -76,16 +85,42 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.42.0&submodules=1";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; # ref=refs/tags/v0.42.0&
+    };
+ 
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };   
+
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
+    hypridle = {
+      url = "github:hyprwm/hypridle";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
     };
 
     hyprsplit = {
       url = "github:shezdy/hyprsplit?ref=v0.41.2";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
+      #inputs.hyprland.follows = "hyprland";
     };
 
     rust-overlay = {
@@ -102,7 +137,6 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    # Supported systems for your flake packages, shell, etc.
     systems = [
       "aarch64-linux"
       "i686-linux"
@@ -112,40 +146,59 @@
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
+    # devShells = forAllSystems (system: let
+    #   pkgs = import nixpkgs { inherit system; };
+    # in {
+    #   default = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [
+    #       cowsay
+    #     ];
+    #   };
+    #
+    #   java = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [ gcc ncurses patchelf maven gradle zlib jdk ];
+    #   };
+    #
+    #   python = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [ (python3.withPackages(ps: with ps; [ pip tkinter debugpy requests psutil ]))];
+    #   };
+    #
+    #   js = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [ nodejs nodePackages.sass typescript bun sassc ];
+    #   };
+    #
+    #   clang = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [ clang-tools clang cl cmake ];
+    #   };
+    #
+    #   lua = pkgs.mkShell {
+    #     nativeBuildInputs = with pkgs; [ (lua.withPackages(ls: with ls; [ luarocks ])) luajit ];
+    #   };
+    # });
+
     overlays = import ./overlays {inherit inputs;};
-    # These are usually stuff you would upstream into nixpkgs
     nixosModules = import ./modules/nixos;
-    # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
     darwinConfigurations = {
       "nix-darwin" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs outputs; };
-        modules = [ 
-          ./hosts/nix-darwin/default.nix
-
-        ];
+        modules = [ ./hosts/nix-darwin/default.nix ];
       };
     };
 
     nixosConfigurations = {
       hayato = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/hayato/default.nix
-        ];
+        modules = [ ./hosts/hayato/default.nix ];
       };
 
       mishima = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/mishima/default.nix
-        ];
+        modules = [ ./hosts/mishima/default.nix ];
       };
     };
 
@@ -153,25 +206,19 @@
       hayato = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./home/hayato/default.nix
-        ];
+        modules = [ ./home/hayato/default.nix ];
       };
 
       mishima = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./home/mishima/default.nix
-        ];
+        modules = [ ./home/mishima/default.nix ];
       };
 
       "nix-darwin" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-darwin;
         extraSpecialArgs = { inherit inputs outputs; };
-        modules = [
-          ./home/nix-darwin/default.nix
-        ];
+        modules = [ ./home/nix-darwin/default.nix ];
       };
     };
   };

@@ -13,7 +13,6 @@
       luarocks
     ]))
     luajit
-    gnumake 
     nodejs
     nodePackages.sass
     eslint_d
@@ -27,8 +26,8 @@
     zig
     jansson
     cmake
+    gnumake 
     pkg-config
-
-    qt6.full
+    # qt6.full
   ];
 }

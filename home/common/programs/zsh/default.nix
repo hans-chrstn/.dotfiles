@@ -35,26 +35,19 @@
       }
       {
        name = "fast-syntax-highlighting";
-       src = pkgs.fetchFromGitHub {
-         owner = "zdharma-continuum";
-         repo = "fast-syntax-highlighting";
-         rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
-         sha256 = "1bmrb724vphw7y2gwn63rfssz3i8lp75ndjvlk5ns1g35ijzsma5";
-       };
+       src = pkgs.zsh-fast-syntax-highlighting;
+       file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
       }
       {
        name = "fzf-tab";
-       src = pkgs.fetchFromGitHub {
-         owner = "Aloxaf";
-         repo = "fzf-tab";
-         rev = "c7fb028ec0bbc1056c51508602dbd61b0f475ac3";
-         sha256 = "061jjpgghn8d5q2m2cd2qdjwbz38qrcarldj16xvxbid4c137zs2";
-       };
+       src = pkgs.zsh-fzf-tab;
+       file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
     ];
 
   };
-  programs.starship = {
-    enable = true;
-  };
+
+  # programs.starship = {
+  #   enable = true;
+  # };
 }
