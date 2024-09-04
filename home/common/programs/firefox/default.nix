@@ -248,7 +248,7 @@
           "gfx.webrender.precache-shaders" = true;
           "gfx.webrender.compositor" = true; 
           "layers.gpu-process.enabled" = true; 
-          "media.hardware-video-decoding.enabled" = true; 
+          "media.hardware-video-decoding.enabled" = false; 
           "gfx.canvas.accelerated" = true; 
           "gfx.canvas.accelerated.cache-items" = 32768; 
           "gfx.canvas.accelerated.cache-size" = 4096; 

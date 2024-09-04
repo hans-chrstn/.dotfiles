@@ -9,6 +9,7 @@
       XDG_CONFIG_HOME = "\${HOME}/.config";
       XDG_CACHE_HOME = "\${HOME}/.cache";
       XDG_DATA_HOME = "\${HOME}/.local/share";
+      XDG_BACKEND = "wayland";
       NIXPKGS_ALLOW_INSECURE = "1";
       NIXPKGS_ALLOW_UNFREE = "1";
       POLKIT_AUTH_AGENT = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -18,7 +19,7 @@
       XDG_SESSION_TYPE = "wayland";
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
-      GDK_BACKEND = "wayland";
+      GDK_BACKEND = "wayland,x11";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
       MOZ_ENABLE_WAYLAND = "1";
@@ -31,8 +32,8 @@
       #LIBSEAT_BACKEND = "logind";
       NIXOS_OZONE_WL = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      QT_QPA_PLATFORM = "wayland";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "0";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       GDK_SCALE = "2";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       NVD_BACKEND = "direct";
@@ -41,7 +42,7 @@
       #WLR_RENDERER = "vulkan";
       WLR_NO_HARDWARE_CURSORS = "1";
       WLR_DRM_NO_ATOMIC = "1";
-      __GL_GSYNC_ALLOWED = "0";
+      __GLX_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
 

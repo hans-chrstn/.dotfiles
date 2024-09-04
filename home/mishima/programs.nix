@@ -9,32 +9,18 @@
   };
 
   home.packages = with pkgs; [
-    #libreoffice-qt
-    #telegram-desktop
+    libreoffice-qt
     github-desktop
     webcord-vencord
     obsidian
-    lightworks
     w3m
-
-    glxinfo
-
-    # DOWNLOADS PUBLIC GOOGLE DRIVE STUFF
-    gdown
 
     # JAVA
     zulu
 
-
-
     # RUST OVERLAY
     rust-bin.stable.latest.default
 
-    # HYPRLAND ECOSYSTEM | EXTRAPKGS
-    hyprlock
-    hypridle
-    hyprpaper
-    hyprpicker
     hyprshot
     neofetch
 
