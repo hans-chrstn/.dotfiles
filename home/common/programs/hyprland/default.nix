@@ -10,7 +10,7 @@
     ];
     settings = {
       "$mainMod" = "SUPER";
-      "$menu" = "ags -t applauncher";
+      "$menu" = "ags -t powermenu";
       "$fileManager" = "wezterm start -- yazi"; #"kitty -e yazi";
       "$terminal" = "wezterm";
 

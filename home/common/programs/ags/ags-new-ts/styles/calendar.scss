@@ -1,0 +1,24 @@
+.calendar {
+  background-color: $default-bg;
+  border-radius: 12px;
+  margin: 8px;
+  &-block {
+    padding: 5px;
+    &:selected {
+        border-radius: 20px;
+    }
+    &.header {
+      &:backdrop {
+        border-bottom-color: skyblue;
+      }
+    }
+    &.button {
+      color: $default-bg;
+      //color: transparentize(red, 0.9);
+      //&:hover { color: blue; }
+    }
+    &.highlight {
+      color: $bluish;
+    }
+  }
+}

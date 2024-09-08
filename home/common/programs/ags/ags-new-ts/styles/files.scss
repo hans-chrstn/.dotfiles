@@ -1,0 +1,19 @@
+.files {
+  border-radius: 12px;
+  background-color: $default-bg;
+  margin: 8px;
+  padding: 8px;
+  &-ThisPC,
+  &-Home,
+  &-Documents,
+  &-Downloads,
+  &-Photos {
+    &:hover {
+      background-color: $bluish;
+    }
+    transition: all 400ms ease-in-out;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 20px;
+  }
+}
