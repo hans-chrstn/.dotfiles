@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       splash = false;
-      ipc = "off";
+      ipc = "on";
       preload = [ "~/.wallpapers/55.jpg" ];
       wallpaper = [
         "eDP-1,~/.wallpapers/55.jpg"

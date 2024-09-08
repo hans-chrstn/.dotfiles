@@ -75,6 +75,10 @@
       url = "github:Aylur/ags";
     };
 
+    ags-v2 = {
+      url = "github:Aylur/ags/v2";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
     };

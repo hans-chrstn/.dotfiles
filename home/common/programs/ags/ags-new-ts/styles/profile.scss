@@ -1,0 +1,13 @@
+.profile {
+  background-color: $default-bg;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 8px;
+  &-email {
+    margin-top: 12px;
+    color: $greyish;
+  }
+  &-pic {
+
+  }
+}

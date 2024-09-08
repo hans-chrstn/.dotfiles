@@ -6,3 +6,110 @@
   color: #f9f9f9;
   min-height: 500px;
   min-width: 500px; }
+
+.profile {
+  background-color: #0c0d19;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 8px; }
+  .profile-email {
+    margin-top: 12px;
+    color: #b9c8c9; }
+
+.calendar {
+  background-color: #0c0d19;
+  border-radius: 12px;
+  margin: 8px; }
+  .calendar-block {
+    padding: 5px; }
+    .calendar-block:selected {
+      border-radius: 20px; }
+    .calendar-block.header:backdrop {
+      border-bottom-color: skyblue; }
+    .calendar-block.button {
+      color: #0c0d19; }
+    .calendar-block.highlight {
+      color: #4f6a8c; }
+
+.clock {
+  border-radius: 12px;
+  background-color: #0c0d19;
+  margin: 8px; }
+  .clock-label {
+    padding: 20px 40px 20px 40px;
+    font-size: 120px;
+    font-family: Bebas Neue; }
+
+.applauncher {
+  border-radius: 10px;
+  background-color: #0c0d19;
+  margin-left: 225px;
+  margin-bottom: 243px; }
+  .applauncher-list {
+    background-color: #151714;
+    padding: 8px;
+    margin: 8px;
+    min-width: 325px;
+    min-height: 200px; }
+  .applauncher-entry {
+    padding: 8px;
+    margin: 8px;
+    background-color: #151714;
+    border-radius: 10px; }
+
+.applauncher-button {
+  padding: 1px; }
+  .applauncher-button:hover {
+    background-color: #212420;
+    border-radius: 12px; }
+  .applauncher-button-icon-title-box {
+    margin: 8px;
+    border-radius: 10px; }
+    .applauncher-button-icon-title-box .applauncher-button-icon {
+      padding: 8px; }
+
+.powermenu {
+  background-color: rgba(79, 106, 140, 0.1);
+  padding: 700px; }
+  .powermenu-launcher {
+    border-radius: 12px;
+    border: 2px solid #f9f9f9;
+    background-color: peachpuff;
+    padding: 12px 18px 12px 12px;
+    font-size: 30px;
+    min-width: 40px;
+    margin: 10px 8px 8px 8px; }
+
+.files {
+  border-radius: 12px;
+  background-color: #0c0d19;
+  margin: 8px;
+  padding: 8px; }
+  .files-ThisPC, .files-Home, .files-Documents, .files-Downloads, .files-Photos {
+    transition: all 400ms ease-in-out;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 20px; }
+    .files-ThisPC:hover, .files-Home:hover, .files-Documents:hover, .files-Downloads:hover, .files-Photos:hover {
+      background-color: #4f6a8c; }
+
+.audio-popup {
+  border-radius: 12px;
+  background-color: #0c0d19;
+  min-width: 80px;
+  padding: 10px;
+  margin-bottom: 10px; }
+
+.audio-slider {
+  color: white; }
+
+.bluetooth-menu {
+  border-radius: 12px;
+  background-color: #0c0d19;
+  padding: 20px; }
+  .bluetooth-menu-scroll {
+    min-height: 300px;
+    min-width: 300px; }
+    .bluetooth-menu-scroll-box-name {
+      margin: 12px 0px 12px 0px;
+      font-size: 14px; }

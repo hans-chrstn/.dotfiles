@@ -1,5 +1,10 @@
 import Gio from "gi://Gio"
 import Circle from "modules/circle/index";
+import Launcher from 'modules/launcher/index';
+import AudioPopup from "modules/popup/audio-popup/index";
+import Greeter from 'modules/greetd/index';
+import AppLauncher from 'modules/launcher/modules/applauncher';
+import BluetoothMenu from 'modules/launcher/modules/bluetooth';
 import { forMonitors } from "lib/utils";
 
 async function reloadCss() {
@@ -25,6 +30,11 @@ function addWindows(windows) {
 
 Utils.idle(() => addWindows([
   ...forMonitors(Circle),
+  Launcher(),
+  AudioPopup(),
+  Greeter(),
+  AppLauncher(),
+  BluetoothMenu(),
 ]));
 
 App.config({

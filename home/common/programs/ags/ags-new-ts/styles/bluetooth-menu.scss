@@ -1,0 +1,16 @@
+.bluetooth-menu {
+  border-radius: 12px;
+  background-color: $default-bg;
+  padding: 20px;
+  &-scroll {
+    min-height: 300px;
+    min-width: 300px;
+    &-box {
+      &-name {
+        margin: 12px 0px 12px 0px;
+        font-size: 14px;
+
+      }
+    }
+  }
+}

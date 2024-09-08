@@ -1,0 +1,10 @@
+.clock {
+  border-radius: 12px;
+  background-color: $default-bg;
+  margin: 8px;
+  &-label {
+    padding: 20px 40px 20px 40px;
+    font-size: 120px;
+    font-family: Bebas Neue;
+  }
+}
