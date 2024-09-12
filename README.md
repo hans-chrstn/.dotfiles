@@ -6,7 +6,7 @@
 <div align="center"> 
 
 ![nixos](https://github.com/hans-chrstn/.dotfiles/blob/main/nixos.png)
-![]()
+![widgets](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets.png)
 ![]()
 ![]() 
 </a>
@@ -16,15 +16,15 @@
  <details> 
   <summary>Notable features</summary>
      
-  - **Widgets**, AGS Widgets
-  - **Animations**, a couple
+  - **Widgets**, made in Typescript using the GTK JS Wrapper (Aylur's GTK Widgets)
+  - **Gaming**, fully functional gaming setup using bottles!
 </details>
 <details> 
   <summary>Instructions</summary>
     
    - Automated installation for NixOS:
-   ```bash
-   bash <(curl -s "")
+   ```git
+   git clone https://github.com/hans-chrstn/.dotfiles .
    ```
    - Manual installation, other distros and more:
      - See the [Wiki]()
