@@ -1,5 +1,4 @@
 * {
-  all: unset;
   font-family: SF Mono Medium;
 }
 
@@ -13,7 +12,5 @@
 @import 'files';
 @import 'audio-popup';
 @import 'bluetooth-menu';
-
-
-
-
+@import 'uptime';
+@import 'power';

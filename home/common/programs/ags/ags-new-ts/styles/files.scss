@@ -8,9 +8,11 @@
   &-Documents,
   &-Downloads,
   &-Photos {
+    all: unset;
     &:hover {
       background-color: $bluish;
     }
+    color: white;
     transition: all 400ms ease-in-out;
     padding: 15px;
     font-size: 18px;

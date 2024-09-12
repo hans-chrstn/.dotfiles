@@ -23,7 +23,7 @@ class Weather extends Service {
   private _icon: string = '';
   private _weather_data = {};
   private _url: string = 'http://wttr.in/?format=j1';
-  private _decorder: TextDecoder = new TextDecoder();
+  private _decoder: TextDecoder = new TextDecoder();
   private _area_name: string = '';
   private _humidity: number = 0;
   private _windspeed: number = 0;

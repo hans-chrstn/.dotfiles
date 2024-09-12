@@ -1,7 +1,7 @@
-import { Audio } from 'imports';
-type DeviceType = 'speaker' | 'microphone';
+import { Audio } from "imports"
 
-export default () => {
+type DeviceType = 'speaker' | 'microphone';
+function OSD() {
   const audioIcon = Widget.Button({
     onClicked: () => Audio.speaker.is_muted = !Audio.speaker.is_muted,
     child: Widget.Icon().hook(Audio, (self) => {
@@ -18,7 +18,7 @@ export default () => {
         threshold => threshold <= Audio.speaker.volume * 100);
         self.icon = `audio-volume-${category[icon]}-symbolic`;
     }, 'speaker-changed'),
-  });
+  })
 
   const audioSlider = (device: DeviceType) => Widget.Slider({
     hexpand: true,
@@ -28,28 +28,38 @@ export default () => {
     className: 'audio-slider',
     onChange: ({ value }) => Audio[device].volume = value,
     value: Audio[device].bind('volume')
-  });
+  })
 
+  const revealer = Widget.Revealer({
+    transition: 'crossfade',
+    child: Widget.CenterBox({
+      className: 'audio-popup',
+      startWidget: audioIcon,
+      endWidget: audioSlider('speaker'),
+    })
+  })
+
+  let count = 0
+  function show() {
+    revealer.reveal_child = true
+    count++
+    Utils.timeout(2500, () => {
+      count--
+      if (count === 0)
+        revealer.reveal_child = false
+    })
+  }
+
+  return revealer.hook(Audio.speaker, () => show(), 'notify::volume')
+}
+
+export default () => {
   return Widget.Window({
     name: 'audio-popup',
+    layer: 'top',
     keymode: 'on-demand',
-    layer: 'overlay',
     anchor: ['bottom'],
-    visible: false,
-    setup: self => {
-      self.hook(Audio, (self) => {
-        self.visible = true;
-        Utils.timeout(2000, () => {
-          self.visible = false;
-        })
-      }, 'speaker-changed'? 'speaker-changed' : 'microphone-changed');         
-    },
-    child: Widget.Box({
-      className: 'audio-popup',
-      children: [
-        audioIcon,
-        audioSlider('speaker'),
-      ],
-    }),
+    visible: true,
+    child: OSD(),
   })
 }

@@ -1,11 +1,23 @@
 .audio-popup {
   border-radius: 12px;
   background-color: $default-bg;
-  min-width: 80px;
-  padding: 10px;
+  min-width: 100px;
   margin-bottom: 10px;
+  padding: 5px;
+  button {
+    all: unset;
+    color: white;
+  }
+  highlight {
+    background-color: $bluish;
+    border-color: transparentize(white, 1);
+  }
 }
 
-.audio-slider{
-  color: white;
+window#audio-popup {
+  background-color: transparentize(white, 1)
 }
+
+
+
+

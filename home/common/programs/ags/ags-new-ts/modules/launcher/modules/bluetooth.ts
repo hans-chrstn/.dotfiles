@@ -43,8 +43,12 @@ export default () => {
                 child: Widget.CenterBox({
                   startWidget: Widget.Box({
                     children: [
-                      Widget.Label({
+                      Widget.Icon({
                         className: 'bluetooth-menu-scroll-box-name',
+                        icon: d.icon_name? d.icon_name : '',
+                        size: 12,
+                      }),
+                      Widget.Label({
                         label: d.name? d.name : d.address,
                       }),
                     ],
@@ -52,6 +56,7 @@ export default () => {
                   endWidget: Widget.Label({
                     hpack: 'end',
                     label: !d.connected ? '' : icons.location.arrow,
+                    css: 'margin-right: 8px;',
                   })
                 })
               })) 

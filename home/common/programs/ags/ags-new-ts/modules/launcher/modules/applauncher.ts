@@ -31,6 +31,7 @@ const AppItem = (app: Application) => {
     onClicked: () => {
       app.launch()
       App.closeWindow('powermenu')
+      App.closeWindow('applauncher')
     },
   });
 };
@@ -121,7 +122,7 @@ const AppLauncher = () => {
     className: 'applauncher-entry',
     on_accept: () => {
       if (apps[0]) {
-        App.closeWindow('launcher');
+        App.closeWindow('applauncher');
         apps[0].attribute.app.launch();
       }
     },

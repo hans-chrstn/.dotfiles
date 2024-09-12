@@ -1,13 +1,31 @@
 .profile {
   background-color: $default-bg;
   border-radius: 12px;
-  padding: 20px;
   margin: 8px;
+  padding: 10px 15px 10px 15px;
   &-email {
     margin-top: 12px;
     color: $greyish;
   }
-  &-pic {
+}
 
+.preview {
+  &-pic {
+    border-radius: 15%;
+    background-size: cover;
+    margin-top: 24px;
+    min-width: 282px;
+    min-height: 282px;
+  }
+  &-picker {
+    button {
+      all: unset;
+      label {
+        color: $default-bg;
+      }
+      image {
+        color: white;
+      }
+    }
   }
 }

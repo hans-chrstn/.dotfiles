@@ -1,5 +1,4 @@
 * {
-  all: unset;
   font-family: SF Mono Medium; }
 
 .circle {
@@ -10,26 +9,44 @@
 .profile {
   background-color: #0c0d19;
   border-radius: 12px;
-  padding: 20px;
-  margin: 8px; }
+  margin: 8px;
+  padding: 10px 15px 10px 15px; }
   .profile-email {
     margin-top: 12px;
     color: #b9c8c9; }
 
+.preview-pic {
+  border-radius: 15%;
+  background-size: cover;
+  margin-top: 24px;
+  min-width: 282px;
+  min-height: 282px; }
+
+.preview-picker button {
+  all: unset; }
+  .preview-picker button label {
+    color: #0c0d19; }
+  .preview-picker button image {
+    color: white; }
+
 .calendar {
-  background-color: #0c0d19;
-  border-radius: 12px;
   margin: 8px; }
   .calendar-block {
+    all: unset;
+    background-color: #0c0d19;
+    color: white;
+    border-radius: 12px;
     padding: 5px; }
     .calendar-block:selected {
-      border-radius: 20px; }
-    .calendar-block.header:backdrop {
-      border-bottom-color: skyblue; }
+      border-radius: 14px;
+      background-color: #4f6a8c;
+      min-height: 5px; }
     .calendar-block.button {
       color: #0c0d19; }
     .calendar-block.highlight {
       color: #4f6a8c; }
+    .calendar-block:indeterminate {
+      color: rgba(255, 255, 255, 0.5); }
 
 .clock {
   border-radius: 12px;
@@ -38,7 +55,8 @@
   .clock-label {
     padding: 20px 40px 20px 40px;
     font-size: 120px;
-    font-family: Bebas Neue; }
+    font-family: Bebas Neue;
+    color: white; }
 
 .applauncher {
   border-radius: 10px;
@@ -68,17 +86,21 @@
     .applauncher-button-icon-title-box .applauncher-button-icon {
       padding: 8px; }
 
-.powermenu {
-  background-color: rgba(79, 106, 140, 0.1);
-  padding: 700px; }
-  .powermenu-launcher {
-    border-radius: 12px;
-    border: 2px solid #f9f9f9;
-    background-color: peachpuff;
-    padding: 12px 18px 12px 12px;
-    font-size: 30px;
-    min-width: 40px;
-    margin: 10px 8px 8px 8px; }
+.powermenu-launcher {
+  border-radius: 12px;
+  border: 2px solid #f9f9f9;
+  background-color: peachpuff;
+  font-size: 25px;
+  padding: 5px;
+  min-width: 35px;
+  margin: 8px 8px 0 8px; }
+  .powermenu-launcher button {
+    all: unset; }
+    .powermenu-launcher button label {
+      color: white; }
+
+window#powermenu {
+  background-color: rgba(79, 106, 140, 0.1); }
 
 .files {
   border-radius: 12px;
@@ -86,6 +108,8 @@
   margin: 8px;
   padding: 8px; }
   .files-ThisPC, .files-Home, .files-Documents, .files-Downloads, .files-Photos {
+    all: unset;
+    color: white;
     transition: all 400ms ease-in-out;
     padding: 15px;
     font-size: 18px;
@@ -96,12 +120,18 @@
 .audio-popup {
   border-radius: 12px;
   background-color: #0c0d19;
-  min-width: 80px;
-  padding: 10px;
-  margin-bottom: 10px; }
+  min-width: 100px;
+  margin-bottom: 10px;
+  padding: 5px; }
+  .audio-popup button {
+    all: unset;
+    color: white; }
+  .audio-popup highlight {
+    background-color: #4f6a8c;
+    border-color: rgba(255, 255, 255, 0); }
 
-.audio-slider {
-  color: white; }
+window#audio-popup {
+  background-color: rgba(255, 255, 255, 0); }
 
 .bluetooth-menu {
   border-radius: 12px;
@@ -113,3 +143,23 @@
     .bluetooth-menu-scroll-box-name {
       margin: 12px 0px 12px 0px;
       font-size: 14px; }
+
+.uptime {
+  background-color: #0c0d19;
+  border-radius: 12px;
+  margin: 8px;
+  padding: 12px; }
+  .uptime label {
+    color: white; }
+
+.power {
+  border-radius: 12px;
+  background-color: #0c0d19;
+  margin: 8px;
+  padding: 18px; }
+  .power-button {
+    all: unset;
+    margin: 0px 5px 0px 5px;
+    font-size: 18px; }
+    .power-button label {
+      color: white; }

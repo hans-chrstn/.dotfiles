@@ -1,15 +1,19 @@
-.powermenu {
-  background-color: transparentize($bluish, 0.9);
-  padding: 700px;
-  &-launcher {
-    border-radius: 12px;
-    border: 2px solid $white;
-    background-color: peachpuff;
-    padding: 12px 18px 12px 12px;
-    font-size: 30px;
-    min-width: 40px;
-    margin: 10px 8px 8px 8px;
+.powermenu-launcher {
+  border-radius: 12px;
+  border: 2px solid $white;
+  background-color: peachpuff;
+  font-size: 25px;
+  padding: 5px;
+  min-width: 35px;
+  margin: 8px 8px 0 8px;
+  button {
+    all: unset;
+    label {
+      color: white;
+    }
   }
 }
 
-
+window#powermenu {
+  background-color: transparentize($bluish, 0.9);
+}
