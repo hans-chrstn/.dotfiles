@@ -5,7 +5,6 @@
 
 <div align="center"> 
 
-![nixos](https://github.com/hans-chrstn/.dotfiles/blob/main/nixos.png)
 ![widgets](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets.png)
 ![]()
 ![]() 
