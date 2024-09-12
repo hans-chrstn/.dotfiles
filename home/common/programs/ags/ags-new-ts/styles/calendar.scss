@@ -1,16 +1,15 @@
 .calendar {
-  background-color: $default-bg;
-  border-radius: 12px;
   margin: 8px;
   &-block {
+    all: unset;
+    background-color: $default-bg;
+    color: white;
+    border-radius: 12px;
     padding: 5px;
     &:selected {
-        border-radius: 20px;
-    }
-    &.header {
-      &:backdrop {
-        border-bottom-color: skyblue;
-      }
+      border-radius: 14px;
+      background-color: $bluish;
+      min-height: 5px;
     }
     &.button {
       color: $default-bg;
@@ -19,6 +18,9 @@
     }
     &.highlight {
       color: $bluish;
+    }
+    &:indeterminate {
+      color: transparentize(white, 0.5);
     }
   }
 }

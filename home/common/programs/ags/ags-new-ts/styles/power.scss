@@ -1,0 +1,14 @@
+.power {
+  border-radius: 12px;
+  background-color: $default-bg;
+  margin: 8px;
+  padding: 18px;
+  &-button {
+    all: unset;
+    margin: 0px 5px 0px 5px;
+    font-size: 18px;
+    label {
+      color: white;
+    }
+  }
+}

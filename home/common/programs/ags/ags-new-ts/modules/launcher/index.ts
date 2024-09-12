@@ -3,18 +3,19 @@ import Calendar from './modules/calendar';
 import Clock from './modules/clock';
 import FileDir from './modules/files';
 import Uptime from './modules/uptime';
+import Power from './modules/power';
 import icons from 'lib/icons';
 
-const sideButtons = (click: string, text: string, cname: string = 'powermenu-launcher') => Widget.Box({
+const sideButtons = (click: string, text: string) => Widget.Box({
   vertical: true,
-  vpack: 'start',
-  className: cname,
+  className: 'powermenu-launcher',
   child: Widget.Button({
     onClicked: () => {
       App.toggleWindow(click)
     },
     child: Widget.Label({
       label: text,
+      css: 'margin-right: 1px;'
     }),
   })
 })
@@ -24,7 +25,7 @@ const Side = () => Widget.Box({
   vpack: 'start',
   hexpand: false,
   children: [
-    sideButtons('applauncher', icons.power.powerbutton),
+    sideButtons('applauncher', icons.apps),
     sideButtons('bluetooth-menu', icons.bluetooth.enabled),
   ],
 })
@@ -34,6 +35,7 @@ const Left = () => Widget.Box({
   hexpand: false,
   vexpand: false,
   children: [
+    Power(),
   ],
 });
 
@@ -63,7 +65,7 @@ const Right = () => Widget.Box({
 export default () => Widget.Window({
   name: `powermenu`,
   visible: false,
-  anchor: [],
+  anchor: ['top', 'bottom', 'left', 'right'],
   exclusivity: 'normal',
   keymode: 'on-demand',
   layer: 'top',
@@ -71,7 +73,8 @@ export default () => Widget.Window({
     App.closeWindow('powermenu');
   }),
   child: Widget.Box({
-    className: 'powermenu',
+    vpack: 'center',
+    hpack: 'center',
     children: [
       Side(),
       Left(),

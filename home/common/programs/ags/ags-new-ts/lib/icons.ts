@@ -1,5 +1,6 @@
 export default {
   scan: '\udb84\ude76',
+  apps: '\udb80\udc3b',
   reload: '\udb81\udc53',
   location: {
     arrow: '\uf124',
