@@ -25,6 +25,9 @@
    ```git
    git clone https://github.com/hans-chrstn/.dotfiles .
    ```
+   ```curl
+   curl -L -o repo.zip https://github.com/hans-chrstn/.dotfiles/archive/refs/heads/main.zip && unzip repo.zip && rm repo.zip
+   ```
    - Manual installation, other distros and more:
      - See the [Wiki]()
      - (_Available in: English. Translations are welcome._)
