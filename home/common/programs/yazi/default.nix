@@ -158,7 +158,7 @@
         { run = "arrow -50%"; on = "<C-k>"; desc = "Move down by half";}
         { run = "arrow 50%"; on = "<C-j>"; desc = "Move up by half";}
         { run = "arrow -99999999"; on = ["g" "g"]; desc = "Move to top";}
-        { run = "arrow 99999999"; on = ["g" "G"]; desc = "Move to bottom";}
+        { run = "arrow 99999999"; on = "G"; desc = "Move to bottom";}
 
         # Copy | Cut | Delete | Create | Rename | Filter | Open
         { run = "open"; on = ["e" "e"]; desc = "Open selected file(s)";}

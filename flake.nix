@@ -89,7 +89,7 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; # ref=refs/tags/v0.42.0&
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     };
  
     hyprlock = {
@@ -124,7 +124,7 @@
 
     hyprsplit = {
       url = "github:shezdy/hyprsplit?ref=v0.41.2";
-      #inputs.hyprland.follows = "hyprland";
+      inputs.hyprland.follows = "hyprland";
     };
 
     rust-overlay = {
@@ -153,6 +153,10 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
+
+    # without forAllSystems
+    # use this link: https://github.com/vimjoyer/devshells-video credits to vimjoyer
+    # otherwise:
     # devShells = forAllSystems (system: let
     #   pkgs = import nixpkgs { inherit system; };
     # in {
@@ -161,7 +165,6 @@
     #       cowsay
     #     ];
     #   };
-    #
     #   java = pkgs.mkShell {
     #     nativeBuildInputs = with pkgs; [ gcc ncurses patchelf maven gradle zlib jdk ];
     #   };
