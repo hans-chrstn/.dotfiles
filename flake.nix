@@ -123,7 +123,7 @@
     };
 
     hyprsplit = {
-      url = "github:shezdy/hyprsplit?ref=v0.41.2";
+      url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
 
