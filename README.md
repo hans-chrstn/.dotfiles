@@ -5,8 +5,8 @@
 
 <div align="center"> 
 
+![widgets1](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets1.png)
 ![widgets](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets.png)
-![]()
 ![]() 
 </a>
 
@@ -15,8 +15,8 @@
  <details> 
   <summary>Notable features</summary>
      
-  - **Widgets**, made in Typescript using the GTK JS Wrapper (Aylur's GTK Widgets)
-  - **Gaming**, fully functional gaming setup using bottles!
+  - **Widgets**, made in JavaScript/TypeScript using AGS. Multiple collections of widgets are stored in home/common/programs/ags/
+  - **Gaming**, fully functional gaming setup using Bottles, Heroic, and Lutris!
 </details>
 <details> 
   <summary>Instructions</summary>
@@ -37,7 +37,7 @@
 </details>
 
 > [!WARNING]
-> - IT IS STILL IN DEVELOPMENT
+> - IT IS STILL IN DEVELOPMENT. MOST WIDGETS ARE STILL INCOMPLETE
 
 ---
 
