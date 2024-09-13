@@ -26,9 +26,10 @@
     zig
     jansson
     cmake
-    gnumake 
     pkg-config
     http-server
+
+
     # qt6.full
   ];
 }
