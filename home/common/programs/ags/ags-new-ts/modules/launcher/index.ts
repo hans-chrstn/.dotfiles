@@ -5,6 +5,8 @@ import FileDir from './modules/files';
 import Uptime from './modules/uptime';
 import Power from './modules/power';
 import icons from 'lib/icons';
+import AudioBox from './modules/audio';
+//import Playback from './modules/playback';
 
 const sideButtons = (click: string, text: string) => Widget.Box({
   vertical: true,
@@ -36,6 +38,8 @@ const Left = () => Widget.Box({
   vexpand: false,
   children: [
     Power(),
+    AudioBox(),
+    //Playback(),
   ],
 });
 

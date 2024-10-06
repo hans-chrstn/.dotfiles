@@ -61,14 +61,17 @@
 .applauncher {
   border-radius: 10px;
   background-color: #0c0d19;
-  margin-left: 225px;
-  margin-bottom: 243px; }
+  margin-left: 150px;
+  margin-bottom: 320px; }
   .applauncher-list {
     background-color: #151714;
     padding: 8px;
     margin: 8px;
+    color: white;
     min-width: 325px;
     min-height: 200px; }
+    .applauncher-list button {
+      all: unset; }
   .applauncher-entry {
     padding: 8px;
     margin: 8px;
@@ -130,13 +133,15 @@ window#powermenu {
     background-color: #4f6a8c;
     border-color: rgba(255, 255, 255, 0); }
 
-window#audio-popup {
-  background-color: rgba(255, 255, 255, 0); }
-
 .bluetooth-menu {
   border-radius: 12px;
   background-color: #0c0d19;
   padding: 20px; }
+  .bluetooth-menu button {
+    all: unset;
+    color: white;
+    font-size: 18px;
+    margin: 5px; }
   .bluetooth-menu-scroll {
     min-height: 300px;
     min-width: 300px; }
@@ -163,3 +168,6 @@ window#audio-popup {
     font-size: 18px; }
     .power-button label {
       color: white; }
+
+window {
+  background-color: transparent; }

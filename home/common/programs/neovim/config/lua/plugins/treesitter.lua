@@ -18,6 +18,7 @@ return {
 				"cmake",
 				"css",
 				"scss",
+        "kotlin",
 			},
 			sync_install = false,
 			highlight = { enable = true },

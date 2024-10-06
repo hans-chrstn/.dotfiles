@@ -1,4 +1,5 @@
-import { Greetd } from "imports"
+const greetd = await Service.import('greetd')
+
 export default () => {
   const username = Widget.Entry({
     placeholderText: 'Username',
@@ -7,7 +8,7 @@ export default () => {
   const password = Widget.Entry({
     placeholderText: 'Password',
     onAccept: () => {
-      Greetd.login(username.text || '', password.text || '', 'Hyprland')
+      greetd.login(username.text || '', password.text || '', 'Hyprland')
         .catch(err => response.label = JSON.stringify(err))
     },
   })

@@ -28,7 +28,6 @@
     ./programs/terminal.nix
     ./programs/zsh.nix
     ./programs/hyprland.nix
-    ./programs/gaming.nix
     ./programs/ios.nix
     ./programs/neovim.nix
     ./programs/nix-ld.nix

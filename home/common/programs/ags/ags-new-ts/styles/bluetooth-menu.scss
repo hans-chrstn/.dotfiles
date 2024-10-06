@@ -2,6 +2,12 @@
   border-radius: 12px;
   background-color: $default-bg;
   padding: 20px;
+  button {
+    all: unset;
+    color: white;
+    font-size: 18px;
+    margin: 5px;
+  }
   &-scroll {
     min-height: 300px;
     min-width: 300px;
