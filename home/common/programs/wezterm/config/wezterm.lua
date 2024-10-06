@@ -5,7 +5,6 @@ local config = {
   -- front_end = 'WebGpu',
   font_size = 12,
   enable_tab_bar = false,
-  enable_wayland = true,
   window_padding = {
     left = 2,
     right = 2,
@@ -29,6 +28,12 @@ local config = {
     { key = ']', mods = 'ALT', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
   },
 }
+
+if os.getenv("USER") == "toru" then
+  config.enable_wayland = false
+else
+  config.enable_wayland = true
+end
 
 -- Moving to tabs using CTRL + 1-8 and F1-8
 for i = 1, 8 do
