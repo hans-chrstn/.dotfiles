@@ -11,7 +11,7 @@
         server min protocol = SMB3_00
       ''; */
 
-      shares = {
+      settings = {
         homes = {
           browseable = "no";
           "read only" = "no";

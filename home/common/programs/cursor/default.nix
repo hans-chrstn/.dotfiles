@@ -8,10 +8,10 @@
   };
   gtk = {
     enable = true;
-    # theme = {
-    #   name = "orchis-theme";
-    #   package = pkgs.orchis-theme;
-    # };
+    theme = {
+      name = "andromeda";
+      package = pkgs.andromeda-gtk-theme;
+    };
 
     iconTheme = {
       name = "Adwaita";

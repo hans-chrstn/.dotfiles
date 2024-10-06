@@ -1,5 +1,6 @@
-import { Bluetooth } from "imports";
 import icons from "lib/icons";
+
+const bluetooth = await Service.import('bluetooth')
 
 export default () => {
   const BluetoothMenu = Widget.Box({
@@ -10,12 +11,12 @@ export default () => {
         startWidget: Widget.Button({
           hpack: 'start',
           onClicked: () => {
-            Bluetooth.toggle()
-            if (Bluetooth.enable === true)
+            bluetooth.toggle()
+            if (bluetooth.enabled === true)
               Utils.exec('bluetoothctl scan on')
             else Utils.exec('bluetoothctl scan off')
           },
-          label: Bluetooth.bind('enabled').transform(b => b ? icons.bluetooth.enabled : icons.bluetooth.disabled),
+          label: bluetooth.bind('enabled').transform(b => b ? icons.bluetooth.enabled : icons.bluetooth.disabled),
         }),
         endWidget: Widget.Button({
           hpack: 'end',
@@ -32,8 +33,8 @@ export default () => {
           spacing: 20,
           className: 'bluetooth-menu-scroll-box',
           setup: self => {
-            self.hook(Bluetooth, () => {
-              self.children = Bluetooth.devices.map(d => Widget.Button({
+            self.hook(bluetooth, () => {
+              self.children = bluetooth.devices.map(d => Widget.Button({
                 onClicked: () => {
                   Utils.exec(`bluetoothctl pair ${d.address}`)
                   Utils.timeout(2000, () => {

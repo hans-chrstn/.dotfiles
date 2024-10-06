@@ -34,7 +34,7 @@
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      GDK_SCALE = "2";
+      GDK_SCALE = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       NVD_BACKEND = "direct";
       QT_QPA_PLATFORMTHEME = "qt5ct";
@@ -45,6 +45,7 @@
       __GLX_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      __GL_THREADED_OPTIMIZATIONS = "0";
 
       # REMOTE
       RUST_BACKTRACE="1";

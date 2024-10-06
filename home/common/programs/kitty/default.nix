@@ -6,7 +6,7 @@
       enableZshIntegration = true;
       mode = "no-cursor";
     };
-    theme = "Catppuccin-Mocha";
+    themeFile = "Catppuccin-Mocha";
     font = {
       name = "SF Mono Medium";
       size = 12.0;

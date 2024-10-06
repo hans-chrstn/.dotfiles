@@ -8,6 +8,7 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
     },
     config = function()
       local cmp = require("cmp")
@@ -36,6 +37,7 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "path" },
         }, {
           { name = "buffer" },
         }),

@@ -14,5 +14,8 @@
 @import 'bluetooth-menu';
 @import 'uptime';
 @import 'power';
+@import 'playback';
 
-
+window {
+  background-color: transparent;
+}

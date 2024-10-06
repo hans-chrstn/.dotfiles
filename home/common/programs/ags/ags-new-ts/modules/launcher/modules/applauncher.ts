@@ -1,6 +1,6 @@
 import { lookUpIcon } from "resource:///com/github/Aylur/ags/utils/etc.js";
-import { Applications } from "imports";
 import { Application } from "resource:///com/github/Aylur/ags/service/applications.js";
+const applications = await Service.import('applications')
 
 export const AppIcon = (app: Application) => {
   const icon = app.icon_name && lookUpIcon(app.icon_name)
@@ -36,77 +36,8 @@ const AppItem = (app: Application) => {
   });
 };
 
-// let apps = Applications.query('').map(AppItem);
-// const list = Widget.Box({
-//   vertical: true,
-//   children: apps,
-// });
-//
-// function repopulate() {
-//   apps = Applications.query('').map(AppItem);
-//   list.children = apps
-// };
-//
-// export const activeApps = Widget.Scrollable({
-//   hscroll: 'never',
-//   className: 'activeapps',
-//   child: list,
-// })
-//
-// const entry = Widget.Entry({
-//   className: 'applauncher-entry',
-//   onChange: ({ text }) => apps.forEach(i => {
-//     i.visible = i.attribute.app.match(text);
-//   }),
-// });
-
-// export default () => {
-//   return Widget.EventBox({
-//     onPrimaryClick: (box) => {
-//       box.child.children[0].reveal_child = !box.child.children[0].reveal_child
-//       if (box.child.children[0].reveal_child === true) {
-//         repopulate();
-//         entry.text = '';
-//         entry.grab_focus();
-//       }
-//     },
-//     child: Widget.Box({
-//       className: 'powermenu-launcher',
-//       children: [
-//         Widget.Revealer({
-//           reveal_child: false,
-//           transition: 'slide_left',
-//           transitionDuration: 1000,
-//           child: Widget.Box({
-//             vertical: true,
-//             children: [
-//               entry,
-//             ],
-//           }),
-//         }),
-//         Widget.Label({
-//           label: '\ue68f',
-//         }),
-//       ],
-//     })
-//   })
-// };
-
-  // return Widget.Box({
-  //   vertical: true,
-  //   className: 'powermenu-launcher',
-  //   child: Widget.Button({
-  //     onClicked: () => {
-  //     },
-  //     child: Widget.Label({
-  //       label: '\ue68f',
-  //       truncate: 'start',
-  //     })
-  //   }),
-  // })
-
 const AppLauncher = () => {
-  let apps = Applications.query('').map(AppItem);
+  let apps = applications.query('').map(AppItem);
 
   const list = Widget.Box({
     vertical: true,
@@ -114,7 +45,7 @@ const AppLauncher = () => {
   });
 
   function repopulate() {
-    apps = Applications.query('').map(AppItem);
+    apps = applications.query('').map(AppItem);
     list.children = apps
   };
 

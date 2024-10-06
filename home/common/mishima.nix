@@ -27,6 +27,7 @@
     ./programs/spicetify
     ./programs/yazi
     ./programs/zen
+    ./programs/vivaldi
   ];
 
 }
