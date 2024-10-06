@@ -1,3 +1,31 @@
+local ensure_installed = {}
+
+local function check(list)
+  for tool, exec in pairs(list) do  -- Change to pairs for key-value pairs
+    if vim.fn.executable(exec) == 1 then
+      table.insert(ensure_installed, tool)  -- Add the tool's name for installation
+    end
+  end
+end
+
+local list_to_check = {
+  black = "python",
+  isort = "python",
+  -- lua_language_server = "lua-language-server",
+  -- rust_analyzer = "rust-analyzer",
+  stylua = "stylua",
+  clangd = "clangd",
+  --
+  -- "typescript-language-server",
+  jdtls = "java",
+  -- "marksman",
+  -- nil = "nil",
+  -- "bash-language-server",
+  -- "kotlin-language-server" = "java",
+  -- "glsl_analyzer",
+};
+
+
 return {
   {
     "williamboman/mason.nvim",
@@ -9,27 +37,14 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     config = function()
       require("mason-tool-installer").setup({
-        ensure_installed = {
+        ensure_installed = vim.list_extend(ensure_installed, {
           "eslint_d",
 
-          "stylua",
           "prettier",
-          "black",
-          "isort",
-
-          "lua-language-server",
-          "rust-analyzer",
-          "clangd",
           "css-lsp",
           "html-lsp",
-          "typescript-language-server",
-          "jdtls",
-          "marksman",
           "nil",
-          "bash-language-server",
-          "kotlin-language-server",
-          "glsl_analyzer",
-        },
+        }),
       })
     end,
   },
@@ -54,9 +69,9 @@ return {
           "--log=verbose"
         },
         filetypes = { "c", "cpp", "objc", "objcpp" },
-        -- root_dir = lspconfig.util.root_pattern(
-        --   'meson.build', 'CMakeLists.txt', '.git'
-        -- ),
+        root_dir = lspconfig.util.root_pattern(
+          'meson.build', 'CMakeLists.txt', '.git'
+        ),
         settings = {
           cpp = {
             analysis = {
@@ -107,4 +122,6 @@ return {
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
     end,
   },
+  check(list_to_check)
+
 }

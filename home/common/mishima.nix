@@ -3,31 +3,31 @@
   imports = [
     ./fonts
     ./programs/ags
-    ./programs/lazygit
-    ./programs/dconf
-    ./programs/lf
-    ./programs/obs
-    ./programs/zsh
     ./programs/btop
     ./programs/cava
-    ./programs/kitty
     ./programs/cursor
-    ./programs/neovim
-    ./programs/hyprland
-    ./programs/hypridle
-    ./programs/hyprlock
-    ./programs/hyprpaper
-    ./programs/neofetch
-    ./programs/nix-index
-    ./programs/vscodium
-    #./programs/firefox
-    ./programs/wezterm
+    ./programs/dconf
+    ./programs/direnv
     ./programs/emacs
     ./programs/git
+    ./programs/hypridle
+    ./programs/hyprland
+    ./programs/hyprlock
+    ./programs/hyprpaper
+    ./programs/kitty
+    ./programs/lazygit
+    ./programs/lf
+    ./programs/nix-index
+    ./programs/neofetch
+    ./programs/neovim
+    ./programs/obs
     ./programs/spicetify
+    ./programs/vivaldi
+    ./programs/vscodium
+    ./programs/wezterm
     ./programs/yazi
     ./programs/zen
-    ./programs/vivaldi
+    ./programs/zsh
   ];
 
 }
