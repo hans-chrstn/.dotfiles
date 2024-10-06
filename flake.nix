@@ -19,6 +19,10 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+    };
+
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -202,6 +206,12 @@
         specialArgs = {inherit inputs outputs;};
         modules = [ ./hosts/mishima/default.nix ];
       };
+
+      toru = nixpkgs.lib.nixosSystem {
+      	specialArgs = { inherit inputs outputs; };
+	      system = "x86_64-linux";
+	      modules = [ ./hosts/toru/default.nix ];
+      };
     };
 
     homeConfigurations = {
@@ -215,6 +225,12 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [ ./home/mishima/default.nix ];
+      };
+
+      toru = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = { inherit inputs outputs; };
+        modules = [ ./home/toru/default.nix ];
       };
 
       "nix-darwin" = home-manager.lib.homeManagerConfiguration {
