@@ -15,26 +15,20 @@
   };
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-    };
+    systems.url = "github:nix-systems/default-linux";
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    yazi = {
-      url = "github:sxyazi/yazi";
-    };
+    yazi.url = "github:sxyazi/yazi";
 
-    zen-browser = {
-      url = "github:MarceColl/zen-browser-flake";
-    };
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -66,30 +60,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix-darwin = {
-      url = "github:Believer1/spicetify-nix";
-    };
+    spicetify-nix-darwin.url = "github:Believer1/spicetify-nix";
 
-    ags = {
-      url = "github:Aylur/ags";
-    };
+    ags.url = "github:Aylur/ags";
 
-    ags-v2 = {
-      url = "github:Aylur/ags/v2";
-    };
+    ags-v2.url = "github:Aylur/ags/v2";
 
-    nur = {
-      url = "github:nix-community/NUR";
-    };
+    nur.url = "github:nix-community/NUR";
 
     prismlauncher = {
       url = "github:julcioo/PrismLauncher-Cracked";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    };
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
  
     hyprlock = {
       url = "github:hyprwm/hyprlock";
@@ -137,104 +121,82 @@
     nixpkgs,
     home-manager,
     nix-darwin,
+    systems,
     ...
   } @ inputs: let
     inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
+    lib = nixpkgs.lib // home-manager.lib // nix-darwin.lib;
+    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs (import systems) (
+      system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+    );
+
   in {
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-
-
-    # without forAllSystems
-    # use this link: https://github.com/vimjoyer/devshells-video credits to vimjoyer
-    # otherwise:
-    # devShells = forAllSystems (system: let
-    #   pkgs = import nixpkgs { inherit system; };
-    # in {
-    #   default = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [
-    #       cowsay
-    #     ];
-    #   };
-    #   java = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [ gcc ncurses patchelf maven gradle zlib jdk ];
-    #   };
-    #
-    #   python = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [ (python3.withPackages(ps: with ps; [ pip tkinter debugpy requests psutil ]))];
-    #   };
-    #
-    #   js = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [ nodejs nodePackages.sass typescript bun sassc ];
-    #   };
-    #
-    #   clang = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [ clang-tools clang cl cmake ];
-    #   };
-    #
-    #   lua = pkgs.mkShell {
-    #     nativeBuildInputs = with pkgs; [ (lua.withPackages(ls: with ls; [ luarocks ])) luajit ];
-    #   };
-    # });
-
+    inherit lib;
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
     overlays = import ./overlays {inherit inputs;};
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
     darwinConfigurations = {
-      "nix-darwin" = nix-darwin.lib.darwinSystem {
+      # HACKINTOSH
+      "nix-darwin" = lib.darwinSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [ ./hosts/nix-darwin/default.nix ];
       };
     };
 
     nixosConfigurations = {
-      hayato = nixpkgs.lib.nixosSystem {
+      # PERSONAL LAPTOP
+      hayato = lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [ ./hosts/hayato/default.nix ];
       };
 
-      mishima = nixpkgs.lib.nixosSystem {
+      # MAIN DESKTOP
+      mishima = lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [ ./hosts/mishima/default.nix ];
       };
 
-      toru = nixpkgs.lib.nixosSystem {
+      # WSL
+      toru = lib.nixosSystem {
       	specialArgs = { inherit inputs outputs; };
 	      system = "x86_64-linux";
-	      modules = [ ./hosts/toru/default.nix ];
+	      modules = [ ./hosts/toru/default.nix self.nixosModules.virtualise ];
       };
     };
 
     homeConfigurations = {
-      hayato = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      # PERSONAL LAPTOP
+      hayato = lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [ ./home/hayato/default.nix ];
       };
 
-      mishima = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      # MAIN DESKTOP
+      mishima = lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [ ./home/mishima/default.nix ];
       };
 
-      toru = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      # WSL
+      toru = lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [ ./home/toru/default.nix ];
       };
 
-      "nix-darwin" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+      # HACKINTOSH
+      "nix-darwin" = lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-darwin;
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [ ./home/nix-darwin/default.nix ];
       };
