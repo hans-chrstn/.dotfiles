@@ -17,8 +17,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    systems.url = "github:nix-systems/default-linux";
-
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     wezterm = {
@@ -121,24 +119,23 @@
     nixpkgs,
     home-manager,
     nix-darwin,
-    systems,
     ...
   } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib // nix-darwin.lib;
-    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs (import systems) (
-      system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-    );
-
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+    pkgsFor = nixpkgs.legacyPackages;
   in {
     inherit lib;
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
+    packages = forAllSystems (pkgs: import ./pkgs {inherit pkgs;});
+    formatter = forAllSystems (pkgs: pkgs.alejandra);
     overlays = import ./overlays {inherit inputs;};
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
