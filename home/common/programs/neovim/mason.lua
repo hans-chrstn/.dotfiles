@@ -9,20 +9,7 @@ local function check(list)
 end
 
 local list_to_check = {
-  black = "python",
-  isort = "python",
-  -- lua_language_server = "lua-language-server",
-  -- rust_analyzer = "rust-analyzer",
-  stylua = "stylua",
-  clangd = "clangd",
-  --
-  -- "typescript-language-server",
-  jdtls = "java",
-  -- "marksman",
-  -- nil = "nil",
-  -- "bash-language-server",
-  -- "kotlin-language-server" = "java",
-  -- "glsl_analyzer",
+
 };
 
 
@@ -44,6 +31,20 @@ return {
           "css-lsp",
           "html-lsp",
           "nil",
+
+          "black",
+          "isort",
+          "lua-language-server",
+          "rust-analyzer",
+          "stylua",
+          "clangd",
+          "typescript-language-server",
+          "jdtls",
+          "marksman",
+          "nil",
+          "bash-language-server",
+          "kotlin-language-server",
+          "glsl_analyzer",
         }),
       })
     end,

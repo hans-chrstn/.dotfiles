@@ -28,8 +28,6 @@
     # cmake
     # pkg-config
     # http-server
-
-
     # qt6.full
   ];
 }

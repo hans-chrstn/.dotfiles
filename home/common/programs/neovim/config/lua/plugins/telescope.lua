@@ -1,18 +1,19 @@
 return {
   {
     "nvim-telescope/telescope-ui-select.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",  -- Use a more specific lazy loading event if possible
   },
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.6",
     dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "Telescope",
-    event = "VimEnter",
+    cmd = "Telescope",  -- Load on command
     config = function()
+      local telescope = require("telescope")
       local builtin = require("telescope.builtin")
       local open_with_trouble = require("trouble.sources.telescope").open
-      require("telescope").setup({
+
+      telescope.setup({
         defaults = {
           mappings = {
             i = { ["<c-t>"] = open_with_trouble },
@@ -34,12 +35,15 @@ return {
           },
         },
       })
-      require("telescope").load_extension("ui-select")
 
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+      telescope.load_extension("ui-select")
+
+      -- Key mappings for telescope commands
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live Grep" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List Buffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help Tags" })
     end,
   },
 }
+
