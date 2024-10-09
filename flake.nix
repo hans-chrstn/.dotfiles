@@ -42,6 +42,8 @@
       url = "github:io12/nix-snapd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -112,6 +114,8 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    blink-cmp.url = "github:Saghen/blink.cmp";
   };
 
   outputs = {
