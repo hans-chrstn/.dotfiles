@@ -114,8 +114,6 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    blink-cmp.url = "github:Saghen/blink.cmp";
   };
 
   outputs = {

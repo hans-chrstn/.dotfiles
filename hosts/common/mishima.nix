@@ -40,11 +40,11 @@
     ./services/greetd.nix
     ./services/ssh.nix
     ./services/dbus.nix
-    ./services/zerotier.nix
-    ./services/samba.nix
+    #./services/zerotier.nix
+    #./services/samba.nix
     ./services/mpd.nix
     ./services/location.nix
-    ./services/avahi.nix
+    #./services/avahi.nix
     ./services/bolt.nix
 
     ./network
