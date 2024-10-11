@@ -1,4 +1,7 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, inputs, ... }:
+let
+  custom_plugins = import ./plugins.nix { inherit pkgs; };
+in
 {
   programs.neovim = {
     enable = true;
@@ -13,22 +16,23 @@
       xclip
       wl-clipboard
       curl
+      gcc
     ];
 
     plugins = with pkgs.vimPlugins; [
       lazy-lsp-nvim
-      nvim-treesitter.withAllGrammars
-      bufferline-nvim
+      #nvim-treesitter.withAllGrammars
+      barbar-nvim
       catppuccin-nvim
       todo-comments-nvim
       comment-nvim
-      nvim-cmp
       cmp-nvim-lsp
       luasnip
       cmp_luasnip
       friendly-snippets
       cmp-buffer
-      cmp-path
+      cmp-async-path
+      cmp-latex-symbols
       dashboard-nvim
       gitsigns-nvim
       lsp-zero-nvim
@@ -36,45 +40,27 @@
       lualine-nvim
       nvim-autopairs
       telescope-nvim
+      telescope-ui-select-nvim
+      telescope-fzf-native-nvim
       nvim-web-devicons
       plenary-nvim
       toggleterm-nvim
       trouble-nvim
       nvim-ts-autotag
       yazi-nvim
-      inputs.blink-cmp.packages.${pkgs.system}.default
+      which-key-nvim
+      custom_plugins.render-markdown
+      custom_plugins.magazine
+      custom_plugins.drop
+      lazy-nvim
     ];
-
-
     extraLuaConfig = ''
-      local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-      if not (vim.uv or vim.loop).fs_stat(lazypath) then
-        vim.fn.system({
-          "git",
-          "clone",
-          "--filter=blob:none",
-          "https://github.com/folke/lazy.nvim.git",
-          "--branch=stable", -- latest stable release
-          lazypath,
-        })
-      end
-      vim.opt.rtp:prepend(lazypath)
-      vim.api.nvim_set_option("clipboard", "unnamedplus")
-      require("vim-options")
-      require("lazy").setup("plugins")
     '';
 
   };
 
-  xdg.configFile."nvim/lua" = {
+  xdg.configFile."nvim" = {
     recursive = true;
-    source = ./config/lua;
+    source = ./config;
   };
-
-  # xdg.configFile = {
-  #   "nvim" = {
-  #     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/neovim/config/";
-  #   };
-  # };
-
 }
