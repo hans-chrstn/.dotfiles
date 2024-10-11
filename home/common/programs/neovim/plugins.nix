@@ -6,7 +6,7 @@
       owner = "MeanderingProgrammer";
       repo = "render-markdown.nvim";
       rev = "main";
-      hash = "sha256-dotx3oYjI4Z/xia0ycPaxYjpRoslU1ft7F7a+9U56IY=";
+      hash = "sha256-fhHINiN6LWImBFCjT9SgEqv7BhKpquKiw1kx2PGgTJM=";
     };
   }; 
 
