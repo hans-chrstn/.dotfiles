@@ -1,7 +1,4 @@
 { pkgs, inputs, ... }:
-let
-  custom_plugins = import ./plugins.nix { inherit pkgs; };
-in
 {
   programs.neovim = {
     enable = true;
@@ -49,9 +46,12 @@ in
       nvim-ts-autotag
       yazi-nvim
       which-key-nvim
-      custom_plugins.render-markdown
-      custom_plugins.magazine
-      custom_plugins.drop
+      # custom_plugins.render-markdown
+      # custom_plugins.magazine
+      # custom_plugins.drop
+      render-markdown
+      magazine
+      drop
       lazy-nvim
     ];
     extraLuaConfig = ''

@@ -11,7 +11,7 @@
     configDir = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/ags/ags-new-ts";
     extraPackages = with pkgs; [
       gtksourceview
-      webkitgtk
+      #webkitgtk
       accountsservice
     ];
   };

@@ -38,6 +38,7 @@
         "plugdev"
         "transmission"
         "video"
+        "docker"
       ];
 
       shell = pkgs.zsh;

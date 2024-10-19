@@ -19,12 +19,10 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    wezterm = {
-      url = "github:wez/wezterm/main?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    yazi.url = "github:sxyazi/yazi";
+    #wezterm = {
+    #  url = "github:wez/wezterm/main?dir=nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     zen-browser.url = "github:MarceColl/zen-browser-flake";
 
@@ -132,10 +130,40 @@
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-    pkgsFor = nixpkgs.legacyPackages;
+
+    forAllSystems = lib.genAttrs systems;
+
+    mkSystemConfig = let
+      configMap = {
+        nixos = lib.nixosSystem;
+        darwin = lib.darwinSystem;
+      };
+    in {
+      userName ? "nixos",
+      system ? "x86_64-linux",
+      configType ? "nixos",
+      homeManager ? false,
+      specialArgs ? {},
+      specialHomeArgs ? {},
+      extraModules ? [],
+      hardwareModules ? [],
+    }:
+      (configMap.${configType}) {
+        specialArgs = { inherit inputs outputs; } // specialArgs;
+        system = system;
+        modules = hardwareModules ++ extraModules ++ (
+          if homeManager == true then [
+            home-manager.nixosModules.home-manager {
+              home-manager = {
+                useUserPackages = true;
+                users.${userName} = import ./home/${userName};
+                extraSpecialArgs = { inherit inputs outputs; } // specialHomeArgs;
+              };
+            }
+          ] else []
+        ) ++ [ ./hosts/${userName} ];
+      };
   in {
-    inherit lib;
     packages = forAllSystems (pkgs: import ./pkgs {inherit pkgs;});
     formatter = forAllSystems (pkgs: pkgs.alejandra);
     overlays = import ./overlays {inherit inputs;};
@@ -144,60 +172,31 @@
 
     darwinConfigurations = {
       # HACKINTOSH
-      "nix-darwin" = lib.darwinSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/nix-darwin/default.nix ];
+      "nix-darwin" = mkSystemConfig {
+        system = "x86_64-darwin";
+        userName = "nix-darwin";
+        homeManager = true;
       };
     };
 
     nixosConfigurations = {
       # PERSONAL LAPTOP
-      hayato = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [ ./hosts/hayato/default.nix ];
+      hayato = mkSystemConfig {
+        userName = "hayato";
+        homeManager = true;
       };
-
       # MAIN DESKTOP
-      mishima = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [ ./hosts/mishima/default.nix ];
+      mishima = mkSystemConfig {
+        userName = "mishima";
+        homeManager = true;
+        hardwareModules = [
+          ./hosts/hardware/mishima.nix
+        ];
       };
-
       # WSL
-      toru = lib.nixosSystem {
-      	specialArgs = { inherit inputs outputs; };
-	      system = "x86_64-linux";
-	      modules = [ ./hosts/toru/default.nix self.nixosModules.virtualise ];
-      };
-    };
-
-    homeConfigurations = {
-      # PERSONAL LAPTOP
-      hayato = lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [ ./home/hayato/default.nix ];
-      };
-
-      # MAIN DESKTOP
-      mishima = lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [ ./home/mishima/default.nix ];
-      };
-
-      # WSL
-      toru = lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./home/toru/default.nix ];
-      };
-
-      # HACKINTOSH
-      "nix-darwin" = lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-darwin;
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./home/nix-darwin/default.nix ];
+      toru = mkSystemConfig {
+        userName = "toru";
+        homeManager = true;
       };
     };
   };

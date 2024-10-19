@@ -11,8 +11,8 @@
     settings = {
       "$mainMod" = "SUPER";
       "$menu" = "ags -t powermenu";
-      "$fileManager" = "wezterm start -- yazi"; #"kitty -e yazi";
-      "$terminal" = "wezterm";
+      "$fileManager" = "kitty -e yazi"; #"wezterm start -- yazi";
+      "$terminal" = "kitty";
 
       plugin = {
         hyprsplit = {
@@ -133,8 +133,8 @@
       );
 
       monitor = [
-        "HDMI-A-2,1920x1080@100,0x0,1"
-	      "HDMI-A-1,1920x1080@60,1920x0,1"
+        "HDMI-A-1,1920x1080@100,0x0,1"
+        "HDMI-A-2,1920x1080@60,1920x0,1"
         "eDP-1,highres,0x0,0.7"
       ];
         

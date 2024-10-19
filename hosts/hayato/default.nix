@@ -1,8 +1,6 @@
 { ... }: 
 {
   imports = [
-    ../common/DELL
-    ./programs
-    ./services
+    ../common/hayato
   ];
 }
