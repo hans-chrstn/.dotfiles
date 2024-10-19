@@ -156,12 +156,12 @@
             home-manager.nixosModules.home-manager {
               home-manager = {
                 useUserPackages = true;
-                users.${userName} = import ./home/${userName};
+                users.${userName} = import ./home/users/${userName};
                 extraSpecialArgs = { inherit inputs outputs; } // specialHomeArgs;
               };
             }
           ] else []
-        ) ++ [ ./hosts/${userName} ];
+        ) ++ [ ./hosts/users/${userName} ];
       };
   in {
     packages = forAllSystems (pkgs: import ./pkgs {inherit pkgs;});
@@ -184,6 +184,9 @@
       hayato = mkSystemConfig {
         userName = "hayato";
         homeManager = true;
+        hardwareModules = [
+          ./hosts/hardware/hayato.nix
+        ];
       };
       # MAIN DESKTOP
       mishima = mkSystemConfig {
@@ -197,6 +200,9 @@
       toru = mkSystemConfig {
         userName = "toru";
         homeManager = true;
+        hardwareModules = [
+          ./hosts/hardware/toru.nix
+        ];
       };
     };
   };

@@ -4,7 +4,7 @@
   imports = [
     ./programs.nix
     ./overlays.nix
-    ../common/mishima.nix
+    ../../common/mishima.nix
   ];
 
   xdg.portal = {
