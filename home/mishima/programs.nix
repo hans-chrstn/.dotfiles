@@ -19,6 +19,7 @@
 
     # JAVA
     zulu
+    nodejs
 
     # RUST OVERLAY
     rust-bin.stable.latest.default
@@ -44,6 +45,11 @@
     heroic
     gogdl
     sunshine
+
+    # EDITING
+    davinci-resolve
+    lmms
+    audacity
 
     # GAMES
     inputs.prismlauncher.packages.${pkgs.system}.prismlauncher

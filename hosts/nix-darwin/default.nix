@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../common/DARWIN/default.nix
+    ../hardware/darwin/default.nix
   ];
 
 }

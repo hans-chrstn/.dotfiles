@@ -5,7 +5,7 @@ vim.opt.runtimepath:append(parser_install_dir)
 return function()
   require("nvim-treesitter.configs").setup({
     parser_install_dir = parser_install_dir,
-    ensure_installed = { "markdown", "markdown_inline", "latex" },
+    ensure_installed = {},
     sync_install = false,
     auto_install = true,
     highlight = {

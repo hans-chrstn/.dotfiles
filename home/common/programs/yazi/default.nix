@@ -17,7 +17,6 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    package = inputs.yazi.packages.${pkgs.system}.default;
     settings = {
       log = {
         enabled = false;
