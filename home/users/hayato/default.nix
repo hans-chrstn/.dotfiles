@@ -4,7 +4,7 @@
   imports = [
     ./programs.nix
     ./overlays.nix
-    ../common/dell.nix
+    ../../common/dell.nix
   ];
 
   xdg.portal = {

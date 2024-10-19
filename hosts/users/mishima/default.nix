@@ -1,7 +1,7 @@
 { outputs, ... }:
 {
   imports = [
-    ../common/mishima.nix
+    ../../common/mishima.nix
     ./overlays.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
 

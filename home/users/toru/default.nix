@@ -4,7 +4,7 @@
   imports = [
     ./programs.nix
     ./overlays.nix
-    ../common/toru.nix
+    ../../common/toru.nix
   ];
 
   home = {

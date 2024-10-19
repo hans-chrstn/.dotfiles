@@ -1,6 +1,6 @@
 { ... }: 
 {
   imports = [
-    ../common/hayato
+    ../../common/hayato
   ];
 }

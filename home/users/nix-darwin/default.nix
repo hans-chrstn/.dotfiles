@@ -8,7 +8,7 @@
 }: {
   imports = [
     ./programs
-    ../common/darwin.nix
+    ../../common/darwin.nix
   ];
 
   nixpkgs = {
