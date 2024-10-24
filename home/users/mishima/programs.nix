@@ -50,6 +50,7 @@
     davinci-resolve
     lmms
     audacity
+    bitwarden-cli
 
     # GAMES
     inputs.prismlauncher.packages.${pkgs.system}.prismlauncher

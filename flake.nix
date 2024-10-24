@@ -19,11 +19,6 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    #wezterm = {
-    #  url = "github:wez/wezterm/main?dir=nix";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
     zen-browser.url = "github:MarceColl/zen-browser-flake";
 
     firefox-addons = {
@@ -40,7 +35,7 @@
       url = "github:io12/nix-snapd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nix-darwin = {
