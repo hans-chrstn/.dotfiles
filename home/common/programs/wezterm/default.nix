@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, ... }:
+{ config, ... }:
 {
   xdg.configFile = {
     "wezterm" = {
@@ -13,6 +13,5 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    #package = inputs.wezterm.packages.${pkgs.system}.default;
   };
 }
