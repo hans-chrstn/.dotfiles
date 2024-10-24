@@ -141,12 +141,11 @@
       specialArgs ? {},
       specialHomeArgs ? {},
       extraModules ? [],
-      hardwareModules ? [],
     }:
       (configMap.${configType}) {
         specialArgs = { inherit inputs outputs; } // specialArgs;
         system = system;
-        modules = hardwareModules ++ extraModules ++ (
+        modules = extraModules ++ (
           if homeManager == true then [
             home-manager.nixosModules.home-manager {
               home-manager = {
@@ -156,7 +155,7 @@
               };
             }
           ] else []
-        ) ++ [ ./hosts/users/${userName} ];
+        ) ++ [ ./hosts/users/${userName} ./hosts/hardware/${userName}.nix ];
       };
   in {
     packages = forAllSystems (pkgs: import ./pkgs {inherit pkgs;});
@@ -179,25 +178,18 @@
       hayato = mkSystemConfig {
         userName = "hayato";
         homeManager = true;
-        hardwareModules = [
-          ./hosts/hardware/hayato.nix
-        ];
       };
+
       # MAIN DESKTOP
       mishima = mkSystemConfig {
         userName = "mishima";
         homeManager = true;
-        hardwareModules = [
-          ./hosts/hardware/mishima.nix
-        ];
       };
+
       # WSL
       toru = mkSystemConfig {
         userName = "toru";
         homeManager = true;
-        hardwareModules = [
-          ./hosts/hardware/toru.nix
-        ];
       };
     };
   };
