@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [ 
+    home-manager
+
     # USB BOOT
     ventoy-full
     # COMPRESS & ARCHIVE TOOLS
@@ -17,5 +19,20 @@
     ffmpeg
     # SYSTEM MONITOR
     bottom
+
+    fd
+    shellcheck
+    ripgrep
+    git
+    curl
+    jq
+    vdpauinfo
+    nix-prefetch-git
+    fzf
+    wirelesstools
+    socat
+    brightnessctl
+    playerctl
+    file
   ];
 }

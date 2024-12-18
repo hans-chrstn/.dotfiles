@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  services.xserver.enable = true;
+
   xdg = {
     icons.enable = true;
     portal = {

@@ -24,7 +24,6 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-  services.xserver.enable = true;
 
   system.stateVersion = "24.11";
 }

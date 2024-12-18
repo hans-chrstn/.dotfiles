@@ -131,12 +131,11 @@
       );
 
       monitor = [
-        
-        "HDMI-A-2,1920x1080@100,0x0,1"
-        "HDMI-A-1,1920x1080@60,1920x0,1"
+        "HDMI-A-2,highrr,0x-1080,1"
+        "HDMI-A-1,highrr,0x0,1"
         "eDP-1,highres,0x0,0.7"
       ];
-        
+
       env = [
         "XCURSOR_SIZE, 24"
         "QT_QPA_PLATFORMTHEME,qt5ct"
@@ -192,7 +191,7 @@
           "brightness" = "0.9";
         };
 
-        "drop_shadow" = "true";
+        # "drop_shadow" = "true";
         "dim_inactive" = "false";
         "dim_strength" = "0.1";
         "dim_special" = "0";

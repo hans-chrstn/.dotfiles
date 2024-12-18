@@ -1,16 +1,15 @@
 { ... }:
 {
   imports = [
-    ./programs/dell.nix
     ./programs/filemanager.nix
-    ./programs/misc.nix
+    ./programs/neovim.nix
     ./programs/terminal.nix
     ./programs/tools.nix
-    ./services/greetd.nix
+    ./programs/vpn.nix
+    ./programs/zsh.nix
     ./services/ssh.nix
     ./services/dbus.nix
-    ./services/mpd.nix
-    ./users
     ./virtualization
+    ./users
   ];
 }
