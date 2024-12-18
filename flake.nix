@@ -19,8 +19,6 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,9 +53,15 @@
 
     spicetify-nix-darwin.url = "github:Believer1/spicetify-nix";
 
-    ags.url = "github:Aylur/ags";
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    ags-v2.url = "github:Aylur/ags/v2";
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur.url = "github:nix-community/NUR";
 
@@ -107,6 +111,8 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = {
@@ -177,6 +183,11 @@
       # PERSONAL LAPTOP
       hayato = mkSystemConfig {
         userName = "hayato";
+        homeManager = true;
+      };
+
+      masato = mkSystemConfig {
+        userName = "masato";
         homeManager = true;
       };
 

@@ -8,11 +8,8 @@
     };
   };
 
-
-
   home.packages = with pkgs; [
     libreoffice-qt
-    github-desktop
     webcord-vencord
     obsidian
     w3m
@@ -47,7 +44,7 @@
     sunshine
 
     # EDITING
-    davinci-resolve
+    #davinci-resolve
     lmms
     audacity
     bitwarden-cli

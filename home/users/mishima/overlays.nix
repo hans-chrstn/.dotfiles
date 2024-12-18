@@ -10,7 +10,7 @@
     inputs.hypridle.overlays.default
 
     # You can also add overlays exported from other flakes:
-    # neovim-nightly-overlay.overlays.default
+    #inputs.neovim-nightly-overlay.overlays.default
 
     # Or define it inline, for example:
     # (final: prev: {
@@ -18,5 +18,5 @@
     #     patches = [ ./change-hello-to-hi.patch ];
     #   });
     # })
-  ] ++ (builtins.attrValues outputs.overlays);
+  ] ++ (builtins.attrValues outputs.overlays) ++ (builtins.attrValues outputs.homeManagerModules);
 }

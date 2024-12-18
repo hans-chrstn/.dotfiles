@@ -20,5 +20,6 @@
 
     ./filesystem
     ./network
+    ./network/mishima.nix
   ];
 }

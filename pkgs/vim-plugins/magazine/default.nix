@@ -8,7 +8,7 @@ vimUtils.buildVimPlugin {
     owner = "iguanacucumber";
     repo = "magazine.nvim";
     rev = "main";
-    hash = "sha256-CtOdwYlkYWQ3YEk66tWlwA8dEpL6kYaRHt9d9QnDli4=";
+    hash = "sha256-Yzzv5ZVuKfm+D4V9T/2T59PMoMbPutdt7TNQf4ktjJw=";
   };
 }
 

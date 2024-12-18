@@ -48,7 +48,7 @@
       __GL_THREADED_OPTIMIZATIONS = "0";
 
       # REMOTE
-      #RUST_BACKTRACE="1";
+      RUST_BACKTRACE="1";
       EDITOR = "nvim";
       VISUAL = "nvim";
     };

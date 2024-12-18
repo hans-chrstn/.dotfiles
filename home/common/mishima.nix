@@ -8,7 +8,7 @@
     ./programs/cursor
     ./programs/dconf
     ./programs/direnv
-    ./programs/emacs
+    # ./programs/emacs
     ./programs/git
     ./programs/hypridle
     ./programs/hyprland
@@ -23,8 +23,8 @@
     ./programs/obs
     ./programs/spicetify
     ./programs/vivaldi
-    ./programs/vscodium
-    ./programs/wezterm
+    # ./programs/vscodium
+    # ./programs/wezterm
     ./programs/yazi
     ./programs/zen
     ./programs/zsh

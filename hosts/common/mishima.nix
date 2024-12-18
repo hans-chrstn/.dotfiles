@@ -1,10 +1,8 @@
 { ... }:
 {
   imports = [
-    ./programs/dev.nix
     ./programs/filemanager.nix
     ./programs/misc.nix
-    ./programs/package-utils.nix
     ./programs/terminal.nix
     ./programs/zsh.nix
     ./programs/hyprland.nix
@@ -14,6 +12,7 @@
     ./programs/thunar.nix
     ./programs/vpn.nix
     ./programs/tools.nix
+    ./programs/sops.nix
     ./services/greetd.nix
     ./services/ssh.nix
     ./services/dbus.nix

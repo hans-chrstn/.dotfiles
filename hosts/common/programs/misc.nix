@@ -5,8 +5,6 @@
     vlc
     # BROWSER
     #floorp
-    inputs.zen-browser.packages."${system}".default
-    hyprwayland-scanner
 
   ];
 }

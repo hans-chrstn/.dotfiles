@@ -8,11 +8,13 @@
 
   programs.ags = {
     enable = true;
-    configDir = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/ags/ags-new-ts";
-    extraPackages = with pkgs; [
-      gtksourceview
+    #    configDir = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home/common/programs/ags/ags-v2";
+    extraPackages = [
+      pkgs.gtksourceview
       #webkitgtk
-      accountsservice
+      pkgs.accountsservice
+      inputs.astal.packages.${pkgs.system}.astal4
+
     ];
   };
 
