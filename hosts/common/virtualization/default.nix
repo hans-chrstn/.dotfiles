@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, modulesPath, lib, ... }:
 
 {
-  programs.dconf.enable = true;
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
+  programs.dconf.enable = lib.mkDefault true;
   
   environment.systemPackages = with pkgs; [
     virt-manager
@@ -17,6 +20,7 @@
     cdrtools
     nettools
     screen
+    xorg.xauth
   ];
   
   virtualisation = {
@@ -31,5 +35,9 @@
     };
     spiceUSBRedirection.enable = true;
   };
-  services.spice-vdagentd.enable = true;
+
+  services = {
+    qemuGuest.enable = true;
+    spice-vdagentd.enable = true;
+  };
 }

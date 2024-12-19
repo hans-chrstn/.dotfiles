@@ -15,18 +15,26 @@
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=root"  ];
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/ad24e1ef-4034-45f7-897a-11c87d6ad2ff"; }
-    ];
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=nix"  ];
+    };
 
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=home"  ];
+    };
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault false;
+  networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp18s2.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;

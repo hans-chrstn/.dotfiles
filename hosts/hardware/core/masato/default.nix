@@ -1,9 +1,15 @@
 {
   lib,
+  pkgs,
   ...
 }:
 {
-  services.xserver = lib.mkDefault false;
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
+  services.xserver.enable = true;
+  services.xserver.displayManager.startx.enable = true;
   nix = {
     settings = {
       cores = 4;
@@ -31,7 +37,7 @@
       "hpsa.hpsa_allow_any=1"
       "hpsa.hpsa_simple_mode=1"
     ];
-    grub = {
+    loader.grub = {
       device = "/dev/sda";
       enable = true;
     };
