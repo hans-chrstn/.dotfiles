@@ -9,7 +9,6 @@
     ./core/security.nix
     ./core/time.nix
     ./hardware/firmware.nix
-    ./network
     ./network/masato.nix
   ];
 }

@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, outputs, ... }:
 {
   nixpkgs = {
     # You can add overlays here
@@ -12,7 +12,7 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
-    ];
+    ]; #++ (builtins.attrValues outputs.overlays) ++ (builtins.attrValues outputs.homeManagerModules);
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
