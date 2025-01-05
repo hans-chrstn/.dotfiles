@@ -2,12 +2,17 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     astal.url = "github:aylur/astal";
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     astal,
+    ags,
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -15,14 +20,7 @@
     devShells.${system} = {
       default = pkgs.mkShell {
         buildInputs = [
-          astal.packages.${system}.io
-          astal.packages.${system}.astal3
-          astal.packages.${system}.battery
-          astal.packages.${system}.wireplumber
-          astal.packages.${system}.network
-          astal.packages.${system}.tray
-          astal.packages.${system}.mpris
-          astal.packages.${system}.hyprland
+          ags.packages.${system}.default
           (pkgs.writeShellScriptBin "bitchass" ''
             nix build .#default
           '')
@@ -34,6 +32,7 @@
           vala
           gobject-introspection
           dart-sass
+          glib
         ];
       };
     };
@@ -52,11 +51,20 @@
         ];
 
         buildInputs = [
+          pkgs.glib.dev
           astal.packages.${system}.io
           astal.packages.${system}.astal3
+          astal.packages.${system}.apps
+          astal.packages.${system}.auth
           astal.packages.${system}.battery
+          astal.packages.${system}.bluetooth
+          astal.packages.${system}.cava
           astal.packages.${system}.wireplumber
+          astal.packages.${system}.greet
+          astal.packages.${system}.notifd
           astal.packages.${system}.network
+          astal.packages.${system}.powerprofiles
+          astal.packages.${system}.river
           astal.packages.${system}.tray
           astal.packages.${system}.mpris
           astal.packages.${system}.hyprland

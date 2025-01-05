@@ -5,6 +5,8 @@ libdir = get_option('prefix') / get_option('libdir')
 
 pkgconfig_deps = [
   dependency('glib-2.0'),
+  dependency('gio-2.0'),
+  dependency('gio-unix-2.0'),
   dependency('gobject-2.0'),
   dependency('gtk+-3.0'),
   dependency('libnm'),
@@ -16,6 +18,14 @@ pkgconfig_deps = [
   dependency('astal-tray-0.1'),
   dependency('astal-mpris-0.1'),
   dependency('astal-hyprland-0.1'),
+  dependency('astal-auth-0.1'),
+  dependency('astal-bluetooth-0.1'),
+  dependency('astal-cava-0.1'),
+  dependency('astal-greet-0.1'),
+  dependency('astal-notifd-0.1'),
+  dependency('astal-power-profiles-0.1'),
+  dependency('astal-river-0.1'),
+  dependency('astal-apps-0.1')
 ]
 
 # needed for GLib.Math
@@ -40,8 +50,9 @@ main = configure_file(
 )
 
 sources = files(
-  'widget/Bar.vala',
-  'widget/TimeLabel.vala',
+  'src/Bar.vala',
+  'src/TimeLabel.vala',
+  'src/AppLauncher.vala'
 )
 
 executable(

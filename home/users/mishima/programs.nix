@@ -49,11 +49,9 @@
     audacity
     bitwarden-cli
 
-    # GAMES
-    inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
-    #nur.repos.iagocq.ultimmc
-
     # TIME
     tenki
+
+    brave
   ];
 }
