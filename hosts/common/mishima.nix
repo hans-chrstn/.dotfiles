@@ -18,6 +18,5 @@
     ./services/dbus.nix
     ./services/mpd.nix
     ./users
-    ./virtualization
   ];
 }
