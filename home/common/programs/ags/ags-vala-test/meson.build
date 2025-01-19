@@ -35,7 +35,7 @@ custom_target(
   'style.css',
   command: [
     find_program('sass'),
-    meson.project_source_root() / 'style.scss',
+    meson.project_source_root() / 'src/styles/main.scss',  # Using absolute path
     '@OUTPUT@',
   ],
   output: 'style.css',
@@ -50,9 +50,9 @@ main = configure_file(
 )
 
 sources = files(
-  'src/Bar.vala',
   'src/TimeLabel.vala',
-  'src/AppLauncher.vala'
+  'src/AppLauncher.vala',
+  'src/Background.vala'
 )
 
 executable(

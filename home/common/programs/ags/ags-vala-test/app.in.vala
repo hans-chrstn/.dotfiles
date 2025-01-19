@@ -8,7 +8,7 @@ class App : Astal.Application {
 
     public override void activate () {
         foreach (var mon in this.monitors) {
-            add_window(new Bar(mon));
+            add_window(new Background(mon));
             add_window(new AppLauncher(mon));
         }
         apply_css("@STYLE@");
