@@ -1,8 +1,6 @@
 { outputs, ... }:
 {
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland.enable = true;
 
   security = {
     pam.services = {

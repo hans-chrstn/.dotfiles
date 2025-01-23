@@ -7,8 +7,8 @@
 
   nix = {
     settings = {
-      cores = 12;
-      max-jobs = 4;
+      cores = 8;
+      max-jobs = 16;
       auto-optimise-store = true;
     };
 

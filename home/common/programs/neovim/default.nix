@@ -49,8 +49,8 @@
       # custom_plugins.render-markdown
       # custom_plugins.magazine
       # custom_plugins.drop
-      render-markdown
-      magazine
+      render-markdown-nvim
+      nvim-cmp
       drop
       lazy-nvim
     ];

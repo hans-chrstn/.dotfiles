@@ -17,6 +17,8 @@
     ./services/ssh.nix
     ./services/dbus.nix
     ./services/mpd.nix
+    ./services/proxmox.nix
     ./users
+    ./fonts.nix
   ];
 }

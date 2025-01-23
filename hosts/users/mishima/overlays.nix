@@ -4,7 +4,6 @@
    nixpkgs.overlays = [
     #inputs.rust-overlay.overlays.default
     #inputs.nur.overlay
-    inputs.hyprland.overlays.default
     #inputs.hyprpaper.overlays.default
     #inputs.hyprlock.overlays.default
     #inputs.hypridle.overlays.default
@@ -22,5 +21,6 @@
     #     patches = [ ./change-hello-to-hi.patch ];
     #   });
     # })
-  ] ++ (builtins.attrValues outputs.overlays); 
+  ];
+  # ] ++ (builtins.attrValues outputs.overlays); 
 }

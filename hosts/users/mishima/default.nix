@@ -3,9 +3,8 @@
   imports = [
     ../../common/mishima.nix
     ./overlays.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
-
-  programs.virtualise.enable = true;
+  ];
+  # ] ++ (builtins.attrValues outputs.nixosModules);
 
   hardware.nvidia-container-toolkit.enable = true;
 }
