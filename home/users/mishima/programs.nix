@@ -9,9 +9,9 @@
   };
 
   home.packages = with pkgs; [
-    libreoffice-qt
-    webcord-vencord
-    obsidian
+    # libreoffice-qt
+    # webcord-vencord
+    # obsidian
     w3m
 
     # JAVA
@@ -46,8 +46,6 @@
     # EDITING
     #davinci-resolve
     lmms
-    audacity
-    bitwarden-cli
 
     # TIME
     tenki

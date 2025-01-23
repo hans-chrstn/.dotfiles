@@ -4,7 +4,7 @@
     enable = true;
     systemd.variables = ["--all"];
     plugins = [
-      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+      pkgs.hyprlandPlugins.hyprsplit
     ];
     settings = {
       "$mainMod" = "SUPER";

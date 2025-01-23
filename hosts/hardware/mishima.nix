@@ -16,7 +16,7 @@
     ./hardware/nvidia.nix
     ./hardware/opengl.nix
     ./hardware/firmware.nix
-    ./hardware/secureboot.nix
+    # ./hardware/secureboot.nix
 
     ./filesystem
     ./network

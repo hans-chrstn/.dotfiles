@@ -1,7 +1,9 @@
-{ ... }:
+{ lib, ... }:
 {
   networking = {
-    hostName = "nixos";  # DISCOVERABLE NETWORK NAME
+    useDHCP = lib.mkForce false;
+    networkmanager.enable = lib.mkForce false;
+    hostName = "nixos-main";  # DISCOVERABLE NETWORK NAME
     nameservers = [
       # NEXTDNS
       #"45.90.28.0#25f5a7.dns.nextdns.io"
@@ -22,18 +24,41 @@
     ];
     firewall = {
       allowedTCPPorts = [
-        47984
-        47989
-        47990
-        48010
       ];
       allowedUDPPorts = [
-        51820
       ];
       allowedUDPPortRanges = [
-        { from = 47998; to = 48000; }
-        { from = 8000; to = 8010; }
       ];
+    };
+  };
+
+  systemd.network = {
+    enable = true;
+    networks = {
+      "10-lan" = {
+        matchConfig.Name = [ "enp8s0" ];
+        networkConfig = {
+          Description = "My Lan";
+          Bridge = "vmbr0";
+        };
+      };
+      "10-lan-bridge" = {
+        matchConfig.Name = "vmbr0";
+        networkConfig = {
+          DHCP = "no";
+          Address = "10.0.0.54/24";
+          Gateway = "10.0.0.1";
+        };
+        linkConfig.RequiredForOnline = "routable";
+      };
+    };
+    netdevs = {
+      "vmbr0" = {
+        netdevConfig = {
+          Name = "vmbr0";
+          Kind = "bridge";
+        };
+      };
     };
   };
 

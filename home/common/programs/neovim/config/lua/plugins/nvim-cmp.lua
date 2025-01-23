@@ -1,6 +1,6 @@
 return {
   {
-    'iguanacucumber/magazine.nvim',
+    'hrsh7th/nvim-cmp',
     name = "nvim-cmp",
     version = false,
     event = 'InsertEnter',
@@ -13,6 +13,6 @@ return {
       'FelipeLema/cmp-async-path',
       'kdheepak/cmp-latex-symbols',
     },
-    config = require('config.magazine'),
+    config = require('config.nvim-cmp'),
   },
 }

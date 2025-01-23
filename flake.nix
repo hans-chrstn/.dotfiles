@@ -6,11 +6,13 @@
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "proxmox-nixos:nveXDuVVhFDRFx8Dn19f1WDEaNRJjPrF2CPD2D+m1ys="
     ];
     substituers = [
       "https://cache.garnix.io"
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://cache.saumon.network/proxmox-nixos"
     ];
   };
 
@@ -19,6 +21,8 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,11 +30,6 @@
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-snapd = {
-      url = "github:io12/nix-snapd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -69,43 +68,6 @@
     };
 
     nur.url = "github:nix-community/NUR";
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
- 
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        hyprlang.follows = "hyprland/hyprlang";
-        hyprutils.follows = "hyprland/hyprutils";
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-      };
-    };   
-
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      inputs = {
-        hyprlang.follows = "hyprland/hyprlang";
-        hyprutils.follows = "hyprland/hyprutils";
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-      };
-    };
-
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs = {
-        hyprlang.follows = "hyprland/hyprlang";
-        hyprutils.follows = "hyprland/hyprutils";
-        nixpkgs.follows = "hyprland/nixpkgs";
-        systems.follows = "hyprland/systems";
-      };
-    };
-
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -184,6 +146,7 @@
       hayato = mkSystemConfig {
         userName = "hayato";
         homeManager = true;
+
       };
 
       masato = mkSystemConfig {
