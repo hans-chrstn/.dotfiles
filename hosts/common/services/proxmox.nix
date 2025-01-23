@@ -8,11 +8,11 @@
     enable = true;
     ipAddress = "10.0.0.55";
     vms = {
-      truenas = {
+      gaming = {
         vmid = 100;
-        memory = 8129;
-        cores = 4;
-        sockets = 2;
+        memory = 8192;
+        cores = 8;
+        sockets = 1;
         kvm = false;
         net = [
           {
@@ -21,9 +21,6 @@
           }
         ];
         scsi = [
-          {
-            file = "local:16";
-          }
           {
             file = "local:200";
           }
