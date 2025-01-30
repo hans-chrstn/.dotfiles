@@ -4,13 +4,13 @@
     ./fonts
     ./programs/ags
     ./programs/btop
-    ./programs/cursor
+    ./programs/theme
     ./programs/dconf
     ./programs/direnv
     ./programs/git
-    ./programs/hypridle
+    # ./programs/hypridle
     ./programs/hyprland
-    ./programs/hyprlock
+    # ./programs/hyprlock
     ./programs/hyprpaper
     ./programs/kitty
     ./programs/lazygit
@@ -18,7 +18,6 @@
     ./programs/neofetch
     ./programs/neovim
     ./programs/spicetify
-    ./programs/vivaldi
     ./programs/yazi
     ./programs/zen
     ./programs/zsh

@@ -22,7 +22,6 @@
     rust-bin.stable.latest.default
 
     hyprshot
-    neofetch
 
     # GAMING
     (lutris.override {

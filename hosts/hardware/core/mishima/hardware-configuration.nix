@@ -91,6 +91,12 @@
       fsType = "btrfs";
       options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
     };
+  fileSystems."/etc/ssh" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=log" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";

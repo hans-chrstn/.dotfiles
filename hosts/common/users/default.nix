@@ -1,97 +1,53 @@
-{ pkgs, ... }:
-
+{ pkgs, config, ... }:
+let
+  hostGroups = [
+    "wheel"
+    "wireshark"
+    "admin"
+    "adbusers"
+    "input"
+    "libvirtd"
+    "plugdev"
+    "transmission"
+    "video"
+    "docker"
+  ];
+in
 {
+  sops.secrets = {
+    "users/mishima/password".neededForUsers = true;
+  };
 
   users.users = {
     masato = {
       isNormalUser = true;
-      hashedPassword = "$6$MOUYs8IWK9URS8OP$HLcnWgm2MM7YWRsJtQ0Xl3OGB5BuFkiJeHYIBABADm9XFDuB0izvBa5nrzki8MbBk49FKbvTQ23c22WNO/XrJ/";
-      extraGroups = [
-        "wheel" 
-        "networkmanager" 
-        "wireshark"
-        "admin"
-        "adbusers"
-        "input"
-        "libvirtd"
-        "plugdev"
-        "transmission"
-        "video"
-      ];
+      hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
       shell = pkgs.zsh;
     };
     toru = {
       isNormalUser = true;
-      hashedPassword = "$6$MOUYs8IWK9URS8OP$HLcnWgm2MM7YWRsJtQ0Xl3OGB5BuFkiJeHYIBABADm9XFDuB0izvBa5nrzki8MbBk49FKbvTQ23c22WNO/XrJ/";
-      extraGroups = [
-        "wheel" 
-        "networkmanager" 
-        "wireshark"
-        "admin"
-        "adbusers"
-        "input"
-        "libvirtd"
-        "plugdev"
-        "transmission"
-        "video"
-      ];
+      hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
       shell = pkgs.zsh;
     };
     mishima = {
       isNormalUser = true;
-      hashedPassword = "$6$MOUYs8IWK9URS8OP$HLcnWgm2MM7YWRsJtQ0Xl3OGB5BuFkiJeHYIBABADm9XFDuB0izvBa5nrzki8MbBk49FKbvTQ23c22WNO/XrJ/";
-      extraGroups = [
-        "wheel" 
-        "networkmanager" 
-        "wireshark"
-        "admin"
-        "adbusers"
-        "input"
-        "libvirtd"
-        "plugdev"
-        "transmission"
-        "video"
-        "docker"
-      ];
-
+      hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
+      extraGroups = hostGroups;
       shell = pkgs.zsh;
     };
     hayato = {
       isNormalUser = true;
-      hashedPassword = "$6$MOUYs8IWK9URS8OP$HLcnWgm2MM7YWRsJtQ0Xl3OGB5BuFkiJeHYIBABADm9XFDuB0izvBa5nrzki8MbBk49FKbvTQ23c22WNO/XrJ/";
+      hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
       extraGroups = [
-        "wheel" 
-        "networkmanager" 
-        "wireshark"
-        "admin"
-        "adbusers"
-        "input"
-        "libvirtd"
-        "plugdev"
-        "transmission"
-        "video"
+        "networkmanager"
       ];
-
       shell = pkgs.zsh;
     };
 
     root = {
       isSystemUser = true;
-      hashedPassword = "$6$MOUYs8IWK9URS8OP$HLcnWgm2MM7YWRsJtQ0Xl3OGB5BuFkiJeHYIBABADm9XFDuB0izvBa5nrzki8MbBk49FKbvTQ23c22WNO/XrJ/";
-      extraGroups = [
-        "root"
-        "wheel" 
-	"networkmanager" 
-        "wireshark"
-        "admin"
-        "adbusers"
-        "input"
-        "libvirtd"
-        "plugdev"
-        "transmission"
-        "video"
-      ];
-
+      hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
+      extraGroups = hostGroups ++ [ "root" ];
       shell = pkgs.zsh;
     };
   };
