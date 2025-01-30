@@ -20,25 +20,31 @@
     };
     secrets = {
       "users/mishima/password" = {};
-      "networks/mishima/lan-bridge/bridge" = {};
-      "networks/mishima/lan-bridge/address" = {};
-      "networks/mishima/lan-bridge/gateway" = {};
-      "networks/mishima/lan-bridge/interface" = {};
+      "networks/wg0/port" = {};
+      "networks/wg0/server/public" = {};
+      "networks/wg0/server/private" = {};
+      "networks/wg0/server/ip" = {};
+      "networks/wg0/client/public" = {};
+      "networks/wg0/client/private" = {};
+      "networks/wg0/client/address" = {};
     };
     templates = {
-      # NETWORKS
-      "address".content = ''
-        ${config.sops.placeholder."networks/mishima/lan-bridge/address"}
-      '';
-      "gateway".content = ''
-        ${config.sops.placeholder."networks/mishima/lan-bridge/gateway"}
-      '';
-      "interface".content = ''
-        ${config.sops.placeholder."networks/mishima/lan-bridge/interface"}
-      '';
-      "bridge".content = ''
-        ${config.sops.placeholder."networks/mishima/lan-bridge/bridge"}
-      '';
+      "wg0.conf" = {
+        content = ''
+          [Interface]
+          Address = ${config.sops.placeholder."networks/wg0/client/address"}
+          ListenPort = ${config.sops.placeholder."networks/wg0/port"}
+          PrivateKey = ${config.sops.placeholder."networks/wg0/client/private"}
+          DNS = 1.1.1.1
+
+          [Peer]
+          PublicKey = ${config.sops.placeholder."networks/wg0/server/public"}
+          AllowedIPs = 0.0.0.0/0
+          Endpoint = ${config.sops.placeholder."networks/wg0/server/ip"}:${config.sops.placeholder."networks/wg0/port"}
+          PersistentKeepalive = 25
+        '';
+        path = "/etc/wireguard/wg0.conf";
+      };
     };
   };
 }
