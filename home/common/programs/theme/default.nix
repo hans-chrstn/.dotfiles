@@ -9,13 +9,14 @@
   gtk = {
     enable = true;
     theme = {
-      name = "andromeda";
-      package = pkgs.andromeda-gtk-theme;
+      name = "Kanagawa";
+      package = pkgs.kanagawa-gtk-theme;
     };
 
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Kanagawa";
+      package = pkgs.kanagawa-icon-theme;
+      # package = pkgs.tela-circle-icon-theme;
     };
 
     cursorTheme = {

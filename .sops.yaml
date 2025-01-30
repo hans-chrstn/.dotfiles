@@ -1,0 +1,9 @@
+keys:
+  - &mishima age15mzfptrhrflvtul7jkgnshse4j9nck6h05gklnkzan3t7r3335zs3cd309
+  - &host age13fyajlzclzhlsuq5kwu4gzrt63t03ktl0f2djrhhes7tflddfp9qxukuhp
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+      - age:
+        - *mishima
+        - *host

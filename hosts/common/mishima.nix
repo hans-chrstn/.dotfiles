@@ -12,7 +12,6 @@
     ./programs/thunar.nix
     ./programs/vpn.nix
     ./programs/tools.nix
-    ./programs/sops.nix
     ./services/greetd.nix
     ./services/ssh.nix
     ./services/dbus.nix

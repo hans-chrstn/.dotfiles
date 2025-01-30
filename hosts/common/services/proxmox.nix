@@ -6,14 +6,15 @@
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "10.0.0.55";
+    ipAddress = "10.0.0.150";
     vms = {
-      gaming = {
+      nasos = {
         vmid = 100;
         memory = 8192;
-        cores = 8;
-        sockets = 1;
+        cores = 4;
+        sockets = 2;
         kvm = false;
+        bios = "ovmf";
         net = [
           {
             model = "virtio";
@@ -22,7 +23,7 @@
         ];
         scsi = [
           {
-            file = "local:200";
+            file = "local:100";
           }
         ];
       };
