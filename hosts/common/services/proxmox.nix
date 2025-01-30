@@ -4,15 +4,28 @@
     inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
 
+  networking = {
+    interfaces = {
+      vmbr0 = {
+        useDHCP = lib.mkDefault true;
+      };
+    };
+    bridges = {
+      vmbr0 = {
+        interfaces = [ "enp8s0" ];
+      };
+    };
+  };
+
   services.proxmox-ve = {
     enable = true;
     ipAddress = "10.0.0.150";
     vms = {
       nasos = {
         vmid = 100;
-        memory = 8192;
-        cores = 4;
-        sockets = 2;
+        memory = 1024;
+        cores = 1;
+        sockets = 1;
         kvm = false;
         bios = "ovmf";
         net = [
@@ -23,7 +36,7 @@
         ];
         scsi = [
           {
-            file = "local:100";
+            file = "local:16";
           }
         ];
       };

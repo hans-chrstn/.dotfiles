@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   networking = {
     hostName = "nixos-main";  # DISCOVERABLE NETWORK NAME
@@ -19,6 +19,7 @@
       allowedTCPPorts = [
       ];
       allowedUDPPorts = [
+        51820
       ];
       allowedUDPPortRanges = [
       ];
