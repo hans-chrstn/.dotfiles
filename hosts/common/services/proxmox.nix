@@ -4,19 +4,6 @@
     inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
 
-  networking = {
-    interfaces = {
-      vmbr0 = {
-        useDHCP = lib.mkDefault true;
-      };
-    };
-    bridges = {
-      vmbr0 = {
-        interfaces = [ "enp8s0" ];
-      };
-    };
-  };
-
   services.proxmox-ve = {
     enable = true;
     ipAddress = "10.0.0.150";

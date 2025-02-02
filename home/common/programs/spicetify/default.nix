@@ -4,10 +4,6 @@ let
 in
 {
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "spotify"
-  ];
-
   # import the flake's module for your system
   imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 

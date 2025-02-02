@@ -52,7 +52,6 @@
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix"; 
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify-nix-darwin.url = "github:Believer1/spicetify-nix";

@@ -60,41 +60,47 @@
   fileSystems."/etc/pve" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=pve" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/lib/pve-firewall" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=pve-firewall" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/lib/pve-cluster" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=pve-cluster" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/lib/pve-manager" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=pve-manager" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var/lib/vz" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=vz" "compress=zstd" "noatime" ];
     };
   fileSystems."/var/lock" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=proxmox" "compress=zstd" "noatime" ];
+      options = [ "subvol=lock" "compress=zstd" "noatime" ];
     };
   fileSystems."/etc/ssh" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
-      options = [ "subvol=log" "compress=zstd" "noatime" ];
+      options = [ "subvol=ssh" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+  fileSystems."/etc/NetworkManager" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=networkmanager" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
