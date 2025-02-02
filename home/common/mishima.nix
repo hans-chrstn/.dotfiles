@@ -8,9 +8,8 @@
     ./programs/dconf
     ./programs/direnv
     ./programs/git
-    # ./programs/hypridle
+    ./programs/gaming
     ./programs/hyprland
-    # ./programs/hyprlock
     ./programs/hyprpaper
     ./programs/kitty
     ./programs/lazygit

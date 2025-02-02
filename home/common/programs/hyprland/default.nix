@@ -131,8 +131,8 @@
       );
 
       monitor = [
-        "HDMI-A-2,highrr,0x-1080,1"
-        "HDMI-A-1,highrr,0x0,1"
+        "HDMI-A-2,highres,0x-1080,1"
+        "HDMI-A-1,highres,0x0,1"
         "eDP-1,highres,0x0,0.7"
       ];
 
