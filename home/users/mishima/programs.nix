@@ -9,7 +9,7 @@
   };
 
   home.packages = with pkgs; [
-    # libreoffice-qt
+    libreoffice-qt
     # webcord-vencord
     # obsidian
     w3m

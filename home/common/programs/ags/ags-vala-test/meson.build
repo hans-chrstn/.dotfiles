@@ -46,7 +46,7 @@ custom_target(
 main = configure_file(
   input: 'app.in.vala',
   output: 'app.vala',
-  configuration: {'STYLE': libdir / 'style.css'},
+  configuration: {'STYLE': libdir / 'style.css', 'CONFIG_DIR': libdir},
 )
 
 sources = files(

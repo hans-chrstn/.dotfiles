@@ -4,7 +4,7 @@
     ./fonts
     ./programs/ags
     ./programs/btop
-    ./programs/theme
+    ./programs/camera
     ./programs/dconf
     ./programs/direnv
     ./programs/git
@@ -14,13 +14,15 @@
     ./programs/kitty
     ./programs/lazygit
     ./programs/lf
+    ./programs/minecraft
     ./programs/neofetch
     ./programs/neovim
+    ./programs/obs
     ./programs/spicetify
+    ./programs/theme
     ./programs/yazi
     ./programs/zen
     ./programs/zsh
-    ./programs/minecraft
   ];
 
 }

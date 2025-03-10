@@ -17,6 +17,8 @@
     ./services/dbus.nix
     ./services/mpd.nix
     ./services/proxmox.nix
+    ./services/nfs.nix
+    ./services/docker.nix
     ./users
     ./fonts.nix
   ];

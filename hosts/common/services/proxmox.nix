@@ -6,7 +6,7 @@
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "10.0.0.150";
+    ipAddress = "10.0.0.23";
     vms = {
       nasos = {
         vmid = 100;
@@ -15,15 +15,15 @@
         sockets = 1;
         kvm = false;
         bios = "ovmf";
-        net = [
-          {
-            model = "virtio";
-            bridge = "vmbr0";
-          }
-        ];
+        # net = [
+        #   {
+        #     model = "virtio";
+        #     bridge = "vmbr0";
+        #   }
+        # ];
         scsi = [
           {
-            file = "local:16";
+            file = "local:32";
           }
         ];
       };

@@ -4,4 +4,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   virtualise = import ./virtualise.nix;
+  gaming = import ./gaming.nix;
 }

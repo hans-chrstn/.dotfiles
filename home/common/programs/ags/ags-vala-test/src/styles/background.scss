@@ -2,6 +2,21 @@ window.background {
   background: transparent;
 }
 
+/* .bg-time, */
+/* .bg-month, */
+/* .bg-month-number, */
+/* .bg-year { */
+/* } */
+
+.bg-month-number {
+  font-size: 9rem;
+}
+
+.bg-month,
+.bg-year {
+  font-size: 5rem;
+}
+
 .bg-time {
-  background-color: black;
+  font-size: 3rem;
 }

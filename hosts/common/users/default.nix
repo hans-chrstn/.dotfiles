@@ -10,7 +10,6 @@ let
     "plugdev"
     "transmission"
     "video"
-    "docker"
   ];
 in
 {

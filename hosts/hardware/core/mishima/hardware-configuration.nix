@@ -112,6 +112,10 @@
     ];
   };
 
+  swapDevices =
+    [ { device = "/dev/lvm/swap"; }
+    ];
+
   # Set your system kind (needed for flakes)
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   networking.useDHCP = lib.mkDefault true;
