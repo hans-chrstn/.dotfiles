@@ -18,5 +18,10 @@
     heroic
     gogdl
     sunshine
+    winetricks
+    (wineWowPackages.full.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+    })
   ];
 }

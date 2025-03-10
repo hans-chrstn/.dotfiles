@@ -22,7 +22,7 @@
       "users/mishima/password" = {};
       "networks/wg0/port" = {};
       "networks/wg0/server/public" = {};
-      "networks/wg0/server/private" = {};
+      "networks/wg0/server/presharedkey" = {};
       "networks/wg0/server/ip" = {};
       "networks/wg0/client/public" = {};
       "networks/wg0/client/private" = {};
@@ -33,12 +33,13 @@
         content = ''
           [Interface]
           Address = ${config.sops.placeholder."networks/wg0/client/address"}
-          ListenPort = ${config.sops.placeholder."networks/wg0/port"}
           PrivateKey = ${config.sops.placeholder."networks/wg0/client/private"}
           DNS = 1.1.1.1
+          MTU = 1420
 
           [Peer]
           PublicKey = ${config.sops.placeholder."networks/wg0/server/public"}
+          PresharedKey = ${config.sops.placeholder."networks/wg0/server/presharedkey"}
           AllowedIPs = 0.0.0.0/0
           Endpoint = ${config.sops.placeholder."networks/wg0/server/ip"}:${config.sops.placeholder."networks/wg0/port"}
           PersistentKeepalive = 25

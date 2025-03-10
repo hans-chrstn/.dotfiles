@@ -16,9 +16,7 @@
     # DOWNLOADS YT MP4/MP3's
     yt-dlp
     ffmpegthumbnailer
-    ffmpeg
-    # SYSTEM MONITOR
-    bottom
+    ffmpeg-full
 
     fd
     shellcheck
