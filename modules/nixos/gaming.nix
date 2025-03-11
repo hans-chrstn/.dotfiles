@@ -17,7 +17,7 @@ in
     environment.systemPackages = with pkgs; [
       ppsspp-sdl-wayland
       pcsx2
-      catridges
+      cartridges
       prismlauncher
     ];
     programs = {
