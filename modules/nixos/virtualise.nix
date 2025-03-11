@@ -35,7 +35,7 @@ in
 
     services.proxmox-ve = {
       enable = true;
-      ipAddress = "cfg.proxmoxIP";
+      ipAddress = cfg.proxmoxIP;
     };
   };
 }
