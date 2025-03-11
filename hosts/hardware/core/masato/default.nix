@@ -1,22 +1,17 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
+
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  services.xserver.enable = true;
-  services.xserver.displayManager.startx.enable = true;
   nix = {
     settings = {
-      cores = 4;
-      max-jobs = 4;
+      cores = 6;
+      max-jobs = 12;
       auto-optimise-store = true;
     };
-    
+
     gc = {
       automatic = true;
       dates = "weekly";
@@ -25,8 +20,15 @@
   };
 
   boot = {
+    supportedFilesystems = ["ntfs"];
+
+    kernelModules = [
+    ];
+
     kernel.sysctl = {
+      "vm.swappiness" = 60;  #default = 60
       "vm.nr_hugepages" = 0;
+
     };
     kernelParams = [
       "quiet"
@@ -34,13 +36,17 @@
       "nomodeset"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
-      "hpsa.hpsa_allow_any=1"
-      "hpsa.hpsa_simple_mode=1"
     ];
-    loader.grub = {
-      device = "/dev/sda";
-      enable = true;
+
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+      systemd-boot.consoleMode = "max";
+      systemd-boot.editor = false;
+      timeout = 4;
+      efi.efiSysMountPoint = "/boot";
     };
     tmp.cleanOnBoot = true;
   };
+
 }

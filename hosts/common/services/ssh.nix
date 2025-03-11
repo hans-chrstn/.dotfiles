@@ -20,9 +20,10 @@
     settings = {
       # Forbid root login through SSH.
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       X11Forwarding = false;
       X11UseLocalhost = true;
+      PubkeyAuthentication = true;
     };
   };
 
