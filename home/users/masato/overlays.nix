@@ -1,24 +1,18 @@
 { inputs, outputs, ... }:
 {
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ]; #++ (builtins.attrValues outputs.overlays) ++ (builtins.attrValues outputs.homeManagerModules);
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = _: true;
-    };
-  };
+   nixpkgs.overlays = [
+    inputs.rust-overlay.overlays.default
+    #inputs.nur.overlay
+
+    # You can also add overlays exported from other flakes:
+    #inputs.neovim-nightly-overlay.overlays.default
+
+    # Or define it inline, for example:
+    # (final: prev: {
+    #   hi = final.hello.overrideAttrs (oldAttrs: {
+    #     patches = [ ./change-hello-to-hi.patch ];
+    #   });
+    # })
+  ] ++ (builtins.attrValues outputs.overlays) ++ (builtins.attrValues outputs.homeManagerModules);
 }

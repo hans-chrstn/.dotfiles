@@ -21,6 +21,7 @@ in
     masato = {
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
+      extraGroups = hostGroups;
       shell = pkgs.zsh;
     };
     toru = {

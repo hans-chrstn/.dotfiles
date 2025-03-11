@@ -2,15 +2,23 @@
 {
   imports = [
     ./programs/filemanager.nix
-    ./programs/neovim.nix
+    ./programs/misc.nix
     ./programs/terminal.nix
-    ./programs/tools.nix
-    ./programs/vpn.nix
     ./programs/zsh.nix
-    ./services/dbus.nix
+    ./programs/hyprland.nix
+    ./programs/neovim.nix
+    ./programs/steam.nix
+    ./programs/thunar.nix
+    ./programs/vpn.nix
+    ./programs/tools.nix
+    ./services/greetd.nix
     ./services/ssh.nix
     ./services/dbus.nix
-    ./virtualization
+    ./services/mpd.nix
+    ./services/proxmox.nix
+    ./services/nfs.nix
+    ./services/docker.nix
     ./users
+    ./fonts.nix
   ];
 }
