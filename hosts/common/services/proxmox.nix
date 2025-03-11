@@ -1,6 +1,0 @@
-{ inputs, lib, pkgs, ... }:
-{
-
-
-
-}
