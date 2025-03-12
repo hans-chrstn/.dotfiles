@@ -8,10 +8,11 @@
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
+    pkgs.corosync
   ];
 
   services.proxmox-ve = {
     enable = true;
-    ipAddress = "10.0.0.151";
+    ipAddress = "10.0.0.23";
   };
 }
