@@ -8,6 +8,7 @@
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
+    pkgs.corosync
   ];
 
   services.proxmox-ve = {
