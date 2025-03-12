@@ -6,16 +6,7 @@ in
 {
   options.programs.virtualise = {
     enable = mkEnableOption "Enable virtualization modules and packages";
-    proxmoxIP = mkOption {
-      type = types.str;
-      default = "192.168.1.10";
-      description = "IP address of the Proxmox node in string.";
-    };
   };
-
-  imports = [
-    inputs.proxmox-nixos.nixosModules.proxmox-ve
-  ];
 
   config = mkIf cfg.enable {
     virtualisation = {
@@ -32,10 +23,5 @@ in
     };
     services.spice-vdagentd.enable = true;
 
-
-    services.proxmox-ve = {
-      enable = true;
-      ipAddress = cfg.proxmoxIP;
-    };
   };
 }
