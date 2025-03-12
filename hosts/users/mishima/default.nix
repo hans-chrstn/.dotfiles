@@ -3,14 +3,15 @@
   imports = [
     ../../common/mishima.nix
     ./overlays.nix
+    inputs.proxmox-nixos.nixosModules.proxmox-ve
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
   ];
 
-  programs.virtualise = {
+  services.proxmox-ve = {
     enable = true;
-    proxmoxIP = "10.0.0.23";
+    ipAddress = "10.0.0.151";
   };
 }
