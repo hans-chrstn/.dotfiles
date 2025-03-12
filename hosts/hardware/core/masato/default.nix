@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
   ];
 
+  networking.hostId = "fffafb21"; #temp just to test zfs
+
   nix = {
     settings = {
       cores = 6;
@@ -19,10 +21,13 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ zfs ];
+
   boot = {
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = ["ntfs" "zfs"];
 
     kernelModules = [
+      "zfs"
     ];
 
     kernel.sysctl = {
