@@ -20,5 +20,6 @@
     # ./hardware/secureboot.nix
 
     ./network
+    ./network/masato.nix
   ];
 }
