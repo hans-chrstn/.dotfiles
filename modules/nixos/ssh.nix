@@ -65,13 +65,13 @@ in {
       lib.mkIf (!config.networking.nftables.enable) {
         extraCommands = ''
           iptables -A INPUT -s 10.0.0.0/24 -m state --state NEW -p tcp -dport 22 -j ACCEPT
-          ip6tables -A INPUT -s fe80::/64 -m tcp -p tcp -dport 22 -j ACCEPT
+          ip6tables -A INPUT -s fe80::/10 -m tcp -p tcp -dport 22 -j ACCEPT
         '';
       }
       // lib.mkIf config.networking.nftables.enable {
         extraInputRules = ''
           ip saddr 10.0.0.0/24 tcp dport 22 accept comment "SSH local access"
-          ip6 saddr fe80::/64 tcp dport 22 accept comment "SSH local access"
+          ip6 saddr fe80::/10 tcp dport 22 accept comment "SSH local access"
         '';
       };
 
