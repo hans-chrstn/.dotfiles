@@ -24,6 +24,18 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  fileSystems."/cloud" =
+    { device = "10.0.0.200:/volume1/docker";
+      fsType = "nfs";
+      options = [ "rw" "sync" "noatime" "nodiratime" "nofail" "_netdev" ];
+    };
+
+  fileSystems."/docker-root" =
+    { device = "10.0.0.200:/volume1/docker/docker-root";
+      fsType = "nfs";
+      options = [ "rw" "sync" "noatime" "nodiratime" "nofail" "_netdev" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-label/swap"; }
     ];
