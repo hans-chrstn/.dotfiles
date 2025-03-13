@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      allowSFTP = false;
+      allowSFTP = true;
       openFirewall = false;
       ports = [22];
 

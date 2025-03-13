@@ -1,11 +1,14 @@
-{ pkgs, inputs, ... }:
+{ pkgs, outputs, inputs, ... }:
 
 {
   imports = [
     ./programs.nix
     ./overlays.nix
     ../../common/mishima.nix
-  ];
+  ] ++ (builtins.attrValues outputs.homeManagerModules);;
+
+  programs.gaming.enable = true;
+  programs.camera.enable = true;
 
   xdg.portal = {
     enable = true;
