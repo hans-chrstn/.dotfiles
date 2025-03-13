@@ -5,4 +5,5 @@
   # my-module = import ./my-module.nix;
   virtualise = import ./virtualise.nix;
   gaming = import ./gaming.nix;
+  ssh  = import ./ssh.nix;
 }

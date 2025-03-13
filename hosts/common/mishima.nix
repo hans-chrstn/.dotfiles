@@ -13,7 +13,7 @@
     ./programs/vpn.nix
     ./programs/tools.nix
     ./services/greetd.nix
-    ./services/ssh.nix
+    # ./services/ssh.nix
     ./services/dbus.nix
     ./services/mpd.nix
     ./services/nfs.nix

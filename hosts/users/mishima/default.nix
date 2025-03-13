@@ -8,11 +8,11 @@
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
-    pkgs.corosync
   ];
 
   services.proxmox-ve = {
     enable = true;
     ipAddress = "10.0.0.23";
   };
+  homelab.server.ssh.enable = true;
 }
