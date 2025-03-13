@@ -4,11 +4,9 @@
     ./fonts
     ./programs/ags
     ./programs/btop
-    ./programs/camera
     ./programs/dconf
     ./programs/direnv
     ./programs/git
-    ./programs/gaming
     ./programs/hyprland
     ./programs/hyprpaper
     ./programs/kitty

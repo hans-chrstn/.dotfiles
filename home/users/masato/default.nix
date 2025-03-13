@@ -1,10 +1,10 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, outputs, ... }:
 
 {
   imports = [
     ./overlays.nix
     ../../common/masato.nix
-  ];
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   xdg.portal = {
     enable = true;

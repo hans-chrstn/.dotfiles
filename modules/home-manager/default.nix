@@ -3,4 +3,6 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
+  gaming = import ./gaming.nix;
+  camera = import ./camera.nix;
 }

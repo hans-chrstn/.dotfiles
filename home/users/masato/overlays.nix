@@ -14,5 +14,6 @@
     #     patches = [ ./change-hello-to-hi.patch ];
     #   });
     # })
-  ] ++ (builtins.attrValues outputs.overlays) ++ (builtins.attrValues outputs.homeManagerModules);
+  ] ++ (builtins.attrValues outputs.overlays);
+
 }
