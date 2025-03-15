@@ -66,6 +66,7 @@ in {
         extraCommands = ''
           iptables -A INPUT -s 10.0.0.0/24 -m state --state NEW -p tcp -dport 22 -j ACCEPT
           ip6tables -A INPUT -s fe80::/10 -m tcp -p tcp -dport 22 -j ACCEPT
+          iptables -A INPUT -s 10.8.0.0/24 -p tcp --dport 22 -j ACCEPT # Allow VPN clients
         '';
       }
       // lib.mkIf config.networking.nftables.enable {
