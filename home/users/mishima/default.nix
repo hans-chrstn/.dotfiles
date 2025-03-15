@@ -5,7 +5,7 @@
     ./programs.nix
     ./overlays.nix
     ../../common/mishima.nix
-  ] ++ (builtins.attrValues outputs.homeManagerModules);;
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   programs.gaming.enable = true;
   programs.camera.enable = true;
