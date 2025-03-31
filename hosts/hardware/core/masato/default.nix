@@ -25,6 +25,7 @@
 
   boot = {
     supportedFilesystems = ["ntfs" "zfs"];
+    blacklistedKernelModules = [ "ucsi_ccg" "typec_ucsi" "i2c_ccgx_ucsi" ];
 
     kernelModules = [
       "zfs"
@@ -38,6 +39,7 @@
     kernelParams = [
       "quiet"
       "splash"
+      "nomodeset" # remove if using igpu
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
     ];

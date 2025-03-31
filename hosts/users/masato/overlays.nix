@@ -2,6 +2,7 @@
 {
    nixpkgs.overlays = [
     inputs.proxmox-nixos.overlays."x86_64-linux"
+    inputs.nvidia-patch.overlays.default
     #inputs.rust-overlay.overlays.default
     #inputs.nur.overlay
     #inputs.hyprpaper.overlays.default

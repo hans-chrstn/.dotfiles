@@ -3,6 +3,7 @@
 {
   imports = [
     ./overlays.nix
+    ./programs.nix
     ../../common/masato.nix
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
