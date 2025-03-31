@@ -12,6 +12,7 @@
     ./programs/thunar.nix
     ./programs/vpn.nix
     ./programs/tools.nix
+    ./programs/wireshark.nix
     ./services/greetd.nix
     # ./services/ssh.nix
     ./services/dbus.nix

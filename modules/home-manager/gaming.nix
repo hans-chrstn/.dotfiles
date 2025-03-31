@@ -26,7 +26,6 @@ in
       cartridges
       heroic
       gogdl
-      sunshine
       winetricks
       (wineWowPackages.full.override {
         wineRelease = "staging";
