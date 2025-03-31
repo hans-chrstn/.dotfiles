@@ -40,6 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvidia-patch = {
+      url = "github:icewind1991/nvidia-patch-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

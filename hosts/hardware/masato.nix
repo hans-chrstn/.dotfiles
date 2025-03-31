@@ -14,6 +14,7 @@
     ./hardware/audio.nix
     ./hardware/bluetooth.nix
     ./hardware/fstrim.nix
+    ./hardware/nvidia.nix
     ./hardware/opengl.nix
     ./hardware/firmware.nix
     ./hardware/zram.nix

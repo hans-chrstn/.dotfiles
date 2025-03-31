@@ -1,4 +1,7 @@
-{ pkgs, outputs, inputs, ... }:
+{ config, pkgs, outputs, inputs, lib, ... }:
+let
+  package = config.boot.kernelPackages.nvidiaPackages.stable;
+in
 {
   imports = [
     ../../common/masato.nix
@@ -9,6 +12,8 @@
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
   ];
+
+  hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
 
   services.proxmox-ve = {
     enable = true;
