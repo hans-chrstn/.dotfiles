@@ -45,12 +45,12 @@
   boot.kernelModules = ["tcp_bbr"];
 
   security = {
-    wrappers.sunshine = {
-      owner = "mishima";
-      group = "wheel";
-      capabilities = "cap_sys_admin+p";
-      source = "${pkgs.sunshine}/bin/sunshine";
-    };
+    # wrappers.sunshine = {
+    #   owner = "mishima";
+    #   group = "wheel";
+    #   capabilities = "cap_sys_admin+p";
+    #   source = "${pkgs.sunshine}/bin/sunshine";
+    # };
     protectKernelImage = true;
     krb5.enable = true;
     # userland niceness

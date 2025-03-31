@@ -31,7 +31,7 @@
       cmp-async-path
       cmp-latex-symbols
       dashboard-nvim
-      gitsigns-nvim
+      # gitsigns-nvim
       lsp-zero-nvim
       nvim-lspconfig
       lualine-nvim

@@ -61,7 +61,6 @@
     cartridges
     heroic
     gogdl
-    sunshine
 
     # GAMES
     inputs.prismlauncher.packages.${pkgs.system}.prismlauncher

@@ -10,9 +10,9 @@
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
   ];
 
-  services.proxmox-ve = {
-    enable = true;
-    ipAddress = "10.0.0.23";
-  };
+  # services.proxmox-ve = {
+  #   enable = true;
+  #   ipAddress = "10.0.0.23";
+  # };
   homelab.server.ssh.enable = true;
 }

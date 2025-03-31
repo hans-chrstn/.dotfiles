@@ -1,6 +1,6 @@
 return function()
   require("gitsigns").setup({
-    signcolumn = true,
+    signcolumn = false,
     numhl = false,
     linehl = false,
     word_diff = false,
