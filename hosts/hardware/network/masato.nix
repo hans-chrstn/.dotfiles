@@ -4,10 +4,9 @@
     hostName = "nixos-server";  # DISCOVERABLE NETWORK NAME
     firewall = {
       allowedTCPPorts = [
-        22
+        # 22
       ];
       allowedUDPPorts = [
-        51820
       ];
       allowedUDPPortRanges = [
       ];
