@@ -11,6 +11,7 @@ in
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
+    pkgs.arion
   ];
 
   hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));

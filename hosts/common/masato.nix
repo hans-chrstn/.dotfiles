@@ -11,6 +11,7 @@
     ./services/dbus.nix
     ./services/nfs.nix
     ./services/docker.nix
+    ./services/podman.nix
     ./services/clamav.nix
     ./users
     ./fonts.nix
