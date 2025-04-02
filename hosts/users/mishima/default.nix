@@ -8,6 +8,7 @@
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
+    pkgs.arion
   ];
 
   # services.proxmox-ve = {

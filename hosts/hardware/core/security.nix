@@ -40,6 +40,7 @@
     # Bufferbloat mitigations + slight improvement in throughput & latency
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "cake";
+    "net.ipv4.ip_unprivileged_port_start" = 80;
   };
 
   boot.kernelModules = ["tcp_bbr"];
