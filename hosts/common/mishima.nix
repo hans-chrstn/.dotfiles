@@ -14,11 +14,10 @@
     ./programs/tools.nix
     ./programs/wireshark.nix
     ./services/greetd.nix
-    # ./services/ssh.nix
     ./services/dbus.nix
     ./services/mpd.nix
     ./services/nfs.nix
-    ./services/docker.nix
+    ./services/arion.nix
     ./users
     ./fonts.nix
   ];

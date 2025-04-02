@@ -11,6 +11,7 @@ let
     "transmission"
     "video"
     "docker"
+    "podman"
   ];
 in
 {
