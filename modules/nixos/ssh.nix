@@ -13,7 +13,9 @@ in {
     services.openssh = {
       enable = true;
       allowSFTP = true;
-      openFirewall = false;
+      openFirewall = true;
+
+
       ports = [22];
 
       # https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67
@@ -61,20 +63,36 @@ in {
       '';
     };
 
-    networking.firewall =
-      lib.mkIf (!config.networking.nftables.enable) {
-        extraCommands = ''
-          iptables -A INPUT -s 10.0.0.0/24 -m state --state NEW -p tcp -dport 22 -j ACCEPT
-          ip6tables -A INPUT -s fe80::/10 -m tcp -p tcp -dport 22 -j ACCEPT
-          iptables -A INPUT -s 10.8.0.0/24 -p tcp --dport 22 -j ACCEPT # Allow VPN clients
-        '';
-      }
-      // lib.mkIf config.networking.nftables.enable {
-        extraInputRules = ''
-          ip saddr 10.0.0.0/24 tcp dport 22 accept comment "SSH local access"
-          ip6 saddr fe80::/10 tcp dport 22 accept comment "SSH local access"
-        '';
+    programs.ssh.startAgent = true;
+    services.fail2ban = {
+      enable = true;
+      jails = {
+        sshd.settings = {
+          enabled = true;
+          port = "ssh";
+          filter = "sshd";
+          logpath = "/var/log/auth.log";
+          maxretry = 5;
+          bantime = "24h";
+        };
       };
+    };
+
+    # networking.firewall =
+    #   lib.mkIf (!config.networking.nftables.enable) {
+    #     extraCommands = ''
+    #       iptables -A INPUT -s 192.168.0.0/24 -m state --state NEW -p tcp -dport 22 -j ACCEPT
+    #       iptables -A INPUT -s 192.168.2.0/24 -m state --state NEW -p tcp -dport 22 -j ACCEPT
+    #       ip6tables -A INPUT -s fe80::/10 -m tcp -p tcp -dport 22 -j ACCEPT
+    #       iptables -A INPUT -s 192.168.90.0/24 -p tcp --dport 22 -j ACCEPT
+    #     '';
+    #   }
+    #   // lib.mkIf config.networking.nftables.enable {
+    #     extraInputRules = ''
+    #       ip saddr 10.0.0.0/24 tcp dport 22 accept comment "SSH local access"
+    #       ip6 saddr fe80::/10 tcp dport 22 accept comment "SSH local access"
+    #     '';
+    #   };
 
     # CLI tools to debug with
     environment.systemPackages = [
