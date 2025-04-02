@@ -11,13 +11,14 @@ in
 
   environment.systemPackages = [
     inputs.hyprsysteminfo.packages.${pkgs.system}.default
-    pkgs.arion
   ];
 
   hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
 
-  services.proxmox-ve = {
-    enable = true;
-    ipAddress = "10.0.0.151";
-  };
+  # services.proxmox-ve = {
+  #   enable = true;
+  #   ipAddress = "10.0.0.151";
+  # };
+
+  homelab.server.ssh.enable = true;
 }
