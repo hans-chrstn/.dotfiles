@@ -7,8 +7,8 @@
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   environment.systemPackages = [
-    inputs.hyprsysteminfo.packages.${pkgs.system}.default
     pkgs.arion
+    pkgs.hyprsysteminfo
   ];
 
   # services.proxmox-ve = {

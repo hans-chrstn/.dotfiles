@@ -10,7 +10,7 @@
     ./services/dbus.nix
     ./services/nfs.nix
     ./services/clamav.nix
-    ./services/arion.nix
+    ./services/docker.nix
     ./users
     ./fonts.nix
   ];
