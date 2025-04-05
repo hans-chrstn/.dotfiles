@@ -2,6 +2,8 @@
 {
   environment.systemPackages = with pkgs; [
     arion
+    docker-compose
+    podman-compose
   ];
 
   virtualisation = {

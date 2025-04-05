@@ -23,11 +23,6 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,11 +70,6 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprsysteminfo = {
-      url = "github:hyprwm/hyprsysteminfo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

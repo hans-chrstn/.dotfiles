@@ -6,19 +6,13 @@ in
   imports = [
     ../../common/masato.nix
     ./overlays.nix
-    inputs.proxmox-nixos.nixosModules.proxmox-ve
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   environment.systemPackages = [
-    inputs.hyprsysteminfo.packages.${pkgs.system}.default
+    pkgs.hyprsysteminfo
   ];
 
   hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
-
-  # services.proxmox-ve = {
-  #   enable = true;
-  #   ipAddress = "10.0.0.151";
-  # };
 
   homelab.server.ssh.enable = true;
 }
