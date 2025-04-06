@@ -263,9 +263,9 @@
 
       };
 
-      opengl = {
-        "force_introspection" = "1";
-      };
+      # opengl = {
+      #   "force_introspection" = "1";
+      # };
 
       device = {
         "name" = "epic-mouse-v1";
