@@ -24,5 +24,6 @@
     tenki
 
     brave
+    libva-utils
   ];
 }

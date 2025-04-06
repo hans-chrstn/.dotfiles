@@ -16,4 +16,6 @@
   #   ipAddress = "10.0.0.23";
   # };
   homelab.server.ssh.enable = true;
+
+  programs.virtualise.enable = true;
 }
