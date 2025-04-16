@@ -5,7 +5,6 @@
     ./core/envar.nix
     ./core/localization.nix
     ./core/nix.nix
-    ./core/perf.nix
     ./core/security.nix
     ./core/time.nix
     ./core/xdg.nix
