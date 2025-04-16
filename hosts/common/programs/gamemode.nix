@@ -1,0 +1,6 @@
+{ ... }:
+{
+  programs.gamemode = {
+    enable = true;
+  };
+}

@@ -25,5 +25,9 @@
 
     brave
     libva-utils
+    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+      jellyfin
+      jellycon
+    ]))
   ];
 }

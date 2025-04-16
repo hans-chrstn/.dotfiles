@@ -13,6 +13,7 @@
     ./programs/vpn.nix
     ./programs/tools.nix
     ./programs/wireshark.nix
+    ./programs/gamemode.nix
     ./services/greetd.nix
     ./services/dbus.nix
     ./services/mpd.nix
