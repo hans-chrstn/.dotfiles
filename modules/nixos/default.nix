@@ -3,6 +3,7 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  virtualise = import ./virtualise.nix;
+  # virtualise = import ./virtualise.nix;
   ssh  = import ./ssh.nix;
+  virtualize = import ./virtualize.nix;
 }
