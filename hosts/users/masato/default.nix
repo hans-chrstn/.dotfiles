@@ -14,5 +14,10 @@ in
 
   hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
 
-  homelab.server.ssh.enable = true;
+  homelab = {
+    server.ssh.enable = true;
+    virtualize = {
+      incus.enable = true;
+    };
+  };
 }
