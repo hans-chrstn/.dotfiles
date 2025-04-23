@@ -18,7 +18,6 @@
     ./services/dbus.nix
     ./services/mpd.nix
     ./services/nfs.nix
-    ./services/arion.nix
     ./users
     ./fonts.nix
   ];

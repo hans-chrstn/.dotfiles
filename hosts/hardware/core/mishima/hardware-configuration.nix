@@ -57,50 +57,24 @@
       neededForBoot = true;
     };
 
-  fileSystems."/etc/pve" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=pve" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/lib/pve-firewall" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=pve-firewall" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/lib/pve-cluster" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=pve-cluster" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/lib/pve-manager" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=pve-manager" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/lib/vz" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=vz" "compress=zstd" "noatime" ];
-    };
-  fileSystems."/var/lock" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=lock" "compress=zstd" "noatime" ];
-    };
   fileSystems."/etc/ssh" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=ssh" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
+
   fileSystems."/etc/NetworkManager" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=networkmanager" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+
+  fileSystems."/var/lib/incus" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=incus" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
