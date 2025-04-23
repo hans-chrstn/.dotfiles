@@ -8,6 +8,7 @@ in
     qemu.enable = mkEnableOption "Enable virtualization modules and packages";
     incus.enable = mkEnableOption "Enable incus modules and packages";
     waydroid.enable = mkEnableOption "Enable waydroid modules and packages";
+
   };
 
   config = mkMerge [
@@ -36,10 +37,12 @@ in
       networking = {
         nftables.enable = true;
         firewall = {
+          enable = true;
           allowedTCPPorts = [
             8443
           ];
           interfaces.incusbr0 = {
+
             allowedTCPPorts = [53 67];
             allowedUDPPorts = [53 67];
           };
