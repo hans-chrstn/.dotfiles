@@ -11,7 +11,6 @@
     ./programs/lf
     ./programs/neofetch
     ./programs/neovim
-    ./programs/theme
     ./programs/yazi
     ./programs/zsh
   ];
