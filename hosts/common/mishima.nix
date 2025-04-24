@@ -18,6 +18,7 @@
     ./services/dbus.nix
     ./services/mpd.nix
     ./services/nfs.nix
+    ./services/iscsi.nix
     ./users
     ./fonts.nix
   ];
