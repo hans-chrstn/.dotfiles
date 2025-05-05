@@ -19,7 +19,9 @@
       kernelModules = [];
       luks.devices."enc" = {
         device = "/dev/nvme0n1p1";
-	preLVM = true;
+	      preLVM = true;
+        keyFile = "/dev/disk/by-label/crypt";
+        keyFileSize = 6;
       };
     };
     kernelModules = [ "kvm-amd" ];

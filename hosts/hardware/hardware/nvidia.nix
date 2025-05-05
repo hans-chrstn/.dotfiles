@@ -19,7 +19,6 @@
   ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia-container-toolkit.enable = true;
 
   environment.sessionVariables = {
     MOZ_DISABLE_RDD_SANDBOX = "1";

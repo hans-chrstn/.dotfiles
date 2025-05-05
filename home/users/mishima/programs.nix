@@ -10,24 +10,24 @@
 
   home.packages = with pkgs; [
     libreoffice-qt
-    # webcord-vencord
+    (discord.override {
+      # withOpenASAR = true;
+      withVencord = true;
+    })
+    discord-rpc
     # obsidian
-    w3m
+    moonlight-qt
 
     hyprshot
 
     # EDITING
     #davinci-resolve
-    lmms
+    # lmms
 
     # TIME
     tenki
 
     brave
     libva-utils
-    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-      jellyfin
-      jellycon
-    ]))
   ];
 }

@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -8,7 +8,7 @@
     ];
     settings = {
       "$mainMod" = "SUPER";
-      "$menu" = "ags -t powermenu";
+      "$menu" = "ags run -d /home/mishima/.dotfiles/home/common/programs/ags/astal-ts-beta -a mishima";
       "$fileManager" = "kitty -e yazi"; #"wezterm start -- yazi";
       "$terminal" = "kitty";
 
