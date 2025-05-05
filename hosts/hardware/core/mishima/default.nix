@@ -7,8 +7,8 @@
 
   nix = {
     settings = {
-      cores = 8;
-      max-jobs = 16;
+      cores = 12;
+      max-jobs = 24;
       auto-optimise-store = true;
     };
 
@@ -20,7 +20,7 @@
   };
 
   boot = {
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = ["ntfs" ];
 
     kernelModules = [
     ];

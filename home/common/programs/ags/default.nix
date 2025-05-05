@@ -30,10 +30,9 @@
     ];
   };
 
-  home.packages = with pkgs; [
-      sassc
-      bun
-
-
+  home.packages = [
+    pkgs.sassc
+    pkgs.bun
+    inputs.astal.packages.${pkgs.system}.default
   ];
 }

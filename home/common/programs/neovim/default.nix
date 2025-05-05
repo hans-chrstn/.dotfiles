@@ -45,10 +45,8 @@
       trouble-nvim
       nvim-ts-autotag
       yazi-nvim
+      cord-nvim
       which-key-nvim
-      # custom_plugins.render-markdown
-      # custom_plugins.magazine
-      # custom_plugins.drop
       render-markdown-nvim
       nvim-cmp
       drop

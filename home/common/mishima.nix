@@ -18,6 +18,7 @@
     ./programs/obs
     ./programs/spicetify
     ./programs/theme
+    ./programs/wezterm
     ./programs/yazi
     ./programs/zen
     ./programs/zsh

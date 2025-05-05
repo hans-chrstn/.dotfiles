@@ -1,0 +1,95 @@
+.dynamic-notch-container {
+    background-color: transparent;
+    .dynamic-notch {
+        min-width: 380px;
+        min-height: 40px;
+        background-color: black;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-bottom-left-radius: 24px;
+        border-bottom-right-radius: 24px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        transition: 250ms;
+    }
+
+    .dynamic-notch-roundcorner-left {
+        background-color: black;
+        border-radius: 30px;
+    }
+
+    .dynamic-notch-roundcorner-right {
+        background-color: black;
+        border-radius: 30px
+    }
+
+    .dynamic-notch-toggle {
+        min-height: 80px;
+        min-width: 400px;
+        transition: 250ms;
+    }
+}
+
+
+window.Notch {
+    background-color: transparent;
+}
+
+box.mediaplayer {
+    padding: .6rem;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    box.cover-art {
+        min-width: 120px;
+        min-height: 120px;
+        border-radius: 9px;
+        margin-right: .6rem;
+        background-size: contain;
+        background-position: center;
+    }
+
+    box.title {
+        label {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        box.mediaplayer-media {
+
+        }
+        .mediaplayer-media-toggle {
+            background-color: white;
+            transition: 250ms;
+        }
+    }
+
+    scale {
+        padding: 0;
+        margin: .4rem 0;
+
+        trough {
+            min-height: 8px;
+        }
+
+        highlight {
+            background-color: black;
+        }
+
+        slider {
+            all: unset;
+        }
+    }
+
+    centerbox.actions {
+        min-width: 220px;
+
+        button {
+            min-width: 0;
+            min-height: 0;
+            padding: .4rem;
+            margin: 0 .2rem;
+        }
+    }
+}
+
+

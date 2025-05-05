@@ -6,7 +6,6 @@
     ./programs/terminal.nix
     ./programs/zsh.nix
     ./programs/hyprland.nix
-    ./programs/ios.nix
     ./programs/neovim.nix
     ./programs/steam.nix
     ./programs/thunar.nix
@@ -16,9 +15,7 @@
     ./programs/gamemode.nix
     ./services/greetd.nix
     ./services/dbus.nix
-    ./services/mpd.nix
     ./services/nfs.nix
-    ./services/iscsi.nix
     ./users
     ./fonts.nix
   ];
