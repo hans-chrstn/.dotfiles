@@ -4,6 +4,9 @@ import Background from "../src/components/background"
 import { monitorStyles, reloadCss } from "../src/utils/styles"
 import Settings from "../src/components/settings"
 import Notch from "../src/components/notch"
+import { forMonitors } from "../src/utils/monitors"
+import OSD from "../src/components/popups"
+import { exec } from "astal"
 
 export default () => {
     App.start({
@@ -11,11 +14,14 @@ export default () => {
         async main() {
             // reloads css on startup
             await reloadCss();
-            Background(0);
-            Background(1);
-            Notch(0);
+            forMonitors(Background);
+            forMonitors(Notch);
             Settings(0)
+            forMonitors(OSD)
             monitorStyles();
+
+            // fixes animation issues with the Notch when using Hyprland
+            exec('hyprctl keyword layerrule noanim,Notch')
         },
     });
 };

@@ -7,6 +7,18 @@
     ../../common/masato.nix
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
+  mod = {
+    btop.enable = true;
+    dconf.enable = true;
+    direnv.enable = true;
+    git = {
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
+    };
+    kitty.enable = true;
+    lazygit.enable = true;
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = [ 

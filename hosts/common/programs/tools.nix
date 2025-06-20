@@ -3,9 +3,16 @@
   environment.systemPackages = with pkgs; [ 
     home-manager
 
+    #pdf checker
+    firejail
+    poppler-utils
+    pdfid
+
+
     # USB BOOT
-    ventoy-full
+    # ventoy-full
     # COMPRESS & ARCHIVE TOOLS
+
     unzip
     p7zip
     unrar
@@ -14,7 +21,7 @@
     # SECURE BOOT KEY MANAGER
     sbctl
     # DOWNLOADS YT MP4/MP3's
-    yt-dlp
+    # yt-dlp
     ffmpegthumbnailer
     ffmpeg-full
 

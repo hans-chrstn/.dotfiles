@@ -49,8 +49,10 @@
       default = pkgs.mkShell {
         buildInputs = libs ++ [
           pkgs.libcava
+          pkgs.gvfs
+          pkgs.gobject-introspection
           (pkgs.writeShellScriptBin "rundev" ''
-            ags run -d .
+            ags run -d . -a $1
           '')
         ];
         nativeBuildInputs = reqs;

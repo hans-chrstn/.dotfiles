@@ -1,15 +1,17 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
- cfg = config.programs.gaming;
+ cfg = config.mod.gaming;
 in 
 {
-  options.programs.gaming = {
+  options.mod.gaming = {
     enable = mkEnableOption "Enable gaming";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      steamtinkerlaunch
+      limo
       (lutris.override {
         extraPkgs = pkgs: [
           jansson

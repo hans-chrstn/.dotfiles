@@ -20,7 +20,7 @@
   };
 
   boot = {
-    supportedFilesystems = ["ntfs" ];
+    supportedFilesystems = ["ntfs"];
 
     kernelModules = [
     ];
@@ -33,7 +33,8 @@
     kernelParams = [
       "quiet"
       "splash"
-      "nomodeset"
+      # "nomodeset"
+      "amdgpu.sg_display=0"
       "nvidia-drm.fbdev=1"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"

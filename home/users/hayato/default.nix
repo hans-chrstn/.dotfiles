@@ -1,11 +1,25 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, outputs, ... }:
 
 {
   imports = [
     ./programs.nix
     ./overlays.nix
     ../../common/dell.nix
-  ];
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
+
+  mod = {
+    lazygit.enable = true;
+    dconf.enable = true;
+    btop.enable = true;
+    kitty.enable = true;
+    theme.enable = true;
+    hyprland.enable = true;
+    nix-index.enable = true;
+    vscodium.enable = true;
+    firefox.enable = true;
+    emacs.enable = true;
+  };
+
 
   xdg.portal = {
     enable = true;

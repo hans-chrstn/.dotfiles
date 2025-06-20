@@ -127,15 +127,6 @@
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
-    darwinConfigurations = {
-      # HACKINTOSH
-      "nix-darwin" = mkSystemConfig {
-        system = "x86_64-darwin";
-        userName = "nix-darwin";
-        homeManager = true;
-      };
-    };
-
     nixosConfigurations = {
       # PERSONAL LAPTOP
       hayato = mkSystemConfig {
