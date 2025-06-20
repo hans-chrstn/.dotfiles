@@ -4,7 +4,7 @@
 }: 
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  hyprland-session = "${pkgs.hyprland}/bin/Hyprland -c /home/hayato/.config/hypr/hyprland.conf";
+  hyprland-session = "${pkgs.hyprland}/bin/Hyprland -c /home/mishima/.config/hypr/hyprland.conf";
 in
 {
   # greetd display manager
@@ -13,8 +13,9 @@ in
     settings = {
       terminal.vt = 1;
       default_session = {
-        command = "${tuigreet} --time --remember --remember-session --cmd Hyprland"; #--sessions ${hyprland-session} #--remember --remember-session
-        user = "greeter";
+        command = hyprland-session; #"--sessions ${hyprland-session} --remember --remember-session"; #"${tuigreet} --time --remember --remember-session --cmd Hyprland"; 
+        # user = "greeter";
+        user = "mishima";
       };
     };
   };

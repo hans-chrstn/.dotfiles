@@ -1,7 +1,0 @@
-{ ... }:
-{
-  environment.variables = {
-    EDITOR = "lvim";
-  };
-  
-}

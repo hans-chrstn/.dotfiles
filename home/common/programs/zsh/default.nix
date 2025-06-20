@@ -17,7 +17,7 @@
     };
 
 
-    initExtra = ''
+    initContent = ''
       source ~/.dotfiles/home/common/programs/zsh/config/.p10k.zsh
       export EDITOR=nvim
       export VISUAL="$EDITOR"

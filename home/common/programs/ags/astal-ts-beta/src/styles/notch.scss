@@ -1,16 +1,14 @@
 .dynamic-notch-container {
     background-color: transparent;
     .dynamic-notch {
-        min-width: 380px;
-        min-height: 40px;
         background-color: black;
-        padding-left: 10px;
-        padding-right: 10px;
+        min-height: 38px;
+        min-width: 400px;
         border-bottom-left-radius: 24px;
         border-bottom-right-radius: 24px;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
-        transition: 250ms;
+        transition: 700ms;
     }
 
     .dynamic-notch-roundcorner-left {
@@ -24,9 +22,9 @@
     }
 
     .dynamic-notch-toggle {
-        min-height: 80px;
+        min-height: 100px;
         min-width: 400px;
-        transition: 250ms;
+        transition: 700ms;
     }
 }
 
@@ -37,9 +35,9 @@ window.Notch {
 
 box.mediaplayer {
     padding: .6rem;
-    background-color: black;
-    color: white;
-    border-radius: 30px;
+    /* background-color: black; */
+    /* color: white; */
+    /* border-radius: 30px; */
     box.cover-art {
         min-width: 120px;
         min-height: 120px;
@@ -54,12 +52,8 @@ box.mediaplayer {
             font-weight: bold;
             font-size: 1.1em;
         }
-        box.mediaplayer-media {
-
-        }
-        .mediaplayer-media-toggle {
-            background-color: white;
-            transition: 250ms;
+        button {
+            all: unset;
         }
     }
 
@@ -84,8 +78,6 @@ box.mediaplayer {
         min-width: 220px;
 
         button {
-            min-width: 0;
-            min-height: 0;
             padding: .4rem;
             margin: 0 .2rem;
         }

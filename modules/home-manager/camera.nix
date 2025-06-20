@@ -1,10 +1,10 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
- cfg = config.programs.camera;
-in 
+ cfg = config.mod.camera;
+in
 {
-  options.programs.camera = {
+  options.mod.camera = {
     enable = mkEnableOption "Enable Emeet camera config and it's best values";
   };
 

@@ -1,4 +1,4 @@
-{ inputs, pkgs, outputs, ... }:
+{ config, inputs, lib, pkgs, outputs, ... }:
 {
   imports = [
     ../../common/mishima.nix
@@ -7,8 +7,5 @@
 
   homelab = {
     server.ssh.enable = true;
-    # virtualize.incus = {
-    #   enable = true;
-    # };
   };
 }

@@ -11,16 +11,16 @@
     colorschemes.catppuccin = {
       enable = true;
       settings = {
-	no_bold = false;
-	no_italic = false;
-	no_underline = false;
-	transparent_background = false;
-	integrations = {
-	  neotree = true;
-	  gitsigns = true;
-	  treesitter = true;
-	  treesitter_context = true;
-	  telescope.enabled = true;
+        no_bold = false;
+        no_italic = false;
+        no_underline = false;
+        transparent_background = false;
+        integrations = {
+          neotree = true;
+          gitsigns = true;
+          treesitter = true;
+          treesitter_context = true;
+          telescope.enabled = true;
           cmp = true;
           native_lsp = {
             enabled = true;
@@ -34,7 +34,7 @@
               warnings = ["underline"];
             };
           };
-	};
+        };
       };
     };
 
@@ -75,7 +75,7 @@
 
       gitsigns = {
       	enable = true;
-	settings.current_line_blame = true;
+        settings.current_line_blame = true;
       };
 
       lsp = {
@@ -109,8 +109,8 @@
 
       lazy = {
       	enable = true;
-	plugins = [
-	];
+        plugins = [
+        ];
       };
 
       # Good old Telescope

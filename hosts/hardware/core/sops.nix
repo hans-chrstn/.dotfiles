@@ -20,31 +20,21 @@
     };
     secrets = {
       "users/mishima/password" = {};
-      "networks/wg0/port" = {};
-      "networks/wg0/server/public" = {};
-      "networks/wg0/server/presharedkey" = {};
-      "networks/wg0/server/ip" = {};
-      "networks/wg0/client/public" = {};
-      "networks/wg0/client/private" = {};
-      "networks/wg0/client/address" = {};
+      "networks/pia" = {};
+      "networks/pia-config" = {};
     };
     templates = {
-      "wg0.conf" = {
+      "auth" = {
         content = ''
-          [Interface]
-          Address = ${config.sops.placeholder."networks/wg0/client/address"}
-          PrivateKey = ${config.sops.placeholder."networks/wg0/client/private"}
-          DNS = 1.1.1.1
-          MTU = 1420
-
-          [Peer]
-          PublicKey = ${config.sops.placeholder."networks/wg0/server/public"}
-          PresharedKey = ${config.sops.placeholder."networks/wg0/server/presharedkey"}
-          AllowedIPs = 0.0.0.0/0
-          Endpoint = ${config.sops.placeholder."networks/wg0/server/ip"}:${config.sops.placeholder."networks/wg0/port"}
-          PersistentKeepalive = 25
+          ${config.sops.placeholder."networks/pia"}
         '';
-        path = "/etc/wireguard/wg0.conf";
+        path = "/etc/pia/auth";
+      };
+      "config" = {
+        content = ''
+          ${config.sops.placeholder."networks/pia-config"}
+        '';
+        path = "/etc/pia/config";
       };
     };
   };

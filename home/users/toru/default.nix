@@ -1,11 +1,20 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, outputs, ... }:
 
 {
   imports = [
     ./programs.nix
     ./overlays.nix
     ../../common/toru.nix
-  ];
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
+
+  mod = {
+    lazygit.enable = true;
+    direnv.enable = true;
+    git = {
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
+    };
+  };
 
   home = {
     username = "toru";

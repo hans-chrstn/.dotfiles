@@ -7,8 +7,30 @@
     ../../common/mishima.nix
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
-  programs.gaming.enable = true;
-  programs.camera.enable = true;
+  mod = {
+    gaming.enable = true;
+    camera.enable = true;
+    btop.enable = true;
+    dconf = {
+      enable = true;
+      dark-scheme = true;
+    };
+    direnv.enable = true;
+    git = {
+      enable = true;
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
+    };
+    hyprland.enable = true;
+    hyprpaper.enable = true;
+    kitty.enable = true;
+    lazygit.enable = true;
+    minecraft.enable = true;
+    mpv.enable = true;
+    nix-index.enable = true;
+    theme.enable = true;
+    yt-dlp.enable = true;
+  };
 
   xdg.portal = {
     enable = true;
