@@ -7,7 +7,6 @@
     ./programs/neofetch
     ./programs/wezterm
     ./programs/yazi
-    ./programs/zen
   ];
 
 }

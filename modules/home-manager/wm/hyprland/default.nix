@@ -17,7 +17,7 @@ in
       ];
       settings = {
         "$mainMod" = "SUPER";
-        "$menu" = "ags run -d /home/mishima/.dotfiles/home/common/programs/ags/astal-ts-beta -a mishima";
+        "$menu" = "ags run -d /home/mishima/.dotfiles/home/common/programs/ags/astal-ts-beta";
         "$fileManager" = "kitty -e yazi"; #"wezterm start -- yazi";
         "$terminal" = "kitty";
 
@@ -280,6 +280,10 @@ in
         device = {
           "name" = "epic-mouse-v1";
           "sensitivity" = "-0.5";
+        };
+
+        cursor = {
+          "no_hardware_cursors" = true;
         };
 
         exec-once = [

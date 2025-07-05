@@ -7,5 +7,6 @@
 
   homelab = {
     server.ssh.enable = true;
+    godot.enable = true;
   };
 }

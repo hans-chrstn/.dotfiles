@@ -11,7 +11,6 @@
     ./core/sops.nix
 
     ./hardware/audio.nix
-    ./hardware/bluetooth.nix
     ./hardware/fstrim.nix
     ./hardware/nvidia.nix
     ./hardware/opengl.nix

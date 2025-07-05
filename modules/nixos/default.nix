@@ -6,4 +6,5 @@
   # virtualise = import ./virtualise.nix;
   ssh  = import ./ssh.nix;
   virtualize = import ./virtualize.nix;
+  godot = import ./godot.nix;
 }
