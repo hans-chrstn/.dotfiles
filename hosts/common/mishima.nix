@@ -13,6 +13,7 @@
     ./programs/tools.nix
     ./programs/wireshark.nix
     ./programs/gamemode.nix
+    ./programs/nix-ld.nix
     ./services/greetd.nix
     ./services/dbus.nix
     ./services/nfs.nix

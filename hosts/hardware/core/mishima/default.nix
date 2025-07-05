@@ -38,6 +38,7 @@
       "nvidia-drm.fbdev=1"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
+      "amd_iommu=on"
     ];
 
     #kernelPackages = pkgs.linuxPackages_latest;

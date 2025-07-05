@@ -30,5 +30,6 @@
     brave
     libva-utils
     mesa-demos
+    openssl
   ];
 }

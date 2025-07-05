@@ -25,6 +25,7 @@ return function()
     preferred_servers = {
       markdown = {},
       python = { "basedpyright", "ruff" },
+      rust = { "rust_analyzer" },
     },
   })
 end

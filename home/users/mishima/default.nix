@@ -8,14 +8,19 @@
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   mod = {
-    gaming.enable = true;
+    ags.enable = true;
     camera.enable = true;
-    btop.enable = true;
+    btop = {
+      enable = true;
+      enableCustomSettings = true;
+      enableCustomTheme = true;
+    };
     dconf = {
       enable = true;
       dark-scheme = true;
     };
     direnv.enable = true;
+    gaming.enable = true;
     git = {
       enable = true;
       userName = "hayato-oo";
@@ -27,9 +32,13 @@
     lazygit.enable = true;
     minecraft.enable = true;
     mpv.enable = true;
+    ncspot.enable = true;
     nix-index.enable = true;
+    spicetify.enable = true;
     theme.enable = true;
+    vscode.enable = true;
     yt-dlp.enable = true;
+    zen.enable = true;
   };
 
   xdg.portal = {
