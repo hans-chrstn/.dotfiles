@@ -52,24 +52,10 @@
       neededForBoot = true;
     };
 
-  fileSystems."/etc/secureboot" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=secureboot" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
-
   fileSystems."/etc/ssh" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=ssh" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
-
-  fileSystems."/etc/NetworkManager" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=networkmanager" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
