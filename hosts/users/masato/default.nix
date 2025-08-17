@@ -1,7 +1,4 @@
 { config, pkgs, outputs, inputs, lib, ... }:
-let
-  package = config.boot.kernelPackages.nvidiaPackages.stable;
-in
 {
   imports = [
     ../../common/masato.nix
@@ -11,8 +8,6 @@ in
   environment.systemPackages = [
     pkgs.hyprsysteminfo
   ];
-
-  # hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
 
   homelab = {
     server.ssh.enable = true;

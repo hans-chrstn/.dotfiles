@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 let
   # Base driver package: stable or beta
   video = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -15,6 +15,10 @@ let
 
 in
 {
+  nixpkgs.overlays = [
+    inputs.nvidia-patch.overlays.default
+  ];
+
   hardware = {
     nvidia = {
       modesetting.enable = true;
