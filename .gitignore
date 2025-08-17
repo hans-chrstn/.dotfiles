@@ -1,6 +1,8 @@
 **/.direnv/
 **/result/
-**/node_modules/
+*.png
+*.d.cts
+node_modules/
 **/package-lock.json
 **/package.json
 **/@girs/
