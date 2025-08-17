@@ -12,7 +12,7 @@ in
     pkgs.hyprsysteminfo
   ];
 
-  hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
+  # hardware.nvidia.package = lib.mkForce (pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package));
 
   homelab = {
     server.ssh.enable = true;

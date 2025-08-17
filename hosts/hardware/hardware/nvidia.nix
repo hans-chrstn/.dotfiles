@@ -1,4 +1,19 @@
 { config, pkgs, ... }:
+let
+  # Base driver package: stable or beta
+  video = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  # Conditionally apply fbc patch if available
+  pkgAfterFbc = if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
+                then pkgs.nvidia-patch.patch-fbc video
+                else video;
+
+  # Conditionally apply nvenc patch if available
+  finalPkg = if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
+             then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
+             else pkgAfterFbc;
+
+in
 {
   hardware = {
     nvidia = {
@@ -9,7 +24,8 @@
       };
       open = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = finalPkg;
     };
   };
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
