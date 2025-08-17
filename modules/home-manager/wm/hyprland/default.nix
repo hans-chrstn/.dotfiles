@@ -153,6 +153,7 @@ in
           # "AQ_MGPU_NO_EXPLICIT,1"
           # "AQ_NO_MODIFIERS,1"
           "AQ_TRACE,1"
+          "PROTON_TRICKS,Proton Experimental"
         ];
 
         input = {

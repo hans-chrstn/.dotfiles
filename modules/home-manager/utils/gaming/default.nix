@@ -10,7 +10,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      steamtinkerlaunch
       limo
       (lutris.override {
         extraPkgs = pkgs: [
@@ -23,16 +22,14 @@ in
         ];
       })
       bottles
-      protonup-qt
-      protontricks
       cartridges
       heroic
       gogdl
-      winetricks
-      (wineWowPackages.full.override {
-        wineRelease = "staging";
-        mingwSupport = true;
-      })
+      # winetricks
+      # (wineWowPackages.full.override {
+      #   wineRelease = "staging";
+      #   mingwSupport = true;
+      # })
     ];
   };
 }

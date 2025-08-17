@@ -18,13 +18,13 @@ in
     gtk = {
       enable = true;
       theme = {
-        name = "Kanagawa";
-        package = pkgs.kanagawa-gtk-theme;
+        name = "Breeze";
+        package = pkgs.kdePackages.breeze-gtk;
       };
 
       iconTheme = {
-        name = "Kanagawa";
-        package = pkgs.kanagawa-icon-theme;
+        name = "Papirus";
+        package = pkgs.papirus-icon-theme;
         # package = pkgs.tela-circle-icon-theme;
       };
 

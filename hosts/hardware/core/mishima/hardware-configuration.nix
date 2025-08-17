@@ -66,6 +66,12 @@
       neededForBoot = true;
     };
 
+  # fileSystems."/home/mishima/.local/share/Steam" =
+  #   { device = "/dev/disk/by-label/nixos";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=steam" "compress=none" "noatime" ];
+  #   };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";
     fsType = "vfat";
