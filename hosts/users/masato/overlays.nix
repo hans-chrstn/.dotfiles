@@ -1,7 +1,6 @@
 { inputs, outputs, ... }:
 {
    nixpkgs.overlays = [
-    inputs.nvidia-patch.overlays.default
     #inputs.rust-overlay.overlays.default
     #inputs.nur.overlay
     #inputs.hyprpaper.overlays.default
