@@ -5,6 +5,7 @@
     ./programs/terminal.nix
     ./programs/zsh.nix
     ./programs/neovim.nix
+    ./programs/nix-ld.nix
     ./programs/tools.nix
     ./services/greetd.nix
     ./services/dbus.nix
