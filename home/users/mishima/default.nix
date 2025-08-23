@@ -8,7 +8,6 @@
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   mod = {
-    ags.enable = true;
     camera.enable = true;
     btop = {
       enable = true;
@@ -32,7 +31,6 @@
     lazygit.enable = true;
     minecraft.enable = true;
     mpv.enable = true;
-    ncspot.enable = true;
     nix-index.enable = true;
     spicetify.enable = true;
     theme.enable = true;

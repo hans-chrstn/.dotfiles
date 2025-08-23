@@ -50,17 +50,7 @@
       url = "github:Gerg-L/spicetify-nix"; 
     };
 
-    spicetify-nix-darwin.url = "github:Believer1/spicetify-nix";
-
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     nur.url = "github:nix-community/NUR";
 

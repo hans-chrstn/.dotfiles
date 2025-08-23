@@ -3,7 +3,6 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  ags = import ./widgets/ags;
   btop = import ./apps/btop;
   camera = import ./utils/camera;
   dconf = import ./utils/dconf;
@@ -31,4 +30,5 @@
   vscode = import ./apps/vscode;
   yt-dlp = import ./apps/yt-dlp;
   zen = import ./browsers/zen;
+  zed = import ./apps/zed;
 }
