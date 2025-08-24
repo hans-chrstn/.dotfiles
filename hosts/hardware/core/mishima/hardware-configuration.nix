@@ -65,12 +65,11 @@
       options = [ "subvol=incus" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
-
-  # fileSystems."/home/mishima/.local/share/Steam" =
-  #   { device = "/dev/disk/by-label/nixos";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=steam" "compress=none" "noatime" ];
-  #   };
+  fileSystems."/var/lib/pve-cluster" =
+    { device = "/dev/mapper/lvm-root";
+      fsType = "btrfs";
+      options = [ "subvol=pve-cluster" "compress=zstd" ];
+    };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";

@@ -8,5 +8,11 @@
   homelab = {
     server.ssh.enable = true;
     godot.enable = true;
+    virtualize = {
+      proxmox = {
+        enable = true;
+        ip = "192.168.110.2";
+      };
+    };
   };
 }
