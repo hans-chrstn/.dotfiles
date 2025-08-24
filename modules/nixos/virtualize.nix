@@ -4,10 +4,20 @@ let
  cfg = config.homelab.virtualize;
 in 
 {
+  imports = [
+    inputs.proxmox-nixos.nixosModules.proxmox-ve
+  ];
+
   options.homelab.virtualize = {
     qemu.enable = mkEnableOption "Enable virtualization modules and packages";
     incus.enable = mkEnableOption "Enable incus modules and packages";
     waydroid.enable = mkEnableOption "Enable waydroid modules and packages";
+    proxmox.enable = mkEnableOption "Enable Proxmox-Nixos modules";
+    proxmox.ip = mkOption {
+      type = types.str;
+      default = "192.168.0.1";
+      description = "IP address to assign the the Proxmox VE service";
+    };
 
   };
 
@@ -56,6 +66,17 @@ in
           enable = true;
         };
       };
+    })
+
+    (mkIf cfg.proxmox.enable {
+      services.proxmox-ve = {
+        enable = true;
+        ipAddress = cfg.proxmox.ip;
+      };
+
+      nixpkgs.overlays = [
+        inputs.proxmox-nixos.overlays."x86_64-linux"
+      ];
     })
   ];
 }
