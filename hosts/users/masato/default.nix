@@ -11,8 +11,5 @@
 
   homelab = {
     server.ssh.enable = true;
-    virtualize = {
-      incus.enable = true;
-    };
   };
 }
