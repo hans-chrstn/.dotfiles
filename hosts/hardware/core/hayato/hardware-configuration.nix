@@ -13,7 +13,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.initrd.luks.devices."enc" = {
-    device = "/dev/sda1";
+    device = "/dev/nvme0n1p1";
     preLVM = true;
   };
 
@@ -29,40 +29,29 @@
       options = [ "subvol=home" "compress=zstd" "noatime" ];
     };
 
-  fileSystems."/snap" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=snap" "compress=zstd" "noatime" ];
-    };
-
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=nix" "compress=zstd" "noatime" ];
     };
 
-  fileSystems."/var/lib/libvirt" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=libvirt" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/lib/snapd" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=varlibsnapd" "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/snap" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=varsnap" "compress=zstd" "noatime" ];
-    };
-
   fileSystems."/var/log" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=log" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+    };
+
+  fileSystems."/etc/NetworkManager" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=networkmanager" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/etc/ssh" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=ssh" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
@@ -73,7 +62,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
+    [ { device = "/dev/lvm/swap"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

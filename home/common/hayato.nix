@@ -2,7 +2,7 @@
 {
   imports = [
     ./fonts
-    ./programs/lf
+    ./programs/yazi
     ./programs/zsh
     ./programs/neovim
     ./programs/neofetch
