@@ -42,7 +42,7 @@ in
       hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
       extraGroups = [
         "networkmanager"
-      ];
+      ] ++ hostGroups;
       shell = pkgs.zsh;
     };
 

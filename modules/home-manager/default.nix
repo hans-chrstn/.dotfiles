@@ -16,6 +16,7 @@
   hyprland = import ./wm/hyprland;
   hyprlock = import ./apps/hyprlock;
   hyprpaper = import ./apps/hyprpaper;
+  joplin = import ./apps/joplin;
   kitty = import ./terminal/kitty;
   lazygit = import ./apps/lazygit;
   minecraft = import ./apps/minecraft;

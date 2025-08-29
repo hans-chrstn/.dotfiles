@@ -4,7 +4,7 @@
   imports = [
     ./programs.nix
     ./overlays.nix
-    ../../common/dell.nix
+    ../../common/hayato.nix
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   mod = {
@@ -14,10 +14,10 @@
     kitty.enable = true;
     theme.enable = true;
     hyprland.enable = true;
+    joplin.enable = true;
     nix-index.enable = true;
-    vscodium.enable = true;
-    firefox.enable = true;
-    emacs.enable = true;
+    spicetify.enable = true;
+    zen.enable = true;
   };
 
 
