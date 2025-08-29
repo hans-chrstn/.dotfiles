@@ -30,6 +30,8 @@ in
         ms-dotnettools.csdevkit
         csharpier.csharpier-vscode
 
+        arrterian.nix-env-selector
+
         geequlim.godot-tools
       ];
 
