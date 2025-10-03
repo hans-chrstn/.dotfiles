@@ -49,7 +49,7 @@ in
     root = {
       isSystemUser = true;
       hashedPasswordFile = config.sops.secrets."users/mishima/password".path;
-      extraGroups = hostGroups ++ [ "root" ];
+      extraGroups = hostGroups ++ [ "root" "qemu" ];
       shell = pkgs.zsh;
     };
   };

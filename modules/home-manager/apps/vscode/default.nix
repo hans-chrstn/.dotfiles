@@ -33,6 +33,8 @@ in
         arrterian.nix-env-selector
 
         geequlim.godot-tools
+
+        visualstudiotoolsforunity.vstuc
       ];
 
       profiles.default.userSettings = {

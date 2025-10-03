@@ -43,8 +43,8 @@ in
   environment.sessionVariables = {
     MOZ_DISABLE_RDD_SANDBOX = "1";
     MOZ_DRM_DEVICE = "/dev/dri/renderD128";
-    LIBVA_DRIVER_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
+    # LIBVA_DRIVER_NAME = "nvidia";
+    # GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     __GLX_GSYNC_ALLOWED = "0";
     __GL_VRR_ALLOWED = "0";

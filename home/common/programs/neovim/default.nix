@@ -51,6 +51,7 @@
       nvim-cmp
       drop
       lazy-nvim
+      copilot-lua
     ];
     extraLuaConfig = ''
     '';

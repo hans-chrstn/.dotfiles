@@ -31,5 +31,6 @@
     libva-utils
     mesa-demos
     openssl
+    ethtool
   ];
 }

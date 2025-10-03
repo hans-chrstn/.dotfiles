@@ -3,6 +3,7 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
+  android-studio = import ./apps/android-studio;
   btop = import ./apps/btop;
   camera = import ./utils/camera;
   dconf = import ./utils/dconf;
@@ -14,6 +15,7 @@
   git = import ./apps/git;
   hypridle = import ./apps/hypridle;
   hyprland = import ./wm/hyprland;
+  hyprlax = import ./apps/hyprlax;
   hyprlock = import ./apps/hyprlock;
   hyprpaper = import ./apps/hyprpaper;
   joplin = import ./apps/joplin;
@@ -27,6 +29,7 @@
   spicetify = import ./apps/spicetify;
   swww = import ./apps/swww;
   theme = import ./utils/theme;
+  unity = import ./apps/unity;
   vivaldi = import ./apps/vivaldi;
   vscode = import ./apps/vscode;
   yt-dlp = import ./apps/yt-dlp;

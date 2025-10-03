@@ -34,6 +34,7 @@
       "quiet"
       "splash"
       # "nomodeset"
+      "nvidia-drm.modeset=1"
       "amdgpu.sg_display=0"
       "nvidia-drm.fbdev=1"
       "systemd.show_status=auto"

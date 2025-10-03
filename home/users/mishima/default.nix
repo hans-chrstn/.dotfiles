@@ -8,6 +8,7 @@
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   mod = {
+    android-studio.enable = true;
     camera.enable = true;
     btop = {
       enable = true;
@@ -24,9 +25,11 @@
       enable = true;
       userName = "hayato-oo";
       userEmail = "xuhiko13@gmail.com";
+      enableGh = true;
     };
     hyprland.enable = true;
     hyprpaper.enable = true;
+    joplin.enable = true;
     kitty.enable = true;
     lazygit.enable = true;
     minecraft.enable = true;
@@ -34,6 +37,7 @@
     nix-index.enable = true;
     spicetify.enable = true;
     theme.enable = true;
+    unity.enable = true;
     vscode.enable = true;
     yt-dlp.enable = true;
     zen.enable = true;
