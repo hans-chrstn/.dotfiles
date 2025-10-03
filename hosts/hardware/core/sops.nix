@@ -20,8 +20,6 @@
     };
     secrets = {
       "users/mishima/password" = {};
-      "networks/pia" = {};
-      "networks/pia-config" = {};
       "networks/wg-laptop/interface/private-key" = {};
       "networks/wg-laptop/interface/address" = {};
       "networks/wg-laptop/interface/dns" = {};
@@ -29,6 +27,13 @@
       "networks/wg-laptop/peer/preshared-key" = {};
       "networks/wg-laptop/peer/allowed-ips" = {};
       "networks/wg-laptop/peer/endpoint" = {};
+      "networks/mishima/main/name" = {};
+      "networks/mishima/main/dhcp" = {};
+      "networks/mishima/vm/kind" = {};
+      "networks/mishima/vm/name" = {};
+      "networks/mishima/bridge/name" = {};
+      "networks/mishima/bridge/dhcp" = {};
+      "networks/mishima/bridge/mad" = {};
     };
     templates = {
       "unsecured" = {
@@ -47,17 +52,44 @@
         '';
         path = "/etc/wireguard/unsecured.conf";
       };
-      "auth" = {
+
+      "10-lan.network" = {
         content = ''
-          ${config.sops.placeholder."networks/pia"}
+          [Match]
+          Name=${config.sops.placeholder."networks/mishima/main/name"}
+
+          [Network]
+          Bridge=${config.sops.placeholder."networks/mishima/vm/name"}
+          DHCP=${config.sops.placeholder."networks/mishima/main/dhcp"}
         '';
-        path = "/etc/pia/auth";
+        mode = "0644";
+        path = "/etc/systemd/network/10-lan.network";
       };
-      "config" = {
+
+      "10-lan-bridge.network" = {
         content = ''
-          ${config.sops.placeholder."networks/pia-config"}
+          [Match]
+          Name=${config.sops.placeholder."networks/mishima/bridge/name"}
+
+          [Link]
+          RequiredForOnline=routable
+          MACAddress=${config.sops.placeholder."networks/mishima/bridge/mad"}
+
+          [Network]
+          DHCP=${config.sops.placeholder."networks/mishima/bridge/dhcp"}
         '';
-        path = "/etc/pia/config";
+        mode = "0644";
+        path = "/etc/systemd/network/10-lan-bridge.network";
+      };
+
+      "vmbr0.netdev" = {
+        content = ''
+          [NetDev]
+          Kind=${config.sops.placeholder."networks/mishima/vm/kind"}
+          Name=${config.sops.placeholder."networks/mishima/vm/name"}
+        '';
+        mode = "0644";
+        path = "/etc/systemd/network/vmbr0.netdev";
       };
     };
   };

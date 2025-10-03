@@ -25,7 +25,7 @@
       # xorg.libXt
       # xorg.libXmu
       # xorg.libICE
-      # libGL
+      libGL
       # libglvnd
       # libnotify
       # #libpulseaudio

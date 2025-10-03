@@ -16,6 +16,11 @@ in
       default = null;
       description = "userEmail or else Bob@gmail.com";
     };
+    enableGh = mkOption {
+      type = types.nullOr types.bool;
+      default = null;
+      description = "Enable gh command";
+    };
   };
 
   config = mkIf cfg.enable (
@@ -31,6 +36,19 @@ in
       })
       (mkIf (cfg.userEmail != null) {
         programs.git.userEmail = cfg.userEmail;
+      })
+      (mkIf (cfg.enableGh != null) {
+        programs.gh = {
+          enable = true;
+          settings = {
+            theme = "catppuccin-mocha";
+            font-size = 10;
+            keybind = [
+              "ctrl+h=goto_split:left"
+              "ctrl+l=goto_split:right"
+            ];
+          };
+        };
       })
     ]
   );
