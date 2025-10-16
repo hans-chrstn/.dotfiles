@@ -9,7 +9,6 @@
     ./core/security.nix
     ./core/time.nix
     ./core/xdg.nix
-    ./core/sops.nix
 
     ./hardware/audio.nix
     ./hardware/bluetooth.nix
@@ -19,6 +18,8 @@
     ./hardware/firmware.nix
     ./hardware/zram.nix
     # ./hardware/secureboot.nix
+
+    ./filesystem/zfs.nix
 
     ./network
     ./network/masato.nix
