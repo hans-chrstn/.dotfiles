@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-  ];
 
-  networking.hostId = "fffafb21"; #temp just to test zfs
+    inputs.sops-nix.nixosModules.sops
+  ];
 
   nix = {
     settings = {
@@ -21,15 +21,10 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ zfs ];
 
   boot = {
-    supportedFilesystems = ["ntfs" "zfs"];
+    supportedFilesystems = ["ntfs"];
     blacklistedKernelModules = [ "ucsi_ccg" "typec_ucsi" "i2c_ccgx_ucsi" ];
-
-    kernelModules = [
-      "zfs"
-    ];
 
     kernel.sysctl = {
       "vm.swappiness" = 60;  #default = 60
@@ -55,4 +50,70 @@
     tmp.cleanOnBoot = true;
   };
 
+
+  environment.systemPackages = with pkgs; [
+    age
+    gnupg
+    sops
+    ssh-to-age
+  ];
+
+  sops = {
+    defaultSopsFile = ../../../../secrets/secrets.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      "users/mishima/password" = {};
+      "networks/masato/main/name" = {};
+      "networks/masato/main/dhcp" = {};
+      "networks/masato/vm/kind" = {};
+      "networks/masato/vm/name" = {};
+      "networks/masato/bridge/name" = {};
+      "networks/masato/bridge/dhcp" = {};
+      "networks/masato/bridge/mad" = {};
+    };
+    templates = {
+      "10-lan.network" = {
+        content = ''
+          [Match]
+          Name=${config.sops.placeholder."networks/masato/main/name"}
+
+          [Network]
+          Bridge=${config.sops.placeholder."networks/masato/vm/name"}
+          DHCP=${config.sops.placeholder."networks/masato/main/dhcp"}
+        '';
+        mode = "0644";
+        path = "/etc/systemd/network/10-lan.network";
+      };
+
+      "10-lan-bridge.network" = {
+        content = ''
+          [Match]
+          Name=${config.sops.placeholder."networks/masato/bridge/name"}
+
+          [Link]
+          RequiredForOnline=routable
+          MACAddress=${config.sops.placeholder."networks/masato/bridge/mad"}
+
+          [Network]
+          DHCP=${config.sops.placeholder."networks/masato/bridge/dhcp"}
+        '';
+        mode = "0644";
+        path = "/etc/systemd/network/10-lan-bridge.network";
+      };
+
+      "vmbr0.netdev" = {
+        content = ''
+          [NetDev]
+          Kind=${config.sops.placeholder."networks/masato/vm/kind"}
+          Name=${config.sops.placeholder."networks/masato/vm/name"}
+        '';
+        mode = "0644";
+        path = "/etc/systemd/network/vmbr0.netdev";
+      };
+    };
+  };
 }

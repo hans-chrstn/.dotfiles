@@ -10,11 +10,11 @@
     initrd = {
       availableKernelModules = [
         "xhci_pci"
-	"ahci"
-	"nvme"
-	"usbhid"
-	"usb_storage"
-	"sd_mod"
+        "ahci"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
       ];
       kernelModules = [];
       luks.devices."enc" = {

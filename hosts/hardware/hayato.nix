@@ -9,7 +9,6 @@
     ./core/security.nix
     ./core/time.nix
     ./core/xdg.nix
-    ./core/sops.nix
 
     ./hardware/audio.nix
     ./hardware/bluetooth.nix
