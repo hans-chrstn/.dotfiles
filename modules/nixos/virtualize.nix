@@ -1,14 +1,14 @@
 { inputs, lib, pkgs, config, ... }:
 with lib;
 let
- cfg = config.homelab.virtualize;
+ cfg = config.mod.virtualize;
 in 
 {
   imports = [
     inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
 
-  options.homelab.virtualize = {
+  options.mod.virtualize = {
     qemu.enable = mkEnableOption "Enable virtualization modules and packages";
     incus.enable = mkEnableOption "Enable incus modules and packages";
     waydroid.enable = mkEnableOption "Enable waydroid modules and packages";

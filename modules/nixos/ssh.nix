@@ -3,13 +3,14 @@
   config,
   ...
 }: let
-  cfg = config.homelab.server.ssh;
+  cfg = config.mod.ssh;
 in {
-  options = {
-    homelab.server.ssh.enable = lib.mkEnableOption "Enables openssh server";
+  options.mod.ssh = {
+    enable = lib.mkEnableOption "Enables openssh server";
   };
 
   config = lib.mkIf cfg.enable {
+    services.gnome.gcr-ssh-agent.enable = false;
     services.openssh = {
       enable = true;
       allowSFTP = true;

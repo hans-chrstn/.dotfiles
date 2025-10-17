@@ -9,8 +9,10 @@
     useDHCP = lib.mkForce false;
     firewall = {
       allowedTCPPorts = [
+        5173
       ];
       allowedUDPPorts = [
+        5173
       ];
       allowedUDPPortRanges = [
       ];

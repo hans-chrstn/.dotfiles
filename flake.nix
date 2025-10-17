@@ -3,13 +3,13 @@
 
   nixConfig = {
     trusted-public-keys = [
-      # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     substituers = [
-      # "https://cache.garnix.io"
       "https://cache.nixos.org"
+      "https://niri.cachix.org"
       "https://nix-community.cachix.org"
     ];
   };
@@ -23,8 +23,6 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -41,23 +39,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix"; 
-    };
-
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
-
-    nur.url = "github:nix-community/NUR";
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     sops-nix.url = "github:Mic92/sops-nix";
   };

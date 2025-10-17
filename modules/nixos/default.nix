@@ -7,4 +7,5 @@
   ssh  = import ./ssh.nix;
   virtualize = import ./virtualize.nix;
   godot = import ./godot.nix;
+  niri = import ./wm/niri;
 }
