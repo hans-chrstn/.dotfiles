@@ -75,8 +75,8 @@
     };
   };
 
-  homelab = {
-    server.ssh.enable = true;
+  mod = {
+    ssh.enable = true;
     virtualize = {
       proxmox = {
         enable = true;

@@ -2,9 +2,6 @@
 {
 
    nixpkgs.overlays = [
-    inputs.rust-overlay.overlays.default
-    #inputs.nur.overlay
-
     # You can also add overlays exported from other flakes:
     #inputs.neovim-nightly-overlay.overlays.default
 

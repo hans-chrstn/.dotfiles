@@ -8,7 +8,7 @@
   camera = import ./utils/camera;
   dconf = import ./utils/dconf;
   direnv = import ./utils/direnv;
-  emacs = import ./terminal/emacs;
+  emacs = import ./apps/emacs;
   firefox = import ./browsers/firefox;
   fuzzel = import ./apps/fuzzel;
   gaming = import ./utils/gaming;
@@ -24,9 +24,8 @@
   minecraft = import ./apps/minecraft;
   mpv = import ./apps/mpv;
   ncspot = import ./apps/ncspot;
-  index = import ./utils/nix-index;
+  nix-index = import ./utils/nix-index;
   pentest = import ./utils/pentest;
-  spicetify = import ./apps/spicetify;
   swww = import ./apps/swww;
   theme = import ./utils/theme;
   unity = import ./apps/unity;

@@ -16,7 +16,6 @@
     hyprland.enable = true;
     joplin.enable = true;
     nix-index.enable = true;
-    spicetify.enable = true;
     zen.enable = true;
   };
 

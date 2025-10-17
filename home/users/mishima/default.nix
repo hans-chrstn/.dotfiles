@@ -27,15 +27,12 @@
       userEmail = "xuhiko13@gmail.com";
       enableGh = true;
     };
-    hyprland.enable = true;
-    hyprpaper.enable = true;
     joplin.enable = true;
     kitty.enable = true;
     lazygit.enable = true;
     minecraft.enable = true;
     mpv.enable = true;
     nix-index.enable = true;
-    spicetify.enable = true;
     theme.enable = true;
     unity.enable = true;
     vscode.enable = true;

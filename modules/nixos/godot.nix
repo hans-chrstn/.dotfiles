@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.homelab.godot;
+  cfg = config.mod.godot;
 in {
-  options = {
-    homelab.godot.enable = lib.mkEnableOption "Enables godot";
+  options.mod.godot = {
+    enable = lib.mkEnableOption "Enables godot";
   };
 
   config = lib.mkIf cfg.enable {

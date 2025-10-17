@@ -27,9 +27,6 @@
 
 
 
-    # RUST OVERLAY
-    rust-bin.stable.latest.default
-
     # HYPRLAND ECOSYSTEM | EXTRAPKGS
     xdg-desktop-portal-hyprland
     hyprlang
