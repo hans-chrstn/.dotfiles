@@ -1,4 +1,8 @@
-{ modules, ... }: {
+{
+  modules,
+  pkgs,
+  ...
+}: {
   imports = [
     modules.home-manager.btop
     modules.home-manager.camera
@@ -77,6 +81,12 @@
     zen.enable = true;
     zsh.enable = true;
   };
+
+  fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [
+    bebasneue
+    apple-fonts
+  ];
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";
