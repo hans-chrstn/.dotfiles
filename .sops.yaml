@@ -1,11 +1,11 @@
 keys:
-  - &mishima age15mzfptrhrflvtul7jkgnshse4j9nck6h05gklnkzan3t7r3335zs3cd309
+  - &jin age15mzfptrhrflvtul7jkgnshse4j9nck6h05gklnkzan3t7r3335zs3cd309
   - &host age13fyajlzclzhlsuq5kwu4gzrt63t03ktl0f2djrhhes7tflddfp9qxukuhp
-  - &masato age14ryh2rhp4s6d0uv2fy8dnytgx3m9wgpn5v34rwlcf7t73p4t398s8a00kk
+  - &makoto age14ryh2rhp4s6d0uv2fy8dnytgx3m9wgpn5v34rwlcf7t73p4t398s8a00kk
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
-        - *mishima
+        - *jin
         - *host
-        - *masato
+        - *makoto
