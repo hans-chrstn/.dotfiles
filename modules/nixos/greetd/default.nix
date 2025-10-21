@@ -1,19 +1,22 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.mod.services.greetd;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.services.greetd;
+in {
   options.mod.services.greetd = {
     enable = lib.mkEnableOption "Enable the greetd feature";
   };
 
   config = lib.mkIf cfg.enable {
-    services.greetd =  {
+    services.greetd = {
       enable = true;
       settings = {
         terminal.vt = 1;
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-session";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session";
           user = "greeter";
         };
       };

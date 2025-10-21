@@ -62,12 +62,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+
+    dotnixvim = {
+      url = "github:hans-chrstn/.nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim.follows = "dotnixvim/nixvim";
 
-    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
+    dotstylix = {
+      url = "github:hans-chrstn/.stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix.follows = "dotstylix/stylix";
   };
 
   outputs = {
@@ -90,62 +97,75 @@
     ];
 
     forAllSystems = f: lib.genAttrs systems f;
-    allHosts = lib.mapAttrs (hostname: _: import ./hosts/${hostname}/system.nix) (lib.filterAttrs (name: _: name != ".gitkeep") (builtins.readDir ./hosts));
-    nixosHosts = lib.filterAttrs (hostname: hostConfig: hostConfig.type == "nixos" || hostConfig.type == "wsl") allHosts;
+    allHosts = lib.mapAttrs (hostname: _: import ./hosts/${hostname}/system.nix) (
+      lib.filterAttrs (name: _: name != ".gitkeep") (builtins.readDir ./hosts)
+    );
+    nixosHosts =
+      lib.filterAttrs (
+        hostname: hostConfig: hostConfig.type == "nixos" || hostConfig.type == "wsl"
+      )
+      allHosts;
     darwinHosts = lib.filterAttrs (hostname: hostConfig: hostConfig.type == "darwin") allHosts;
 
     modules = import ./modules;
-    overlays = (import ./overlays) { inherit inputs; lib = nixpkgs.lib; };
-    customPackagesOverlay = final: prev: (import ./packages) { pkgs = final; lib = prev.lib; };
+    overlays = (import ./overlays) {
+      inherit inputs;
+      lib = nixpkgs.lib;
+    };
+    customPackagesOverlay = final: prev:
+      (import ./packages) {
+        pkgs = final;
+        lib = prev.lib;
+      };
   in {
-    nixosConfigurations = lib.mapAttrs (hostname: hostConfig:
-      lib.nixosSystem {
-        system = hostConfig.arch;
-        specialArgs = {inherit inputs modules;};
-        modules = [
-          modules.nixos.common-universal
-          modules.nixos.common-linux
-          {nixpkgs.overlays = overlays ++ [customPackagesOverlay];}
-          ./hosts/${hostname}
-          # (lib.mkIf (hostConfig.type == "wsl") nixos-wsl.nixosModules.wsl)
-          # sops-nix.nixosModules.sops
-          # {
-          #   sops.defaultSopsFile = ./secrets/secrets.yaml;
-          #   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-          # }
+    nixosConfigurations =
+      lib.mapAttrs (
+        hostname: hostConfig:
+          lib.nixosSystem {
+            system = hostConfig.arch;
+            specialArgs = {inherit inputs modules;};
+            modules = [
+              modules.nixos.common-universal
+              modules.nixos.common-linux
+              {nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];}
+              ./hosts/${hostname}
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${hostname}" = import ./users/${hostname}/home.nix;
-              extraSpecialArgs = {inherit inputs modules;};
-            };
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users."${hostname}" = import ./users/${hostname}/home.nix;
+                  extraSpecialArgs = {inherit inputs modules;};
+                };
+              }
+            ];
           }
-        ];
-      })
-    nixosHosts;
+      )
+      nixosHosts;
 
-    darwinConfigurations = lib.mapAttrs (hostname: hostConfig:
-      nix-darwin.lib.darwinSystem {
-        system = hostConfig.arch;
-        specialArgs = {inherit inputs modules;};
-        modules = [
-          {nixpkgs.overlays = overlays ++ [customPackagesOverlay];}
-          ./hosts/${hostname}
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${hostname}" = import ./users/${hostname}/home.nix;
-              extraSpecialArgs = {inherit inputs;};
-            };
+    darwinConfigurations =
+      lib.mapAttrs (
+        hostname: hostConfig:
+          nix-darwin.lib.darwinSystem {
+            system = hostConfig.arch;
+            specialArgs = {inherit inputs modules;};
+            modules = [
+              {nixpkgs.overlays = overlays ++ [customPackagesOverlay];}
+              ./hosts/${hostname}
+              home-manager.darwinModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users."${hostname}" = import ./users/${hostname}/home.nix;
+                  extraSpecialArgs = {inherit inputs;};
+                };
+              }
+            ];
           }
-        ];
-      })
-    darwinHosts;
+      )
+      darwinHosts;
 
     devShells = forAllSystems (
       system: let
