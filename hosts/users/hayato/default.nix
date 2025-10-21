@@ -9,8 +9,12 @@
     pkgs.hyprsysteminfo
   ];
 
-  homelab = {
-    server.ssh.enable = true;
+  mod = {
+    ssh.enable = true;
     godot.enable = true;
+    wm.niri = {
+      enable = true;
+      # channel = "unstable";
+    };
   };
 }

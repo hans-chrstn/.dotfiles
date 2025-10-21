@@ -14,6 +14,13 @@ in
       settings = {
         splash = false;
         ipc = "on";
+        preload = [
+          "/home/backups/wallpapers/55.jpg"
+        ];
+        wallpaper = [
+          "eDP-1,/home/backups/wallpapers/55.jpg"
+
+        ];
       };
     };
   };

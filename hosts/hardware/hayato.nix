@@ -18,6 +18,7 @@
     ./hardware/zram.nix
     ./hardware/print.nix
     ./hardware/touchpad.nix
+    ./hardware/intel.nix
 
     ./network
     ./network/hayato.nix

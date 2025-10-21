@@ -10,12 +10,14 @@
   mod = {
     lazygit.enable = true;
     dconf.enable = true;
+    direnv.enable = true;
     btop.enable = true;
     kitty.enable = true;
     theme.enable = true;
     hyprland.enable = true;
     joplin.enable = true;
     nix-index.enable = true;
+    vscode.enable = true;
     zen.enable = true;
   };
 

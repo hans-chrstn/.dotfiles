@@ -5,7 +5,6 @@
     ./programs/filemanager.nix
     ./programs/terminal.nix
     ./programs/zsh.nix
-    ./programs/hyprland.nix
     ./programs/neovim.nix
     ./programs/tools.nix
     ./programs/thunar.nix
