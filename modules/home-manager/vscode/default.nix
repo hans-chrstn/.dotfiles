@@ -1,8 +1,11 @@
-{ lib, pkgs, config, ... }:
-let
- cfg = config.mod.programs.vscode;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  cfg = config.mod.programs.vscode;
+in {
   options.mod.programs.vscode = {
     enable = lib.mkEnableOption "Enable vscode config and it's best values";
   };
@@ -11,8 +14,6 @@ in
     programs.vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
-        catppuccin.catppuccin-vsc-icons
-        catppuccin.catppuccin-vsc
         vscodevim.vim
 
         github.vscode-pull-request-github
@@ -37,7 +38,6 @@ in
       ];
 
       profiles.default.userSettings = {
-        "workbench.colorTheme" = "Catppuccin Mocha";
         "window.menuBarVisibility" = "toggle";
         "workbench.startupEditor" = "none";
         "code-runner.runInTerminal" = true;

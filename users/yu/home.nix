@@ -1,24 +1,18 @@
 {
-  inputs,
   modules,
+  inputs,
   pkgs,
   ...
 }: {
   imports = [
     modules.home-manager.btop
-    modules.home-manager.camera
     modules.home-manager.dconf
     modules.home-manager.direnv
     modules.home-manager.discord
-    modules.home-manager.gaming
     modules.home-manager.git
     modules.home-manager.lazygit
-    modules.home-manager.minecraft
     modules.home-manager.neofetch
     modules.home-manager.niri
-    modules.home-manager.nix-index
-    modules.home-manager.obs
-    modules.home-manager.unity
     modules.home-manager.vscode
     modules.home-manager.yazi
     modules.home-manager.wezterm
@@ -32,8 +26,8 @@
   };
 
   home = {
-    username = "jin";
-    homeDirectory = "/home/jin";
+    username = "yu";
+    homeDirectory = "/home/yu";
     sessionVariables = {
       EDITOR = "nvim";
     };
@@ -44,23 +38,17 @@
       enable = true;
       enableCustomSettings = true;
     };
-    camera.enable = true;
     dconf.enable = true;
     direnv.enable = true;
     discord.enable = true;
-    gaming.enable = true;
     git = {
       enable = true;
       userName = "hayato-oo";
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
-    minecraft.enable = true;
     neofetch.enable = true;
     niri.enable = true;
-    nix-index.enable = true;
-    obs.enable = true;
-    unity.enable = true;
     vscode.enable = true;
     wezterm.enable = true;
     yazi.enable = true;

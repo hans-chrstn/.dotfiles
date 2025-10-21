@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
- cfg = config.mod.programs.kitty;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.programs.kitty;
+in {
   options.mod.programs.kitty = {
     enable = lib.mkEnableOption "Enable kitty config and it's best values";
   };
@@ -14,14 +16,12 @@ in
         enableZshIntegration = true;
         mode = "no-cursor";
       };
-      themeFile = "Catppuccin-Mocha";
-      font = {
-        name = "SF Mono Medium";
-        size = 12.0;
-      };
+      # font = {
+      #   name = "SF Mono Medium";
+      #   size = 12.0;
+      # };
 
       keybindings = {
-
         "shift+alt+up" = "move_window up";
         "shift+alt+left" = "move_window left";
         "shift+alt+right" = "move_window right";
@@ -51,10 +51,9 @@ in
         "alt+7" = "goto_tab 7";
         "alt+8" = "goto_tab 8";
         "alt+9" = "goto_tab 9";
-          
+
         # clear the terminal screen
-        "alt+k" =
-          "combine : clear_terminal scrollback active";
+        "alt+k" = "combine : clear_terminal scrollback active";
 
         "kitty_mod+equal" = "change_font_size all +1.0";
         "kitty_mod+minus" = "change_font_size all -1.0";
@@ -62,9 +61,9 @@ in
       };
 
       settings = {
-        bold_font = "SF Mono Bold";
-        italic_font = "SF Mono Heavy Italic";
-        bold_italic_font = "SF Mono Bold Italic";
+        # bold_font = "SF Mono Bold";
+        # italic_font = "SF Mono Heavy Italic";
+        # bold_italic_font = "SF Mono Bold Italic";
         cursor_shape = "block";
         cursor_blink_interval = "0";
         tab_bar_edge = "bottom";
@@ -84,10 +83,10 @@ in
       };
 
       extraConfig = ''
-        font_features SFMono-Medium +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
-        font_features SFMono-Bold +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
-        font_features SFMono-HeavyItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
-        font_features SFMono-BoldItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+        # font_features SFMono-Medium +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+        # font_features SFMono-Bold +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+        # font_features SFMono-HeavyItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
+        # font_features SFMono-BoldItalic +zero +ss01 +ss02 +ss03 +ss04 +ss05 +cv31
       '';
     };
   };

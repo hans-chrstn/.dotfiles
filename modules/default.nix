@@ -1,5 +1,6 @@
 {
   nixos = {
+    laptop = import ./nixos/laptop;
     zfs = import ./nixos/zfs;
     btrfs = import ./nixos/btrfs;
     secureboot = import ./nixos/secureboot;
@@ -26,12 +27,11 @@
   };
 
   home-manager = {
-    nixvim = import ./home-manager/nixvim;
+    discord = import ./home-manager/discord;
     zsh = import ./home-manager/zsh;
     yazi = import ./home-manager/yazi;
     obs = import ./home-manager/obs;
     niri = import ./home-manager/niri;
-    theme = import ./home-manager/theme;
     pentest = import ./home-manager/pentest;
     nix-index = import ./home-manager/nix-index;
     gaming = import ./home-manager/gaming;
@@ -43,7 +43,6 @@
     zen = import ./home-manager/zen;
     vscode = import ./home-manager/vscode;
     unity = import ./home-manager/unity;
-    neovim = import ./home-manager/neovim;
     neofetch = import ./home-manager/neofetch;
     mpv = import ./home-manager/mpv;
     minecraft = import ./home-manager/minecraft;

@@ -1,8 +1,12 @@
-{ pkgs, inputs, lib, config, ... }:
-let
-  cfg = config.mod.wm.niri;
-in
 {
+  pkgs,
+  inputs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.wm.niri;
+in {
   imports = [
     inputs.niri.nixosModules.niri
   ];
@@ -21,13 +25,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    xdg.portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config.common.default = ["gtk"];
+    };
+
     programs.niri = {
       enable = true;
-      package = (if cfg.channel == "stable"
+      package = (
+        if cfg.channel == "stable"
         then pkgs.niri-stable
         else pkgs.niri-unstable
       );
     };
-    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+    environment.systemPackages = with pkgs; [xwayland-satellite];
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
   };
 }
