@@ -11,7 +11,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     boot = {
-      initrd.kernelModules = "i915";
+      initrd.kernelModules = ["i915"];
       kernelParams = [
         "i915.force_probe=8a56"
         "i915.enable_guc=2"

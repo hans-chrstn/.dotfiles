@@ -6,6 +6,9 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./sops.nix
+    modules.nixos.intel
+    modules.nixos.laptop
     modules.nixos.btrfs
     modules.nixos.audio
     modules.nixos.dbus
@@ -39,6 +42,7 @@
     };
   };
 
+  users.mutableUsers = false;
   users.users = {
     "yu" = {
       isNormalUser = true;
