@@ -107,6 +107,7 @@ in {
         };
 
         git_status = {
+          format = "([\\[$all_status$ahead_behind\\]]($style))";
           deleted = "x";
           ahead = ">";
           behind = "<";
@@ -114,7 +115,7 @@ in {
 
         cmd_duration = {
           min_time = 1000;
-          format = "[$duration]($style) ";
+          format = " [$duration]($style) ";
         };
 
         time = {
