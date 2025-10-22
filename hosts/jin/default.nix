@@ -46,6 +46,7 @@
 
   programs.zsh.enable = true;
 
+  users.mutableUsers = false;
   users.users = {
     "jin" = {
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
