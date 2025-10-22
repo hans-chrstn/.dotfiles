@@ -17,7 +17,6 @@
     location = import ./nixos/location;
     greetd = import ./nixos/greetd;
     clamav = import ./nixos/clamav;
-    monitors = import ./nixos/monitors;
     niri = import ./nixos/niri;
     virtualize = import ./nixos/virtualize;
     godot = import ./nixos/godot;
@@ -27,6 +26,7 @@
   };
 
   home-manager = {
+    monitors = import ./home-manager/monitors;
     discord = import ./home-manager/discord;
     zsh = import ./home-manager/zsh;
     yazi = import ./home-manager/yazi;
