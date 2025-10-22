@@ -14,18 +14,57 @@
     modules.home-manager.git
     modules.home-manager.lazygit
     modules.home-manager.minecraft
+    modules.home-manager.monitors
     modules.home-manager.neofetch
     modules.home-manager.niri
     modules.home-manager.nix-index
     modules.home-manager.obs
     modules.home-manager.unity
     modules.home-manager.vscode
-    modules.home-manager.yazi
     modules.home-manager.wezterm
+    modules.home-manager.yazi
     modules.home-manager.zen
     modules.home-manager.zsh
     inputs.dotstylix.homeModules.default
   ];
+
+  monitors = {
+    center = {
+      name = "HDMI-A-3";
+      width = 1920;
+      height = 1080;
+      refreshRate = 100.01;
+      position = {
+        x = 0;
+        y = 0;
+      };
+      scale = 1.0;
+    };
+
+    left = {
+      name = "HDMI-A-1";
+      width = 1920;
+      height = 1080;
+      refreshRate = 74.973;
+      position = {
+        x = -1080;
+        y = -1080;
+      };
+      transform = 270;
+      scale = 1.0;
+    };
+
+    top = {
+      name = "HDMI-A-2";
+      width = 1920;
+      height = 1080;
+      refreshRate = 59.939;
+      position = {
+        x = 0;
+        y = -1080;
+      };
+    };
+  };
 
   theme = {
     enable = true;

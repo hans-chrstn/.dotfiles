@@ -5,6 +5,20 @@
   ...
 }: let
   cfg = config.mod.programs.niri;
+
+  formatMonitor = monitor: {
+    enable = true;
+    transform = lib.optionalAttrs (monitor.transform != null) {
+      rotation = monitor.transform;
+    };
+    scale = monitor.scale;
+    position = monitor.position;
+    mode = {
+      width = monitor.width;
+      height = monitor.height;
+      refresh = monitor.refreshRate;
+    };
+  };
 in {
   options.mod.programs.niri = {
     enable = lib.mkEnableOption "Enable the niri feature";
@@ -197,45 +211,12 @@ in {
           "Mod+T".action = toggle-column-tabbed-display;
         };
 
-      outputs = {
-        "HDMI-A-1" = {
-          enable = true;
-          transform.rotation = 270;
-          position = {
-            x = -1080;
-            y = -1080;
-          };
-          mode = {
-            width = 1920;
-            height = 1080;
-            refresh = 74.973;
-          };
-        };
-        "HDMI-A-2" = {
-          enable = true;
-          position = {
-            x = 0;
-            y = -1080;
-          };
-          mode = {
-            width = 1920;
-            height = 1080;
-            refresh = 59.939;
-          };
-        };
-        "HDMI-A-3" = {
-          enable = true;
-          position = {
-            x = 0;
-            y = 0;
-          };
-          mode = {
-            width = 1920;
-            height = 1080;
-            refresh = 100.001;
-          };
-        };
-      };
+      outputs =
+        lib.mapAttrs' (name: monitor: {
+          name = monitor.name;
+          value = formatMonitor monitor;
+        })
+        config.monitors;
     };
   };
 }
