@@ -11,6 +11,7 @@
     modules.home-manager.discord
     modules.home-manager.git
     modules.home-manager.lazygit
+    modules.home-manager.monitors
     modules.home-manager.neofetch
     modules.home-manager.niri
     modules.home-manager.vscode
@@ -23,6 +24,15 @@
 
   theme = {
     enable = true;
+  };
+
+  monitors = {
+    main = {
+      name = "eDP-1";
+      width = 1366;
+      height = 768;
+      refreshRate = 59.999;
+    };
   };
 
   home = {
