@@ -178,7 +178,7 @@ in {
           "Mod+V".action = maximize-window-to-edges;
           "Mod+Shift+E".action = quit {skip-confirmation = true;};
           "Mod+Tab".action = toggle-overview;
-          "F11".action = toggle-windowed-fullscreen;
+          "F11".action = spawn ["sh" "-c" "niri msg action fullscreen-window"];
           "Mod+Left".action = focus-column-left;
           "Mod+Right".action = focus-column-right;
           "Mod+Up".action = focus-window-top;
