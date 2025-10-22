@@ -208,6 +208,8 @@ in {
           "Alt+P".action = spawn ["sh" "-c" "niri msg action screenshot"];
           "Alt+Shift+P".action = spawn ["sh" "-c" "niri msg action screenshot-screen"];
           "Ctrl+Alt+P".action = spawn ["sh" "-c" "niri msg action screenshot-window"];
+          "Mod+Equal".action = spawn ["sh" "-c" "wpctl set-volume @DEFAULT_SINK@ 5%+"];
+          "Mod+Minus".action = spawn ["sh" "-c" "wpctl set-volume @DEFAULT_SINK@ 5%-"];
           "Mod+T".action = toggle-column-tabbed-display;
         };
 
