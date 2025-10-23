@@ -75,6 +75,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.follows = "dotstylix/stylix";
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

@@ -157,14 +157,25 @@ in {
 
       window-rules = [
         {
-          open-maximized = true;
+          matches = [
+            {
+              title = "Extension: (Bitwarden Password Manager) - Bitwarden — Zen Twilight";
+            }
+          ];
+          open-floating = true;
+          default-window-height = {
+            proportion = 0.2;
+          };
+          default-column-width = {
+            proportion = 0.2;
+          };
+          block-out-from = "screen-capture";
         }
       ];
 
       layout = {
         border.enable = false;
         focus-ring.enable = false;
-        default-column-display = "tabbed";
         always-center-single-column = true;
         tab-indicator.hide-when-single-tab = true;
       };
@@ -181,7 +192,7 @@ in {
                 ws = toString (i + 1);
               in {
                 "Mod+${ws}".action = focus-workspace (i + 1);
-                "Mod+Shift+${ws}".action = spawn ["sh" "-c" "niri msg action move-window-to-workspace ${ws} && maximize-column"];
+                "Mod+Shift+${ws}".action = spawn ["sh" "-c" "niri msg action move-window-to-workspace ${ws}"];
               })
               9)
           ))
@@ -189,18 +200,26 @@ in {
           "Mod+Q".action = spawn ["sh" "-c" "kitty || wezterm"];
           "Mod+C".action = close-window;
           "Mod+Shift+P".action = spawn ["sh" "-c" "niri msg action toggle-window-floating && niri msg action center-window && niri msg action focus-floating"];
-          "Mod+V".action = maximize-window-to-edges;
+          "Mod+V".action = maximize-column;
           "Mod+Shift+E".action = quit {skip-confirmation = true;};
           "Mod+Tab".action = toggle-overview;
           "F11".action = spawn ["sh" "-c" "niri msg action fullscreen-window"];
-          "Mod+Left".action = focus-column-left;
-          "Mod+Right".action = focus-column-right;
-          "Mod+Up".action = focus-window-top;
-          "Mod+Down".action = focus-window-bottom;
-          "Mod+Shift+Left".action = move-column-left;
-          "Mod+Shift+Right".action = move-column-right;
-          "Mod+Shift+Up".action = move-window-up-or-to-workspace-up;
-          "Mod+Shift+Down".action = move-window-down-or-to-workspace-down;
+          "Mod+Up".action = focus-window-up-or-bottom;
+          "Mod+Down".action = focus-window-down-or-top;
+          "Mod+Left".action = focus-column-left-or-last;
+          "Mod+Right".action = focus-column-right-or-first;
+          "Mod+Shift+Up".action = move-column-to-monitor-up;
+          "Mod+Shift+Down".action = move-column-to-monitor-down;
+          "Mod+Shift+Left".action = move-column-left-or-to-monitor-left;
+          "Mod+Shift+Right".action = move-column-right-or-to-monitor-right;
+          "Mod+Ctrl+Up".action = move-window-up-or-to-workspace-up;
+          "Mod+Ctrl+Down".action = move-window-down-or-to-workspace-down;
+          "Mod+Ctrl+Left".action = consume-or-expel-window-left;
+          "Mod+Ctrl+Right".action = consume-or-expel-window-right;
+          "Mod+Alt+Up".action = focus-monitor-up;
+          "Mod+Alt+Down".action = focus-monitor-down;
+          "Mod+Alt+Left".action = focus-monitor-left;
+          "Mod+Alt+Right".action = focus-monitor-right;
           "Mod+WheelScrollUp".action = focus-workspace-up;
           "Mod+TouchpadScrollUp".action = focus-workspace-up;
           "Mod+WheelScrollDown".action = focus-workspace-down;

@@ -13,6 +13,7 @@
     modules.home-manager.gaming
     modules.home-manager.git
     modules.home-manager.lazygit
+    modules.home-manager.mangowc
     modules.home-manager.minecraft
     modules.home-manager.monitors
     modules.home-manager.neofetch
@@ -94,6 +95,7 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
+    mangowc.enable = true;
     minecraft.enable = true;
     neofetch.enable = true;
     niri.enable = true;
