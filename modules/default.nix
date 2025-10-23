@@ -1,5 +1,7 @@
 {
   nixos = {
+    opengl = import ./nixos/opengl;
+    mangowc = import ./nixos/mangowc;
     laptop = import ./nixos/laptop;
     zfs = import ./nixos/zfs;
     btrfs = import ./nixos/btrfs;
@@ -26,6 +28,7 @@
   };
 
   home-manager = {
+    mangowc = import ./home-manager/mangowc;
     monitors = import ./home-manager/monitors;
     discord = import ./home-manager/discord;
     zsh = import ./home-manager/zsh;

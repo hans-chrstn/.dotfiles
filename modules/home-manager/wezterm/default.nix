@@ -185,6 +185,14 @@ in {
       };
     };
 
+    keybinds = {
+      disableDefaultKeyBindings = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Disable default WezTerm keybindings";
+      };
+    };
+
     shell = {
       defaultProg = lib.mkOption {
         type = lib.types.nullOr (lib.types.listOf lib.types.str);
@@ -284,6 +292,7 @@ in {
         ''}
 
         -- HARDCODED KEYBINDS (recommended for consistency)
+        config.disable_default_key_bindings = ${lib.boolToString cfg.keybinds.disableDefaultKeyBindings}
         local LEADER = "CTRL|SHIFT"
         config.keys = {
           -- TAB MANAGEMENT

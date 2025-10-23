@@ -18,7 +18,9 @@
     modules.nixos.steam
     modules.nixos.greetd
     modules.nixos.ssh
+    modules.nixos.mangowc
     modules.nixos.niri
+    modules.nixos.opengl
   ];
 
   mod = {
@@ -26,6 +28,7 @@
       amd.enable = true;
       audio.enable = true;
       nvidia.enable = true;
+      opengl.enable = true;
     };
     impermanence.btrfs.enable = true;
     programs = {
@@ -38,9 +41,14 @@
       greetd.enable = true;
       ssh.enable = true;
     };
-    wm.niri = {
-      enable = true;
-      channel = "unstable";
+    wm = {
+      niri = {
+        enable = true;
+        channel = "unstable";
+      };
+      mangowc = {
+        enable = true;
+      };
     };
   };
 
