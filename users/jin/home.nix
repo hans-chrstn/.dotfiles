@@ -43,7 +43,7 @@
     };
 
     left = {
-      name = "HDMI-A-1";
+      name = "HDMI-A-2";
       width = 1920;
       height = 1080;
       refreshRate = 74.973;
@@ -56,7 +56,7 @@
     };
 
     top = {
-      name = "HDMI-A-2";
+      name = "DP-5";
       width = 1920;
       height = 1080;
       refreshRate = 59.939;
