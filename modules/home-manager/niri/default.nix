@@ -29,16 +29,25 @@ in {
       enable = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
       ];
       config = {
-        common.default = ["gtk"];
+        common = {
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.FileChooser.OpenFile" = "gtk";
+          "org.freedesktop.impl.portal.FileChooser.SaveFile" = "gtk";
+          "org.freedesktop.impl.portal.FileChooser.SaveFiles" = "gtk";
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
+        };
       };
     };
 
     home.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland,xcb";
+      QT_QPA_PLATFORM = "wayland";
       XDG_SESSION_TYPE = "wayland";
-      GDK_BACKEND = "wayland,x11";
+      GDK_BACKEND = "wayland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
       MOZ_ENABLE_WAYLAND = "1";

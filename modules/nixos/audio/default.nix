@@ -1,13 +1,17 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.mod.hardware.audio;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.hardware.audio;
+in {
   options.mod.hardware.audio = {
     enable = lib.mkEnableOption "Enable the audio feature";
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [wireplumber];
     services.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
@@ -16,7 +20,7 @@ in
       pulse.enable = true;
       wireplumber = {
         enable = true;
-        extraLv2Packages = [ pkgs.lsp-plugins pkgs.ladspaPlugins ];
+        extraLv2Packages = [pkgs.lsp-plugins pkgs.ladspaPlugins];
       };
       extraConfig.pipewire = {
         "92-low-latency" = {
@@ -32,8 +36,8 @@ in
             {
               name = "libpipewire-module-filter-chain";
               args = {
-                node.description =  "Noise Canceling source";
-                media.name =  "Noise Canceling source";
+                node.description = "Noise Canceling source";
+                media.name = "Noise Canceling source";
                 filter.graph = {
                   nodes = [
                     {
@@ -46,11 +50,11 @@ in
                   ];
                 };
                 capture.props = {
-                  node.name =  "capture.rnnoise_source";
+                  node.name = "capture.rnnoise_source";
                   node.passive = "true";
                 };
                 playback.props = {
-                  node.name =  "rnnoise_source";
+                  node.name = "rnnoise_source";
                   media.class = "Audio/Source";
                 };
               };

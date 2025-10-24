@@ -1,21 +1,26 @@
-{ inputs, pkgs, lib, config, ... }:
-let
+{
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   cfg = config.mod.hardware.nvidia;
   # Base driver package: stable or beta
   video = config.boot.kernelPackages.nvidiaPackages.stable;
 
   # Conditionally apply fbc patch if available
-  pkgAfterFbc = if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
-                then pkgs.nvidia-patch.patch-fbc video
-                else video;
+  pkgAfterFbc =
+    if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
+    then pkgs.nvidia-patch.patch-fbc video
+    else video;
 
   # Conditionally apply nvenc patch if available
-  finalPkg = if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
-             then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
-             else pkgAfterFbc;
-
-in
-{
+  finalPkg =
+    if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
+    then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
+    else pkgAfterFbc;
+in {
   options.mod.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable the nvidia feature";
   };
@@ -23,6 +28,12 @@ in
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [
       inputs.nvidia-patch.overlays.default
+    ];
+
+    boot.kernelParams = [
+      "nvidia-drm.fbdev=1"
+      "nvidia-drm.modeset=1"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
 
     hardware = {
@@ -37,13 +48,12 @@ in
         package = finalPkg;
       };
     };
-    boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
     hardware.graphics.extraPackages = [
       pkgs.nvidia-vaapi-driver
       pkgs.libvdpau-va-gl
     ];
 
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
 
     environment.sessionVariables = {
       MOZ_DISABLE_RDD_SANDBOX = "1";
