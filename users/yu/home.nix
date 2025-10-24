@@ -99,6 +99,7 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    moonlight-qt
     inputs.dotnixvim.packages."${pkgs.system}".default
   ];
 
