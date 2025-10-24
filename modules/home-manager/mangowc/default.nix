@@ -1,4 +1,5 @@
 {
+  pkgs,
   inputs,
   lib,
   config,
@@ -15,6 +16,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [wlr-randr egl-wayland];
     wayland.windowManager.mango = {
       enable = true;
       settings = ''
@@ -76,9 +78,6 @@ in {
         scroller_default_proportion_single=1.0
         scroller_proportion_preset=0.5,0.8,1.0
 
-        monitorrule=HDMI-A-1,0.55,1,tile,0,1,0,0,1920,1080,74.973000
-        monitorrule=HDMI-A-2,0.55,1,tile,0,1,1080,0,1920,1080,59.938999
-        monitorrule=HDMI-A-3,0.55,1,tile,0,1,1080,1080,1920,1080,100.000999
 
         # Master-Stack Layout Setting
         new_is_master=1

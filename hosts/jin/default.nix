@@ -21,11 +21,15 @@
     modules.nixos.mangowc
     modules.nixos.niri
     modules.nixos.opengl
+    modules.nixos.sunshine
   ];
 
   mod = {
     hardware = {
-      amd.enable = true;
+      amd = {
+        enable = true;
+        enableGpu = true;
+      };
       audio.enable = true;
       nvidia.enable = true;
       opengl.enable = true;
@@ -38,6 +42,7 @@
       steam.enable = true;
     };
     services = {
+      sunshine.enable = true;
       greetd.enable = true;
       ssh.enable = true;
     };
