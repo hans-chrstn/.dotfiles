@@ -9,6 +9,7 @@
 # Every setting here can be overwritten in your host/user config
 # using foo = lib.mkForce val;
 {
+  nixpkgs.config.allowUnfree = true;
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {

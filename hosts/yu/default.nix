@@ -7,15 +7,15 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
-    modules.nixos.intel
-    modules.nixos.laptop
-    modules.nixos.btrfs
-    modules.nixos.audio
-    modules.nixos.dbus
-    modules.nixos.greetd
-    modules.nixos.godot
-    modules.nixos.ssh
-    modules.nixos.niri
+    modules.intel
+    modules.laptop
+    modules.btrfs
+    modules.audio
+    modules.dbus
+    modules.greetd
+    modules.godot
+    modules.ssh
+    modules.niri
   ];
 
   programs.zsh.enable = true;

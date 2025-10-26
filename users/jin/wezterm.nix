@@ -1,6 +1,6 @@
 {modules, ...}: {
   imports = [
-    modules.home-manager.wezterm
+    modules.wezterm
   ];
   mod.programs.wezterm = {
     enable = true;

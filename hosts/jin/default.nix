@@ -8,20 +8,20 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
-    modules.nixos.amd
-    modules.nixos.btrfs
-    modules.nixos.audio
-    modules.nixos.nvidia
-    modules.nixos.dbus
-    modules.nixos.godot
-    modules.nixos.nix-ld
-    modules.nixos.steam
-    modules.nixos.greetd
-    modules.nixos.ssh
-    modules.nixos.mangowc
-    modules.nixos.niri
-    modules.nixos.opengl
-    modules.nixos.sunshine
+    modules.amd
+    modules.btrfs
+    modules.audio
+    modules.nvidia
+    modules.dbus
+    modules.godot
+    modules.nix-ld
+    modules.steam
+    modules.greetd
+    modules.ssh
+    modules.mangowc
+    modules.niri
+    modules.opengl
+    modules.sunshine
   ];
 
   mod = {

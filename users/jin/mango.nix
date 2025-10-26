@@ -5,7 +5,7 @@
 }: {
   # best i could do to simulate niri's layout
   imports = [
-    modules.home-manager.mangowc
+    modules.mangowc
   ];
 
   mod.programs.mangowc = let
