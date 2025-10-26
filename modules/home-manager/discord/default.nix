@@ -16,25 +16,66 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      (
-        if cfg.useVesktop
-        then vesktop
-        else (discord.override {withVencord = true;})
-      )
-
-      discord-rpc
-    ];
-
-    xdg.desktopEntries = lib.mkIf cfg.useVesktop {
-      vesktop = {
-        name = "Vesktop";
-        genericName = "Discord with Vencord";
-        exec = "vesktop %U";
-        icon = "discord";
-        type = "Application";
-        categories = ["Network" "InstantMessaging"];
+    programs.vesktop = lib.mkIf cfg.useVesktop {
+      enable = true;
+      vencord.settings = {
+        appBadge = true;
+        arRPC = true;
+        checkUpdates = false;
+        customTitleBar = false;
+        disableMinSize = true;
+        minimizeToTray = false;
+        tray = false;
+        hardwareAcceleration = true;
+        discordBranch = "canary";
+        plugins = {
+          MessageLogger = {
+            enabled = true;
+            ignoreSelf = true;
+          };
+          FakeNitro.enabled = true;
+          AnonymiseFileNames.enabled = true;
+          BetterSessions.enabled = true;
+          BetterSettings.enabled = true;
+          CallTimer.enabled = true;
+          ClearURLs.enabled = true;
+          CustomRPC.enabled = true;
+          CustomIdle.enabled = true;
+          DisableCallIdle.enabled = true;
+          FavoriteEmojiFirst.enabled = true;
+          FixImagesQuality.enabled = true;
+          FixYoutubeEmbeds.enabled = true;
+          FriendsSince.enabled = true;
+          GameActivityToggle.enabled = true;
+          GifPaste.enabled = true;
+          ImageZoom.enabled = true;
+          KeepCurrentChannel.enabled = true;
+          LastFMRichPresence.enabled = true;
+          MessageLatency.enabled = true;
+          ReadAllNotificationsButton.enabled = true;
+          YoutubeAdblock.enabled = true;
+          VolumeBooster.enabled = true;
+          Unindent.enabled = true;
+        };
       };
+    };
+
+    home.packages = with pkgs;
+      lib.optionals cfg.useVesktop [
+        (writeShellScriptBin "discord" ''
+          exec vesktop "$@"
+        '')
+      ]
+      ++ (lib.optionals (!cfg.useVesktop) [
+        (discord.override {withVencord = true;})
+      ]);
+
+    xdg.desktopEntries.discord = lib.mkIf cfg.useVesktop {
+      name = "Discord";
+      exec = "vesktop %U";
+      icon = "discord";
+      type = "Application";
+      categories = ["Network" "InstantMessaging"];
     };
   };
 }

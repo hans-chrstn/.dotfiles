@@ -168,6 +168,30 @@
           key = "F11";
           command = "togglefullscreen";
         }
+        {
+          mods = ["SUPER" "CTRL"];
+          key = "Left";
+          command = "focusstack";
+          params = "prev";
+        }
+        {
+          mods = ["SUPER" "CTRL"];
+          key = "Right";
+          command = "focusstack";
+          params = "next";
+        }
+        {
+          mods = ["SUPER" "ALT"];
+          key = "Left";
+          command = "exchange_stack_client";
+          params = "prev";
+        }
+        {
+          mods = ["SUPER" "ALT"];
+          key = "Right";
+          command = "exchange_stack_client";
+          params = "next";
+        }
       ]
       ++ (lib.imap0 (i: layout: {
           mods = ["SUPER" "CTRL"];
