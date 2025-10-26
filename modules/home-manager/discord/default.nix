@@ -7,23 +7,34 @@
   cfg = config.mod.programs.discord;
 in {
   options.mod.programs.discord = {
-    enable = lib.mkEnableOption "Enable the discord feature";
-    # enableXserver = lib.mkOption { type = lib.types.bool; default = true; };
+    enable = lib.mkEnableOption "Enable Discord";
+    useVesktop = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Use Vesktop instead of official Discord client";
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    # for example:
-    # environment.systemPackages = [ pkgs.my-package ];
-    # services.xserver.enable = cfg.enableXserver;
-    # for example:
-    # environment.systemPackages = [ pkgs.my-package ];
-    # services.xserver.enable = cfg.enableXserver;
     home.packages = with pkgs; [
-      (discord.override {
-        # withOpenASAR = true;
-        withVencord = true;
-      })
+      (
+        if cfg.useVesktop
+        then vesktop
+        else (discord.override {withVencord = true;})
+      )
+
       discord-rpc
     ];
+
+    xdg.desktopEntries = lib.mkIf cfg.useVesktop {
+      vesktop = {
+        name = "Vesktop";
+        genericName = "Discord with Vencord";
+        exec = "vesktop %U";
+        icon = "discord";
+        type = "Application";
+        categories = ["Network" "InstantMessaging"];
+      };
+    };
   };
 }

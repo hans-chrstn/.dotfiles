@@ -1,8 +1,12 @@
-{ inputs, lib, config, pkgs, ... }:
-let
-  cfg = config.mod.virtualize;
-in
 {
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.mod.virtualize;
+in {
   imports = [
     inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
@@ -40,7 +44,7 @@ in
           qemu = {
             swtpm.enable = true;
             ovmf.enable = true;
-            ovmf.packages = [ pkgs.OVMFFull.fd ];
+            ovmf.packages = [pkgs.OVMFFull.fd];
           };
         };
         spiceUSBRedirection.enable = true;
@@ -63,7 +67,6 @@ in
             8443
           ];
           interfaces.incusbr0 = {
-
             allowedTCPPorts = [53 67];
             allowedUDPPorts = [53 67];
           };
@@ -84,21 +87,19 @@ in
         enable = true;
         ipAddress = cfg.proxmox.ip;
       };
-
-      nixpkgs.overlays = [
-        inputs.proxmox-nixos.overlays."x86_64-linux"
-      ];
     })
 
     (lib.mkIf cfg.docker.enable {
       virtualisation.docker = {
         enable = true;
         storageDriver = "overlay2";
-        extraOptions = ''
-          --data-root /tank/data/docker/root
-        '' + cfg.docker.extraOptions;
+        extraOptions =
+          ''
+            --data-root /tank/data/docker/root
+          ''
+          + cfg.docker.extraOptions;
       };
-      environment.systemPackages = with pkgs; [ docker-compose ];
+      environment.systemPackages = with pkgs; [docker-compose];
 
       hardware.nvidia-container-toolkit.enable = cfg.docker.enableNvidiaSupport;
     })

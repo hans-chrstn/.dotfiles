@@ -132,7 +132,10 @@
             modules = [
               modules.nixos.common-universal
               modules.nixos.common-linux
-              {nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];}
+              {
+                nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];
+                nixpkgs.config.allowUnfree = true;
+              }
               ./hosts/${hostname}
 
               home-manager.nixosModules.home-manager
@@ -140,7 +143,7 @@
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users."${hostname}" = import ./users/${hostname}/home.nix;
+                  users."${hostname}" = import ./users/${hostname};
                   extraSpecialArgs = {inherit inputs modules;};
                 };
               }
@@ -156,14 +159,17 @@
             system = hostConfig.arch;
             specialArgs = {inherit inputs modules;};
             modules = [
-              {nixpkgs.overlays = overlays ++ [customPackagesOverlay];}
+              {
+                nixpkgs.overlays = overlays ++ [customPackagesOverlay];
+                nixpkgs.config.allowUnfree = true;
+              }
               ./hosts/${hostname}
               home-manager.darwinModules.home-manager
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users."${hostname}" = import ./users/${hostname}/home.nix;
+                  users."${hostname}" = import ./users/${hostname};
                   extraSpecialArgs = {inherit inputs;};
                 };
               }

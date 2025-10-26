@@ -15,5 +15,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.mango.enable = true;
+    xdg.portal.wlr.enable = true;
   };
 }

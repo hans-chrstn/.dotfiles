@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   modules,
   pkgs,
@@ -13,16 +14,14 @@
     modules.home-manager.gaming
     modules.home-manager.git
     modules.home-manager.lazygit
-    modules.home-manager.mangowc
     modules.home-manager.minecraft
     modules.home-manager.monitors
     modules.home-manager.neofetch
-    modules.home-manager.niri
+    # modules.home-manager.niri
     modules.home-manager.nix-index
     modules.home-manager.obs
     modules.home-manager.unity
     modules.home-manager.vscode
-    modules.home-manager.wezterm
     modules.home-manager.yazi
     modules.home-manager.zen
     modules.home-manager.zsh
@@ -36,8 +35,8 @@
       height = 1080;
       refreshRate = 100.01;
       position = {
-        x = 0;
-        y = 0;
+        x = 1080;
+        y = 1080;
       };
       scale = 1.0;
     };
@@ -48,8 +47,8 @@
       height = 1080;
       refreshRate = 74.973;
       position = {
-        x = -1080;
-        y = -1080;
+        x = 0;
+        y = 0;
       };
       transform = 270;
       scale = 1.0;
@@ -61,8 +60,8 @@
       height = 1080;
       refreshRate = 59.939;
       position = {
-        x = 0;
-        y = -1080;
+        x = 1080;
+        y = 0;
       };
     };
   };
@@ -87,7 +86,10 @@
     camera.enable = true;
     dconf.enable = true;
     direnv.enable = true;
-    discord.enable = true;
+    discord = {
+      enable = true;
+      useVesktop = true;
+    };
     gaming.enable = true;
     git = {
       enable = true;
@@ -95,10 +97,9 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
-    mangowc.enable = true;
     minecraft.enable = true;
     neofetch.enable = true;
-    niri.enable = true;
+    # niri.enable = true;
     nix-index.enable = true;
     obs.enable = true;
     unity.enable = true;
