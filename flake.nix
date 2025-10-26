@@ -128,14 +128,14 @@
         hostname: hostConfig:
           lib.nixosSystem {
             system = hostConfig.arch;
-            specialArgs = {inherit inputs modules;};
+            specialArgs = {
+              inherit inputs;
+              modules = modules.nixos;
+            };
             modules = [
               modules.nixos.common-universal
               modules.nixos.common-linux
-              {
-                nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];
-                nixpkgs.config.allowUnfree = true;
-              }
+              {nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];}
               ./hosts/${hostname}
 
               home-manager.nixosModules.home-manager
@@ -144,7 +144,10 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users."${hostname}" = import ./users/${hostname};
-                  extraSpecialArgs = {inherit inputs modules;};
+                  extraSpecialArgs = {
+                    inherit inputs;
+                    modules = modules.home-manager;
+                  };
                 };
               }
             ];
@@ -157,7 +160,10 @@
         hostname: hostConfig:
           nix-darwin.lib.darwinSystem {
             system = hostConfig.arch;
-            specialArgs = {inherit inputs modules;};
+            specialArgs = {
+              inherit inputs;
+              modules = modules.nixos;
+            };
             modules = [
               {
                 nixpkgs.overlays = overlays ++ [customPackagesOverlay];
@@ -170,7 +176,10 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users."${hostname}" = import ./users/${hostname};
-                  extraSpecialArgs = {inherit inputs;};
+                  extraSpecialArgs = {
+                    inherit inputs;
+                    modules = modules.home-manager;
+                  };
                 };
               }
             ];

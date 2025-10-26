@@ -5,20 +5,20 @@
   ...
 }: {
   imports = [
-    modules.home-manager.btop
-    modules.home-manager.dconf
-    modules.home-manager.direnv
-    modules.home-manager.discord
-    modules.home-manager.git
-    modules.home-manager.lazygit
-    modules.home-manager.monitors
-    modules.home-manager.neofetch
-    modules.home-manager.niri
-    modules.home-manager.vscode
-    modules.home-manager.yazi
-    modules.home-manager.wezterm
-    modules.home-manager.zen
-    modules.home-manager.zsh
+    modules.btop
+    modules.dconf
+    modules.direnv
+    modules.discord
+    modules.git
+    modules.lazygit
+    modules.monitors
+    modules.neofetch
+    modules.niri
+    modules.vscode
+    modules.yazi
+    modules.wezterm
+    modules.zen
+    modules.zsh
     inputs.dotstylix.homeModules.default
   ];
 
