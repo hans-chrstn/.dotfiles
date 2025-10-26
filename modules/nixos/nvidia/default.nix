@@ -6,30 +6,12 @@
   ...
 }: let
   cfg = config.mod.hardware.nvidia;
-  # Base driver package: stable or beta
-  video = config.boot.kernelPackages.nvidiaPackages.stable;
-
-  # Conditionally apply fbc patch if available
-  pkgAfterFbc =
-    if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
-    then pkgs.nvidia-patch.patch-fbc video
-    else video;
-
-  # Conditionally apply nvenc patch if available
-  finalPkg =
-    if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
-    then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
-    else pkgAfterFbc;
 in {
   options.mod.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable the nvidia feature";
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [
-      inputs.nvidia-patch.overlays.default
-    ];
-
     boot.kernelParams = [
       "nvidia-drm.fbdev=1"
       "nvidia-drm.modeset=1"
@@ -45,7 +27,23 @@ in {
         };
         open = true;
         nvidiaSettings = true;
-        package = finalPkg;
+        package = let
+          # Base driver package: stable or beta
+          video = config.boot.kernelPackages.nvidiaPackages.stable;
+
+          # Conditionally apply fbc patch if available
+          pkgAfterFbc =
+            if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
+            then pkgs.nvidia-patch.patch-fbc video
+            else video;
+
+          # Conditionally apply nvenc patch if available
+          finalPkg =
+            if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
+            then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
+            else pkgAfterFbc;
+        in
+          finalPkg;
       };
     };
     hardware.graphics.extraPackages = [

@@ -34,6 +34,5 @@ in {
       );
     };
     environment.systemPackages = with pkgs; [xwayland-satellite];
-    nixpkgs.overlays = [inputs.niri.overlays.niri];
   };
 }
