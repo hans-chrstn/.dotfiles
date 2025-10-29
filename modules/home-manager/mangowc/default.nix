@@ -41,11 +41,11 @@ in {
         GTK_USE_PORTAL = "1";
         NIXOS_XDG_OPEN_USE_PORTAL = "1";
         ANKI_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
+        # NIXOS_OZONE_WL = "1";
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         QT_QPA_PLATFORMTHEME = "qt5ct";
-        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+        # ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
       description = "Environment variables to set (reset on config reload)";
     };

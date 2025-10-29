@@ -61,7 +61,7 @@ in {
       __GL_VRR_ALLOWED = "0";
       __GL_THREADED_OPTIMIZATIONS = "0";
       NVD_BACKEND = "direct";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      # ELECTRON_OZONE_PLATFORM_HINT = "auto";
       DISABLE_QT5_COMPAT = "0";
     };
   };

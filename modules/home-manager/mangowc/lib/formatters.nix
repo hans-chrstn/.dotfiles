@@ -11,104 +11,175 @@ in {
   inherit boolToInt formatLine formatColor;
 
   formatMouseBinds = binds:
-    lib.optionalString (binds != [])
-    (lib.concatStringsSep "\n" (map (bind: "mousebind=${lib.concatStringsSep "," (
-        [(lib.concatStringsSep "+" bind.mods) bind.button bind.command]
-        ++ (lib.optional (bind.params != null) bind.params)
-      )}")
-      binds));
+    lib.optionalString (binds != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          bind: "mousebind=${
+            lib.concatStringsSep "," (
+              [
+                (lib.concatStringsSep "+" bind.mods)
+                bind.button
+                bind.command
+              ]
+              ++ (lib.optional (bind.params != null) bind.params)
+            )
+          }"
+        )
+        binds
+      )
+    );
 
   formatAxisBinds = binds:
-    lib.optionalString (binds != [])
-    (lib.concatStringsSep "\n" (map (bind: "axisbind=${lib.concatStringsSep "," (
-        [(lib.concatStringsSep "+" bind.mods) bind.direction bind.command]
-        ++ (lib.optional (bind.params != null) bind.params)
-      )}")
-      binds));
+    lib.optionalString (binds != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          bind: "axisbind=${
+            lib.concatStringsSep "," (
+              [
+                (lib.concatStringsSep "+" bind.mods)
+                bind.direction
+                bind.command
+              ]
+              ++ (lib.optional (bind.params != null) bind.params)
+            )
+          }"
+        )
+        binds
+      )
+    );
 
   formatSwitchBinds = binds:
-    lib.optionalString (binds != [])
-    (lib.concatStringsSep "\n" (map (bind: "switchbind=${lib.concatStringsSep "," [
-        bind.foldState
-        ""
-        bind.command
-        (
-          if bind.params != null
-          then bind.params
-          else ""
+    lib.optionalString (binds != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          bind: "switchbind=${
+            lib.concatStringsSep "," [
+              bind.foldState
+              ""
+              bind.command
+              (
+                if bind.params != null
+                then bind.params
+                else ""
+              )
+            ]
+          }"
         )
-      ]}")
-      binds));
+        binds
+      )
+    );
 
   formatGestureBinds = binds:
-    lib.optionalString (binds != [])
-    (lib.concatStringsSep "\n" (map (bind: "gesturebind=${lib.concatStringsSep "," (
-        [(lib.concatStringsSep "+" bind.mods) bind.direction (toString bind.fingers) bind.command]
-        ++ (lib.optional (bind.params != null) bind.params)
-      )}")
-      binds));
+    lib.optionalString (binds != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          bind: "gesturebind=${
+            lib.concatStringsSep "," (
+              [
+                (lib.concatStringsSep "+" bind.mods)
+                bind.direction
+                (toString bind.fingers)
+                bind.command
+              ]
+              ++ (lib.optional (bind.params != null) bind.params)
+            )
+          }"
+        )
+        binds
+      )
+    );
 
   formatLayerRules = rules:
-    lib.optionalString (rules != [])
-    (lib.concatStringsSep "\n" (map (rule: "layerrule=${lib.concatStringsSep "," (
-        lib.mapAttrsToList (name: value: "${name}:${toString value}") rule
-      )}")
-      rules));
+    lib.optionalString (rules != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          rule: "layerrule=${
+            lib.concatStringsSep "," (lib.mapAttrsToList (name: value: "${name}:${toString value}") rule)
+          }"
+        )
+        rules
+      )
+    );
 
   formatMonitors = monitors:
-    lib.optionalString (monitors != {})
-    (lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (
-        name: monitor: "monitorrule=${lib.concatStringsSep "," [
-          monitor.name
-          (toString 0.55)
-          (toString 1)
-          "tile"
-          (toString (
-            if monitor.transform == 90
-            then 1
-            else if monitor.transform == 180
-            then 2
-            else if monitor.transform == 270
-            then 3
-            else 0
-          ))
-          (toString monitor.scale)
-          (toString monitor.position.x)
-          (toString monitor.position.y)
-          (toString monitor.width)
-          (toString monitor.height)
-          (toString monitor.refreshRate)
-        ]}"
+    lib.optionalString (monitors != {}) (
+      lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          name: monitor: "monitorrule=${
+            lib.concatStringsSep "," [
+              monitor.name
+              (toString 0.55)
+              (toString 1)
+              "tile"
+              (toString (
+                if monitor.transform == 90
+                then 1
+                else if monitor.transform == 180
+                then 2
+                else if monitor.transform == 270
+                then 3
+                else 0
+              ))
+              (toString monitor.scale)
+              (toString monitor.position.x)
+              (toString monitor.position.y)
+              (toString monitor.width)
+              (toString monitor.height)
+              (toString monitor.refreshRate)
+            ]
+          }"
+        )
+        monitors
       )
-      monitors
-    ));
+    );
 
   formatBinds = binds:
-    lib.optionalString (binds != [])
-    (lib.concatStringsSep "\n" (map (bind: "bind=${lib.concatStringsSep "," (
-        [(lib.concatStringsSep "+" bind.mods) bind.key bind.command]
-        ++ (lib.optional (bind.params != null) bind.params)
-      )}")
-      binds));
+    lib.optionalString (binds != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          bind: "bind=${
+            lib.concatStringsSep "," (
+              [
+                (lib.concatStringsSep "+" bind.mods)
+                bind.key
+                bind.command
+              ]
+              ++ (lib.optional (bind.params != null) bind.params)
+            )
+          }"
+        )
+        binds
+      )
+    );
 
   formatTagRules = rules:
-    lib.optionalString (rules != [])
-    (lib.concatStringsSep "\n" (map (rule: "tagrule=${lib.concatStringsSep "," (
-        lib.mapAttrsToList (name: value: "${name}:${toString value}") rule
-      )}")
-      rules));
+    lib.optionalString (rules != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          rule: "tagrule=${
+            lib.concatStringsSep "," (lib.mapAttrsToList (name: value: "${name}:${toString value}") rule)
+          }"
+        )
+        rules
+      )
+    );
 
   formatWindowRules = rules:
-    lib.optionalString (rules != [])
-    (lib.concatStringsSep "\n" (map (rule: "windowrule=${lib.concatStringsSep "," (
-        lib.mapAttrsToList (name: value: "${name}:${toString value}") rule
-      )}")
-      rules));
+    lib.optionalString (rules != []) (
+      lib.concatStringsSep "\n" (
+        map (
+          rule: "windowrule=${
+            lib.concatStringsSep "," (lib.mapAttrsToList (name: value: "${name}:${toString value}") rule)
+          }"
+        )
+        rules
+      )
+    );
 
   formatEnvs = envs:
-    lib.optionalString (envs != {})
-    (lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "env=${name},${value}") envs));
+    lib.optionalString (envs != {}) (
+      lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "env=${name},${value}") envs)
+    );
 
   generateEffectsConfig = effects: ''
     blur=${boolToInt effects.blur}
@@ -220,9 +291,7 @@ in {
     numlockon=${boolToInt keyboard.numlockOn}
     xkb_rules_layout=${keyboard.layout}${
       lib.optionalString (keyboard.rules != null) "\n${formatLine "xkb_rules_rules" keyboard.rules}"
-    }${
-      lib.optionalString (keyboard.model != null) "\n${formatLine "xkb_rules_model" keyboard.model}"
-    }${
+    }${lib.optionalString (keyboard.model != null) "\n${formatLine "xkb_rules_model" keyboard.model}"}${
       lib.optionalString (keyboard.variant != null) "\n${formatLine "xkb_rules_variant" keyboard.variant}"
     }${
       lib.optionalString (keyboard.options != null) "\n${formatLine "xkb_rules_options" keyboard.options}"
@@ -260,13 +329,29 @@ in {
     scratchpad_width_ratio=${toString appearance.scratchpad.widthRatio}
     scratchpad_height_ratio=${toString appearance.scratchpad.heightRatio}
     borderpx=${toString appearance.borderpx}
-    ${lib.optionalString (appearance.colors.root != null) "rootcolor=0x${formatColor appearance.colors.root}"}
-    ${lib.optionalString (appearance.colors.border != null) "bordercolor=0x${formatColor appearance.colors.border}"}
-    ${lib.optionalString (appearance.colors.focus != null) "focuscolor=0x${formatColor appearance.colors.focus}"}
-    ${lib.optionalString (appearance.colors.maxmizescreen != null) "maxmizescreencolor=0x${formatColor appearance.colors.maxmizescreen}"}
-    ${lib.optionalString (appearance.colors.urgent != null) "urgentcolor=0x${formatColor appearance.colors.urgent}"}
-    ${lib.optionalString (appearance.colors.scratchpad != null) "scratchpadcolor=0x${formatColor appearance.colors.scratchpad}"}
-    ${lib.optionalString (appearance.colors.global != null) "globalcolor=0x${formatColor appearance.colors.global}"}
-    ${lib.optionalString (appearance.colors.overlay != null) "overlaycolor=0x${formatColor appearance.colors.overlay}"}
+    ${lib.optionalString (
+      appearance.colors.root != null
+    ) "rootcolor=0x${formatColor appearance.colors.root}"}
+    ${lib.optionalString (
+      appearance.colors.border != null
+    ) "bordercolor=0x${formatColor appearance.colors.border}"}
+    ${lib.optionalString (
+      appearance.colors.focus != null
+    ) "focuscolor=0x${formatColor appearance.colors.focus}"}
+    ${lib.optionalString (
+      appearance.colors.maximizescreen != null
+    ) "maximizescreencolor=0x${formatColor appearance.colors.maximizescreen}"}
+    ${lib.optionalString (
+      appearance.colors.urgent != null
+    ) "urgentcolor=0x${formatColor appearance.colors.urgent}"}
+    ${lib.optionalString (
+      appearance.colors.scratchpad != null
+    ) "scratchpadcolor=0x${formatColor appearance.colors.scratchpad}"}
+    ${lib.optionalString (
+      appearance.colors.global != null
+    ) "globalcolor=0x${formatColor appearance.colors.global}"}
+    ${lib.optionalString (
+      appearance.colors.overlay != null
+    ) "overlaycolor=0x${formatColor appearance.colors.overlay}"}
   '';
 }

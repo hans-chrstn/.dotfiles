@@ -68,6 +68,7 @@
 
   theme = {
     enable = true;
+    scheme = "desert-taupe-earth";
   };
 
   home = {
@@ -97,6 +98,7 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
+    # niri.enable = true;
     minecraft.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;

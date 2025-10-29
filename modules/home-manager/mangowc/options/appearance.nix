@@ -60,7 +60,7 @@
         default = null;
         description = "Urgent window border color in ARGB hex";
       };
-      maxmizescreen = lib.mkOption {
+      maximizescreen = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = "Maximized window border color in ARGB hex";

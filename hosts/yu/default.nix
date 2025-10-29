@@ -13,7 +13,6 @@
     modules.audio
     modules.dbus
     modules.greetd
-    modules.godot
     modules.ssh
     modules.niri
   ];
@@ -30,7 +29,6 @@
     impermanence.btrfs.enable = true;
     programs = {
       dbus.enable = true;
-      godot.enable = true;
     };
     services = {
       greetd.enable = true;
