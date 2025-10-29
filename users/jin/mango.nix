@@ -9,9 +9,31 @@
   ];
 
   mod.programs.mangowc = let
-    horizontalLayouts = ["tile" "scroller" "monocle" "grid" "dwindle" "spiral" "deck" "center_tile" "right_tile"];
-    verticalLayouts = ["vertical_tile" "vertical_scroller" "vertical_grid" "vertical_dwindle" "vertical_spiral" "vertical_deck"];
-    directions = ["Up" "Down" "Left" "Right"];
+    horizontalLayouts = [
+      "tile"
+      "scroller"
+      "monocle"
+      "grid"
+      "dwindle"
+      "spiral"
+      "deck"
+      "center_tile"
+      "right_tile"
+    ];
+    verticalLayouts = [
+      "vertical_tile"
+      "vertical_scroller"
+      "vertical_grid"
+      "vertical_dwindle"
+      "vertical_spiral"
+      "vertical_deck"
+    ];
+    directions = [
+      "Up"
+      "Down"
+      "Left"
+      "Right"
+    ];
     moveResizeParams = {
       Up = "+0,-50";
       Down = "+0,+50";
@@ -33,7 +55,12 @@
       9;
     mkMoveResizeBinds = mods: command:
       lib.mapAttrsToList (key: params: {
-        inherit mods key command params;
+        inherit
+          mods
+          key
+          command
+          params
+          ;
       })
       moveResizeParams;
   in {
@@ -45,7 +72,7 @@
       scroller = {
         preferCenter = true;
         edgeScrollerPointerFocus = false;
-        defaultProportion = 1.0;
+        defaultProportion = 0.8;
       };
     };
 
@@ -70,10 +97,10 @@
       closeType = "zoom";
       tagDirection = "horizontal";
       duration = {
-        move = 200;
+        move = 100;
         open = 400;
         close = 400;
-        tag = 300;
+        tag = 250;
       };
     };
 
@@ -129,7 +156,10 @@
           command = "killclient";
         }
         {
-          mods = ["SUPER" "SHIFT"];
+          mods = [
+            "SUPER"
+            "SHIFT"
+          ];
           key = "e";
           command = "quit";
         }
@@ -141,7 +171,7 @@
         {
           mods = ["SUPER"];
           key = "v";
-          command = "togglemaxmizescreen";
+          command = "togglemaximizescreen";
         }
         {
           mods = ["SUPER"];
@@ -169,39 +199,57 @@
           command = "togglefullscreen";
         }
         {
-          mods = ["SUPER" "CTRL"];
+          mods = [
+            "SUPER"
+            "CTRL"
+          ];
           key = "Left";
           command = "focusstack";
           params = "prev";
         }
         {
-          mods = ["SUPER" "CTRL"];
+          mods = [
+            "SUPER"
+            "CTRL"
+          ];
           key = "Right";
           command = "focusstack";
           params = "next";
         }
         {
-          mods = ["SUPER" "ALT"];
+          mods = [
+            "SUPER"
+            "ALT"
+          ];
           key = "Left";
           command = "exchange_stack_client";
           params = "prev";
         }
         {
-          mods = ["SUPER" "ALT"];
+          mods = [
+            "SUPER"
+            "ALT"
+          ];
           key = "Right";
           command = "exchange_stack_client";
           params = "next";
         }
       ]
       ++ (lib.imap0 (i: layout: {
-          mods = ["SUPER" "CTRL"];
+          mods = [
+            "SUPER"
+            "CTRL"
+          ];
           key = toString (i + 1);
           command = "setlayout";
           params = layout;
         })
         horizontalLayouts)
       ++ (lib.imap0 (i: layout: {
-          mods = ["SUPER" "ALT"];
+          mods = [
+            "SUPER"
+            "ALT"
+          ];
           key = toString (i + 1);
           command = "setlayout";
           params = layout;

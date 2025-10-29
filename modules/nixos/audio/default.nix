@@ -20,7 +20,10 @@ in {
       pulse.enable = true;
       wireplumber = {
         enable = true;
-        extraLv2Packages = [pkgs.lsp-plugins pkgs.ladspaPlugins];
+        extraLv2Packages = [
+          pkgs.lsp-plugins
+          pkgs.ladspaPlugins
+        ];
       };
       extraConfig.pipewire = {
         "92-low-latency" = {
@@ -65,7 +68,7 @@ in {
       extraConfig.pipewire-pulse."92-low-latency" = {
         context.modules = [
           {
-            name = "libpipwire-module-protocol-pulse";
+            name = "libpipewire-module-protocol-pulse";
             args = {
               pulse.min.req = "32/48000";
               pulse.default.req = "32/48000";

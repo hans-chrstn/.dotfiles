@@ -26,8 +26,8 @@ in {
         disableMinSize = true;
         minimizeToTray = false;
         tray = false;
-        hardwareAcceleration = true;
-        discordBranch = "canary";
+        hardwareAcceleration = false;
+        discordBranch = "stable";
         plugins = {
           MessageLogger = {
             enabled = true;

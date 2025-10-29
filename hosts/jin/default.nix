@@ -13,13 +13,12 @@
     modules.audio
     modules.nvidia
     modules.dbus
-    modules.godot
     modules.nix-ld
     modules.steam
     modules.greetd
     modules.ssh
     modules.mangowc
-    modules.niri
+    # modules.niri
     modules.opengl
     modules.sunshine
   ];
@@ -28,7 +27,6 @@
     hardware = {
       amd = {
         enable = true;
-        enableGpu = true;
       };
       audio.enable = true;
       nvidia.enable = true;
@@ -37,7 +35,6 @@
     impermanence.btrfs.enable = true;
     programs = {
       dbus.enable = true;
-      godot.enable = true;
       nix-ld.enable = true;
       steam.enable = true;
     };
@@ -47,10 +44,10 @@
       ssh.enable = true;
     };
     wm = {
-      niri = {
-        enable = true;
-        channel = "unstable";
-      };
+      # niri = {
+      #   enable = true;
+      #   channel = "unstable";
+      # };
       mangowc = {
         enable = true;
       };

@@ -194,29 +194,48 @@ in {
       };
 
       binds = with config.lib.niri.actions;
-        ({}
-          // (
-            builtins.foldl' (acc: x: acc // x) {}
-            (builtins.genList (i: let
+        (
+          {}
+          // (builtins.foldl' (acc: x: acc // x) {} (
+            builtins.genList (
+              i: let
                 ws = toString (i + 1);
               in {
                 "Mod+${ws}".action = focus-workspace (i + 1);
-                "Mod+Shift+${ws}".action = spawn ["sh" "-c" "niri msg action move-window-to-workspace ${ws}"];
-              })
-              9)
+                "Mod+Shift+${ws}".action = spawn [
+                  "sh"
+                  "-c"
+                  "niri msg action move-window-to-workspace ${ws}"
+                ];
+              }
+            )
+            9
           ))
+        )
         // {
-          "Mod+Q".action = spawn ["sh" "-c" "kitty || wezterm"];
+          "Mod+Q".action = spawn [
+            "sh"
+            "-c"
+            "kitty || wezterm"
+          ];
           "Mod+C".action = close-window;
-          "Mod+Shift+P".action = spawn ["sh" "-c" "niri msg action toggle-window-floating && niri msg action center-window && niri msg action focus-floating"];
+          "Mod+Shift+P".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action toggle-window-floating && niri msg action center-window && niri msg action focus-floating"
+          ];
           "Mod+V".action = maximize-column;
           "Mod+Shift+E".action = quit {skip-confirmation = true;};
           "Mod+Tab".action = toggle-overview;
-          "F11".action = spawn ["sh" "-c" "niri msg action fullscreen-window"];
+          "F11".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action fullscreen-window"
+          ];
           "Mod+Up".action = focus-window-up-or-bottom;
           "Mod+Down".action = focus-window-down-or-top;
-          "Mod+Left".action = focus-column-left-or-last;
-          "Mod+Right".action = focus-column-right-or-first;
+          "Mod+Left".action = focus-column-or-monitor-left;
+          "Mod+Right".action = focus-column-or-monitor-right;
           "Mod+Shift+Up".action = move-column-to-monitor-up;
           "Mod+Shift+Down".action = move-column-to-monitor-down;
           "Mod+Shift+Left".action = move-column-left-or-to-monitor-left;
@@ -233,11 +252,31 @@ in {
           "Mod+TouchpadScrollUp".action = focus-workspace-up;
           "Mod+WheelScrollDown".action = focus-workspace-down;
           "Mod+TouchpadScrollDown".action = focus-workspace-down;
-          "Alt+P".action = spawn ["sh" "-c" "niri msg action screenshot"];
-          "Alt+Shift+P".action = spawn ["sh" "-c" "niri msg action screenshot-screen"];
-          "Ctrl+Alt+P".action = spawn ["sh" "-c" "niri msg action screenshot-window"];
-          "Mod+Equal".action = spawn ["sh" "-c" "wpctl set-volume @DEFAULT_SINK@ 5%+"];
-          "Mod+Minus".action = spawn ["sh" "-c" "wpctl set-volume @DEFAULT_SINK@ 5%-"];
+          "Alt+P".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action screenshot"
+          ];
+          "Alt+Shift+P".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action screenshot-screen"
+          ];
+          "Ctrl+Alt+P".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action screenshot-window"
+          ];
+          "Mod+Equal".action = spawn [
+            "sh"
+            "-c"
+            "wpctl set-volume @DEFAULT_SINK@ 5%+"
+          ];
+          "Mod+Minus".action = spawn [
+            "sh"
+            "-c"
+            "wpctl set-volume @DEFAULT_SINK@ 5%-"
+          ];
           "Mod+T".action = toggle-column-tabbed-display;
         };
 

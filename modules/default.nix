@@ -21,7 +21,6 @@
     clamav = import ./nixos/clamav;
     niri = import ./nixos/niri;
     virtualize = import ./nixos/virtualize;
-    godot = import ./nixos/godot;
     ssh = import ./nixos/ssh;
     common-universal = import ./nixos/common-universal;
     common-linux = import ./nixos/common-linux;

@@ -1,5 +1,10 @@
 {lib, ...}: let
-  directions = ["Up" "Down" "Left" "Right"];
+  directions = [
+    "Up"
+    "Down"
+    "Left"
+    "Right"
+  ];
 
   moveResizeParams = {
     Up = "+0,-50";
@@ -17,7 +22,12 @@
 
   mkMoveResizeBinds = mods: command:
     lib.mapAttrsToList (key: params: {
-      inherit mods key command params;
+      inherit
+        mods
+        key
+        command
+        params
+        ;
     })
     moveResizeParams;
 
@@ -30,18 +40,20 @@
     9;
 
   mkSimpleBinds = bindList:
-    map ({
-      mods,
-      key,
-      command,
-      params ? null,
-    }: {
-      inherit mods key command;
-      params =
-        if params != null
-        then params
-        else null;
-    })
+    map (
+      {
+        mods,
+        key,
+        command,
+        params ? null,
+      }: {
+        inherit mods key command;
+        params =
+          if params != null
+          then params
+          else null;
+      }
+    )
     bindList;
 in {
   options.mod.programs.mangowc = {
@@ -50,11 +62,21 @@ in {
         listOf (submodule {
           options = {
             mods = lib.mkOption {
-              type = listOf (enum ["SUPER" "CTRL" "ALT" "SHIFT" "NONE"]);
+              type = listOf (enum [
+                "SUPER"
+                "CTRL"
+                "ALT"
+                "SHIFT"
+                "NONE"
+              ]);
               description = "Modifier keys for the mouse binding";
             };
             button = lib.mkOption {
-              type = enum ["btn_left" "btn_middle" "btn_right"];
+              type = enum [
+                "btn_left"
+                "btn_middle"
+                "btn_right"
+              ];
               description = "Mouse button to bind";
             };
             command = lib.mkOption {
@@ -84,7 +106,7 @@ in {
         {
           mods = ["NONE"];
           button = "btn_middle";
-          command = "togglemaxmizescreen";
+          command = "togglemaximizescreen";
           params = "0";
         }
         {
@@ -108,11 +130,22 @@ in {
         listOf (submodule {
           options = {
             mods = lib.mkOption {
-              type = listOf (enum ["SUPER" "CTRL" "ALT" "SHIFT" "NONE"]);
+              type = listOf (enum [
+                "SUPER"
+                "CTRL"
+                "ALT"
+                "SHIFT"
+                "NONE"
+              ]);
               description = "Modifier keys for the axis binding";
             };
             direction = lib.mkOption {
-              type = enum ["UP" "DOWN" "LEFT" "RIGHT"];
+              type = enum [
+                "UP"
+                "DOWN"
+                "LEFT"
+                "RIGHT"
+              ];
               description = "Scroll direction";
             };
             command = lib.mkOption {
@@ -161,7 +194,10 @@ in {
         listOf (submodule {
           options = {
             foldState = lib.mkOption {
-              type = enum ["fold" "unfold"];
+              type = enum [
+                "fold"
+                "unfold"
+              ];
               description = "Laptop lid state";
             };
             command = lib.mkOption {
@@ -184,11 +220,22 @@ in {
         listOf (submodule {
           options = {
             mods = lib.mkOption {
-              type = listOf (enum ["SUPER" "CTRL" "ALT" "SHIFT" "NONE"]);
+              type = listOf (enum [
+                "SUPER"
+                "CTRL"
+                "ALT"
+                "SHIFT"
+                "NONE"
+              ]);
               description = "Modifier keys for the gesture";
             };
             direction = lib.mkOption {
-              type = enum ["up" "down" "left" "right"];
+              type = enum [
+                "up"
+                "down"
+                "left"
+                "right"
+              ];
               description = "Gesture swipe direction";
             };
             fingers = lib.mkOption {
@@ -215,7 +262,13 @@ in {
         listOf (submodule {
           options = {
             mods = lib.mkOption {
-              type = listOf (enum ["SUPER" "CTRL" "ALT" "SHIFT" "NONE"]);
+              type = listOf (enum [
+                "SUPER"
+                "CTRL"
+                "ALT"
+                "SHIFT"
+                "NONE"
+              ]);
               description = "Modifier keys for the binding";
             };
             key = lib.mkOption {
@@ -294,7 +347,7 @@ in {
           {
             mods = ["ALT"];
             key = "a";
-            command = "togglemaxmizescreen";
+            command = "togglemaximizescreen";
           }
           {
             mods = ["ALT"];
@@ -302,7 +355,10 @@ in {
             command = "togglefullscreen";
           }
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "f";
             command = "togglefakefullscreen";
           }
@@ -317,7 +373,10 @@ in {
             command = "toggleoverlay";
           }
           {
-            mods = ["SUPER" "SHIFT"];
+            mods = [
+              "SUPER"
+              "SHIFT"
+            ];
             key = "I";
             command = "restore_minimized";
           }
@@ -373,13 +432,19 @@ in {
             params = "0";
           }
           {
-            mods = ["CTRL" "SUPER"];
+            mods = [
+              "CTRL"
+              "SUPER"
+            ];
             key = "Left";
             command = "tagtoleft";
             params = "0";
           }
           {
-            mods = ["CTRL" "SUPER"];
+            mods = [
+              "CTRL"
+              "SUPER"
+            ];
             key = "Right";
             command = "tagtoright";
             params = "0";
@@ -388,25 +453,37 @@ in {
         # Monitor navigation
         ++ (mkSimpleBinds [
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "Left";
             command = "focusmon";
             params = "left";
           }
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "Right";
             command = "focusmon";
             params = "right";
           }
           {
-            mods = ["SUPER" "ALT"];
+            mods = [
+              "SUPER"
+              "ALT"
+            ];
             key = "Left";
             command = "tagmon";
             params = "left";
           }
           {
-            mods = ["SUPER" "ALT"];
+            mods = [
+              "SUPER"
+              "ALT"
+            ];
             key = "Right";
             command = "tagmon";
             params = "right";
@@ -415,19 +492,28 @@ in {
         # Gaps
         ++ (mkSimpleBinds [
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "X";
             command = "incgaps";
             params = "1";
           }
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "Z";
             command = "incgaps";
             params = "-1";
           }
           {
-            mods = ["ALT" "SHIFT"];
+            mods = [
+              "ALT"
+              "SHIFT"
+            ];
             key = "R";
             command = "togglegaps";
           }
@@ -442,7 +528,13 @@ in {
     };
 
     tagRules = lib.mkOption {
-      type = with lib.types; listOf (attrsOf (oneOf [int str]));
+      type = with lib.types;
+        listOf (
+          attrsOf (oneOf [
+            int
+            str
+          ])
+        );
       default =
         builtins.genList (i: {
           id = i + 1;
@@ -453,7 +545,14 @@ in {
     };
 
     windowRules = lib.mkOption {
-      type = with lib.types; listOf (attrsOf (oneOf [int str bool]));
+      type = with lib.types;
+        listOf (
+          attrsOf (oneOf [
+            int
+            str
+            bool
+          ])
+        );
       default = [];
       description = "Window rules based on appid/title for behavior customization";
     };
