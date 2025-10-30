@@ -16,7 +16,13 @@
     modules.greetd
     modules.ssh
     modules.opengl
+    modules.virtualize
   ];
+
+  services.openiscsi = {
+    name = "iqn.2025-10.org.homelab-nix:${config.networking.hostName}";
+    enable = true;
+  };
 
   mod = {
     virtualize = {

@@ -29,7 +29,7 @@ in {
         description = "Extra options to add to docker service";
       };
       enableNvidiaSupport = lib.mkOption {
-        types = lib.types.bool;
+        type = lib.types.bool;
         default = false;
         description = "Enable nvidia support using nvidia-container-toolkit";
       };

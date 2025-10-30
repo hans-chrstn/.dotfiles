@@ -8,6 +8,8 @@
     modules.btop
     modules.dconf
     modules.direnv
+    modules.git
+    modules.lazygit
     modules.neofetch
     modules.nix-index
     modules.yazi
@@ -26,10 +28,15 @@
     };
     dconf.enable = true;
     direnv.enable = true;
+    git = {
+      enable = true;
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
+    };
+    lazygit.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
-    zen.enable = true;
     zsh.enable = true;
   };
 
