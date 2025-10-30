@@ -30,7 +30,6 @@
     neofetch.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
-    zen.enable = true;
     zsh.enable = true;
   };
 
