@@ -19,6 +19,7 @@
     modules.netfs
     modules.clamav
     modules.virtualize
+    modules.zfs
   ];
 
   mod = {
@@ -31,7 +32,6 @@
       opengl.enable = true;
     };
     netfs = {
-      enableIscsi = true;
       enableNfs = true;
       smb = {
         enable = true;
