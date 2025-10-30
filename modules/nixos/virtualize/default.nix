@@ -67,8 +67,14 @@ in {
             8443
           ];
           interfaces.incusbr0 = {
-            allowedTCPPorts = [53 67];
-            allowedUDPPorts = [53 67];
+            allowedTCPPorts = [
+              53
+              67
+            ];
+            allowedUDPPorts = [
+              53
+              67
+            ];
           };
         };
       };
@@ -93,11 +99,7 @@ in {
       virtualisation.docker = {
         enable = true;
         storageDriver = "overlay2";
-        extraOptions =
-          ''
-            --data-root /tank/data/docker/root
-          ''
-          + cfg.docker.extraOptions;
+        extraOptions = cfg.docker.extraOptions;
       };
       environment.systemPackages = with pkgs; [docker-compose];
 
