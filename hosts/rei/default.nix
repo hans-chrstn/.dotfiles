@@ -22,6 +22,8 @@
     modules.zfs
   ];
 
+  services.target.enable = true;
+
   mod = {
     hardware = {
       amd = {
@@ -48,11 +50,13 @@
       zfs = {
         enable = true;
         id = "fffafb21";
+        importPools = ["tank"];
       };
       clamav = {
         enable = true;
-        # directories = [
-        # ];
+        directories = [
+          "/tank"
+        ];
       };
       greetd.enable = true;
       ssh.enable = true;
@@ -61,17 +65,19 @@
 
   programs.zsh.enable = true;
 
-  users.mutableUsers = false;
+  #users.mutableUsers = false;
   users.users = {
     "rei" = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
+      #hashedPasswordFile = config.sops.secrets."users/jin/password".path;
+      password = "123";
       isNormalUser = true;
       description = "Primary user for rei";
       extraGroups = ["wheel"];
       shell = pkgs.zsh;
     };
     root = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
+      #hashedPasswordFile = config.sops.secrets."users/jin/password".path;
+      password = "123";
       isSystemUser = true;
       extraGroups = ["wheel"];
       shell = pkgs.zsh;

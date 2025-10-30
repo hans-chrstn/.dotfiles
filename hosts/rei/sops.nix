@@ -32,7 +32,6 @@
           Name=${config.sops.placeholder."networks/rei/main/name"}
 
           [Link]
-          RequiredForOnline=routable
           MACAddress=${config.sops.placeholder."networks/rei/bridge/mad"}
 
           [Network]
