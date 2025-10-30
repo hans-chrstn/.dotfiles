@@ -1,5 +1,6 @@
 {
   nixos = {
+    netfs = import ./nixos/netfs;
     opengl = import ./nixos/opengl;
     mangowc = import ./nixos/mangowc;
     laptop = import ./nixos/laptop;

@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.mod.zfs;
-in
 {
-  options.mod.zfs = {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.services.zfs;
+in {
+  options.mod.services.zfs = {
     enable = lib.mkEnableOption "Enable the zfs feature";
     id = lib.mkOption {
       type = lib.types.str;
@@ -34,7 +37,7 @@ in
 
     networking.hostId = cfg.id;
 
-    environment.systemPackages = with pkgs; [ zfs ];
+    environment.systemPackages = with pkgs; [zfs];
     boot.supportedFilesystems = ["zfs"];
     boot.kernelModules = ["zfs"];
   };
