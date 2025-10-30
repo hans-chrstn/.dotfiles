@@ -9,7 +9,7 @@ in {
     enableNfs = lib.mkEnableOption "Enable the nfs feature";
     smb.enable = lib.mkEnableOption "Enable the smb feature";
     smb.path = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "/srv/samba/private";
       description = "Path to samba folder";
     };
