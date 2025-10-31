@@ -1,12 +1,34 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.mod.netfs;
 in {
   options.mod.netfs = {
     enableNfs = lib.mkEnableOption "Enable the nfs feature";
+    iscsi.client = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enable Open-iscsi";
+      };
+      extraConfig = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+        description = "String concatenated extra config for the client";
+      };
+      initiatorName = lib.mkOption {
+        type = lib.types.str;
+        description = "The unique IQN for this iSCSI client (from /etc/iscsi/initiatorname.iscsi).";
+      };
+    };
+    iscsi.server.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable targetcli";
+    };
     smb.enable = lib.mkEnableOption "Enable the smb feature";
     smb.path = lib.mkOption {
       type = lib.types.str;
@@ -37,6 +59,50 @@ in {
           };
         };
       };
+    })
+    (lib.mkIf cfg.iscsi.client.enable {
+      services.openiscsi = {
+        enable = true;
+        name = cfg.iscsi.client.initiatorName;
+        extraConfig = cfg.iscsi.client.extraConfig;
+      };
+    })
+
+    (lib.mkIf cfg.iscsi.server.enable {
+      environment.systemPackages = [pkgs.targetcli-fb];
+
+      boot.kernelModules = [
+        "configfs"
+        "target_core_mod"
+        "iscsi_target_mod"
+      ];
+
+      systemd.services.iscsi-target = {
+        enable = true;
+        after = [
+          "network.target"
+          "local-fs.target"
+        ];
+        requires = ["sys-kernel-config.mount"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = [
+            "${lib.getExe pkgs.python3Packages.rtslib-fb}"
+            "restore"
+          ];
+          ExecStop = [
+            "${lib.getExe pkgs.python3Packages.rtslib-fb}"
+            "clear"
+            ""
+          ];
+          RemainAfterExit = "yes";
+        };
+      };
+
+      systemd.tmpfiles.rules = [
+        "d /etc/target 0700 root root - -"
+      ];
     })
     (lib.mkIf cfg.smb.enable {
       services.samba = {
