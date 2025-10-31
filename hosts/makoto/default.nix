@@ -13,6 +13,7 @@
     modules.nvidia
     modules.dbus
     modules.nix-ld
+    modules.netfs
     modules.greetd
     modules.ssh
     modules.opengl
@@ -29,11 +30,19 @@
       docker = {
         enable = true;
         enableNvidiaSupport = true;
-        # extraOptions = '''';
       };
       proxmox = {
         enable = true;
         ip = "192.168.110.3";
+      };
+    };
+    netfs = {
+      iscsi.client = {
+        enable = true;
+        extraConfig = ''
+          node.session.auth.authmethod = CHAP
+        '';
+        initiatorName = "iqn.2025-10.org.homelab-nix:${config.networking.hostName}";
       };
     };
     hardware = {

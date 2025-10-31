@@ -36,6 +36,9 @@
       smb = {
         enable = true;
       };
+      iscsi.server = {
+        enable = true;
+      };
     };
     programs = {
       dbus.enable = true;
