@@ -18,18 +18,34 @@
     modules.ssh
     modules.opengl
     modules.virtualize
+    modules.zfs
   ];
 
   services.openiscsi = {
-    name = "iqn.2025-10.org.homelab-nix:${config.networking.hostName}";
+    name = "iqn.2025-10.org.homelab-nix:nixos-server-1";
     enable = true;
+    extraConfig = ''
+      node.session.auth.authmethod = CHAP
+      node.startup = automatic
+    '';
   };
+
+  systemd.services.iscsi-setup = {
+    description = "Setup ISCSI targets";
+  };
+
+  systemd.services.zfs-import-data = {};
+
+  systemd.services.docker = {};
 
   mod = {
     virtualize = {
       docker = {
         enable = true;
         enableNvidiaSupport = true;
+        extraOptions = ''
+          --data-root="/data/docker/root"
+        '';
       };
       proxmox = {
         enable = true;
@@ -59,6 +75,10 @@
       nix-ld.enable = true;
     };
     services = {
+      zfs = {
+        enable = true;
+        id = "8565dd80";
+      };
       greetd.enable = true;
       ssh.enable = true;
     };
@@ -72,7 +92,11 @@
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isNormalUser = true;
       description = "Primary user for makoto";
-      extraGroups = ["wheel"];
+      extraGroups = [
+        "wheel"
+        "docker"
+        "podman"
+      ];
       shell = pkgs.zsh;
     };
     root = {
