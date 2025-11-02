@@ -24,8 +24,20 @@
       "networks/makoto/bridge/name" = {};
       "networks/makoto/bridge/dhcp" = {};
       "networks/makoto/bridge/mad" = {};
+      "users/rei/bcsi/pool_name" = {};
+      "users/rei/bcsi/target_ip" = {};
+      "users/rei/bcsi/wwn" = {};
+      "users/rei/bcsi/chap/node" = {};
     };
     templates = {
+      "iscsi-config" = {
+        content = ''
+          TARGET_IP=${config.sops.placeholder."users/rei/bcsi/target_ip"}
+          TARGET_IQN=${config.sops.placeholder."users/rei/bcsi/wwn"}
+          INITIATOR_IQN=${config.sops.placeholder."users/rei/bcsi/chap/node"}
+          POOL_NAME=${config.sops.placeholder."users/rei/bcsi/pool_name"}
+        '';
+      };
       "10-lan.network" = {
         content = ''
           [Match]
