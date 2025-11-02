@@ -22,7 +22,9 @@
     modules.zfs
   ];
 
-  services.target.enable = true;
+  services.target = {
+    enable = true;
+  };
 
   mod = {
     hardware = {
@@ -65,19 +67,17 @@
 
   programs.zsh.enable = true;
 
-  #users.mutableUsers = false;
+  users.mutableUsers = false;
   users.users = {
     "rei" = {
-      #hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      password = "123";
+      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isNormalUser = true;
       description = "Primary user for rei";
       extraGroups = ["wheel"];
       shell = pkgs.zsh;
     };
     root = {
-      #hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      password = "123";
+      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isSystemUser = true;
       extraGroups = ["wheel"];
       shell = pkgs.zsh;
@@ -90,7 +90,7 @@
     networkmanager.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
     firewall = {
-      allowedTCPPorts = [];
+      allowedTCPPorts = [3260];
       allowedUDPPorts = [];
       allowedTCPPortRanges = [];
       allowedUDPPortRanges = [];
