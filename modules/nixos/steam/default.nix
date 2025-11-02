@@ -1,8 +1,11 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.mod.programs.steam;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.mod.programs.steam;
+in {
   options.mod.programs.steam = {
     enable = lib.mkEnableOption "Enable the steam feature";
   };
@@ -10,11 +13,12 @@ in
   config = lib.mkIf cfg.enable {
     programs.gamemode.enable = true;
 
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-original"
-      "steam-run"
-    ];
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "steam"
+        "steam-original"
+        "steam-run"
+      ];
 
     environment.systemPackages = with pkgs; [
       yad
@@ -35,7 +39,7 @@ in
 
     # STEAM
     programs.steam = {
-      package = pkgs.steam-small.override {
+      package = pkgs.steam.override {
         extraEnv = {
           MANGOHUD = true;
           #OBS_VK_CAPTURE = true;
@@ -43,11 +47,12 @@ in
           #RADV_TEX_ANISO = 16;
           DXVK_HUD = "compiler";
         };
-        extraLibraries = p: with p; [
-          atk
-          dbus
-          udev
-        ];
+        extraLibraries = p:
+          with p; [
+            atk
+            dbus
+            udev
+          ];
       };
       enable = true;
       gamescopeSession = {

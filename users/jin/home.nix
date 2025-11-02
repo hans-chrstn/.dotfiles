@@ -110,9 +110,12 @@
     zsh.enable = true;
   };
 
+  programs.brave.enable = true;
+
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     inputs.dotnixvim.packages."${pkgs.system}".default
+    libreoffice
   ];
 
   programs.home-manager.enable = true;

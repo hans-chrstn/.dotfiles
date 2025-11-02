@@ -1,8 +1,11 @@
-{ lib, pkgs, config, ... }:
-let
- cfg = config.mod.programs.minecraft;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  cfg = config.mod.programs.minecraft;
+in {
   options.mod.programs.minecraft = {
     enable = lib.mkEnableOption "Enable minecraft config and it's best values";
   };
@@ -11,7 +14,7 @@ in
     home.packages = with pkgs; [
       (prismlauncher.override {
         jdks = [
-          graalvm-ce
+          graalvmPackages.graalvm-ce
           zulu8
           zulu17
           zulu
