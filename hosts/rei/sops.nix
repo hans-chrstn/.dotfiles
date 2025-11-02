@@ -17,6 +17,7 @@
       "users/jin/password" = {
         neededForUsers = true;
       };
+      "users/jin/ssh/public" = {};
       "users/rei/bcsi/lun" = {};
       "users/rei/bcsi/dev" = {};
       "users/rei/bcsi/wwn" = {};
