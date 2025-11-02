@@ -21,15 +21,6 @@
     modules.zfs
   ];
 
-  services.openiscsi = {
-    name = "iqn.2025-10.org.homelab-nix:nixos-server-1";
-    enable = true;
-    extraConfig = ''
-      node.session.auth.authmethod = CHAP
-      node.startup = automatic
-    '';
-  };
-
   systemd.services.iscsi-setup = {
     description = "Setup ISCSI targets";
     after = ["network-online.target" "iscsid.service" "sops-nix.service"];
@@ -109,6 +100,7 @@
         enable = true;
         extraConfig = ''
           node.session.auth.authmethod = CHAP
+          node.startup = automatic
         '';
         initiatorName = "iqn.2025-10.org.homelab-nix:${config.networking.hostName}";
       };
