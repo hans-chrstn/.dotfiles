@@ -41,7 +41,14 @@
     services = {
       sunshine.enable = true;
       greetd.enable = true;
-      ssh.enable = true;
+      ssh = {
+        enable = true;
+        allowedIps = [
+          "192.168.110.2/32"
+          "192.168.110.3/32"
+          "192.168.110.4/32"
+        ];
+      };
     };
     wm = {
       # niri = {
