@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
@@ -35,7 +36,7 @@ in {
 
     xdg.configFile."nvim" = {
       recursive = true;
-      source = ./config;
+      source = inputs.dotnvim;
     };
   };
 }
