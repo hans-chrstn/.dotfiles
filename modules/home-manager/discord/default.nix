@@ -56,6 +56,8 @@ in {
           YoutubeAdblock.enabled = true;
           VolumeBooster.enabled = true;
           Unindent.enabled = true;
+          NotTypingAnimation.enable = true;
+          SilentTyping.enable = true;
         };
       };
     };
