@@ -126,7 +126,6 @@
       lib.mapAttrs (
         hostname: hostConfig:
           lib.nixosSystem {
-            system = hostConfig.arch;
             specialArgs = {
               inherit inputs;
               modules = modules.nixos;
@@ -134,6 +133,7 @@
             modules = [
               modules.nixos.common-universal
               modules.nixos.common-linux
+              {nixpkgs.hostPlatform = hostConfig.arch;}
               {nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];}
               ./hosts/${hostname}
 
@@ -158,12 +158,12 @@
       lib.mapAttrs (
         hostname: hostConfig:
           nix-darwin.lib.darwinSystem {
-            system = hostConfig.arch;
             specialArgs = {
               inherit inputs;
               modules = modules.nixos;
             };
             modules = [
+              {nixpkgs.hostPlatform = hostConfig.arch;}
               {
                 nixpkgs.overlays = overlays ++ [customPackagesOverlay];
                 nixpkgs.config.allowUnfree = true;
