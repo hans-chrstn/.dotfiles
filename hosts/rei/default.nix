@@ -83,9 +83,6 @@
       description = "Primary user for rei";
       extraGroups = ["wheel"];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keyFiles = [
-        config.sops.secrets."users/jin/ssh/public".path
-      ];
     };
     root = {
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
