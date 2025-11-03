@@ -1,3 +1,0 @@
-[submodule "modules/home-manager/neovim/config"]
-	path = modules/home-manager/neovim/config
-	url = https://github.com/hans-chrstn/neovim-config

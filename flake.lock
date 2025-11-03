@@ -89,6 +89,22 @@
         "type": "github"
       }
     },
+    "dotnvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762204444,
+        "narHash": "sha256-tdkZVRINpXGYvq8P7RwfLKTu3F2pnIxhlZvsmE/pOEM=",
+        "owner": "hans-chrstn",
+        "repo": "neovim-config",
+        "rev": "2678ad17923ddfcaf889a42a0da1abe25999345c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hans-chrstn",
+        "repo": "neovim-config",
+        "type": "github"
+      }
+    },
     "dotstylix": {
       "inputs": {
         "nixpkgs": [
@@ -794,6 +810,7 @@
     },
     "root": {
       "inputs": {
+        "dotnvim": "dotnvim",
         "dotstylix": "dotstylix",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",

@@ -70,6 +70,11 @@
     };
     stylix.follows = "dotstylix/stylix";
 
+    dotnvim = {
+      url = "github:hans-chrstn/neovim-config";
+      flake = false;
+    };
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
