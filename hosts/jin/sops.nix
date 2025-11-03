@@ -25,8 +25,17 @@
       "networks/jin/bridge/name" = {};
       "networks/jin/bridge/dhcp" = {};
       "networks/jin/bridge/mad" = {};
+      "networks/makoto/bridge/mad" = {};
+      "networks/makoto/ip" = {};
     };
     templates = {
+      "wol-servers" = {
+        content = ''
+          MAKOTO_MAC=${config.sops.placeholder."networks/makoto/bridge/mad"}
+          MAKOTO_IP=${config.sops.placeholder."networks/makoto/ip"}
+        '';
+      };
+
       "10-lan.network" = {
         content = ''
           [Match]

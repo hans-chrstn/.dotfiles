@@ -33,6 +33,11 @@
       "networks/rei/bridge/mad" = {};
     };
     templates = {
+      "wol-interface" = {
+        content = ''
+          INTERFACE_NAME=${config.sops.placeholder."networks/rei/main/name"}
+        '';
+      };
       "10-lan.network" = {
         content = ''
           [Match]
@@ -40,6 +45,7 @@
 
           [Link]
           MACAddress=${config.sops.placeholder."networks/rei/bridge/mad"}
+          WakeOnLan=magic
 
           [Network]
           DHCP=${config.sops.placeholder."networks/rei/main/dhcp"}
