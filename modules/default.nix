@@ -28,6 +28,7 @@
   };
 
   home-manager = {
+    neovim = import ./home-manager/neovim;
     mangowc = import ./home-manager/mangowc;
     monitors = import ./home-manager/monitors;
     discord = import ./home-manager/discord;

@@ -9,6 +9,7 @@
     modules.dconf
     modules.direnv
     modules.neofetch
+    modules.neovim
     modules.nix-index
     modules.yazi
     modules.zsh
@@ -27,6 +28,7 @@
     };
     dconf.enable = true;
     direnv.enable = true;
+    neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
@@ -35,9 +37,6 @@
 
   fonts.fontconfig.enable = true;
   home = {
-    packages = [
-      inputs.dotnvf.packages."${pkgs.system}".default
-    ];
     username = "rei";
     homeDirectory = "/home/rei";
     sessionVariables = {
