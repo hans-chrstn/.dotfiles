@@ -43,7 +43,7 @@
   fonts.fontconfig.enable = true;
   home = {
     packages = [
-      inputs.dotnixvim.packages."${pkgs.system}".default
+      inputs.dotnvf.packages."${pkgs.system}".default
     ];
     username = "makoto";
     homeDirectory = "/home/makoto";

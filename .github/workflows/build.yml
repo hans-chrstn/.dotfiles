@@ -1,0 +1,64 @@
+name: "Nix Flake Cachix"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out your repository
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run Flake Checks
+        run: |
+          nix flake check -L
+
+  build:
+    needs: check
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { type: "nixos", host: "rei" }
+          - { type: "nixos", host: "jin" }
+          - { type: "nixos", host: "makoto" }
+          - { type: "nixos", host: "yu" }
+
+          # - { type: "darwin", host: "macbook" }
+
+    steps:
+      - name: Check out your repository
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Configure Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: hans-chrstn
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Build your configuration for ${{ matrix.host }}
+        run: |
+          set -x
+
+
+          nix build .#${{ matrix.type }}Configurations.${{ matrix.host }}.config.system.build.toplevel

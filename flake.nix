@@ -64,11 +64,11 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
-    dotnixvim = {
-      url = "github:hans-chrstn/.nixvim";
+    dotnvf = {
+      url = "github:hans-chrstn/.nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim.follows = "dotnixvim/nixvim";
+    nvf.follows = "dotnvf/nvf";
 
     dotstylix = {
       url = "github:hans-chrstn/.stylix";

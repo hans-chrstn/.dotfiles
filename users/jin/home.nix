@@ -114,7 +114,7 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    inputs.dotnixvim.packages."${pkgs.system}".default
+    inputs.dotnvf.packages."${pkgs.system}".default
     libreoffice
   ];
 
