@@ -17,6 +17,7 @@
     modules.minecraft
     modules.monitors
     modules.neofetch
+    modules.neovim
     # modules.niri
     modules.nix-index
     modules.obs
@@ -100,6 +101,7 @@
     lazygit.enable = true;
     # niri.enable = true;
     minecraft.enable = true;
+    neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
     obs.enable = true;
@@ -114,7 +116,6 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    inputs.dotnvf.packages."${pkgs.system}".default
     libreoffice
   ];
 

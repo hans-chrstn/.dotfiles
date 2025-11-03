@@ -64,12 +64,6 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
-    dotnvf = {
-      url = "github:hans-chrstn/.nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvf.follows = "dotnvf/nvf";
-
     dotstylix = {
       url = "github:hans-chrstn/.stylix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -11,6 +11,7 @@
     modules.git
     modules.lazygit
     modules.neofetch
+    modules.neovim
     modules.nix-index
     modules.yazi
     modules.zsh
@@ -34,6 +35,7 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
+    neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
@@ -42,9 +44,6 @@
 
   fonts.fontconfig.enable = true;
   home = {
-    packages = [
-      inputs.dotnvf.packages."${pkgs.system}".default
-    ];
     username = "makoto";
     homeDirectory = "/home/makoto";
     sessionVariables = {

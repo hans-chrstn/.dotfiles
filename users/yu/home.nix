@@ -13,6 +13,7 @@
     modules.lazygit
     modules.monitors
     modules.neofetch
+    modules.neovim
     modules.niri
     modules.vscode
     modules.yazi
@@ -57,6 +58,7 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
+    neovim.enable = true;
     neofetch.enable = true;
     niri.enable = true;
     vscode.enable = true;
@@ -100,7 +102,6 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     moonlight-qt
-    inputs.dotnvf.packages."${pkgs.system}".default
   ];
 
   programs.home-manager.enable = true;
