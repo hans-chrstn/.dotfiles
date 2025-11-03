@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
+    ./services.nix
     modules.amd
     modules.btrfs
     modules.audio

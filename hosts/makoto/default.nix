@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
+    ./services.nix
     modules.amd
     modules.audio
     modules.nvidia
@@ -20,66 +21,6 @@
     modules.virtualize
     modules.zfs
   ];
-
-  systemd.services.iscsi-setup = {
-    description = "Setup ISCSI targets";
-    after = ["network-online.target" "iscsid.service" "sops-nix.service"];
-    wants = ["network-online.target"];
-    requires = ["iscsid.service" "sops-nix.service"];
-    before = ["zfs-import.service"];
-    wantedBy = ["multi-user.target"];
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      EnvironmentFile = [
-        config.sops.templates."iscsi-config".path
-      ];
-    };
-
-    script = ''
-      until ${pkgs.iputils}/bin/ping -c 1 $TARGET_IP > /dev/null 2>&1; do
-        echo "Waiting for ISCSI target at $TARGET_IP..."
-      done
-
-      echo "Discovering ISCSI targets..."
-      ${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p $TARGET_IP
-
-      echo "Logging into iSCSI target $TARGET_IQN..."
-      ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --login || true
-
-      ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --op update -n node.startup -v automatic || true
-
-      echo "Waiting for iSCSI device..."
-      sleep 2
-    '';
-  };
-
-  systemd.services.zfs-import-data = {
-    description = "Import ZFS pool";
-    after = ["iscsi-setup.service" "zfs-import.target"];
-    requires = ["iscsi-setup.service"];
-    before = ["docker.service"];
-    wantedBy = ["multi-user.target"];
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      EnvironmentFile = [config.sops.templates."iscsi-config".path];
-    };
-
-    script = ''
-      echo "Importing ZFS pool $POOL_NAME..."
-      ${config.boot.zfs.package}/bin/zpool import -N $POOL_NAME || true
-      ${config.boot.zfs.package}/bin/zpool import $POOL_NAME
-      echo "ZFS pool $POOL_NAME imported successfully"
-    '';
-  };
-
-  systemd.services.docker = {
-    after = ["zfs-import-data.service"];
-    requires = ["zfs-import-data.service"];
-  };
 
   mod = {
     virtualize = {
