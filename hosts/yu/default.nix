@@ -14,7 +14,8 @@
     modules.dbus
     modules.greetd
     modules.ssh
-    modules.niri
+    modules.mangowc
+    # modules.niri
   ];
 
   programs.zsh.enable = true;
@@ -34,9 +35,12 @@
       greetd.enable = true;
       ssh.enable = true;
     };
-    wm.niri = {
-      enable = true;
-      channel = "unstable";
+    wm = {
+      # niri = {
+        # enable = true;
+        # channel = "unstable";
+      # };
+      mangowc.enable = true;
     };
   };
 
