@@ -68,7 +68,7 @@
 
   theme = {
     enable = true;
-    scheme = "one-dark";
+    scheme = "desert-taupe-earth";
   };
 
   home = {
