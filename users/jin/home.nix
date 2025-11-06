@@ -18,7 +18,6 @@
     modules.monitors
     modules.neofetch
     modules.neovim
-    # modules.niri
     modules.nix-index
     modules.obs
     modules.unity
@@ -69,7 +68,7 @@
 
   theme = {
     enable = true;
-    scheme = "desert-taupe-earth";
+    scheme = "one-dark";
   };
 
   home = {
@@ -99,7 +98,6 @@
       userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
-    # niri.enable = true;
     minecraft.enable = true;
     neovim.enable = true;
     neofetch.enable = true;

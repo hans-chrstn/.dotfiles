@@ -1,12 +1,15 @@
 {
   modules,
   lib,
+  pkgs,
   ...
 }: {
   # best i could do to simulate niri's layout
   imports = [
     modules.mangowc
   ];
+
+  home.packages = with pkgs; [grim slurp wl-clipboard];
 
   mod.programs.mangowc = let
     horizontalLayouts = [
@@ -206,6 +209,14 @@
           key = "Left";
           command = "focusstack";
           params = "prev";
+        }
+        {
+          mods = [
+            "ALT"
+          ];
+          key = "P";
+          command = "spawn_shell";
+          params = "grim -g \"$(slurp -d)\" - | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy";
         }
         {
           mods = [
