@@ -23,6 +23,7 @@
 
   theme = {
     enable = true;
+    scheme = "nord";
   };
 
   monitors = {
