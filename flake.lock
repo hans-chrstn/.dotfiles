@@ -92,11 +92,11 @@
     "dotnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1762204444,
-        "narHash": "sha256-tdkZVRINpXGYvq8P7RwfLKTu3F2pnIxhlZvsmE/pOEM=",
+        "lastModified": 1762392398,
+        "narHash": "sha256-YSvqJ9wj23j7tKmu9MuGxb5ddwFfDazOZa0zMT14WlQ=",
         "owner": "hans-chrstn",
         "repo": "neovim-config",
-        "rev": "2678ad17923ddfcaf889a42a0da1abe25999345c",
+        "rev": "646c985544aa7d5b2a9b9255f66c54d157fe8ea8",
         "type": "github"
       },
       "original": {
@@ -113,11 +113,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1761786152,
-        "narHash": "sha256-JiW+nTtOpQS9u+ACyrGP82T3c2sj0YPSaR0GpC0ZAwY=",
+        "lastModified": 1762357682,
+        "narHash": "sha256-yNyqH366ysH4YTRJaeVbTZVb81yJ5jahw6brSc7jNuo=",
         "owner": "hans-chrstn",
         "repo": ".stylix",
-        "rev": "fde77feaf248b6bb7415ccba63ad1de0aa9b3e4d",
+        "rev": "6f75ebfc546a0c4da68cfacaf17893ee34f86f83",
         "type": "github"
       },
       "original": {

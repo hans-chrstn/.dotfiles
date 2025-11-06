@@ -134,7 +134,14 @@
               modules.nixos.common-universal
               modules.nixos.common-linux
               {nixpkgs.hostPlatform = hostConfig.arch;}
-              {nixpkgs.overlays = overlays ++ [customPackagesOverlay inputs.dotstylix.overlays.default];}
+              {
+                nixpkgs.overlays =
+                  overlays
+                  ++ [
+                    customPackagesOverlay
+                    inputs.dotstylix.overlays.default
+                  ];
+              }
               ./hosts/${hostname}
 
               home-manager.nixosModules.home-manager
