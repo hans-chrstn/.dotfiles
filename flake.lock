@@ -113,11 +113,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1762357682,
-        "narHash": "sha256-yNyqH366ysH4YTRJaeVbTZVb81yJ5jahw6brSc7jNuo=",
+        "lastModified": 1762402649,
+        "narHash": "sha256-yLiihfrgTJAen8ZhaOPSVyJT67GtqUUAWoFv3810AWo=",
         "owner": "hans-chrstn",
         "repo": ".stylix",
-        "rev": "6f75ebfc546a0c4da68cfacaf17893ee34f86f83",
+        "rev": "cc04627f38807295f26152d4f5a698830de559c7",
         "type": "github"
       },
       "original": {
