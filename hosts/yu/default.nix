@@ -18,7 +18,7 @@
     # modules.niri
   ];
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   networking.hostName = "nixos-laptop";
 
   mod = {
@@ -37,8 +37,8 @@
     };
     wm = {
       # niri = {
-        # enable = true;
-        # channel = "unstable";
+      # enable = true;
+      # channel = "unstable";
       # };
       mangowc.enable = true;
     };
@@ -51,12 +51,13 @@
       description = "Primary user for yu";
       extraGroups = ["wheel"];
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
     root = {
       isSystemUser = true;
       extraGroups = ["wheel"];
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
+      shell = pkgs.fish;
     };
   };
 }

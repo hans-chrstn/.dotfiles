@@ -24,7 +24,7 @@
     modules.vscode
     modules.yazi
     modules.zen
-    modules.zsh
+    modules.shell
     inputs.dotstylix.homeModules.default
   ];
 
@@ -107,7 +107,10 @@
     vscode.enable = true;
     yazi.enable = true;
     zen.enable = true;
-    zsh.enable = true;
+    shell = {
+      enableFish = true;
+      enableStarship = true;
+    };
   };
 
   programs.brave.enable = true;
