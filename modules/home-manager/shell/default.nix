@@ -251,8 +251,8 @@ in {
             src = pkgs.fishPlugins.puffer;
           }
           {
-            name = "fzf";
-            src = pkgs.fishPlugins.fzf;
+            name = "fzf-fish";
+            src = pkgs.fishPlugins.fzf-fish;
           }
         ];
       };
