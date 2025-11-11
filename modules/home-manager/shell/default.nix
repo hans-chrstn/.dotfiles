@@ -224,12 +224,31 @@ in {
     })
 
     (lib.mkIf cfg.enableFish {
+      home.shell.enableFishIntegration = true;
+      programs.starship.enableFishIntegration = true;
+      programs.yazi.enableFishIntegration = true;
+      programs.lazygit.enableFishIntegration = true;
       programs.fish = {
         enable = true;
+        shellInitLast = ''
+          set fish_greeting ""
+        '';
         plugins = [
           {
             name = "z";
             src = pkgs.fishPlugins.z;
+          }
+          {
+            name = "wakatime-fish";
+            src = pkgs.fishPlugins.wakatime-fish;
+          }
+          {
+            name = "sponge";
+            src = pkgs.fishPlugins.sponge;
+          }
+          {
+            name = "puffer";
+            src = pkgs.fishPlugins.puffer;
           }
           {
             name = "fzf";
