@@ -71,7 +71,8 @@
     stylix.follows = "dotstylix/stylix";
 
     dotnvim = {
-      url = "github:hans-chrstn/neovim-config";
+      # url = "github:hans-chrstn/neovim-config";
+      url = "path:/home/yu/.nvim";
       flake = false;
     };
 

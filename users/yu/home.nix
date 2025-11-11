@@ -14,16 +14,17 @@
     modules.monitors
     modules.neofetch
     modules.neovim
+    modules.nyxt
     modules.vscode
     modules.yazi
     modules.zen
-    modules.zsh
+    modules.shell
     inputs.dotstylix.homeModules.default
   ];
 
   theme = {
     enable = true;
-    scheme = "nord";
+    scheme = "desert-taupe-earth";
   };
 
   monitors = {
@@ -59,10 +60,14 @@
     lazygit.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
+    nyxt.enable = true;
     vscode.enable = true;
     yazi.enable = true;
     zen.enable = true;
-    zsh.enable = true;
+    shell = {
+      enableFish = true;
+      enableStarship = true;
+    };
   };
 
   fonts.fontconfig.enable = true;

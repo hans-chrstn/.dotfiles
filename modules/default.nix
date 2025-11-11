@@ -28,11 +28,12 @@
   };
 
   home-manager = {
+    nyxt = import ./home-manager/nyxt;
     neovim = import ./home-manager/neovim;
     mangowc = import ./home-manager/mangowc;
     monitors = import ./home-manager/monitors;
     discord = import ./home-manager/discord;
-    zsh = import ./home-manager/zsh;
+    shell = import ./home-manager/shell;
     yazi = import ./home-manager/yazi;
     obs = import ./home-manager/obs;
     niri = import ./home-manager/niri;
