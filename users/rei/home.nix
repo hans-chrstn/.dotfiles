@@ -12,7 +12,7 @@
     modules.neovim
     modules.nix-index
     modules.yazi
-    modules.zsh
+    modules.shell
     inputs.dotstylix.homeModules.default
   ];
 
@@ -32,7 +32,11 @@
     neofetch.enable = true;
     nix-index.enable = true;
     yazi.enable = true;
-    zsh.enable = true;
+    shell = {
+      enableZsh = false;
+      enableFish = true;
+      enableStarship = true;
+    };
   };
 
   fonts.fontconfig.enable = true;

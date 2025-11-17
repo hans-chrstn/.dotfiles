@@ -62,7 +62,7 @@
     };
   };
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   users.mutableUsers = false;
   users.users = {
@@ -71,13 +71,13 @@
       isNormalUser = true;
       description = "Primary user for jin";
       extraGroups = ["wheel"];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
     root = {
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isSystemUser = true;
       extraGroups = ["wheel"];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
   };
 

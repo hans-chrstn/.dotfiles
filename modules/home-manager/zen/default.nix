@@ -91,62 +91,62 @@ in {
           Add = [
             {
               Name = "Google";
-              Alias = "gg";
+              Alias = "@gg";
               Method = "GET";
               URLTemplate = "https://google.com/search?q={searchTerms}";
               SuggestURLTemplate = "https://google.com/complete/search?client=firefox&q={searchTerms}";
             }
             {
               Name = "YouTube";
-              Alias = "yt";
+              Alias = "@yt";
               Method = "GET";
               URLTemplate = "https://youtube.com/results?search_query={searchTerms}";
             }
             {
               Name = "GitHub";
-              Alias = "gh";
+              Alias = "@gh";
               Method = "GET";
               URLTemplate = "https://github.com/search?type=repositories&q={searchTerms}";
             }
             {
               Name = "Crates.rs";
-              Alias = "cr";
+              Alias = "@cr";
               Method = "GET";
               URLTemplate = "https://crates.io/search?q={searchTerms}";
             }
             {
               Name = "Lib.rs";
-              Alias = "rs";
+              Alias = "@rs";
               Method = "GET";
               URLTemplate = "https://lib.rs/search?q={searchTerms}";
             }
             {
               Name = "Searchix";
-              Alias = "sx";
+              Alias = "@sx";
               Method = "GET";
               URLTemplate = "https://searchix.ovh/?query={searchTerms}";
             }
             {
               Name = "NixOS Packages";
-              Alias = "np";
+              Alias = "@np";
               Method = "GET";
               URLTemplate = "https://search.nixos.org/packages?channel=unstable&sort=relevance&type=packages&query={searchTerms}";
             }
             {
               Name = "NixOS Options";
-              Alias = "no";
+              Alias = "@no";
               Method = "GET";
               URLTemplate = "https://search.nixos.org/options?channel=unstable&sort=relevance&type=options&query={searchTerms}";
             }
             {
               Name = "Home Manager Options";
-              Alias = "ho";
+              Alias = "@hm";
               Method = "GET";
               URLTemplate = "https://home-manager-options.extranix.com/?release=master&query={searchTerms}";
             }
             {
               Name = "Nix Darwin Options";
-              Alias = "do";
+              Alias = "@do";
               Method = "GET";
               URLTemplate = "https://options.nix-darwin.uz/?release=master&query={searchTerms}";
             }
@@ -160,6 +160,7 @@ in {
           "beacon.enabled" = false;
           "ui.key.menuAccessKey" = 0;
           "media.autoplay.default" = 1;
+          "media.mkv.enabled" = true;
           "browser.newtabpage.enabled" = false;
           "media.peerconnection.ice.no_host" = true;
         };

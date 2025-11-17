@@ -92,14 +92,17 @@
     "dotnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1762446715,
-        "narHash": "sha256-6r8+qmCXswEGji9GDS2/HSrH7VAu47N+uBcS06KAkO0=",
-        "path": "/home/yu/.nvim",
-        "type": "path"
+        "lastModified": 1762878666,
+        "narHash": "sha256-uu/BZjqe0nf2AdEqMgTrecCqnCTctKge3L8+7BWMryA=",
+        "owner": "hans-chrstn",
+        "repo": "neovim-config",
+        "rev": "5ac7a2a80652e05a0424f40123cacf8b86e22a8a",
+        "type": "github"
       },
       "original": {
-        "path": "/home/yu/.nvim",
-        "type": "path"
+        "owner": "hans-chrstn",
+        "repo": "neovim-config",
+        "type": "github"
       }
     },
     "dotstylix": {

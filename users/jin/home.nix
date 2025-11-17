@@ -19,6 +19,7 @@
     modules.neofetch
     modules.neovim
     modules.nix-index
+    modules.nyxt
     modules.obs
     modules.unity
     modules.vscode
@@ -102,12 +103,15 @@
     neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
+    nyxt.enable = true;
     obs.enable = true;
     unity.enable = true;
     vscode.enable = true;
     yazi.enable = true;
     zen.enable = true;
     shell = {
+      enableZsh = false;
+      enableNushell = true;
       enableFish = true;
       enableStarship = true;
     };
