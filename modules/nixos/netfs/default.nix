@@ -77,33 +77,11 @@ in {
         "iscsi_target_mod"
       ];
 
-      systemd.services.iscsi-target = {
-        enable = true;
-        after = [
-          "network.target"
-          "local-fs.target"
-        ];
-        requires = ["sys-kernel-config.mount"];
-        wantedBy = ["multi-user.target"];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = [
-            "${lib.getExe pkgs.python3Packages.rtslib-fb}"
-            "restore"
-          ];
-          ExecStop = [
-            "${lib.getExe pkgs.python3Packages.rtslib-fb}"
-            "clear"
-            ""
-          ];
-          RemainAfterExit = "yes";
-        };
+      systemd.services.target = {
+        before = ["umount.target"];
       };
-
-      systemd.tmpfiles.rules = [
-        "d /etc/target 0700 root root - -"
-      ];
     })
+
     (lib.mkIf cfg.smb.enable {
       services.samba = {
         enable = true;
