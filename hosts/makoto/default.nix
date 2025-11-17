@@ -106,7 +106,7 @@
     useDHCP = lib.mkForce false;
     firewall = {
       allowedTCPPorts = [];
-      allowedUDPPorts = [];
+      allowedUDPPorts = [69];
       allowedTCPPortRanges = [];
       allowedUDPPortRanges = [];
     };
