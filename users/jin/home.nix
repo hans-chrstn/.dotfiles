@@ -27,7 +27,10 @@
     modules.zen
     modules.shell
     inputs.dotstylix.homeModules.default
+    inputs.ink.homeModules.default
   ];
+
+  programs.ink.enable = true;
 
   monitors = {
     center = {

@@ -92,11 +92,11 @@
     "dotnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1762878666,
-        "narHash": "sha256-uu/BZjqe0nf2AdEqMgTrecCqnCTctKge3L8+7BWMryA=",
+        "lastModified": 1763565079,
+        "narHash": "sha256-9r2SfhHtSdbcEKCoCFjloGGbWTlZ4pe+nyoi0m/Vcb4=",
         "owner": "hans-chrstn",
         "repo": "neovim-config",
-        "rev": "5ac7a2a80652e05a0424f40123cacf8b86e22a8a",
+        "rev": "bdb0ce339854d4140931c4b68d885dd3d77460eb",
         "type": "github"
       },
       "original": {
@@ -399,6 +399,26 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "ink": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763597868,
+        "narHash": "sha256-ZB8PTRwTP5/ULaHbs8BIh5PeIpLt0rpr94NRvkunzP0=",
+        "owner": "hans-chrstn",
+        "repo": "Ink",
+        "rev": "96ed56ca4ee315d194dccdcb528dc743eb72aa90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hans-chrstn",
+        "repo": "Ink",
         "type": "github"
       }
     },
@@ -813,6 +833,7 @@
         "dotnvim": "dotnvim",
         "dotstylix": "dotstylix",
         "home-manager": "home-manager",
+        "ink": "ink",
         "lanzaboote": "lanzaboote",
         "mango": "mango",
         "niri": "niri",
