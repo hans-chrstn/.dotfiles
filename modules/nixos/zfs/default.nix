@@ -21,10 +21,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    boot.zfs = {
-      extraPools = cfg.importPools;
-    };
-
     services.zfs = {
       autoScrub = {
         enable = true;
