@@ -15,7 +15,6 @@
     modules.greetd
     modules.ssh
     modules.mangowc
-    # modules.niri
   ];
 
   programs.fish.enable = true;

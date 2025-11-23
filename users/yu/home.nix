@@ -73,6 +73,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     moonlight-qt
+    tradingview
   ];
 
   programs.home-manager.enable = true;

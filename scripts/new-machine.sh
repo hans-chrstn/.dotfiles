@@ -8,7 +8,7 @@ fi
 
 echo "Setting up new machine: $MACHINE_NAME"
 PS3="Select the system type: "
-select SYS_TYPE in nixos darwin wsl; do break; done
+select SYS_TYPE in nixos darwin wsl raspberry-pi; do break; done
 
 PS3="Select the architecture: "
 select SYS_ARCH in x86_64-linux aarch64-linux x86_64-darwin aarch64-darwin; do break; done

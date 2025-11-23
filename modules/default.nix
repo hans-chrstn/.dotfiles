@@ -1,5 +1,6 @@
 {
   nixos = {
+    common-rpi = import ./nixos/common-rpi;
     netfs = import ./nixos/netfs;
     opengl = import ./nixos/opengl;
     mangowc = import ./nixos/mangowc;

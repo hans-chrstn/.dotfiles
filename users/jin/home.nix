@@ -124,7 +124,9 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    gemini-cli
     libreoffice
+    tradingview
   ];
 
   programs.home-manager.enable = true;

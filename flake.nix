@@ -3,15 +3,20 @@
 
   nixConfig = {
     trusted-public-keys = [
-      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     substituers = [
-      "https://niri.cachix.org"
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
     ];
+    extra-substituters = [
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
+    connect-timeout = 5;
   };
 
   inputs = {
@@ -26,6 +31,13 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    rpi-pkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+      inputs.nixpkgs.follows = "rpi-pkgs";
+    };
+
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -93,6 +105,7 @@
     home-manager,
     nix-darwin,
     nixos-wsl,
+    nixos-raspberrypi,
     sops-nix,
     ...
   } @ inputs: let
@@ -115,6 +128,11 @@
         hostname: hostConfig: hostConfig.type == "nixos" || hostConfig.type == "wsl"
       )
       allHosts;
+    rpiHosts =
+      lib.filterAttrs (
+        hostname: hostConfig: hostConfig.type == "raspberry-pi"
+      )
+      allHosts;
     darwinHosts = lib.filterAttrs (hostname: hostConfig: hostConfig.type == "darwin") allHosts;
 
     modules = import ./modules;
@@ -128,44 +146,78 @@
         lib = prev.lib;
       };
   in {
-    nixosConfigurations =
-      lib.mapAttrs (
-        hostname: hostConfig:
-          lib.nixosSystem {
-            specialArgs = {
-              inherit inputs;
-              modules = modules.nixos;
-            };
-            modules = [
-              modules.nixos.common-universal
-              modules.nixos.common-linux
-              {nixpkgs.hostPlatform = hostConfig.arch;}
-              {
-                nixpkgs.overlays =
-                  overlays
-                  ++ [
-                    customPackagesOverlay
-                    inputs.dotstylix.overlays.default
-                  ];
-              }
-              ./hosts/${hostname}
+    nixosConfigurations = let
+      nixosHostsConfigs =
+        lib.mapAttrs (
+          hostname: hostConfig:
+            lib.nixosSystem {
+              specialArgs = {
+                inherit inputs;
+                modules = modules.nixos;
+              };
+              modules = [
+                modules.nixos.common-universal
+                modules.nixos.common-linux
+                {nixpkgs.hostPlatform = hostConfig.arch;}
+                {
+                  nixpkgs.overlays =
+                    overlays
+                    ++ [
+                      customPackagesOverlay
+                      inputs.dotstylix.overlays.default
+                    ];
+                }
+                ./hosts/${hostname}
 
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  users."${hostname}" = import ./users/${hostname};
-                  extraSpecialArgs = {
-                    inherit inputs;
-                    modules = modules.home-manager;
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    users."${hostname}" = import ./users/${hostname};
+                    extraSpecialArgs = {
+                      inherit inputs;
+                      modules = modules.home-manager;
+                    };
                   };
-                };
-              }
-            ];
-          }
-      )
-      nixosHosts;
+                }
+              ];
+            }
+        )
+        nixosHosts;
+      rpiHostsConfigs =
+        lib.mapAttrs (
+          hostname: hostConfig:
+            nixos-raspberrypi.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs;
+                nixos-raspberrypi = inputs.nixos-raspberrypi;
+              };
+              modules = [
+                modules.nixos.common-universal
+                modules.nixos.common-linux
+                {nixpkgs.hostPlatform = hostConfig.arch;}
+
+                ./hosts/${hostname}
+
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    users."${hostname}" = import ./users/${hostname};
+                    extraSpecialArgs = {
+                      inherit inputs;
+                      modules = modules.home-manager;
+                    };
+                  };
+                }
+              ];
+            }
+        )
+        rpiHosts;
+    in
+      nixosHostsConfigs // rpiHostsConfigs;
 
     darwinConfigurations =
       lib.mapAttrs (
