@@ -22,22 +22,33 @@
     modules.nyxt
     modules.obs
     modules.unity
+    modules.shell
     modules.vscode
+    modules.widgets
     modules.yazi
     modules.zen
-    modules.shell
+    modules.niri
     inputs.dotstylix.homeModules.default
-    inputs.ink.homeModules.default
   ];
 
-  programs.ink.enable = true;
-
   monitors = {
-    center = {
-      name = "HDMI-A-3";
+    center-top = {
+      name = "DP-3";
       width = 1920;
       height = 1080;
-      refreshRate = 100.01;
+      refreshRate = 99.650000;
+      position = {
+        x = 1080;
+        y = 0;
+      };
+      scale = 1.0;
+    };
+
+    center = {
+      name = "HDMI-A-1";
+      width = 1920;
+      height = 1080;
+      refreshRate = 120.000000;
       position = {
         x = 1080;
         y = 1080;
@@ -45,28 +56,17 @@
       scale = 1.0;
     };
 
-    left = {
-      name = "HDMI-A-2";
+    center-left = {
+      name = "DP-1";
       width = 1920;
       height = 1080;
-      refreshRate = 74.973;
+      refreshRate = 74.973000;
+      transform = 270;
       position = {
         x = 0;
         y = 0;
       };
-      transform = 270;
       scale = 1.0;
-    };
-
-    top = {
-      name = "DP-5";
-      width = 1920;
-      height = 1080;
-      refreshRate = 59.939;
-      position = {
-        x = 1080;
-        y = 0;
-      };
     };
   };
 
@@ -105,11 +105,15 @@
     minecraft.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
+    niri.enable = true;
     nix-index.enable = true;
     nyxt.enable = true;
     obs.enable = true;
     unity.enable = true;
     vscode.enable = true;
+    widgets = {
+      enableInk = true;
+    };
     yazi.enable = true;
     zen.enable = true;
     shell = {
@@ -121,12 +125,19 @@
   };
 
   programs.brave.enable = true;
+  programs.quickshell = {
+    enable = true;
+    systemd.enable = false;
+  };
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    flatpak
+    ffmpeg
     gemini-cli
     libreoffice
     tradingview
+    xfce.thunar
   ];
 
   programs.home-manager.enable = true;

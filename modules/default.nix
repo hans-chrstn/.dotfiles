@@ -1,6 +1,5 @@
 {
   nixos = {
-    common-rpi = import ./nixos/common-rpi;
     netfs = import ./nixos/netfs;
     opengl = import ./nixos/opengl;
     mangowc = import ./nixos/mangowc;
@@ -29,6 +28,7 @@
   };
 
   home-manager = {
+    widgets = import ./home-manager/widgets;
     nyxt = import ./home-manager/nyxt;
     samson-q2u = import ./home-manager/samson-q2u;
     neovim = import ./home-manager/neovim;

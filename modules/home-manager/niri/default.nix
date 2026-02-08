@@ -45,7 +45,7 @@ in {
     };
 
     home.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland";
+      QT_QPA_PLATFORM = "wayland;xcb";
       XDG_SESSION_TYPE = "wayland";
       GDK_BACKEND = "wayland";
       SDL_VIDEODRIVER = "wayland";
@@ -256,6 +256,16 @@ in {
             "sh"
             "-c"
             "niri msg action screenshot"
+          ];
+          "Ctrl+Alt+Left".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action set-column-width -5%"
+          ];
+          "Ctrl+Alt+Right".action = spawn [
+            "sh"
+            "-c"
+            "niri msg action set-column-width +5%"
           ];
           "Alt+Shift+P".action = spawn [
             "sh"

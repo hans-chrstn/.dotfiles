@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.mod.programs.yazi;
@@ -15,6 +16,13 @@ in {
         source = ./config/init.lua;
       };
     };
+
+    home.packages = with pkgs; [
+      p7zip
+      unzip
+      gzip
+      gnutar
+    ];
 
     programs.yazi = {
       enable = true;
@@ -427,7 +435,7 @@ in {
           }
           {
             run = "unyank";
-            on = "<C-y>";
+            on = ["<C-y>" "y"];
             desc = "Uncopy/cut the file(s)";
           }
           {
@@ -487,7 +495,7 @@ in {
           }
           {
             run = "shell -- zip -r .zip \"$0\"";
-            on = "<S-z>";
+            on = ["<S-z>" "z"];
             desc = "Zip a file";
           }
           {
@@ -495,7 +503,11 @@ in {
             on = ["u" "z"];
             desc = "Unzip a file";
           }
-
+          {
+            run = "shell -- 7z x \"$0\"";
+            on = ["<S-u>" "z"];
+            desc = "Unzip a file using 7z";
+          }
           # Sorting
           {
             run = ["sort modified --reverse=no" "linemode mtime"];

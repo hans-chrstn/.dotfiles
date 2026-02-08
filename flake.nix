@@ -10,13 +10,6 @@
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
     ];
-    extra-substituters = [
-      "https://nixos-raspberrypi.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-    ];
-    connect-timeout = 5;
   };
 
   inputs = {
@@ -32,12 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rpi-pkgs.url = "github:nvmd/nixpkgs/modules-with-keys-25.05";
-    nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/main";
-      inputs.nixpkgs.follows = "rpi-pkgs";
-    };
-
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,11 +32,6 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -77,7 +59,7 @@
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     ink = {
-      url = "github:hans-chrstn/Ink";
+      url = "path:/home/jin/Projects/Projects/Ink";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -88,8 +70,7 @@
     stylix.follows = "dotstylix/stylix";
 
     dotnvim = {
-      url = "github:hans-chrstn/neovim-config";
-      # url = "path:/home/jin/.nvim";
+      url = "path:/home/jin/.nvim";
       flake = false;
     };
 
@@ -105,7 +86,6 @@
     home-manager,
     nix-darwin,
     nixos-wsl,
-    nixos-raspberrypi,
     sops-nix,
     ...
   } @ inputs: let
@@ -185,39 +165,8 @@
             }
         )
         nixosHosts;
-      rpiHostsConfigs =
-        lib.mapAttrs (
-          hostname: hostConfig:
-            nixos-raspberrypi.lib.nixosSystem {
-              specialArgs = {
-                inherit inputs;
-                nixos-raspberrypi = inputs.nixos-raspberrypi;
-              };
-              modules = [
-                modules.nixos.common-universal
-                modules.nixos.common-linux
-                {nixpkgs.hostPlatform = hostConfig.arch;}
-
-                ./hosts/${hostname}
-
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager = {
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    users."${hostname}" = import ./users/${hostname};
-                    extraSpecialArgs = {
-                      inherit inputs;
-                      modules = modules.home-manager;
-                    };
-                  };
-                }
-              ];
-            }
-        )
-        rpiHosts;
     in
-      nixosHostsConfigs // rpiHostsConfigs;
+      nixosHostsConfigs;
 
     darwinConfigurations =
       lib.mapAttrs (

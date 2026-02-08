@@ -12,44 +12,50 @@
     modules.amd
     modules.btrfs
     modules.audio
-    modules.nvidia
     modules.dbus
     modules.nix-ld
     modules.steam
     modules.greetd
     modules.ssh
     modules.mangowc
+    modules.niri
     modules.opengl
     modules.sunshine
   ];
+
+  environment.systemPackages = with pkgs; [davinci-resolve zrythm zulu25];
 
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
       trusted-substituters = [
-        "https://nixos-raspberrypi.cachix.org"
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
-        "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
   };
 
+  services.flatpak.enable = true;
+  systemd.services.flatpak-repo = {
+    wantedBy = ["multi-user.target"];
+    path = [pkgs.flatpak];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
-  environment.systemPackages = with pkgs; [rpi-imager];
 
   mod = {
     hardware = {
       amd = {
         enable = true;
+        enableGpu = true;
       };
       audio.enable = true;
-      nvidia.enable = true;
       opengl.enable = true;
     };
     impermanence.btrfs.enable = true;
@@ -71,13 +77,13 @@
       };
     };
     wm = {
-      # niri = {
-      #   enable = true;
-      #   channel = "unstable";
-      # };
-      mangowc = {
+      niri = {
         enable = true;
+        channel = "unstable";
       };
+      # mangowc = {
+      #   enable = true;
+      # };
     };
   };
 
@@ -89,7 +95,7 @@
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isNormalUser = true;
       description = "Primary user for jin";
-      extraGroups = ["wheel"];
+      extraGroups = ["wheel" "audio" "jackaudio"];
       shell = pkgs.fish;
     };
     root = {

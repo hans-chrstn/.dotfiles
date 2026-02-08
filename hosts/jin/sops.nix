@@ -29,6 +29,12 @@
       "networks/makoto/ip" = {};
     };
     templates = {
+      "wol-interface" = {
+        content = ''
+          INTERFACE_NAME=${config.sops.placeholder."networks/jin/main/name"}
+        '';
+      };
+
       "wol-servers" = {
         content = ''
           MAKOTO_MAC=${config.sops.placeholder."networks/makoto/bridge/mad"}

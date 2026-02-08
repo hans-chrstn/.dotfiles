@@ -47,7 +47,7 @@
   environment = {
     localBinInPath = true;
     sessionVariables = {
-      LIBVIRTD_ARGS="";
+      LIBVIRTD_ARGS = "";
       XDG_CONFIG_HOME = "\${HOME}/.config";
       XDG_CACHE_HOME = "\${HOME}/.cache";
       XDG_DATA_HOME = "\${HOME}/.local/share";
@@ -85,7 +85,7 @@
   boot = {
     kernelModules = ["tcp_bbr"];
     kernel.sysctl = {
-      "vm.swappiness" = 60;  #default = 60
+      "vm.swappiness" = 60; #default = 60
       "vm.nr_hugepages" = 0;
       # The Magic SysRq key is a key combo that allows users connected to the
       # system console of a Linux kernel to perform some low-level commands.

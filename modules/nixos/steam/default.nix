@@ -26,6 +26,10 @@ in {
       winetricks
     ];
 
+    environment.sessionVariables = {
+      PULSE_LATENCY_MSEC = "60";
+    };
+
     boot.kernel.sysctl = {
       # SteamOS/Fedora default, can help with performance.
       "vm.max_map_count" = 2147483642;

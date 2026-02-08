@@ -1,8 +1,11 @@
-{ lib, pkgs, config, ... }:
-let
- cfg = config.mod.programs.gaming;
-in 
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  cfg = config.mod.programs.gaming;
+in {
   options.mod.programs.gaming = {
     enable = lib.mkEnableOption "Enable gaming";
   };
@@ -20,6 +23,7 @@ in
           })
         ];
       })
+      cabextract
       bottles
       cartridges
       heroic

@@ -1,7 +1,11 @@
 # This is just an example, you should generate yours with nixos-generate-config and put it in here.
-{ config, lib, pkgs, modulesPath, ... }:
 {
-
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -19,57 +23,57 @@
       kernelModules = [];
       luks.devices."enc" = {
         device = "/dev/nvme0n1p1";
-	      preLVM = true;
+        preLVM = true;
         keyFile = "/dev/disk/by-label/crypt";
         keyFileSize = 6;
       };
     };
-    kernelModules = [ "kvm-amd" ];
-    extraModulePackages = [ ];
+    kernelModules = ["kvm-amd"];
+    extraModulePackages = [];
   };
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=root" "compress=zstd" "noatime"];
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=home" "compress=zstd" "noatime"];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=nix" "compress=zstd" "noatime"];
+  };
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=log" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=log" "compress=zstd" "noatime"];
+    neededForBoot = true;
+  };
 
-  fileSystems."/etc/ssh" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=ssh" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/etc/ssh" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=ssh" "compress=zstd" "noatime"];
+    neededForBoot = true;
+  };
 
-  fileSystems."/var/lib/incus" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=incus" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
-  fileSystems."/var/lib/pve-cluster" =
-    { device = "/dev/mapper/lvm-root";
-      fsType = "btrfs";
-      options = [ "subvol=pve-cluster" "compress=zstd" ];
-    };
+  fileSystems."/var/lib/incus" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = ["subvol=incus" "compress=zstd" "noatime"];
+    neededForBoot = true;
+  };
+  fileSystems."/var/lib/pve-cluster" = {
+    device = "/dev/mapper/lvm-root";
+    fsType = "btrfs";
+    options = ["subvol=pve-cluster" "compress=zstd"];
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";
@@ -79,9 +83,9 @@
     ];
   };
 
-  swapDevices =
-    [ { device = "/dev/lvm/swap"; }
-    ];
+  swapDevices = [
+    {device = "/dev/lvm/swap";}
+  ];
 
   # Set your system kind (needed for flakes)
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
