@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/e377d0aa-07ba-4a53-a185-007e39012e36
  <details> 
   <summary>Notable features</summary>
      
-  - **Widgets**, made in JavaScript/TypeScript using AGS. Multiple collections of widgets are stored in home/common/programs/ags/
+  - **Widgets**, made in QML using Quickshell.
   - **Gaming**, fully functional gaming setup using Bottles, Heroic, and Lutris!
 </details>
 <details> 
@@ -33,7 +33,7 @@ https://github.com/user-attachments/assets/e377d0aa-07ba-4a53-a185-007e39012e36
 </details>
 
 > [!WARNING]
-> - IT IS STILL IN DEVELOPMENT. CURRENTLY, THE WIDGETS ARE NOT WORKING DUE TO A CHANGE IN AGS
+>
+> - IT IS STILL IN DEVELOPMENT. CURRENTLY, THE WIDGETS ARE EXPERIMENTAL
 
 ---
-
