@@ -73,6 +73,9 @@
       enableWireguard = true;
     };
     vscode.enable = true;
+    widgets = {
+      enableQuickshell = true;
+    };
     yazi.enable = true;
     zen.enable = true;
     shell = {
