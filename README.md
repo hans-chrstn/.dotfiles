@@ -2,12 +2,10 @@
     <h1>【 My NixOS dotfiles 】</h1>
     <h3></h3>
 </div>
-
-<div align="center"> 
-
-<video src="https://github.com/hans-chrstn/hans-chrstn/raw/main/quickshell_showcase.mp4" controls="controls" muted="muted" width="400">
-</video>
-
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=e2CPO-xiojg">
+    <img src="https://img.youtube.com/vi/e2CPO-xiojg/maxresdefault.jpg" width="400" alt="YouTube Video">
+  </a>
 </div>
 
  <details> 
