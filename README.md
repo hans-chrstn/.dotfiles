@@ -5,10 +5,8 @@
 
 <div align="center"> 
 
-![widgets1](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets1.png)
-![widgets](https://github.com/hans-chrstn/.dotfiles/blob/main/widgets.png)
-![]() 
-</a>
+<video src="https://github.com/hans-chrstn/hans-chrstn/raw/main/quickshell_showcase.mp4" controls="controls" muted="muted" width="400">
+</video>
 
 </div>
 
