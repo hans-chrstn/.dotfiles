@@ -2,11 +2,8 @@
     <h1>【 My NixOS dotfiles 】</h1>
     <h3></h3>
 </div>
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=e2CPO-xiojg">
-    <img src="https://img.youtube.com/vi/e2CPO-xiojg/maxresdefault.jpg" width="400" alt="YouTube Video">
-  </a>
-</div>
+
+[![YouTube](https://img.youtube.com/vi/e2CPO-xiojg/maxresdefault.jpg)](https://www.youtube.com/watch?v=e2CPO-xiojg)
 
  <details> 
   <summary>Notable features</summary>
