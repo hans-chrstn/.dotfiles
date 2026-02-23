@@ -3,7 +3,7 @@
     <h3></h3>
 </div>
 
-[![YouTube](https://img.youtube.com/vi/7Dadjgj9Eno/maxresdefault.jpg)](https://youtu.be/7Dadjgj9Eno)
+https://github.com/user-attachments/assets/e377d0aa-07ba-4a53-a185-007e39012e36
 
  <details> 
   <summary>Notable features</summary>
