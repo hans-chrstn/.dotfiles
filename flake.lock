@@ -71,14 +71,17 @@
     "dotnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1764120531,
-        "narHash": "sha256-f4kvtzGrKW88upVDlu5E8UYb5T82PnRaYB3SaWutmpU=",
-        "path": "/home/jin/.nvim",
-        "type": "path"
+        "lastModified": 1763565079,
+        "narHash": "sha256-9r2SfhHtSdbcEKCoCFjloGGbWTlZ4pe+nyoi0m/Vcb4=",
+        "owner": "hans-chrstn",
+        "repo": ".nvim",
+        "rev": "bdb0ce339854d4140931c4b68d885dd3d77460eb",
+        "type": "github"
       },
       "original": {
-        "path": "/home/jin/.nvim",
-        "type": "path"
+        "owner": "hans-chrstn",
+        "repo": ".nvim",
+        "type": "github"
       }
     },
     "dotstylix": {
@@ -299,23 +302,6 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
-      }
-    },
-    "ink": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-gYtsTRzdMovNkF8MCBveBKsljkynPXTJ891atYQatGc=",
-        "path": "/home/jin/Projects/Projects/Ink",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/jin/Projects/Projects/Ink",
-        "type": "path"
       }
     },
     "mango": {
@@ -659,7 +645,6 @@
         "dotnvim": "dotnvim",
         "dotstylix": "dotstylix",
         "home-manager": "home-manager",
-        "ink": "ink",
         "mango": "mango",
         "niri": "niri",
         "nix-darwin": "nix-darwin",

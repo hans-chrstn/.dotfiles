@@ -29,6 +29,8 @@
 
   home-manager = {
     widgets = import ./home-manager/widgets;
+    vpn = import ./home-manager/vpn;
+    ai = import ./home-manager/ai;
     nyxt = import ./home-manager/nyxt;
     samson-q2u = import ./home-manager/samson-q2u;
     neovim = import ./home-manager/neovim;

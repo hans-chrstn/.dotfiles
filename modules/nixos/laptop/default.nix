@@ -22,13 +22,21 @@ in {
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
     };
 
+    services.logind.settings = {
+      Login = {
+        lidSwitch = "suspend";
+        HandlePowerKey = "suspend";
+        KillUserProcesses = false;
+      };
+    };
+
     services.power-profiles-daemon.enable = true;
     powerManagement = {
       enable = true;
-      cpuFreqGovernor = if cfg.powerOptions == "powersave" then
-        "powersave"
-      else
-        "performance";
+      cpuFreqGovernor =
+        if cfg.powerOptions == "powersave"
+        then "powersave"
+        else "performance";
     };
   };
 }

@@ -8,13 +8,14 @@
     ./hardware-configuration.nix
     ./sops.nix
     modules.intel
+    modules.bluetooth
     modules.laptop
     modules.btrfs
     modules.audio
     modules.dbus
     modules.greetd
     modules.ssh
-    modules.mangowc
+    modules.niri
   ];
 
   programs.fish.enable = true;
@@ -22,6 +23,7 @@
 
   mod = {
     hardware = {
+      bluetooth.enable = true;
       intel.enable = true;
       laptop.enable = true;
       audio.enable = true;
@@ -35,11 +37,10 @@
       ssh.enable = true;
     };
     wm = {
-      # niri = {
-      # enable = true;
-      # channel = "unstable";
-      # };
-      mangowc.enable = true;
+      niri = {
+        enable = true;
+        channel = "unstable";
+      };
     };
   };
 

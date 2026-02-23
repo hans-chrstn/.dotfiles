@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./home.nix
-    ./mango.nix
+    # ./mango.nix
     ./wezterm.nix
   ];
 }

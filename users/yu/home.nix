@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    modules.ai
     modules.btop
     modules.dconf
     modules.direnv
@@ -14,11 +15,14 @@
     modules.monitors
     modules.neofetch
     modules.neovim
+    modules.niri
     modules.nyxt
+    modules.shell
+    modules.vpn
     modules.vscode
+    modules.widgets
     modules.yazi
     modules.zen
-    modules.shell
     inputs.dotstylix.homeModules.default
   ];
 
@@ -45,6 +49,9 @@
   };
 
   mod.programs = {
+    ai = {
+      enableGemini = true;
+    };
     btop = {
       enable = true;
       enableCustomSettings = true;
@@ -60,11 +67,17 @@
     lazygit.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
+    niri.enable = true;
     nyxt.enable = true;
+    vpn = {
+      enableWireguard = true;
+    };
     vscode.enable = true;
     yazi.enable = true;
     zen.enable = true;
     shell = {
+      enableZsh = false;
+      enableNushell = true;
       enableFish = true;
       enableStarship = true;
     };
@@ -72,6 +85,7 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    feishin
     moonlight-qt
     tradingview
   ];

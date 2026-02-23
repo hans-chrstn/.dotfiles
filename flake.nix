@@ -58,11 +58,6 @@
 
     proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
-    ink = {
-      url = "path:/home/jin/Projects/Projects/Ink";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dotstylix = {
       url = "github:hans-chrstn/.stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,7 +65,7 @@
     stylix.follows = "dotstylix/stylix";
 
     dotnvim = {
-      url = "path:/home/jin/.nvim";
+      url = "github:hans-chrstn/.nvim";
       flake = false;
     };
 

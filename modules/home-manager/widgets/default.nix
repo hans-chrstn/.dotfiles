@@ -7,22 +7,30 @@
 }: let
   cfg = config.mod.programs.widgets;
 in {
-  imports = [
-    inputs.ink.homeModules.default
-  ];
   options.mod.programs.widgets = {
-    enableInk = lib.mkOption {
+    enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable the Ink Layer Shell Widgets";
+      description = "Enable all widget dependencies installed";
+    };
+    enableQuickshell = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Quickshell";
     };
   };
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enableInk {
-      programs.ink.enable = true;
+    (lib.mkIf cfg.enable {
       services.playerctld.enable = true;
-      home.packages = with pkgs; [libnotify];
+      home.packages = with pkgs; [libnotify networkmanager brightnessctl];
+    })
+
+    (lib.mkIf cfg.enableQuickshell {
+      programs.quickshell = {
+        enable = true;
+        systemd.enable = true;
+      };
     })
   ];
 }

@@ -192,6 +192,7 @@ in {
     })
 
     (lib.mkIf cfg.enableZsh {
+      home.shell.enableZshIntegration = true;
       programs.zsh = lib.mkIf cfg.enableZsh {
         enable = true;
         autosuggestion.enable = true;
@@ -259,6 +260,7 @@ in {
     })
 
     (lib.mkIf cfg.enableNushell {
+      home.shell.enableNushellIntegration = true;
       programs.nushell = {
         enable = true;
       };
