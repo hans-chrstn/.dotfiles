@@ -21,6 +21,8 @@
   programs.fish.enable = true;
   networking.hostName = "nixos-laptop";
 
+  fonts.packages = with pkgs; [nerd-fonts.fira-code];
+
   mod = {
     hardware = {
       bluetooth.enable = true;

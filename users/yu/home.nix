@@ -28,7 +28,7 @@
 
   theme = {
     enable = true;
-    scheme = "desert-taupe-earth";
+    scheme = "tokyo-night";
   };
 
   monitors = {
