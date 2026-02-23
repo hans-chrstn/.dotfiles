@@ -22,7 +22,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       yad
-      wineWowPackages.waylandFull
+      wineWow64Packages.waylandFull
       winetricks
     ];
 

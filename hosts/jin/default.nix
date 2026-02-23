@@ -10,8 +10,9 @@
     ./sops.nix
     ./services.nix
     modules.amd
-    modules.btrfs
     modules.audio
+    modules.btrfs
+    modules.bluetooth
     modules.dbus
     modules.nix-ld
     modules.steam
@@ -22,6 +23,8 @@
     modules.opengl
     modules.sunshine
   ];
+
+  fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
   environment.systemPackages = with pkgs; [davinci-resolve zrythm zulu25];
 
@@ -56,6 +59,7 @@
         enableGpu = true;
       };
       audio.enable = true;
+      bluetooth.enable = true;
       opengl.enable = true;
     };
     impermanence.btrfs.enable = true;

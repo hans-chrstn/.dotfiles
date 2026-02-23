@@ -16,6 +16,7 @@
     modules.lazygit
     modules.minecraft
     modules.monitors
+    modules.mpv
     modules.neofetch
     modules.neovim
     modules.nix-index
@@ -72,7 +73,8 @@
 
   theme = {
     enable = true;
-    scheme = "desert-taupe-earth";
+    # scheme = "desert-taupe-earth";
+    scheme = "tokyo-night";
   };
 
   home = {
@@ -103,6 +105,7 @@
     };
     lazygit.enable = true;
     minecraft.enable = true;
+    mpv.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
     niri.enable = true;
@@ -112,7 +115,7 @@
     unity.enable = true;
     vscode.enable = true;
     widgets = {
-      enableInk = true;
+      enableQuickshell = true;
     };
     yazi.enable = true;
     zen.enable = true;
@@ -125,19 +128,23 @@
   };
 
   programs.brave.enable = true;
-  programs.quickshell = {
-    enable = true;
-    systemd.enable = false;
-  };
+
+  services.swww.enable = true;
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    wf-recorder
+    libnotify
+    kdePackages.qtmultimedia
+    libcava
+
+    feishin
     flatpak
     ffmpeg
     gemini-cli
     libreoffice
     tradingview
-    xfce.thunar
+    thunar
   ];
 
   programs.home-manager.enable = true;

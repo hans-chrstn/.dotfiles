@@ -23,12 +23,14 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       services.playerctld.enable = true;
-      home.packages = with pkgs; [libnotify networkmanager brightnessctl];
+      home.packages = with pkgs; [libnotify networkmanager brightnessctl upower libcava wf-recorder swww kdePackages.qtmultimedia];
     })
 
     (lib.mkIf cfg.enableQuickshell {
+      mod.programs.widgets.enable = true;
       programs.quickshell = {
         enable = true;
+        package = inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
         systemd.enable = true;
       };
     })

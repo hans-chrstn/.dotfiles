@@ -17,10 +17,7 @@ in {
         extraPkgs = pkgs: [
           jansson
           winetricks
-          (wineWowPackages.full.override {
-            wineRelease = "staging";
-            mingwSupport = true;
-          })
+          wineWow64Packages.waylandFull
         ];
       })
       cabextract
