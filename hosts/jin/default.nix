@@ -3,6 +3,7 @@
   lib,
   config,
   modules,
+  inputs,
   ...
 }: {
   imports = [
@@ -16,17 +17,21 @@
     modules.dbus
     modules.nix-ld
     modules.steam
-    modules.greetd
     modules.ssh
     modules.mangowc
     modules.niri
     modules.opengl
     modules.sunshine
+    inputs.dotquickshell.nixosModules.default
   ];
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
-  environment.systemPackages = with pkgs; [davinci-resolve zrythm zulu25];
+  environment.systemPackages = with pkgs; [
+    davinci-resolve
+    zrythm
+    zulu25
+  ];
 
   nix = {
     settings = {
@@ -70,7 +75,9 @@
     };
     services = {
       sunshine.enable = false;
-      greetd.enable = true;
+      # greetd = {
+      #   enable = true;
+      # };
       ssh = {
         enable = true;
         allowedIps = [
@@ -90,6 +97,8 @@
       # };
     };
   };
+
+  services.quickshell-greeter.enable = true;
 
   programs.fish.enable = true;
 

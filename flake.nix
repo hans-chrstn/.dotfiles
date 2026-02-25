@@ -74,16 +74,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+    dotquickshell = {
+      url = "github:hans-chrstn/.quickshell";
     };
-
-    qml-niri = {
-      url = "github:imiric/qml-niri/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
+    quickshell.follows = "dotquickshell/quickshell";
+    qml-niri.follows = "dotquickshell/qml-niri";
   };
 
   outputs = {

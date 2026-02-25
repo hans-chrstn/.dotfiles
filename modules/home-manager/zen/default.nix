@@ -8,7 +8,7 @@
   cfg = config.mod.programs.zen;
 in {
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.beta
   ];
   options.mod.programs.zen = {
     enable = lib.mkEnableOption "Enable zen";
