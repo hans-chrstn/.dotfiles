@@ -2,6 +2,7 @@
   config,
   modules,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -13,15 +14,16 @@
     modules.btrfs
     modules.audio
     modules.dbus
-    modules.greetd
     modules.ssh
     modules.niri
+    inputs.dotquickshell.nixosModules.default
   ];
 
   programs.fish.enable = true;
   networking.hostName = "nixos-laptop";
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
+  services.quickshell-greeter.enable = true;
 
   mod = {
     hardware = {
@@ -35,7 +37,6 @@
       dbus.enable = true;
     };
     services = {
-      greetd.enable = true;
       ssh.enable = true;
     };
     wm = {
