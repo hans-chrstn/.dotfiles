@@ -62,23 +62,11 @@ in {
       };
     };
 
-    home.packages = with pkgs;
-    # lib.optionals cfg.useVesktop [
-    #   (writeShellScriptBin "discord" ''
-    #     exec vesktop "$@"
-    #   '')
-    # ]
-    # ++
-      (lib.optionals (!cfg.useVesktop) [
-        (discord.override {withVencord = true;})
-      ]);
-
-    # xdg.desktopEntries.discord = lib.mkIf cfg.useVesktop {
-    #   name = "Discord";
-    #   exec = "vesktop %U";
-    #   icon = "discord";
-    #   type = "Application";
-    #   categories = ["Network" "InstantMessaging"];
-    # };
+    programs.discord = lib.mkIf (!cfg.useVesktop) {
+      enable = true;
+      settings = {
+        SKIP_HOST_UPDATE = true;
+      };
+    };
   };
 }

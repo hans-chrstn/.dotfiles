@@ -91,11 +91,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1772028212,
-        "narHash": "sha256-VlXedAaMjqbvKKxmZfE1SijbQY7kmtcGTPQwxKQRucY=",
+        "lastModified": 1772467788,
+        "narHash": "sha256-JpgIWme90j7qYgMh4+bEBJpHLDcoTDdKPHmZxjZK4HA=",
         "owner": "hans-chrstn",
         "repo": ".quickshell",
-        "rev": "6943028ab0701e60469da44cad528e7e215260a1",
+        "rev": "3ca3ca59c137aa56cdd1d80b19e8837b9ac2d4b1",
         "type": "github"
       },
       "original": {

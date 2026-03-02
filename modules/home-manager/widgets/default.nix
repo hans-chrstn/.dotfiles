@@ -30,7 +30,7 @@ in {
       mod.programs.widgets.enable = true;
       programs.quickshell = {
         enable = true;
-        package = inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+        package = inputs.dotquickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
         systemd.enable = true;
       };
     })

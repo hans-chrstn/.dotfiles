@@ -1,6 +1,6 @@
 {...}: {
   imports = [
     ./home.nix
-    ./wezterm.nix
+    # ./wezterm.nix
   ];
 }

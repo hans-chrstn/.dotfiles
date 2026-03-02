@@ -14,6 +14,7 @@
     modules.gaming
     modules.git
     modules.lazygit
+    modules.kitty
     modules.minecraft
     modules.monitors
     modules.mpv
@@ -95,7 +96,7 @@
     direnv.enable = true;
     discord = {
       enable = true;
-      useVesktop = true;
+      useVesktop = false;
     };
     gaming.enable = true;
     git = {
@@ -103,6 +104,7 @@
       userName = "hayato-oo";
       userEmail = "xuhiko13@gmail.com";
     };
+    kitty.enable = true;
     lazygit.enable = true;
     minecraft.enable = true;
     mpv.enable = true;
