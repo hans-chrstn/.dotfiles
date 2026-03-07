@@ -11,6 +11,7 @@
     modules.neofetch
     modules.neovim
     modules.nix-index
+    modules.git
     modules.yazi
     modules.shell
     inputs.dotstylix.homeModules.default
@@ -28,6 +29,10 @@
     };
     dconf.enable = true;
     direnv.enable = true;
+    git = {
+      enable = true;
+    };
+    lazygit.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
