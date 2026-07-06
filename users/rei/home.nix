@@ -8,10 +8,11 @@
     modules.btop
     modules.dconf
     modules.direnv
+    modules.git
+    modules.lazygit
     modules.neofetch
     modules.neovim
     modules.nix-index
-    modules.git
     modules.yazi
     modules.shell
     inputs.dotstylix.homeModules.default
@@ -31,6 +32,8 @@
     direnv.enable = true;
     git = {
       enable = true;
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
     };
     lazygit.enable = true;
     neovim.enable = true;
