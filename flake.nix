@@ -65,8 +65,8 @@
     stylix.follows = "dotstylix/stylix";
 
     dotnvim = {
-      # url = "github:hans-chrstn/.nvim";
-      url = "path:/home/jin/.nvim";
+      # url = "path:/home/jin/.nvim";
+      url = "github:hans-chrstn/.nvim";
       flake = false;
     };
 
@@ -78,8 +78,8 @@
     hyprsplit.url = "github:shezdy/hyprsplit";
 
     dotquickshell = {
-      # url = "github:hans-chrstn/.quickshell/pulse";
-      url = "path:/home/jin/.config/quickshell";
+      url = "github:hans-chrstn/.quickshell/pulse";
+      # url = "path:/home/jin/.config/quickshell";
     };
     quickshell.follows = "dotquickshell/quickshell";
     qml-niri.follows = "dotquickshell/qml-niri";

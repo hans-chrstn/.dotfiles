@@ -35,6 +35,7 @@ in {
           PasswordAuthentication = true;
           KbdInteractiveAuthentication = true;
           PubkeyAuthentication = true;
+          AcceptEnv = ["LANG" "LC_*"];
         };
 
         extraConfig = ''

@@ -31,10 +31,10 @@
           --data-root="/data/docker/root"
         '';
       };
-      proxmox = {
-        enable = true;
-        ip = "192.168.110.3";
-      };
+      # proxmox = {
+      #   enable = true;
+      #   ip = "192.168.110.3";
+      # };
     };
     netfs = {
       iscsi.client = {
@@ -76,7 +76,7 @@
     };
   };
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   users.mutableUsers = false;
   users.users = {
@@ -89,15 +89,19 @@
         "docker"
         "podman"
       ];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
     root = {
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isSystemUser = true;
       extraGroups = ["wheel"];
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    zulu25
+  ];
 
   systemd.network.enable = true;
   networking = {
@@ -105,8 +109,8 @@
     networkmanager.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
     firewall = {
-      allowedTCPPorts = [];
-      allowedUDPPorts = [69];
+      allowedTCPPorts = [16262 16263];
+      allowedUDPPorts = [69 16261 16262];
       allowedTCPPortRanges = [];
       allowedUDPPortRanges = [];
     };

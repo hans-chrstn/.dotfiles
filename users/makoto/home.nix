@@ -42,10 +42,12 @@
     shell = {
       enableZsh = false;
       enableFish = true;
+      enableStarship = true;
     };
   };
 
   fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [yt-dlp];
   home = {
     username = "makoto";
     homeDirectory = "/home/makoto";
