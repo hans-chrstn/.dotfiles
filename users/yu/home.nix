@@ -4,28 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    modules.ai
-    modules.btop
-    modules.dconf
-    modules.direnv
-    modules.discord
-    modules.git
-    modules.lazygit
-    modules.monitors
-    modules.neofetch
-    modules.neovim
-    modules.niri
-    modules.nyxt
-    modules.shell
-    modules.vpn
-    modules.vscode
-    modules.widgets
-    modules.yazi
-    modules.zen
-    inputs.dotstylix.homeModules.default
-  ];
-
   theme = {
     enable = true;
     scheme = "tokyo-night";

@@ -8,14 +8,6 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
-    modules.intel
-    modules.bluetooth
-    modules.laptop
-    modules.btrfs
-    modules.audio
-    modules.dbus
-    modules.ssh
-    modules.niri
     inputs.dotquickshell.nixosModules.default
   ];
 

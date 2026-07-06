@@ -10,21 +10,6 @@
     ./hardware-configuration.nix
     ./sops.nix
     ./services.nix
-    modules.amd
-    modules.audio
-    modules.btrfs
-    modules.bluetooth
-    modules.dbus
-    modules.nix-ld
-    modules.steam
-    modules.ssh
-    modules.mangowc
-    modules.hyprland
-    modules.niri
-    modules.opengl
-    modules.sunshine
-    modules.ntsync
-    modules.virtualize
     inputs.dotquickshell.nixosModules.default
   ];
 

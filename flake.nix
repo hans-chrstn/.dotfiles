@@ -88,169 +88,56 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
-    nix-darwin,
-    nixos-wsl,
-    sops-nix,
     ...
   } @ inputs: let
-    inherit (self) outputs;
     lib = nixpkgs.lib;
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
+    utils = import ./lib {
+      inherit inputs;
+      root = ./.;
+    };
 
-    forAllSystems = f: lib.genAttrs systems f;
     allHosts = lib.mapAttrs (hostname: _: import ./hosts/${hostname}/system.nix) (
       lib.filterAttrs (name: _: name != ".gitkeep") (builtins.readDir ./hosts)
     );
-    nixosHosts =
-      lib.filterAttrs (
-        hostname: hostConfig: hostConfig.type == "nixos" || hostConfig.type == "wsl"
-      )
-      allHosts;
-    rpiHosts =
-      lib.filterAttrs (
-        hostname: hostConfig: hostConfig.type == "raspberry-pi"
-      )
-      allHosts;
-    darwinHosts = lib.filterAttrs (hostname: hostConfig: hostConfig.type == "darwin") allHosts;
 
-    modules = import ./modules;
-    overlays = (import ./overlays) {
-      inherit inputs;
-      lib = nixpkgs.lib;
-    };
-    customPackagesOverlay = final: prev:
-      (import ./packages) {
-        pkgs = final;
-        lib = prev.lib;
-      };
+    nixosHosts = lib.filterAttrs (_: c: c.type == "nixos" || c.type == "wsl") allHosts;
+    darwinHosts = lib.filterAttrs (_: c: c.type == "darwin") allHosts;
   in {
-    nixosConfigurations = let
-      nixosHostsConfigs =
-        lib.mapAttrs (
-          hostname: hostConfig:
-            lib.nixosSystem {
-              specialArgs = {
-                inherit inputs;
-                modules = modules.nixos;
-              };
-              modules = [
-                modules.nixos.common-universal
-                modules.nixos.common-linux
-                {nixpkgs.hostPlatform = hostConfig.arch;}
-                {
-                  nixpkgs.overlays =
-                    overlays
-                    ++ [
-                      customPackagesOverlay
-                      inputs.dotstylix.overlays.default
-                    ];
-                }
-                ./hosts/${hostname}
+    nixosConfigurations = lib.mapAttrs utils.mkNixosHost nixosHosts;
+    darwinConfigurations = lib.mapAttrs utils.mkDarwinHost darwinHosts;
 
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager = {
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    users."${hostname}" = import ./users/${hostname};
-                    extraSpecialArgs = {
-                      inherit inputs;
-                      modules = modules.home-manager;
-                    };
-                  };
-                }
-              ];
-            }
-        )
-        nixosHosts;
-    in
-      nixosHostsConfigs;
-
-    darwinConfigurations =
-      lib.mapAttrs (
-        hostname: hostConfig:
-          nix-darwin.lib.darwinSystem {
-            specialArgs = {
-              inherit inputs;
-              modules = modules.nixos;
-            };
-            modules = [
-              {nixpkgs.hostPlatform = hostConfig.arch;}
-              {
-                nixpkgs.overlays = overlays ++ [customPackagesOverlay];
-                nixpkgs.config.allowUnfree = true;
-              }
-              ./hosts/${hostname}
-              home-manager.darwinModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  users."${hostname}" = import ./users/${hostname};
-                  extraSpecialArgs = {
-                    inherit inputs;
-                    modules = modules.home-manager;
-                  };
-                };
-              }
-            ];
-          }
-      )
-      darwinHosts;
-
-    devShells = forAllSystems (
-      system: let
-        pkgs = import nixpkgs {inherit system;};
-      in {
-        default = pkgs.mkShell {
-          packages = with pkgs; [
-            git
-            alejandra
-            sops
-            pre-commit
-            direnv
-          ];
-        };
-      }
-    );
-
-    checks = forAllSystems (system: {
-      pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
-        src = self;
-        hooks = {
-          alejandra.enable = true;
-        };
+    devShells = utils.forAllSystems (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      default = pkgs.mkShell {
+        packages = with pkgs; [git alejandra sops pre-commit direnv];
       };
     });
 
-    apps = forAllSystems (system: {
+    checks = utils.forAllSystems (system: {
+      pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
+        src = self;
+        hooks = {alejandra.enable = true;};
+      };
+    });
+
+    apps = utils.forAllSystems (system: {
       new-machine = {
         type = "app";
         program = "${self}/scripts/new-machine.sh";
       };
-
       new-module = {
         type = "app";
         program = "${self}/scripts/new-module.sh";
       };
-
       new-overlay = {
         type = "app";
         program = "${self}/scripts/new-overlay.sh";
       };
-
       new-package = {
         type = "app";
         program = "${self}/scripts/new-package.sh";
       };
-
       setup = {
         type = "app";
         program = "${self}/scripts/setup.sh";

@@ -4,22 +4,9 @@
   pkgs,
   ...
 }: {
-  imports = [
-    modules.btop
-    modules.dconf
-    modules.direnv
-    modules.git
-    modules.lazygit
-    modules.neofetch
-    modules.neovim
-    modules.nix-index
-    modules.yazi
-    modules.shell
-    inputs.dotstylix.homeModules.default
-  ];
   theme = {
     enable = true;
-    scheme = "desert-taupe-earth";
+    scheme = "tokyo-night";
   };
 
   mod.programs = {

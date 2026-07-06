@@ -9,18 +9,6 @@
     ./hardware-configuration.nix
     ./sops.nix
     ./services.nix
-    modules.amd
-    modules.audio
-    modules.nvidia
-    modules.dbus
-    modules.nix-ld
-    modules.greetd
-    modules.ssh
-    modules.opengl
-    modules.netfs
-    modules.clamav
-    modules.virtualize
-    modules.zfs
   ];
 
   services.target = {
