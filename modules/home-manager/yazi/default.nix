@@ -673,29 +673,6 @@ in {
         };
         filetype = {
           rules = [
-            # Media
-            {
-              mime = "image/*";
-            }
-            {
-              mime = "{audio,video}/*";
-            }
-
-            # Archives
-            {
-              mime = "application/{,g}zip";
-            }
-            {
-              mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}";
-            }
-
-            # Fallback
-            {
-              name = "*";
-            }
-            {
-              name = "*/";
-            }
           ];
         };
 

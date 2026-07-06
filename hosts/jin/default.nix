@@ -19,20 +19,40 @@
     modules.steam
     modules.ssh
     modules.mangowc
+    modules.hyprland
     modules.niri
     modules.opengl
     modules.sunshine
+    modules.ntsync
+    modules.virtualize
     inputs.dotquickshell.nixosModules.default
   ];
+
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "logi-bolt-uaccess";
+      text = ''
+        # Match any hidraw device whose parent is our Logitech device
+        SUBSYSTEM=="hidraw", SUBSYSTEMS=="hid", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c548", TAG+="uaccess"
+      '';
+      destination = "/etc/udev/rules.d/50-logi-bolt.rules";
+    })
+  ];
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql84;
+  };
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
   environment.systemPackages = with pkgs; [
-    kdePackages.kirigami
     davinci-resolve
     zrythm
     zulu25
+    usbutils
   ];
+
+  boot.ntsync.enable = true;
 
   nix = {
     settings = {
@@ -75,10 +95,7 @@
       steam.enable = true;
     };
     services = {
-      sunshine.enable = false;
-      # greetd = {
-      #   enable = true;
-      # };
+      sunshine.enable = true;
       ssh = {
         enable = true;
         allowedIps = [
@@ -89,13 +106,11 @@
       };
     };
     wm = {
+      hyprland.enable = true;
       niri = {
         enable = true;
         channel = "unstable";
       };
-      # mangowc = {
-      #   enable = true;
-      # };
     };
   };
 
@@ -109,7 +124,7 @@
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isNormalUser = true;
       description = "Primary user for jin";
-      extraGroups = ["wheel" "audio" "jackaudio"];
+      extraGroups = ["wheel" "audio" "jackaudio" "adbusers"];
       shell = pkgs.fish;
     };
     root = {

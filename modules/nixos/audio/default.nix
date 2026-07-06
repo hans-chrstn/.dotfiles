@@ -11,8 +11,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [wireplumber qpwgraph];
+    environment.systemPackages = with pkgs; [wireplumber qpwgraph easyeffects];
     services.pulseaudio.enable = false;
+    boot.kernelParams = ["usbcore.autosuspend=-1"];
     security.pam.loginLimits = [
       {
         domain = "@audio";
@@ -48,10 +49,36 @@ in {
       jack.enable = true;
       wireplumber = {
         enable = true;
-        extraLv2Packages = [
-          pkgs.lsp-plugins
-          pkgs.ladspaPlugins
-        ];
+        #extraLv2Packages = [
+        #  pkgs.lsp-plugins
+        #  pkgs.ladspaPlugins
+        #];
+        #extraConfig = {
+        #  "99-disable-suspension" = {
+        #    "monitor.alsa.rules" = [
+        #      {
+        #        matches = [
+        #          {
+        #            "node.name" = "~alsa_input.*";
+        #          }
+        #          {
+        #            "node.name" = "~alsa_output.*";
+        #          }
+        #          {
+        #            "device.name" = "~alsa_card.*HeadRush*";
+        #          }
+        #        ];
+        #        actions = {
+        #          update-props = {
+        #            "session.suspend-on-idle" = false;
+        #            "session.suspend-timeout-seconds" = 0;
+        #            "dma.timeout-ms" = 0;
+        #          };
+        #        };
+        #      }
+        #    ];
+        #  };
+        #};
       };
       # extraConfig.pipewire = {
       #   "92-low-latency" = {

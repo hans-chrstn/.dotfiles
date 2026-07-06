@@ -47,39 +47,43 @@
           [Match]
           Name=${config.sops.placeholder."networks/jin/main/name"}
 
+          [Link]
+          MACAddress=${config.sops.placeholder."networks/jin/bridge/mad"}
+          WakeOnLan=magic
+
           [Network]
-          Bridge=${config.sops.placeholder."networks/jin/vm/name"}
           DHCP=${config.sops.placeholder."networks/jin/main/dhcp"}
         '';
+        # NETWORK Bridge=${config.sops.placeholder."networks/jin/vm/name"}
         mode = "0644";
         path = "/etc/systemd/network/10-lan.network";
       };
 
-      "10-lan-bridge.network" = {
-        content = ''
-          [Match]
-          Name=${config.sops.placeholder."networks/jin/bridge/name"}
-
-          [Link]
-          RequiredForOnline=routable
-          MACAddress=${config.sops.placeholder."networks/jin/bridge/mad"}
-
-          [Network]
-          DHCP=${config.sops.placeholder."networks/jin/bridge/dhcp"}
-        '';
-        mode = "0644";
-        path = "/etc/systemd/network/10-lan-bridge.network";
-      };
-
-      "vmbr0.netdev" = {
-        content = ''
-          [NetDev]
-          Kind=${config.sops.placeholder."networks/jin/vm/kind"}
-          Name=${config.sops.placeholder."networks/jin/vm/name"}
-        '';
-        mode = "0644";
-        path = "/etc/systemd/network/vmbr0.netdev";
-      };
+      #      "10-lan-bridge.network" = {
+      #        content = ''
+      #          [Match]
+      #          Name=${config.sops.placeholder."networks/jin/bridge/name"}
+      #
+      #          [Link]
+      #          RequiredForOnline=routable
+      #          MACAddress=${config.sops.placeholder."networks/jin/bridge/mad"}
+      #
+      #          [Network]
+      #          DHCP=${config.sops.placeholder."networks/jin/bridge/dhcp"}
+      #        '';
+      #        mode = "0644";
+      #        path = "/etc/systemd/network/10-lan-bridge.network";
+      #      };
+      #
+      #      "vmbr0.netdev" = {
+      #        content = ''
+      #          [NetDev]
+      #          Kind=${config.sops.placeholder."networks/jin/vm/kind"}
+      #          Name=${config.sops.placeholder."networks/jin/vm/name"}
+      #        '';
+      #        mode = "0644";
+      #        path = "/etc/systemd/network/vmbr0.netdev";
+      #      };
     };
   };
 }

@@ -61,7 +61,7 @@ in {
         black
         google-java-format
         stylua
-        nodePackages.prettier
+        prettier
         checkstyle
         eslint_d
         ktlint
