@@ -10,7 +10,7 @@
       name = "DP-1";
       width = 1920;
       height = 1080;
-      refreshRate = 74.973000;
+      refreshRate = 99.650000;
       position = {
         x = 1080;
         y = 0;
@@ -34,7 +34,7 @@
       name = "DP-3";
       width = 1920;
       height = 1080;
-      refreshRate = 99.650000;
+      refreshRate = 74.973000;
       transform = 270;
       position = {
         x = 0;
@@ -101,7 +101,10 @@
       };
     };
     wm = {
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        unstable = true;
+      };
     };
   };
 

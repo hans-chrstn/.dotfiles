@@ -1,0 +1,90 @@
+[confirm]
+delete_offset = [0, 0, 70, 20]
+delete_origin = "center"
+delete_title = "Permanently delete {n} selected file{s}?"
+overwrite_content = "Will overwrite the following file:"
+overwrite_offset = [0, 0, 50, 15]
+overwrite_origin = "center"
+overwrite_title = "Overwrite file?"
+quit_content = "The following task is still running, are you sure you want to quit?"
+quit_offset = [0, 1, 50, 7]
+quit_origin = "center"
+quit_title = "Quit?"
+trash_offset = [0, 0, 70, 20]
+trash_origin = "center"
+trash_title = "Trash {n} selected file{s}?"
+
+[log]
+enabled = false
+
+[mgr]
+linemode = "mtime"
+mouse_events = ["click", "scroll", "drag"]
+ratio = [1, 5, 2]
+show_hidden = true
+show_symlink = true
+sort_by = "alphabetical"
+sort_dir_first = true
+sort_translit = false
+
+[preview]
+wrap = "no"
+
+[pick]
+open_offset = [0, 1, 50, 7]
+open_origin = "hovered"
+open_title = "Open with:"
+
+[tasks]
+bizarre_retry = 5
+image_alloc = 536870912
+image_bound = [0, 0]
+macro_workers = 25
+micro_workers = 10
+suppress_preload = false
+
+[help]
+sort_by = "none"
+sort_reverse = false
+sort_sensitive = false
+sort_translit = false
+
+[plugin]
+prepend_fetchers = [
+  { id = "mime", url = "local://*", run = "mime-ext.local", prio = "high", group = "mime" },
+  { id = "mime", url = "remote://*", run = "mime-ext.remote", prio = "high", group = "mime" },
+]
+
+prepend_previewers = [
+  # Directories
+  { mime = "inode/directory", run = "eza-preview" },
+  # Archives
+  { mime = "application/zip", run = "lsar" },
+  { mime = "application/x-tar", run = "lsar" },
+  { mime = "application/x-bzip2", run = "lsar" },
+  { mime = "application/x-7z-compressed", run = "lsar" },
+  { mime = "application/x-rar", run = "lsar" },
+  { mime = "application/x-xz", run = "lsar" },
+  # Media
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+  { mime = "application/subrip", run = "mediainfo" },
+  # Markdown
+  { mime = "text/markdown", run = "mdcat" },
+  # Data
+  { mime = "text/csv", run = "duckdb" },
+  { mime = "text/tab-separated-values", run = "duckdb" },
+  { mime = "application/json", run = "duckdb" },
+  { mime = "application/vnd.apache.parquet", run = "duckdb" },
+]
+
+append_previewers = [
+  # Fallback hex viewer for binaries
+  { mime = "*", run = "hexyl" },
+]
+
+prepend_spotters = [
+  { mime = "audio/*", run = "spot-audio" },
+  { mime = "video/*", run = "spot-video" },
+  { mime = "image/*", run = "spot-image" },
+  { mime = "application/vnd.comicbook+zip", run = "spot-cbz" },
+]

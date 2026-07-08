@@ -1,0 +1,314 @@
+# Navigation (Streamlined)
+[[mgr.prepend_keymap]]
+desc = "Go to home directory"
+on = ["g", "h"]
+run = "cd ~"
+
+[[mgr.prepend_keymap]]
+desc = "Go to .config"
+on = ["g", "c"]
+run = "cd ~/.config"
+
+[[mgr.prepend_keymap]]
+desc = "Go to .dotfiles"
+on = ["g", "."]
+run = "cd ~/.dotfiles"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Downloads"
+on = ["g", "d"]
+run = "cd ~/Downloads"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Documents"
+on = ["g", "D"]
+run = "cd ~/Documents"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Projects"
+on = ["g", "p"]
+run = "cd ~/Projects"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Pictures"
+on = ["g", "i"]
+run = "cd ~/Pictures"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Screenshots"
+on = ["g", "s"]
+run = "cd ~/Pictures/Screenshots"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Videos"
+on = ["g", "v"]
+run = "cd ~/Videos"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Trash"
+on = ["g", "t"]
+run = "cd ~/.local/share/Trash"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Wallpapers"
+on = ["g", "w"]
+run = "cd ~/.wallpapers"
+
+[[mgr.prepend_keymap]]
+desc = "Go to Fonts"
+on = ["g", "f"]
+run = "cd ~/.fonts"
+
+# Tabs
+[[mgr.prepend_keymap]]
+desc = "Create new tab"
+on = "<C-t>"
+run = "tab_create --current"
+
+[[mgr.prepend_keymap]]
+desc = "Close tab"
+on = "<C-x>"
+run = "close"
+
+# Tasks & UI
+[[mgr.prepend_keymap]]
+desc = "Show task manager"
+on = ["t", "s"]
+run = "show"
+
+[[mgr.prepend_keymap]]
+desc = "Inspect the task log"
+on = ["t", "i"]
+run = "inspect"
+
+[[mgr.prepend_keymap]]
+desc = "Open help"
+on = "<F1>"
+run = "help"
+
+# Navigation Overrides
+[[mgr.prepend_keymap]]
+desc = "Seek up 5 units in preview"
+on = "<S-k>"
+run = "seek -5"
+
+[[mgr.prepend_keymap]]
+desc = "Seek down 5 units in preview"
+on = "<S-j>"
+run = "seek 5"
+
+[[mgr.prepend_keymap]]
+desc = "Move down by half"
+on = "<C-k>"
+run = "arrow -50%"
+
+[[mgr.prepend_keymap]]
+desc = "Move up by half"
+on = "<C-j>"
+run = "arrow 50%"
+
+# File Operations Overrides
+[[mgr.prepend_keymap]]
+desc = "Copy the file path"
+on = ["c", "c"]
+run = "copy path"
+
+[[mgr.prepend_keymap]]
+desc = "Copy the file directory path"
+on = ["c", "p"]
+run = "copy dirname"
+
+[[mgr.prepend_keymap]]
+desc = "Copy the filename"
+on = ["c", "f"]
+run = "copy filename"
+
+[[mgr.prepend_keymap]]
+desc = "Copy the filename without the extension"
+on = ["c", "n"]
+run = "copy name_without_ext"
+
+[[mgr.prepend_keymap]]
+desc = "Create a file/dir"
+on = ["m", "k"]
+run = "create"
+
+[[mgr.prepend_keymap]]
+desc = "Rename selected file(s)"
+on = ["r", "r"]
+run = "rename --cursor=before_ext"
+
+# Archiving & Searching (New UI)
+[[mgr.prepend_keymap]]
+desc = "Archive selected files"
+on = ["c", "a"]
+run = "plugin compress"
+
+[[mgr.prepend_keymap]]
+desc = "Archive selected files (secure/header)"
+on = ["c", "s"]
+run = "plugin compress '-ph'"
+
+[[mgr.prepend_keymap]]
+desc = "Jump using fzf"
+on = "<C-f>"
+run = "plugin fzf"
+
+# Sorting Overrides
+[[mgr.prepend_keymap]]
+desc = "Sort by modified time"
+on = ['\', "m"]
+run = ["sort mtime --reverse=no", "linemode mtime"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort by modified time (reverse)"
+on = ['\', "<S-m>"]
+run = ["sort mtime --reverse", "linemode mtime"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort by created time"
+on = ['\', "c"]
+run = ["sort ctime --reverse=no", "linemode ctime"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort by created time (reverse)"
+on = ['\', "<S-c>"]
+run = ["sort ctime --reverse", "linemode ctime"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort by extension"
+on = ['\', "e"]
+run = "sort extension --reverse=no"
+
+[[mgr.prepend_keymap]]
+desc = "Sort by extension (reverse)"
+on = ['\', "<S-e>"]
+run = "sort extension --reverse"
+
+[[mgr.prepend_keymap]]
+desc = "Sort alphabetically"
+on = ['\', "a"]
+run = "sort alphabetical --reverse=no"
+
+[[mgr.prepend_keymap]]
+desc = "Sort alphabetically (reverse)"
+on = ['\', "<S-a>"]
+run = "sort alphabetical --reverse"
+
+[[mgr.prepend_keymap]]
+desc = "Sort naturally"
+on = ['\', "j"]
+run = "sort natural --reverse=no"
+
+[[mgr.prepend_keymap]]
+desc = "Sort naturally (reverse)"
+on = ['\', "<S-j>"]
+run = "sort natural --reverse"
+
+[[mgr.prepend_keymap]]
+desc = "Sort by size"
+on = ['\', "s"]
+run = ["sort size --reverse=no", "linemode size"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort by size (reverse)"
+on = ['\', "<S-s>"]
+run = ["sort size --reverse", "linemode size"]
+
+[[mgr.prepend_keymap]]
+desc = "Sort randomly"
+on = ['\', "r"]
+run = "sort random --reverse=no"
+
+# =========================================
+# New Plugin Keybinds (Custom & QoL)
+# =========================================
+
+# Navigation (Augment Command & Smart Filter)
+[[mgr.prepend_keymap]]
+on   = "l"
+run  = "plugin augment-command.enter"
+desc = "Enter directory (Smart/Fast)"
+
+[[mgr.prepend_keymap]]
+on   = "h"
+run  = "plugin augment-command.leave"
+desc = "Leave directory (Smart)"
+
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "plugin augment-command.open"
+desc = "Open selected files (Smart)"
+
+[[mgr.prepend_keymap]]
+on   = "p"
+run  = "plugin augment-command.paste"
+desc = "Paste files (Smart)"
+
+[[mgr.prepend_keymap]]
+on   = "f"
+run  = "plugin smart-filter"
+desc = "Smart Filter (Auto-enter unique)"
+
+# Git & Workstation Actions
+[[mgr.prepend_keymap]]
+on   = "<C-g>"
+run  = "plugin lazygit"
+desc = "Run Lazygit"
+
+[[mgr.prepend_keymap]]
+on   = ["<C-s>"]
+run  = "plugin sudo"
+desc = "Run command with Sudo"
+
+[[mgr.prepend_keymap]]
+on   = ["c", "i"]
+run  = "plugin sxiv"
+desc = "Preview bulk images (sxiv)"
+
+[[mgr.prepend_keymap]]
+on   = ["r", "b"]
+run  = "plugin batch-rename-gui"
+desc = "Batch rename selected (GUI/Editor)"
+
+# Clipboard & Utilities
+[[mgr.prepend_keymap]]
+on   = "<C-y>"
+run  = "plugin ucp copy"
+desc = "Copy to System Clipboard (ucp)"
+
+[[mgr.prepend_keymap]]
+on   = "<C-p>"
+run  = "plugin ucp paste"
+desc = "Paste from System Clipboard (ucp)"
+
+[[mgr.prepend_keymap]]
+on   = [".", "s"]
+run  = "plugin what-size"
+desc = "Calculate total folder size"
+
+# Bookmarks (Whoosh)
+[[mgr.prepend_keymap]]
+on   = ["w", "a"]
+run  = "plugin whoosh save"
+desc = "Add bookmark (Whoosh)"
+
+[[mgr.prepend_keymap]]
+on   = ["w", "s"]
+run  = "plugin whoosh jump_by_fzf"
+desc = "Search bookmarks (Whoosh)"
+
+[[mgr.prepend_keymap]]
+on   = ["w", "d"]
+run = "plugin whoosh delete_by_fzf"
+desc = "Delete bookmarks by fzf (use TAB to select multiple)"
+
+[[mgr.prepend_keymap]]
+on   = ["w", "D"]
+run = "plugin whoosh delete_all"
+desc = "Delete all user bookmarks"
+
+[[mgr.prepend_keymap]]
+on = [ "w", "r" ]
+run = "plugin whoosh rename_by_fzf"
+desc = "Rename bookmark by fzf"

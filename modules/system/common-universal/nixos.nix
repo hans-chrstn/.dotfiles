@@ -9,26 +9,34 @@
 # Every setting here can be overwritten in your host/user config
 # using foo = lib.mkForce val;
 {
-  nixpkgs.config.allowUnfree = true;
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
-    };
-    # Opinionated: disable channels
-    channel.enable = false;
-
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+  options.mainUser = lib.mkOption {
+    type = lib.types.str;
+    default = "jin";
+    description = "The primary user of the system, used to map NixOS configs into Home Manager.";
   };
 
-  time.timeZone = "America/New_York";
-  system.stateVersion = "26.11";
+  config = {
+    nixpkgs.config.allowUnfree = true;
+    nix = let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in {
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+      };
+      # Opinionated: disable channels
+      channel.enable = false;
+
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    };
+
+    time.timeZone = "America/New_York";
+    system.stateVersion = "26.11";
+  };
 }

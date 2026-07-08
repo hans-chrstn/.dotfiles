@@ -16,11 +16,11 @@
   services.udev.packages = [
     (pkgs.writeTextFile {
       name = "logi-bolt-uaccess";
+      destination = "/etc/udev/rules.d/99-logi-bolt.rules";
       text = ''
-        # Match any hidraw device whose parent is our Logitech device
-        SUBSYSTEM=="hidraw", SUBSYSTEMS=="hid", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c548", TAG+="uaccess"
+        # Match the Logi Bolt Receiver and force user access
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c548", MODE="0660", GROUP="input"
       '';
-      destination = "/etc/udev/rules.d/50-logi-bolt.rules";
     })
   ];
   services.mysql = {
@@ -29,15 +29,6 @@
   };
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
-
-  environment.systemPackages = with pkgs; [
-    davinci-resolve
-    zrythm
-    zulu25
-    usbutils
-  ];
-
-  boot.ntsync.enable = true;
 
   nix = {
     settings = {
@@ -64,6 +55,10 @@
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   mod = {
+    profiles = {
+      gaming.enable = true;
+      workstation.enable = true;
+    };
     hardware = {
       amd = {
         enable = true;
@@ -77,10 +72,8 @@
     programs = {
       dbus.enable = true;
       nix-ld.enable = true;
-      steam.enable = true;
     };
     services = {
-      sunshine.enable = true;
       ssh = {
         enable = true;
         allowedIps = [
@@ -91,7 +84,10 @@
       };
     };
     wm = {
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        unstable = true;
+      };
       niri = {
         enable = true;
         channel = "unstable";
@@ -109,7 +105,7 @@
       hashedPasswordFile = config.sops.secrets."users/jin/password".path;
       isNormalUser = true;
       description = "Primary user for jin";
-      extraGroups = ["wheel" "audio" "jackaudio" "adbusers"];
+      extraGroups = ["wheel" "audio" "jackaudio" "adbusers" "input"];
       shell = pkgs.fish;
     };
     root = {

@@ -65,21 +65,26 @@
     stylix.follows = "dotstylix/stylix";
 
     dotnvim = {
-      # url = "path:/home/jin/.nvim";
       url = "github:hans-chrstn/.nvim";
       flake = false;
     };
 
-    mango = {
-      url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprland = {
+      url = "github:hyprwm/hyprland";
     };
 
-    hyprsplit.url = "github:shezdy/hyprsplit";
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    hyprexpo = {
+      url = "github:sandwichfarm/hyprexpo";
+      flake = false;
+    };
 
     dotquickshell = {
       url = "github:hans-chrstn/.quickshell/pulse";
-      # url = "path:/home/jin/.config/quickshell";
     };
     quickshell.follows = "dotquickshell/quickshell";
     qml-niri.follows = "dotquickshell/qml-niri";

@@ -22,10 +22,12 @@
       lib = prev.lib;
     };
 
+  mkModule = import ./mkModule.nix {inherit lib;};
+
   mkNixosHost = hostname: hostConfig:
     lib.nixosSystem {
       specialArgs = {
-        inherit inputs;
+        inherit inputs mkModule;
         modules = modules.nixos;
       };
       modules =
@@ -46,7 +48,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs mkModule;
                 modules = modules.home-manager;
               };
               users."${hostname}" = {
@@ -66,7 +68,7 @@
   mkDarwinHost = hostname: hostConfig:
     inputs.nix-darwin.lib.darwinSystem {
       specialArgs = {
-        inherit inputs;
+        inherit inputs mkModule;
         modules = modules.nixos;
       };
       modules =
@@ -83,7 +85,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs mkModule;
                 modules = modules.home-manager;
               };
               users."${hostname}" = {

@@ -1,15 +1,8 @@
-{
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.mod.programs.kitty;
-in {
-  options.mod.programs.kitty = {
-    enable = lib.mkEnableOption "Enable kitty config and it's best values";
-  };
-
-  config = lib.mkIf cfg.enable {
+{mkModule, ...} @ args:
+mkModule {
+  inherit args;
+  name = "kitty";
+  configFunc = {...}: cfg: {
     programs.kitty = {
       enable = true;
       shellIntegration = {

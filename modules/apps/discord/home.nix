@@ -1,21 +1,19 @@
 {
-  pkgs,
+  mkModule,
   lib,
-  config,
   ...
-}: let
-  cfg = config.mod.programs.discord;
-in {
-  options.mod.programs.discord = {
-    enable = lib.mkEnableOption "Enable Discord";
+} @ args:
+mkModule {
+  inherit args;
+  name = "discord";
+  extraOptions = {
     useVesktop = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Use Vesktop instead of official Discord client";
     };
   };
-
-  config = lib.mkIf cfg.enable {
+  configFunc = {...}: cfg: {
     programs.vesktop = lib.mkIf cfg.useVesktop {
       enable = true;
       vencord.settings = {
