@@ -7,7 +7,6 @@
 }: let
   cfg = config.mod.wm.hyprland;
 
-  # Stylix colors
   colors =
     config.lib.stylix.colors or {
       base00 = "000000";
@@ -20,7 +19,6 @@
     angle = 45;
   };
 
-  # Lua config helpers
   inline = lib.generators.mkLuaInline;
   combo = mods: key:
     if mods == []
@@ -44,11 +42,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Enable global desktop abstractions
     mod.desktop.wayland.enable = true;
     mod.desktop.keybinds.enable = true;
 
-    # Disable Stylix for Hyprland to prevent it from injecting legacy hyprlang properties
     stylix.targets.hyprland.enable = false;
 
     wayland.windowManager.hyprland = {
@@ -85,11 +81,13 @@ in {
         };
       };
 
-      plugins = [
-        (pkgs.callPackage inputs.hyprexpo {
+      plugins = lib.mkIf (!cfg.unstable) (let
+        customPkgs = pkgs.extend (final: prev: {
           hyprland = config.wayland.windowManager.hyprland.package;
-        })
-      ];
+        });
+      in [
+        (customPkgs.callPackage inputs.hyprexpo {})
+      ]);
 
       settings = {
         monitor =
@@ -109,7 +107,6 @@ in {
           })
           config.monitors;
 
-        # Smart Gaps Rules
         workspace_rule = [
           {
             workspace = "w[tv1]s[false]";
@@ -152,7 +149,6 @@ in {
           }
         ];
 
-        # Core Settings imported from reference
         config = {
           input = {
             kb_layout = "us";
@@ -168,7 +164,6 @@ in {
             };
           };
 
-          # Workspace Behaviour
           binds = {
             workspace_center_on = 1;
             movefocus_cycles_fullscreen = true;
@@ -191,7 +186,6 @@ in {
             "col.active_border" = gradient colors.base0D colors.base05;
           };
 
-          # Animation settings are moved to extraConfig since hyprland-lua requires hl.animation() method calls.
           animations = {
             enabled = true;
           };
@@ -242,11 +236,9 @@ in {
           };
         };
 
-        # Binds mapping
         bind = let
           kb = config.mod.desktop.keybinds;
 
-          # Convert standard abstract actions to Hyprland Lua commands
           mapAction = act: arg:
             if act == "spawn"
             then
@@ -266,7 +258,7 @@ in {
             else if act == "launcher"
             then exec kb.launcher
             else if act == "toggle_overview"
-            then "function() hl.plugin.hyprexpo.expo(\"toggle\") end"
+            then "function() if hl.plugin.hyprexpo then hl.plugin.hyprexpo.expo(\"toggle\") end end"
             else if act == "focus_up"
             then "hl.dsp.focus({ direction = \"u\" })"
             else if act == "focus_down"
@@ -307,7 +299,6 @@ in {
 
           actionBinds = lib.mapAttrsToList (key: val: let
             cmd = mapAction val.action val.arg;
-            # Translate text keys to Hyprland Lua syntax
             hyprKey =
               builtins.replaceStrings
               [
@@ -379,17 +370,14 @@ in {
                 kb.workspaces.count)
             else [];
 
-          # Advanced Reference Binds
           advancedBinds = [
             (bind (combo [modKey "SHIFT"] "Escape") ''hl.dsp.submap("inhibit")'')
             (bind (combo [modKey] "R") ''hl.dsp.submap("resize")'')
             (bind (combo [modKey] "M") ''hl.dsp.submap("move")'')
 
-            # Special Workspace
             (bind (combo [modKey] "0") ''hl.dsp.workspace.toggle_special("Stash")'')
             (bind (combo [modKey "SHIFT"] "0") (exec "pypr toggle_special Stash"))
 
-            # Window Groups
             (bind (combo [modKey "SHIFT"] "space") "hl.dsp.group.toggle()")
             (bind (combo ["ALT"] "grave") "hl.dsp.group.next()")
             (bind (combo ["ALT" "SHIFT"] "grave") "hl.dsp.group.prev()")
@@ -398,12 +386,10 @@ in {
             (bind (combo [modKey "CTRL"] "up") ''hl.dsp.window.move({ into_group = "up" })'')
             (bind (combo [modKey "CTRL"] "down") ''hl.dsp.window.move({ into_group = "down" })'')
 
-            # Mouse Binds
             (bindOpts "${modKey} + mouse:272" "hl.dsp.window.drag()" {mouse = true;})
             (bindOpts "${modKey} + mouse:273" "hl.dsp.window.resize()" {mouse = true;})
 
-            # Expo / Overview Keybinds (Alt+Tab toggle)
-            (bind "ALT + Tab" "function() hl.plugin.hyprexpo.expo(\"toggle\") end")
+            (bind "ALT + Tab" "function() if hl.plugin.hyprexpo then hl.plugin.hyprexpo.expo(\"toggle\") end end")
           ];
         in
           validBinds ++ workspaceBinds ++ advancedBinds;

@@ -11,18 +11,11 @@
     ./sops.nix
     ./services.nix
     inputs.dotquickshell.nixosModules.default
+    inputs.crab.nixosModules.default
   ];
 
-  services.udev.packages = [
-    (pkgs.writeTextFile {
-      name = "logi-bolt-uaccess";
-      destination = "/etc/udev/rules.d/99-logi-bolt.rules";
-      text = ''
-        # Match the Logi Bolt Receiver and force user access
-        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c548", MODE="0660", GROUP="input"
-      '';
-    })
-  ];
+  services.crab.enable = true;
+
   services.mysql = {
     enable = true;
     package = pkgs.mysql84;
@@ -86,7 +79,7 @@
     wm = {
       hyprland = {
         enable = true;
-        unstable = true;
+        unstable = false;
       };
       niri = {
         enable = true;

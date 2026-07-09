@@ -88,6 +88,10 @@
     };
     quickshell.follows = "dotquickshell/quickshell";
     qml-niri.follows = "dotquickshell/qml-niri";
+
+    crab = {
+      url = "path:/home/jin/Projects/Crab";
+    };
   };
 
   outputs = {

@@ -103,7 +103,7 @@
     wm = {
       hyprland = {
         enable = true;
-        unstable = true;
+        unstable = false;
       };
     };
   };
