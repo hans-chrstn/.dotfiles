@@ -100,6 +100,14 @@ in {
         enable = true;
         storageDriver = "overlay2";
         extraOptions = cfg.docker.extraOptions;
+        daemon.settings = {
+          "default-address-pools" = [
+            {
+              "base" = "10.200.0.0/16";
+              "size" = 24;
+            }
+          ];
+        };
       };
       environment.systemPackages = with pkgs; [docker-compose];
 
