@@ -147,7 +147,7 @@
                     "enable": true,
                     "luns": [
                       {
-                        "alias": "053e505f59",
+                        "alias": "f6f31302fc",
                         "alua_tg_pt_gp_name": "default_tg_pt_gp",
                         "index": 0,
                         "storage_object": "/backstores/block/server-1"
@@ -166,11 +166,11 @@
                           "random_datain_seq_offsets": 0,
                           "random_r2t_offsets": 0
                         },
-                        "chap_password": "${config.sops.placeholder."users/rei/bcsi/chap/user"}",
-                        "chap_userid": "${config.sops.placeholder."users/rei/bcsi/chap/password"}",
+                        "chap_userid": "${config.sops.placeholder."users/rei/bcsi/chap/user"}",
+                        "chap_password": "${config.sops.placeholder."users/rei/bcsi/chap/password"}",
                         "mapped_luns": [
                           {
-                            "alias": "cb18979672",
+                            "alias": "f0eccd07de",
                             "index": 0,
                             "tpg_lun": 0,
                             "write_protect": false

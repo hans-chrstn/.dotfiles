@@ -16,6 +16,11 @@
     };
     dconf.enable = true;
     direnv.enable = true;
+    git = {
+      enable = true;
+      userName = "hayato-oo";
+      userEmail = "xuhiko13@gmail.com";
+    };
     neovim.enable = true;
     neofetch.enable = true;
     nix-index.enable = true;
