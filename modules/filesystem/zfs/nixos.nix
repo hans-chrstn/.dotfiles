@@ -29,6 +29,11 @@ in {
       };
       autoSnapshot = {
         enable = true;
+        frequent = 0; # Disable 15-minute snapshots if you don't want them
+        hourly = 0; # Disable hourly snapshots
+        daily = 0; # Disable daily snapshots
+        weekly = 4; # Keep the last 4 weekly snapshots
+        monthly = 0; # Disable monthly snapshots
       };
     };
 

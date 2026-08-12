@@ -90,7 +90,8 @@
     qml-niri.follows = "dotquickshell/qml-niri";
 
     crab = {
-      url = "path:/home/jin/Projects/Crab";
+      # url = "path:/home/jin/Projects/Crab";
+      url = "github:hans-chrstn/Crab";
     };
   };
 
