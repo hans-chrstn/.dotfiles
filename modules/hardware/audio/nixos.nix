@@ -11,7 +11,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [wireplumber qpwgraph easyeffects];
+    environment.systemPackages = with pkgs; [wireplumber qpwgraph];
     services.pulseaudio.enable = false;
     boot.kernelParams = ["usbcore.autosuspend=-1"];
     security.pam.loginLimits = [

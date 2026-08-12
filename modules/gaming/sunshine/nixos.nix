@@ -19,9 +19,12 @@ in {
     services.sunshine = {
       enable = true;
       autoStart = true;
-      capSysAdmin = true;
+      capSysAdmin = false;
       openFirewall = true;
       package = pkgs.sunshine.override {cudaSupport = cfg.enableCuda;};
+      settings = {
+        capture = "wlr";
+      };
     };
   };
 }

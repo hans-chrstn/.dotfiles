@@ -20,9 +20,11 @@
 
   systemd.oomd = {
     enable = true;
+    enableRootSlice = true;
+    enableUserSlices = true;
     settings.OOM = {
-      DefaultMemoryPressureLimit = "60%";
-      DefaultMemoryPressureDurationSec = "30";
+      DefaultMemoryPressureLimit = "70%";
+      DefaultMemoryPressureDurationSec = "20";
       SwapUsedLimit = "90%";
     };
   };
@@ -85,7 +87,8 @@
   boot = {
     kernelModules = ["tcp_bbr"];
     kernel.sysctl = {
-      "vm.swappiness" = 60; #default = 60
+      "vm.swappiness" = 10; #default = 60
+      "vm.vfs_cache_pressure" = 50; # reclaim directory inode cache against page cache equally
       "vm.nr_hugepages" = 0;
       # The Magic SysRq key is a key combo that allows users connected to the
       # system console of a Linux kernel to perform some low-level commands.

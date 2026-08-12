@@ -15,28 +15,48 @@ in {
       grim
       satty
       jq
+      wl-clip-persist
     ];
+
+    systemd.user.services.wl-clip-persist = {
+      Unit = {
+        Description = "Keep clipboard contents after application exits";
+        After = ["graphical-session.target"];
+        PartOf = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = ["default.target"];
+      };
+    };
     xdg.portal = {
       enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-gnome
-      ];
+      extraPortals =
+        [
+          pkgs.xdg-desktop-portal-gtk
+        ]
+        ++ lib.optional (config.mod.programs.niri.enable or false) pkgs.xdg-desktop-portal-gnome;
       config = {
         common = {
           default = ["gtk"];
           "org.freedesktop.impl.portal.FileChooser.OpenFile" = "gtk";
           "org.freedesktop.impl.portal.FileChooser.SaveFile" = "gtk";
           "org.freedesktop.impl.portal.FileChooser.SaveFiles" = "gtk";
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.Screenshot" = "gnome";
-          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
         hyprland = {
           default = ["hyprland" "gtk"];
           "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
           "org.freedesktop.impl.portal.Screenshot" = "hyprland";
           "org.freedesktop.impl.portal.RemoteDesktop" = "hyprland";
+        };
+        niri = {
+          default = ["gnome" "gtk"];
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
       };
     };

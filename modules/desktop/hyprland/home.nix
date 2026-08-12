@@ -248,7 +248,7 @@ in {
                 else arg
               )
             else if act == "close"
-            then "hl.dsp.window.kill()"
+            then "hl.dsp.window.close()"
             else if act == "toggle_float"
             then "hl.dsp.window.float({ action = \"toggle\" })"
             else if act == "maximize"
