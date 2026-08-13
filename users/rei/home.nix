@@ -32,6 +32,10 @@
     };
   };
 
+  home.packages = with pkgs; [
+    inputs.attic.packages.${pkgs.system}.default
+  ];
+
   fonts.fontconfig.enable = true;
   home = {
     username = "rei";

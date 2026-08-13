@@ -76,10 +76,6 @@ in {
         "target_core_mod"
         "iscsi_target_mod"
       ];
-
-      systemd.services.target = {
-        before = ["umount.target"];
-      };
     })
 
     (lib.mkIf cfg.smb.enable {

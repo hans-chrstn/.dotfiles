@@ -100,7 +100,7 @@
                   "force_pr_aptpl": 0,
                   "is_nonrot": 1,
                   "max_unmap_block_desc_count": 1,
-                  "max_unmap_lba_count": 2097152,
+                  "max_unmap_lba_count": 524288,
                   "max_write_same_len": 65535,
                   "optimal_sectors": 32768,
                   "pgr_support": 1,
@@ -109,12 +109,13 @@
                   "pi_prot_verify": 0,
                   "queue_depth": 128,
                   "submit_type": 0,
-                  "unmap_granularity": 128,
+                  "unmap_granularity": 32,
                   "unmap_granularity_alignment": 0,
                   "unmap_zeroes_data": 0
                 },
                 "dev": "${config.sops.placeholder."users/rei/bcsi/dev"}",
-                "name": "server-1",
+                "exclusive": true,
+                "name": "tank-disk",
                 "plugin": "block",
                 "readonly": false,
                 "write_back": false,
@@ -130,7 +131,7 @@
                 "tpgs": [
                   {
                     "attributes": {
-                      "authentication": 0,
+                      "authentication": 1,
                       "cache_dynamic_acls": 0,
                       "default_cmdsn_depth": 64,
                       "default_erl": 0,
@@ -147,10 +148,10 @@
                     "enable": true,
                     "luns": [
                       {
-                        "alias": "f6f31302fc",
+                        "alias": "bd8b9f62ba",
                         "alua_tg_pt_gp_name": "default_tg_pt_gp",
                         "index": 0,
-                        "storage_object": "/backstores/block/server-1"
+                        "storage_object": "/backstores/block/tank-disk"
                       }
                     ],
                     "node_acls": [
@@ -166,11 +167,11 @@
                           "random_datain_seq_offsets": 0,
                           "random_r2t_offsets": 0
                         },
-                        "chap_userid": "${config.sops.placeholder."users/rei/bcsi/chap/user"}",
                         "chap_password": "${config.sops.placeholder."users/rei/bcsi/chap/password"}",
+                        "chap_userid": "${config.sops.placeholder."users/rei/bcsi/chap/user"}",
                         "mapped_luns": [
                           {
-                            "alias": "f0eccd07de",
+                            "alias": "ce74451fde",
                             "index": 0,
                             "tpg_lun": 0,
                             "write_protect": false
@@ -180,7 +181,7 @@
                       }
                     ],
                     "parameters": {
-                      "AuthMethod": "CHAP,None",
+                      "AuthMethod": "CHAP",
                       "DataDigest": "CRC32C,None",
                       "DataPDUInOrder": "Yes",
                       "DataSequenceInOrder": "Yes",
