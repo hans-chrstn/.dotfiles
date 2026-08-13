@@ -71,7 +71,7 @@ in {
           owner = "WhoSowSee";
           repo = "whoosh.yazi";
           rev = "main";
-          sha256 = "0j00b9g3ajafvkvliwwkd4mvrmhqmfcanxai5jr15hagnlayv6cp";
+          sha256 = "sha256-is6cjdRzwM32YU9dobg1E6IL1zTf3UlrlnKha4yV2KI=";
         };
         "batch-rename-gui" = pkgs.fetchFromGitHub {
           owner = "pakhromov";
@@ -95,7 +95,7 @@ in {
           owner = "pirafrank";
           repo = "what-size.yazi";
           rev = "main";
-          sha256 = "0rh79smdcfaxf70v3j52z4c1467szmihxn0v6livma997bjzibzf";
+          sha256 = "sha256-ZCRxs7KecMgu5tSqQoKCPIELSI2X2SAOeYG6Ct6gTBo=";
         };
         "augment-command" = pkgs.fetchFromGitHub {
           owner = "hankertrix";
@@ -107,7 +107,7 @@ in {
           owner = "boydaihungst";
           repo = "file-extra-metadata.yazi";
           rev = "master";
-          sha256 = "12vwfwr74qjihaxsjbsbbf7vqszwkh3237iwqnsfri0jyfzjgbv2";
+          sha256 = "sha256-CNtIcXQ0rbMdt1lTBeMyz6KZ9fQ3onC8yJ6GZbTuyNk=";
         };
         "lazygit" = pkgs.fetchFromGitHub {
           owner = "Lil-Dank";

@@ -98,10 +98,15 @@
     networkmanager.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
     firewall = {
-      allowedTCPPorts = [16262 16263];
-      allowedUDPPorts = [69 16261 16262];
+      allowedTCPPorts = [];
+      allowedUDPPorts = [69];
       allowedTCPPortRanges = [];
-      allowedUDPPortRanges = [];
+      allowedUDPPortRanges = [
+        {
+          from = 25550;
+          to = 25560;
+        }
+      ];
     };
   };
 }

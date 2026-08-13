@@ -34,7 +34,10 @@
   };
 
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [yt-dlp];
+  home.packages = with pkgs; [
+    yt-dlp
+    inputs.attic.packages.${pkgs.system}.default
+  ];
   home = {
     username = "makoto";
     homeDirectory = "/home/makoto";
