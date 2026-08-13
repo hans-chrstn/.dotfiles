@@ -45,7 +45,6 @@
     lazygit.enable = true;
     neovim.enable = true;
     neofetch.enable = true;
-    niri.enable = true;
     nyxt.enable = true;
     vpn = {
       enableWireguard = true;

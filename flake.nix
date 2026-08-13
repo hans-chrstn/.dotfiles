@@ -5,10 +5,12 @@
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "my-cache:7DudT65V62n6SZzYSSDsn/vGeKxwKBwEMsLNZMKfzTQ="
     ];
     substituers = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "http://192.168.110.3:8082/my-cache"
     ];
   };
 
@@ -17,7 +19,6 @@
 
     attic = {
       url = "github:zhaofengli/attic";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware = {
@@ -49,11 +50,6 @@
     # ---HOST-SPECIFICS---
     nvidia-patch = {
       url = "github:icewind1991/nvidia-patch-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    niri = {
-      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -93,7 +89,6 @@
       url = "github:hans-chrstn/.quickshell/pulse";
     };
     quickshell.follows = "dotquickshell/quickshell";
-    qml-niri.follows = "dotquickshell/qml-niri";
 
     crab = {
       # url = "path:/home/jin/Projects/Crab";

@@ -82,7 +82,6 @@
       mpv.enable = true;
       neovim.enable = true;
       neofetch.enable = true;
-      niri.enable = true;
       nix-index.enable = true;
       nyxt.enable = true;
       obs.enable = true;

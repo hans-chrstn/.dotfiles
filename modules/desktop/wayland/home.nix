@@ -34,11 +34,9 @@ in {
     };
     xdg.portal = {
       enable = true;
-      extraPortals =
-        [
-          pkgs.xdg-desktop-portal-gtk
-        ]
-        ++ lib.optional (config.mod.programs.niri.enable or false) pkgs.xdg-desktop-portal-gnome;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
       config = {
         common = {
           default = ["gtk"];
@@ -51,12 +49,6 @@ in {
           "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
           "org.freedesktop.impl.portal.Screenshot" = "hyprland";
           "org.freedesktop.impl.portal.RemoteDesktop" = "hyprland";
-        };
-        niri = {
-          default = ["gnome" "gtk"];
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.Screenshot" = "gnome";
-          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
       };
     };

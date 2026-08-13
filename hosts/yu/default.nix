@@ -32,9 +32,9 @@
       ssh.enable = true;
     };
     wm = {
-      niri = {
+      hyprland = {
         enable = true;
-        channel = "unstable";
+        unstable = false;
       };
     };
   };

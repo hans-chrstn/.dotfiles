@@ -46,6 +46,7 @@
     '';
   };
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  boot.initrd.services.lvm.enable = true;
 
   mod = {
     profiles = {
@@ -80,10 +81,6 @@
       hyprland = {
         enable = true;
         unstable = false;
-      };
-      niri = {
-        enable = true;
-        channel = "unstable";
       };
     };
   };
