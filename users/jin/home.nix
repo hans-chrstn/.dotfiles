@@ -119,6 +119,7 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    inputs.attic.packages.${pkgs.system}.default
     starsector
 
     p7zip
