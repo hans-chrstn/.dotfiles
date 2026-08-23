@@ -1,15 +1,10 @@
-{
-  inputs,
-  modules,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   theme = {
     enable = true;
     scheme = "tokyo-night";
   };
 
-  mod.programs = {
+  dotfiles.programs = {
     btop = {
       enable = true;
       enableCustomSettings = true;
@@ -33,7 +28,7 @@
   };
 
   home.packages = with pkgs; [
-    inputs.attic.packages.${pkgs.system}.default
+    attic-client
   ];
 
   fonts.fontconfig.enable = true;

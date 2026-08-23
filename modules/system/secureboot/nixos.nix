@@ -4,12 +4,12 @@
   config,
   ...
 }: let
-  cfg = config.mod.hardware.secureboot;
+  cfg = config.dotfiles.hardware.secureboot;
   hasLanzaboote = builtins.hasAttr "lanzaboote" inputs;
 in {
   imports = lib.optional hasLanzaboote inputs.lanzaboote.nixosModules.lanzaboote;
 
-  options.mod.hardware.secureboot = {
+  options.dotfiles.hardware.secureboot = {
     enable = lib.mkEnableOption "Enable the secureboot feature";
   };
 

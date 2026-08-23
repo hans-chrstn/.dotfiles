@@ -1,6 +1,4 @@
 {
-  config,
-  modules,
   pkgs,
   inputs,
   ...
@@ -8,51 +6,37 @@
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
+    ./users.nix
     inputs.dotquickshell.nixosModules.default
   ];
 
   programs.fish.enable = true;
-  networking.hostName = "nixos-laptop";
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
   services.quickshell-greeter.enable = true;
 
-  mod = {
+  dotfiles = {
     hardware = {
       bluetooth.enable = true;
       intel.enable = true;
       laptop.enable = true;
       audio.enable = true;
     };
-    impermanence.btrfs.enable = true;
-    programs = {
+    filesystems.btrfsRollback.enable = true;
+    system = {
       dbus.enable = true;
     };
     services = {
-      ssh.enable = true;
+      ssh = {
+        enable = true;
+        passwordAuthentication = true;
+      };
     };
-    wm = {
+    desktop = {
       hyprland = {
         enable = true;
         unstable = false;
       };
-    };
-  };
-
-  users.mutableUsers = false;
-  users.users = {
-    "yu" = {
-      isNormalUser = true;
-      description = "Primary user for yu";
-      extraGroups = ["wheel"];
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      shell = pkgs.fish;
-    };
-    root = {
-      isSystemUser = true;
-      extraGroups = ["wheel"];
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      shell = pkgs.fish;
     };
   };
 }

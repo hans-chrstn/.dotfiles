@@ -1,8 +1,5 @@
-{modules, ...}: {
-  imports = [
-    modules.wezterm
-  ];
-  mod.programs.wezterm = {
+{...}: {
+  dotfiles.programs.wezterm = {
     enable = true;
     window = {
       decorations = "RESIZE";

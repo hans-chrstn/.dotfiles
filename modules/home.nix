@@ -1,0 +1,34 @@
+[
+  ./apps/dconf/home.nix
+  ./apps/discord/home.nix
+  ./apps/joplin/home.nix
+  ./apps/kitty/home.nix
+  ./apps/mpv/home.nix
+  ./apps/neovim/home.nix
+  ./apps/nyxt/home.nix
+  ./apps/obs/home.nix
+  ./apps/unity/home.nix
+  ./apps/vscode/home.nix
+  ./apps/wezterm/home.nix
+  ./apps/zen/home.nix
+  ./desktop/hyprland/home.nix
+  ./desktop/keybinds/home.nix
+  ./desktop/monitors/home.nix
+  ./desktop/wayland/home.nix
+  ./desktop/widgets/home.nix
+  ./gaming/gaming/home.nix
+  ./gaming/minecraft/home.nix
+  ./hardware/camera/home.nix
+  ./hardware/samson-q2u/home.nix
+  ./tools/btop/home.nix
+  ./tools/cava/home.nix
+  ./tools/direnv/home.nix
+  ./tools/git/home.nix
+  ./tools/lazygit/home.nix
+  ./tools/neofetch/home.nix
+  ./tools/nix-index/home.nix
+  ./tools/shell/home.nix
+  ./tools/tiny/home.nix
+  ./tools/vpn/home.nix
+  ./tools/yazi/home.nix
+]

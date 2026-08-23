@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.nix-ld;
+  cfg = config.dotfiles.system.nix-ld;
 in {
-  options.mod.programs.nix-ld = {
+  options.dotfiles.system.nix-ld = {
     enable = lib.mkEnableOption "Enable the nix-ld feature";
     # enableXserver = lib.mkOption { type = lib.types.bool; default = true; };
   };

@@ -219,7 +219,7 @@
             ]
           }
         '';
-        mode = "0644";
+        mode = "0600";
         path = "/etc/target/saveconfig.json";
       };
     };

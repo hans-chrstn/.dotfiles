@@ -1,12 +1,11 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }: let
-  cfg = config.mod.hardware.bluetooth;
+  cfg = config.dotfiles.hardware.bluetooth;
 in {
-  options.mod.hardware.bluetooth = {
+  options.dotfiles.hardware.bluetooth = {
     enable = lib.mkEnableOption "Enable the bluetooth feature";
   };
 

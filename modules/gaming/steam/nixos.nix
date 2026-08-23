@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.steam;
+  cfg = config.dotfiles.gaming.steam;
 in {
-  options.mod.programs.steam = {
+  options.dotfiles.gaming.steam = {
     enable = lib.mkEnableOption "Enable the steam feature";
   };
 

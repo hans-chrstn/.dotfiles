@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.services.greetd;
+  cfg = config.dotfiles.desktop.greetd;
 in {
-  options.mod.services.greetd = {
+  options.dotfiles.desktop.greetd = {
     enable = lib.mkEnableOption "Enable the greetd feature";
   };
 

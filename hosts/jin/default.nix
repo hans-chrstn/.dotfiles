@@ -1,15 +1,15 @@
 {
   pkgs,
-  lib,
-  config,
-  modules,
   inputs,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./networking.nix
     ./sops.nix
     ./services.nix
+    ./storage.nix
+    ./users.nix
     inputs.dotquickshell.nixosModules.default
     inputs.crab.nixosModules.default
   ];
@@ -23,20 +23,6 @@
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
-  nix = {
-    settings = {
-      experimental-features = "nix-command flakes";
-      trusted-substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-    };
-  };
-
   services.flatpak.enable = true;
   systemd.services.flatpak-repo = {
     wantedBy = ["multi-user.target"];
@@ -46,13 +32,8 @@
     '';
   };
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
-  boot.initrd.services.lvm.enable = true;
 
-  mod = {
-    profiles = {
-      gaming.enable = true;
-      workstation.enable = true;
-    };
+  dotfiles = {
     hardware = {
       amd = {
         enable = true;
@@ -62,14 +43,15 @@
       bluetooth.enable = true;
       opengl.enable = true;
     };
-    impermanence.btrfs.enable = true;
-    programs = {
+    filesystems.btrfsRollback.enable = true;
+    system = {
       dbus.enable = true;
       nix-ld.enable = true;
     };
     services = {
       ssh = {
         enable = true;
+        passwordAuthentication = true;
         allowedIps = [
           "192.168.110.2/32"
           "192.168.110.3/32"
@@ -77,7 +59,7 @@
         ];
       };
     };
-    wm = {
+    desktop = {
       hyprland = {
         enable = true;
         unstable = false;
@@ -88,34 +70,4 @@
   services.quickshell-greeter.enable = true;
 
   programs.fish.enable = true;
-
-  users.mutableUsers = false;
-  users.users = {
-    "jin" = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      isNormalUser = true;
-      description = "Primary user for jin";
-      extraGroups = ["wheel" "audio" "jackaudio" "adbusers" "input"];
-      shell = pkgs.fish;
-    };
-    root = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      isSystemUser = true;
-      extraGroups = ["wheel"];
-      shell = pkgs.fish;
-    };
-  };
-
-  systemd.network.enable = true;
-  networking = {
-    hostName = "nixos-main";
-    networkmanager.enable = lib.mkForce false;
-    useDHCP = lib.mkForce false;
-    firewall = {
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
-      allowedTCPPortRanges = [];
-      allowedUDPPortRanges = [];
-    };
-  };
 }

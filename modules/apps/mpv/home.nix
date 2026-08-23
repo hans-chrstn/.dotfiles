@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.mpv;
+  cfg = config.dotfiles.programs.mpv;
 in {
-  options.mod.programs.mpv = {
+  options.dotfiles.programs.mpv = {
     enable = lib.mkEnableOption "Enable mpv config and its best values";
   };
 

@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.hardware.location;
+  cfg = config.dotfiles.hardware.location;
 in {
-  options.mod.hardware.location = {
+  options.dotfiles.hardware.location = {
     enable = lib.mkEnableOption "Enable the location feature";
   };
 

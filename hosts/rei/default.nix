@@ -1,21 +1,17 @@
-{
-  pkgs,
-  lib,
-  config,
-  modules,
-  ...
-}: {
+{...}: {
   imports = [
     ./hardware-configuration.nix
+    ./networking.nix
     ./sops.nix
     ./services.nix
+    ./users.nix
   ];
 
   services.target = {
     enable = true;
   };
 
-  mod = {
+  dotfiles = {
     hardware = {
       amd = {
         enable = true;
@@ -24,34 +20,37 @@
       audio.enable = true;
       opengl.enable = true;
     };
-    netfs = {
-      enableNfs = true;
+    filesystems.network = {
+      nfs.enable = true;
       smb = {
         enable = true;
+        openFirewall = true;
       };
       iscsi.server = {
         enable = true;
+        allowedIps = ["192.168.110.3/32"];
       };
     };
-    programs = {
+    system = {
       dbus.enable = true;
       nix-ld.enable = true;
     };
+    filesystems.zfs = {
+      enable = true;
+      id = "fffafb21";
+      importPools = ["tank"];
+    };
+    desktop.greetd.enable = true;
     services = {
-      zfs = {
-        enable = true;
-        id = "fffafb21";
-        importPools = ["tank"];
-      };
       clamav = {
         enable = true;
         directories = [
           "/tank"
         ];
       };
-      greetd.enable = true;
       ssh = {
         enable = true;
+        passwordAuthentication = true;
         allowedIps = [
           "192.168.110.2/32"
           "192.168.110.3/32"
@@ -62,34 +61,4 @@
   };
 
   programs.zsh.enable = true;
-
-  users.mutableUsers = false;
-  users.users = {
-    "rei" = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      isNormalUser = true;
-      description = "Primary user for rei";
-      extraGroups = ["wheel"];
-      shell = pkgs.zsh;
-    };
-    root = {
-      hashedPasswordFile = config.sops.secrets."users/jin/password".path;
-      isSystemUser = true;
-      extraGroups = ["wheel"];
-      shell = pkgs.zsh;
-    };
-  };
-
-  systemd.network.enable = true;
-  networking = {
-    hostName = "nixos-server-2";
-    networkmanager.enable = lib.mkForce false;
-    useDHCP = lib.mkForce false;
-    firewall = {
-      allowedTCPPorts = [3260];
-      allowedUDPPorts = [];
-      allowedTCPPortRanges = [];
-      allowedUDPPortRanges = [];
-    };
-  };
 }

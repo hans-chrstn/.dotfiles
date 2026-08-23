@@ -1,19 +1,27 @@
 #!/usr/bin/env bash
-set -e
 
-MODULE_TYPE=$1
-MODULE_NAME=$2
-if [ -z "$MODULE_TYPE" ] || [ -z "$MODULE_NAME" ]; then
-  echo "Usage: nix run .#new-module -- <nixos|home-manager> <module-name>"; exit 1;
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+
+module_type=${1:-}
+category=${2:-}
+module_name=${3:-}
+option_path=${4:-$module_name}
+
+if [[ "$module_type" != "nixos" && "$module_type" != "home" ]] || [[ -z "$category" || -z "$module_name" ]]; then
+  printf 'Usage: new-module <nixos|home> <category> <name> [option-path]\n' >&2
+  exit 1
 fi
 
-MODULE_DIR="modules/$MODULE_TYPE/$MODULE_NAME"
-MODULE_PATH="$MODULE_DIR/default.nix"
-
-if [ -d "$MODULE_DIR" ]; then
-  echo "Error: Module directory already exists at $MODULE_DIR."; exit 1;
+validate_name "$category"
+validate_name "$module_name"
+if [[ ! "$option_path" =~ ^[a-zA-Z][a-zA-Z0-9-]*(\.[a-zA-Z][a-zA-Z0-9-]*)*$ ]]; then
+  printf 'Invalid option path: %s\n' "$option_path" >&2
+  exit 1
 fi
 
-mkdir -p "$MODULE_DIR"
-sed "s/NEW_MODULE_NAME/$MODULE_NAME/g" templates/module.nix > "$MODULE_PATH"
-echo "Created new $MODULE_TYPE module at '$MODULE_DIR'. It is registered automatically!"
+module_path="modules/$category/$module_name/$module_type.nix"
+ensure_absent "$module_path"
+render templates/module.nix "$module_path" NEW_MODULE_NAME "$module_name" NEW_OPTION_PATH "$option_path"
+register_entry "modules/$module_type.nix" "./$category/$module_name/$module_type.nix"
+alejandra "$module_path" "modules/$module_type.nix"
+printf 'Created %s\n' "$module_path"

@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.programs.neovim;
+  cfg = config.dotfiles.programs.neovim;
   stylixCfg = config.theme;
   themes = import "${inputs.dotstylix}/themes" {inherit lib;};
   paletteAttrset = themes.${stylixCfg.scheme};
@@ -35,7 +35,7 @@
     }
   '';
 in {
-  options.mod.programs.neovim = {
+  options.dotfiles.programs.neovim = {
     enable = lib.mkEnableOption "Enable the neovim feature";
   };
 

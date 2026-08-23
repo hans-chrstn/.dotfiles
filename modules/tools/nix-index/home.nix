@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.nix-index;
+  cfg = config.dotfiles.programs.nix-index;
 in {
-  options.mod.programs.nix-index = {
+  options.dotfiles.programs.nix-index = {
     enable = lib.mkEnableOption "Enable nix-index config and it's best values";
   };
 

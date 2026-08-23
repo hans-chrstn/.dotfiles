@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.git;
+  cfg = config.dotfiles.programs.git;
 in {
-  options.mod.programs.git = {
+  options.dotfiles.programs.git = {
     enable = lib.mkEnableOption "Enable git config";
     userName = lib.mkOption {
       type = lib.types.nullOr lib.types.str;

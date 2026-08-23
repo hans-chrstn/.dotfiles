@@ -1,10 +1,4 @@
-{
-  lib,
-  inputs,
-  modules,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   monitors = {
     center-top = {
       name = "DP-1";
@@ -57,20 +51,18 @@
     };
   };
 
-  mod = {
+  dotfiles = {
     programs = {
       btop = {
         enable = true;
         enableCustomSettings = true;
       };
-      camera.enable = true;
       dconf.enable = true;
       direnv.enable = true;
       discord = {
         enable = true;
         useVesktop = false;
       };
-      gaming.enable = true;
       git = {
         enable = true;
         userName = "hayato-oo";
@@ -78,7 +70,6 @@
       };
       kitty.enable = true;
       lazygit.enable = true;
-      minecraft.enable = true;
       mpv.enable = true;
       neovim.enable = true;
       neofetch.enable = true;
@@ -87,11 +78,9 @@
       obs.enable = true;
       unity.enable = true;
       vscode.enable = true;
-      widgets = {
-        enableQuickshell = true;
-      };
       yazi.enable = true;
       zen.enable = true;
+      tiny.enable = true;
       shell = {
         enableZsh = false;
         enableNushell = true;
@@ -99,26 +88,25 @@
         enableStarship = true;
       };
     };
-    wm = {
-      hyprland = {
-        enable = true;
-        unstable = false;
-      };
+    desktop.widgets = {
+      quickshell.enable = true;
+      quickshell.systemd.enable = false;
     };
+    gaming.minecraft.enable = true;
+    hardware.camera.enable = true;
   };
 
   programs.brave.enable = true;
-  programs.quickshell = {
-    enable = true;
-    systemd.enable = lib.mkForce false;
-  };
 
   services.awww.enable = true;
   services.easyeffects.enable = true;
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    inputs.attic.packages.${pkgs.system}.default
+    moonlight-qt
+    gamma-launcher
+    mo2
+    attic-client
     starsector
 
     p7zip
@@ -135,10 +123,9 @@
     feishin
     flatpak
     ffmpeg
-    gemini-cli
     libreoffice
     tradingview
-    xfce.thunar
+    thunar
 
     # AI CLI tools
     antigravity-cli
@@ -150,11 +137,7 @@
     enable = true;
   };
 
-  programs.claude-code = {
-    enable = true;
-  };
-
-  programs.aider-chat.enable = true;
+  programs.codex.enable = true;
 
   programs.home-manager.enable = true;
   systemd.user.startServices = "sd-switch";

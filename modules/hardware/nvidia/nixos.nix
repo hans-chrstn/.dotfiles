@@ -1,13 +1,12 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
   ...
 }: let
-  cfg = config.mod.hardware.nvidia;
+  cfg = config.dotfiles.hardware.nvidia;
 in {
-  options.mod.hardware.nvidia = {
+  options.dotfiles.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable the nvidia feature";
   };
 

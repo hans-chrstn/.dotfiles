@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.joplin;
+  cfg = config.dotfiles.programs.joplin;
 in {
-  options.mod.programs.joplin = {
+  options.dotfiles.programs.joplin = {
     enable = lib.mkEnableOption "Enable joplin";
   };
 

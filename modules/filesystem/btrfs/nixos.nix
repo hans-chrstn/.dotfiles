@@ -4,10 +4,20 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.impermanence.btrfs;
+  cfg = config.dotfiles.filesystems.btrfsRollback;
 in {
-  options.mod.impermanence.btrfs = {
+  options.dotfiles.filesystems.btrfsRollback = {
     enable = lib.mkEnableOption "Enable the btrfs feature";
+    device = lib.mkOption {
+      type = lib.types.str;
+      default = "/dev/disk/by-label/nixos";
+      description = "Btrfs device containing the root subvolume";
+    };
+    retentionDays = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 30;
+      description = "Days to retain old root subvolumes";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,10 +29,21 @@ in {
       before = ["sysroot.mount"];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
+      path = with pkgs; [
+        btrfs-progs
+        coreutils
+        findutils
+        util-linux
+      ];
 
       script = ''
+        set -euo pipefail
+
         mkdir -p /btrfs_tmp
-        mount /dev/disk/by-label/nixos /btrfs_tmp
+        mount ${lib.escapeShellArg cfg.device} /btrfs_tmp
+        trap 'umount /btrfs_tmp' EXIT
+
+        test "$(findmnt -n -o SOURCE /btrfs_tmp)" = "${cfg.device}"
 
         if [[ -e /btrfs_tmp/root ]]; then
             mkdir -p /btrfs_tmp/old_roots
@@ -31,19 +52,25 @@ in {
         fi
 
         delete_subvolume_recursively() {
-            IFS=$'\n'
-            for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                delete_subvolume_recursively "/btrfs_tmp/$i"
-            done
+            local child
+            while IFS= read -r child; do
+                delete_subvolume_recursively "/btrfs_tmp/$child"
+            done < <(btrfs subvolume list -o "$1" | cut -f 9- -d ' ')
             btrfs subvolume delete "$1"
         }
 
-        for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-            delete_subvolume_recursively "$i"
-        done
+        if [[ -d /btrfs_tmp/old_roots ]]; then
+            while IFS= read -r -d "" old_root; do
+                case "$old_root" in
+                    /btrfs_tmp/old_roots/*) delete_subvolume_recursively "$old_root" ;;
+                    *) exit 1 ;;
+                esac
+            done < <(find /btrfs_tmp/old_roots -mindepth 1 -maxdepth 1 -mtime +${toString cfg.retentionDays} -print0)
+        fi
 
         btrfs subvolume create /btrfs_tmp/root
         umount /btrfs_tmp
+        trap - EXIT
       '';
     };
   };

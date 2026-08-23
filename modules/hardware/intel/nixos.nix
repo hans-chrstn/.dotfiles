@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.hardware.intel;
+  cfg = config.dotfiles.hardware.intel;
 in {
-  options.mod.hardware.intel = {
+  options.dotfiles.hardware.intel = {
     enable = lib.mkEnableOption "Enable the intel feature";
   };
 

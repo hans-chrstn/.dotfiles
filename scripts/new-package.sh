@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
-set -e
 
-PKG_NAME=$1
-if [ -z "$PKG_NAME" ]; then
-  echo "Usage: nix run .#new-package -- <package-name>"; exit 1;
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+
+package_name=${1:-}
+package_type=${2:-application}
+if [[ -z "$package_name" ]]; then
+  printf 'Usage: new-package <name> [application|derivation]\n' >&2
+  exit 1
+fi
+if [[ "$package_type" != "application" && "$package_type" != "derivation" ]]; then
+  printf 'Unsupported package type: %s\n' "$package_type" >&2
+  exit 1
 fi
 
-PKG_DIR="packages/$PKG_NAME"
-PKG_PATH="$PKG_DIR/default.nix"
-
-if [ -d "$PKG_DIR" ]; then
-  echo "Error: Package directory '$PKG_DIR' already exists."; exit 1;
-fi
-
-mkdir -p "$PKG_DIR"
-sed "s/NEW_PACKAGE_NAME/$PKG_NAME/g" templates/package.nix > "$PKG_PATH"
-echo "Created new package at '$PKG_PATH'."
+validate_name "$package_name"
+package_path="packages/$package_name/default.nix"
+ensure_absent "packages/$package_name"
+render "templates/package-$package_type.nix" "$package_path" NEW_PACKAGE_NAME "$package_name"
+register_entry packages/registry.nix "\"$package_name\""
+alejandra "$package_path" packages/registry.nix
+printf 'Created %s and registered packages.%s\n' "$package_path" "$package_name"

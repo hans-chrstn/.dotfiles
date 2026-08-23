@@ -4,16 +4,12 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.netfs;
+  cfg = config.dotfiles.filesystems.network;
 in {
-  options.mod.netfs = {
-    enableNfs = lib.mkEnableOption "Enable the nfs feature";
+  options.dotfiles.filesystems.network = {
+    nfs.enable = lib.mkEnableOption "NFS server";
     iscsi.client = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable Open-iscsi";
-      };
+      enable = lib.mkEnableOption "Open-iSCSI client";
       extraConfig = lib.mkOption {
         type = lib.types.str;
         default = "";
@@ -24,12 +20,16 @@ in {
         description = "The unique IQN for this iSCSI client (from /etc/iscsi/initiatorname.iscsi).";
       };
     };
-    iscsi.server.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable targetcli";
+    iscsi.server = {
+      enable = lib.mkEnableOption "targetcli iSCSI server";
+      allowedIps = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = "Source CIDRs allowed to connect to the iSCSI target";
+      };
     };
-    smb.enable = lib.mkEnableOption "Enable the smb feature";
+    smb.enable = lib.mkEnableOption "Samba server";
+    smb.openFirewall = lib.mkEnableOption "automatic Samba firewall rules";
     smb.path = lib.mkOption {
       type = lib.types.str;
       default = "/srv/samba/private";
@@ -38,7 +38,7 @@ in {
   };
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enableNfs {
+    (lib.mkIf cfg.nfs.enable {
       services.nfs.server.enable = true;
       services.nfs = {
         settings = {
@@ -76,12 +76,16 @@ in {
         "target_core_mod"
         "iscsi_target_mod"
       ];
+      networking.nftables.enable = true;
+      networking.firewall.extraInputRules = lib.mkIf (cfg.iscsi.server.allowedIps != []) ''
+        ip saddr { ${lib.concatStringsSep ", " cfg.iscsi.server.allowedIps} } tcp dport 3260 accept
+      '';
     })
 
     (lib.mkIf cfg.smb.enable {
       services.samba = {
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.smb.openFirewall;
         settings = {
           global = {
             workgroup = "WORKGROUP";
@@ -106,7 +110,7 @@ in {
       };
       services.samba-wsdd = {
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.smb.openFirewall;
       };
     })
   ];

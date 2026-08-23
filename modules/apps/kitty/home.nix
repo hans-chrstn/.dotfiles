@@ -1,8 +1,13 @@
-{mkModule, ...} @ args:
-mkModule {
-  inherit args;
-  name = "kitty";
-  configFunc = {...}: cfg: {
+{
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.dotfiles.programs.kitty;
+in {
+  options.dotfiles.programs.kitty.enable = lib.mkEnableOption "Kitty";
+
+  config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
       shellIntegration = {

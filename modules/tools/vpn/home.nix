@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.programs.vpn;
+  cfg = config.dotfiles.networking.vpn;
 in {
-  options.mod.programs.vpn = {
+  options.dotfiles.networking.vpn = {
     enableWireguard = lib.mkOption {
       type = lib.types.bool;
       default = false;

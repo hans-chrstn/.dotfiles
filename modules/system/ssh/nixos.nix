@@ -3,20 +3,25 @@
   config,
   ...
 }: let
-  cfg = config.mod.services.ssh;
+  cfg = config.dotfiles.services.ssh;
   ipList = lib.concatStringsSep ", " cfg.allowedIps;
 in {
-  options.mod.services.ssh = {
+  options.dotfiles.services.ssh = {
     enable = lib.mkEnableOption "Enable the ssh feature";
     openFirewall = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Open SSH port (22) to the entire internet";
     };
+    passwordAuthentication = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Allow SSH password authentication";
+    };
     allowedIps = lib.mkOption {
-      type = lib.types.nullOr (lib.types.listOf lib.types.str);
-      default = null;
-      description = "List of string that are allowed to access your ssh in your local network";
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Source CIDRs allowed to connect to SSH";
     };
   };
 
@@ -32,8 +37,8 @@ in {
         settings = {
           LogLevel = "VERBOSE";
           PermitRootLogin = "no";
-          PasswordAuthentication = true;
-          KbdInteractiveAuthentication = true;
+          PasswordAuthentication = cfg.passwordAuthentication;
+          KbdInteractiveAuthentication = cfg.passwordAuthentication;
           PubkeyAuthentication = true;
           AcceptEnv = ["LANG" "LC_*"];
         };
@@ -58,7 +63,7 @@ in {
             enabled = true;
             port = "ssh";
             filter = "sshd";
-            logpath = "/var/log/auth.log";
+            backend = "systemd";
             maxretry = 5;
             bantime = "24h";
           };
@@ -68,16 +73,24 @@ in {
       environment.systemPackages = [
         config.services.openssh.package
       ];
+
+      assertions = [
+        {
+          assertion = !(cfg.openFirewall && cfg.allowedIps != []);
+          message = "dotfiles.services.ssh.openFirewall and allowedIps are mutually exclusive";
+        }
+      ];
+
+      warnings = lib.optional cfg.passwordAuthentication "SSH password authentication is enabled";
     })
 
-    (lib.mkIf (cfg.enable && cfg.allowedIps != null) {
+    (lib.mkIf (cfg.enable && cfg.allowedIps != []) {
       services.openssh.openFirewall = lib.mkForce false;
       networking.nftables.enable = true;
 
       networking.firewall.extraInputRules = ''
         ip saddr { ${ipList} } tcp dport 22 accept
 
-        ip6 saddr fe80::/10 tcp dport 22 accept
       '';
     })
   ];

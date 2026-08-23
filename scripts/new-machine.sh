@@ -1,34 +1,37 @@
 #!/usr/bin/env bash
-set -e
 
-MACHINE_NAME=$1
-if [ -z "$MACHINE_NAME" ]; then
-  echo "Usage: nix run .#new-machine -- <name>"; exit 1;
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+
+machine_name=${1:-}
+username=${2:-}
+host_name=${3:-}
+system=${4:-x86_64-linux}
+
+if [[ -z "$machine_name" || -z "$username" || -z "$host_name" ]]; then
+  printf 'Usage: new-machine <configuration> <username> <hostname> [system]\n' >&2
+  exit 1
 fi
 
-echo "Setting up new machine: $MACHINE_NAME"
-PS3="Select the system type: "
-select SYS_TYPE in nixos darwin wsl raspberry-pi; do break; done
+validate_name "$machine_name"
+validate_name "$username"
+validate_name "$host_name"
+if [[ "$system" != "x86_64-linux" && "$system" != "aarch64-linux" ]]; then
+  printf 'Unsupported system: %s\n' "$system" >&2
+  exit 1
+fi
 
-PS3="Select the architecture: "
-select SYS_ARCH in x86_64-linux aarch64-linux x86_64-darwin aarch64-darwin; do break; done
+ensure_absent "hosts/$machine_name"
 
-HOST_DIR="hosts/$MACHINE_NAME"
-USER_DIR="users/$MACHINE_NAME"
+render templates/host.nix "hosts/$machine_name/default.nix" NEW_MACHINE_NAME "$machine_name" NEW_USERNAME "$username"
+render templates/user-system.nix "hosts/$machine_name/users.nix" NEW_USERNAME "$username"
+render templates/hardware.nix "hosts/$machine_name/hardware-configuration.nix"
+render templates/metadata.nix "hosts/$machine_name/metadata.nix" NEW_MACHINE_NAME "$machine_name" NEW_USERNAME "$username" NEW_HOST_NAME "$host_name" NEW_SYSTEM "$system"
 
-mkdir -p "$HOST_DIR" "$USER_DIR"
-echo "Created directories."
+if [[ ! -e "users/$username" ]]; then
+  render templates/user.nix "users/$username/home.nix" NEW_USERNAME "$username"
+  render templates/user-default.nix "users/$username/default.nix"
+fi
 
-sed -e "s/NEW_SYSTEM_TYPE/$SYS_TYPE/" -e "s/NEW_SYSTEM_ARCH/$SYS_ARCH/" templates/system.nix > "$HOST_DIR/system.nix"
-
-sed "s/NEW_MACHINE_NAME/$MACHINE_NAME/g" templates/host.nix > "$HOST_DIR/default.nix"
-
-touch "$HOST_DIR/hardware-configuration.nix"
-echo "Created host files."
-
-sed "s/NEW_MACHINE_NAME/$MACHINE_NAME/g" templates/user.nix > "$USER_DIR/home.nix"
-
-echo "Created user files."
-echo "Done! Ready to configure '$MACHINE_NAME'."
-echo "Note: If this is the first installation, make sure to get a proper hardware-configuration.nix using 'sudo nixos-generate-config --show-hardware-config'"
-echo "Paste it here: host/yourusername/hardware-configuration.nix"
+register_entry hosts/registry.nix "./$machine_name/metadata.nix"
+alejandra "hosts/$machine_name" "users/$username" hosts/registry.nix
+printf 'Created configuration %s for %s@%s\n' "$machine_name" "$username" "$host_name"

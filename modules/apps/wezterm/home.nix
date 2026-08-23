@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.wezterm;
+  cfg = config.dotfiles.programs.wezterm;
 in {
-  options.mod.programs.wezterm = {
+  options.dotfiles.programs.wezterm = {
     enable = lib.mkEnableOption "Enable the WezTerm feature";
 
     window = {

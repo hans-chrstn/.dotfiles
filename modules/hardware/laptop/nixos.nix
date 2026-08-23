@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.hardware.laptop;
+  cfg = config.dotfiles.hardware.laptop;
 in {
-  options.mod.hardware.laptop = {
+  options.dotfiles.hardware.laptop = {
     enable = lib.mkEnableOption "Enable the laptop feature";
     powerOptions = lib.mkOption {
       type = lib.types.enum ["performance" "powersave"];

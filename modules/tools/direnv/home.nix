@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.direnv;
+  cfg = config.dotfiles.programs.direnv;
 in {
-  options.mod.programs.direnv = {
+  options.dotfiles.programs.direnv = {
     enable = lib.mkEnableOption "Enable nix-direnv and integration";
   };
 

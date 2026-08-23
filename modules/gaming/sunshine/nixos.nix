@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.services.sunshine;
+  cfg = config.dotfiles.services.sunshine;
 in {
-  options.mod.services.sunshine = {
+  options.dotfiles.services.sunshine = {
     enable = lib.mkEnableOption "Enable the sunshine feature";
     enableCuda = lib.mkOption {
       type = lib.types.bool;

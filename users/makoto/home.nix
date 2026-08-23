@@ -1,15 +1,10 @@
-{
-  inputs,
-  modules,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   theme = {
     enable = true;
     scheme = "tokyo-night";
   };
 
-  mod.programs = {
+  dotfiles.programs = {
     btop = {
       enable = true;
       enableCustomSettings = true;
@@ -33,10 +28,12 @@
     };
   };
 
+  programs.codex.enable = true;
+
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     yt-dlp
-    inputs.attic.packages.${pkgs.system}.default
+    attic-client
   ];
   home = {
     username = "makoto";

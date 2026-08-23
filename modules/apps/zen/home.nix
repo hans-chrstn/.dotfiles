@@ -1,16 +1,15 @@
 {
   inputs,
   lib,
-  pkgs,
   config,
   ...
 }: let
-  cfg = config.mod.programs.zen;
+  cfg = config.dotfiles.programs.zen;
 in {
   imports = [
     inputs.zen-browser.homeModules.beta
   ];
-  options.mod.programs.zen = {
+  options.dotfiles.programs.zen = {
     enable = lib.mkEnableOption "Enable zen";
   };
 

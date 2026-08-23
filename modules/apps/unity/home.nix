@@ -4,18 +4,18 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.unity;
+  cfg = config.dotfiles.programs.unity;
 in {
-  options.mod.programs.unity = {
+  options.dotfiles.programs.unity = {
     enable = lib.mkEnableOption "Enable unity";
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (pkgs.unityhub.override {
-        extraLibs = unityhubPkgs: [
+        extraLibs = _unityhubPkgs: [
         ];
-        extraPkgs = fhsPkgs: [
+        extraPkgs = _fhsPkgs: [
         ];
       })
     ];

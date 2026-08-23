@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.shell;
+  cfg = config.dotfiles.programs.shell;
 in {
-  options.mod.programs.shell = {
+  options.dotfiles.programs.shell = {
     enableZsh = lib.mkOption {
       type = lib.types.bool;
       default = false;

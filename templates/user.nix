@@ -3,8 +3,8 @@
   ];
 
   home = {
-    username = "NEW_MACHINE_NAME";
-    homeDirectory = "/home/NEW_MACHINE_NAME";
+    username = "NEW_USERNAME";
+    homeDirectory = "/home/NEW_USERNAME";
     sessionVariables = {
       # EDITOR = "nvim";
     };

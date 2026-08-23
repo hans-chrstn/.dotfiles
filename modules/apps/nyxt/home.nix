@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.nyxt;
+  cfg = config.dotfiles.programs.nyxt;
 in {
-  options.mod.programs.nyxt = {
+  options.dotfiles.programs.nyxt = {
     enable = lib.mkEnableOption "Enable the nyxt feature";
   };
 

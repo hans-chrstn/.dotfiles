@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.hardware.audio;
+  cfg = config.dotfiles.hardware.audio;
 in {
-  options.mod.hardware.audio = {
+  options.dotfiles.hardware.audio = {
     enable = lib.mkEnableOption "Enable the audio feature";
   };
 

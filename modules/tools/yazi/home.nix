@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.programs.yazi;
+  cfg = config.dotfiles.programs.yazi;
 in {
-  options.mod.programs.yazi = {
+  options.dotfiles.programs.yazi = {
     enable = lib.mkEnableOption "Enable the yazi feature";
   };
 
@@ -70,8 +70,8 @@ in {
         "whoosh" = pkgs.fetchFromGitHub {
           owner = "WhoSowSee";
           repo = "whoosh.yazi";
-          rev = "main";
-          sha256 = "sha256-is6cjdRzwM32YU9dobg1E6IL1zTf3UlrlnKha4yV2KI=";
+          rev = "43f320217c82c560417b161269aef593df2119e1";
+          sha256 = "sha256-5ik2MEQPLcA1mMZLjBHCsJA0J/s0A4YKbNULlV4MZDQ=";
         };
         "batch-rename-gui" = pkgs.fetchFromGitHub {
           owner = "pakhromov";

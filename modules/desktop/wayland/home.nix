@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.desktop.wayland;
+  cfg = config.dotfiles.desktop.wayland;
 in {
-  options.mod.desktop.wayland = {
+  options.dotfiles.desktop.wayland = {
     enable = lib.mkEnableOption "Enable generic Wayland environment (portals, vars)";
   };
 

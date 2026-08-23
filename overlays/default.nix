@@ -1,5 +1,18 @@
-{inputs, lib}: let
-  dirContents = builtins.readDir ./.;
-  overlayFiles = lib.filterAttrs (name: type: name != "default.nix" && type == "regular") dirContents;
+{
+  inputs,
+  lib,
+}: let
+  additions = final: prev:
+    import ../packages {
+      pkgs = final;
+      lib = prev.lib;
+    };
+  local = lib.genAttrs (import ./registry.nix) (name: import ./${name}.nix);
+  nvidia = inputs.nvidia-patch.overlays.default;
+  proxmox = inputs.proxmox-nixos.overlays."x86_64-linux";
 in
-  lib.mapAttrsToList (name: _: import ./${name} { inherit inputs; }) overlayFiles
+  local
+  // {
+    inherit additions nvidia proxmox;
+    default = lib.composeManyExtensions ([additions] ++ builtins.attrValues local);
+  }

@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.hardware.opengl;
+  cfg = config.dotfiles.hardware.opengl;
 in {
-  options.mod.hardware.opengl = {
+  options.dotfiles.hardware.opengl = {
     enable = lib.mkEnableOption "Enable the opengl feature";
     # enableXserver = lib.mkOption { type = lib.types.bool; default = true; };
   };

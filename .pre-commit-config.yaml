@@ -6,9 +6,13 @@ repos:
         entry: alejandra
         language: system
         files: \.nix$
-      - id: re-add-fixes
-        name: re-add fixed files
-        entry: git add .
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
         language: system
-        always_run: true
-        pass_filenames: false
+        files: \.sh$
+      - id: deadnix
+        name: deadnix
+        entry: deadnix --fail
+        language: system
+        files: \.nix$

@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.lazygit;
+  cfg = config.dotfiles.programs.lazygit;
 in {
-  options.mod.programs.lazygit = {
+  options.dotfiles.programs.lazygit = {
     enable = lib.mkEnableOption "Enable Emeet lazygit config and it's best values";
   };
 

@@ -1,19 +1,20 @@
 {
-  mkModule,
   lib,
+  config,
   ...
-} @ args:
-mkModule {
-  inherit args;
-  name = "discord";
-  extraOptions = {
+}: let
+  cfg = config.dotfiles.programs.discord;
+in {
+  options.dotfiles.programs.discord = {
+    enable = lib.mkEnableOption "Discord or Vesktop";
     useVesktop = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Use Vesktop instead of official Discord client";
     };
   };
-  configFunc = {...}: cfg: {
+
+  config = lib.mkIf cfg.enable {
     programs.vesktop = lib.mkIf cfg.useVesktop {
       enable = true;
       vencord.settings = {

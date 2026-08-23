@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.gaming;
+  cfg = config.dotfiles.gaming.packages;
 in {
-  options.mod.programs.gaming = {
+  options.dotfiles.gaming.packages = {
     enable = lib.mkEnableOption "Enable gaming";
   };
 
@@ -14,7 +14,7 @@ in {
     home.packages = with pkgs; [
       limo
       (lutris.override {
-        extraPkgs = pkgs: [
+        extraPkgs = _pkgs: [
           jansson
           winetricks
           wineWow64Packages.waylandFull

@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.services.zfs;
+  cfg = config.dotfiles.filesystems.zfs;
 in {
-  options.mod.services.zfs = {
+  options.dotfiles.filesystems.zfs = {
     enable = lib.mkEnableOption "Enable the zfs feature";
     id = lib.mkOption {
       type = lib.types.str;

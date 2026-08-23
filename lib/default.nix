@@ -1,106 +1,55 @@
 {
   inputs,
+  metadata,
   root,
 }: let
   inherit (inputs.nixpkgs) lib;
-
-  systems = [
-    "aarch64-linux"
-    "i686-linux"
-    "x86_64-linux"
-    "aarch64-darwin"
-    "x86_64-darwin"
-  ];
-
-  forAllSystems = f: lib.genAttrs systems f;
-
+  systems = lib.unique (map (host: host.system) (builtins.attrValues metadata));
+  forAllSystems = lib.genAttrs systems;
   modules = import (root + "/modules");
-  overlays = (import (root + "/overlays")) {inherit inputs lib;};
-  customPackagesOverlay = final: prev:
-    (import (root + "/packages")) {
-      pkgs = final;
-      lib = prev.lib;
-    };
-
-  mkModule = import ./mkModule.nix {inherit lib;};
-
-  mkNixosHost = hostname: hostConfig:
+  overlays = import (root + "/overlays") {inherit inputs lib;};
+  overlayRegistry = {
+    inherit (overlays) nvidia proxmox;
+  };
+  mkNixosHost = name: host:
     lib.nixosSystem {
       specialArgs = {
-        inherit inputs mkModule;
-        modules = modules.nixos;
+        inherit inputs;
+        hostConfig = host;
       };
+
       modules =
         [
-          {nixpkgs.hostPlatform = hostConfig.arch;}
-          {
-            nixpkgs.overlays =
-              overlays
-              ++ [
-                customPackagesOverlay
-                inputs.dotstylix.overlays.default
-              ];
-          }
-          (root + "/hosts/${hostname}")
           inputs.home-manager.nixosModules.home-manager
           {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                inherit inputs mkModule;
-                modules = modules.home-manager;
-              };
-              users."${hostname}" = {
-                imports =
-                  [
-                    (root + "/users/${hostname}")
-                    inputs.dotstylix.homeModules.default
-                  ]
-                  ++ builtins.attrValues modules.home-manager;
-              };
-            };
-          }
-        ]
-        ++ builtins.attrValues modules.nixos;
-    };
+            nixpkgs.hostPlatform = host.system;
+            nixpkgs.overlays =
+              [
+                overlays.default
+                inputs.dotstylix.overlays.default
+              ]
+              ++ map (overlay: overlayRegistry.${overlay}) host.overlays;
 
-  mkDarwinHost = hostname: hostConfig:
-    inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = {
-        inherit inputs mkModule;
-        modules = modules.nixos;
-      };
-      modules =
-        [
-          {nixpkgs.hostPlatform = hostConfig.arch;}
-          {
-            nixpkgs.overlays = overlays ++ [customPackagesOverlay];
-            nixpkgs.config.allowUnfree = true;
-          }
-          (root + "/hosts/${hostname}")
-          inputs.home-manager.darwinModules.home-manager
-          {
+            networking.hostName = host.hostName;
+            dotfiles.primaryUser = host.username;
+            dotfiles.nix.privateCache.enable = host.privateCache;
+
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {
-                inherit inputs mkModule;
-                modules = modules.home-manager;
-              };
-              users."${hostname}" = {
-                imports =
-                  [
-                    (root + "/users/${hostname}")
-                    inputs.dotstylix.homeModules.default
-                  ]
-                  ++ builtins.attrValues modules.home-manager;
-              };
+              extraSpecialArgs = {inherit inputs;};
+              sharedModules = modules.home;
+              users.${host.username}.imports = [
+                (root + "/users/${host.username}")
+                inputs.dotstylix.homeModules.default
+              ];
             };
           }
+          (root + "/hosts/${name}")
         ]
-        ++ builtins.attrValues modules.nixos;
+        ++ modules.nixos
+        ++ host.profiles;
     };
 in {
-  inherit systems forAllSystems mkNixosHost mkDarwinHost;
+  inherit forAllSystems mkNixosHost modules overlays systems;
 }

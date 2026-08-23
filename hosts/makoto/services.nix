@@ -8,8 +8,25 @@
     psmisc
   ];
 
+  systemd.services.forgejo-nix-runner = {
+    description = "Forgejo Nix CI MicroVM";
+    wantedBy = ["multi-user.target"];
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+
+    serviceConfig = {
+      Type = "simple";
+      WorkingDirectory = "/data/microvms/forgejo-runner-state";
+      ExecStart = "/data/microvms/forgejo-runner/result/bin/microvm-run";
+      ExecStop = "/data/microvms/forgejo-runner/result/bin/microvm-shutdown";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      TimeoutStopSec = "2min";
+    };
+  };
+
   systemd.services.iscsi-zfs-manager = {
-    description = "Manage iSCSI connection and ZFS pool";
+    description = "Manage iSCSI connection and ext4 volume";
     after = [
       "network-online.target"
       "iscsid.service"
@@ -33,7 +50,6 @@
     path = with pkgs; [
       util-linux
       openiscsi
-      zfs
     ];
     script = ''
       if ${pkgs.openiscsi}/bin/iscsiadm -m session 2>/dev/null | grep -q "$TARGET_IQN"; then
@@ -59,11 +75,9 @@
         done
 
         ${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p $TARGET_IP
-
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.authmethod -v CHAP
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.username -v "$CHAP_USERNAME"
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.password -v "$CHAP_PASSWORD"
-
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --login
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --op update -n node.startup -v automatic || true
 
@@ -71,10 +85,8 @@
         ${pkgs.systemd}/bin/udevadm settle --timeout=30
       fi
 
-      # Ensure mount point exists
       mkdir -p /data
 
-      # Mount the ext4 filesystem if not already mounted
       if ! mountpoint -q /data; then
         echo "Mounting ext4 volume to /data..."
         mount -t ext4 /dev/disk/by-uuid/63d95d39-6c8b-4ed9-982d-735ef5562b9b /data
@@ -96,74 +108,12 @@
       ${pkgs.psmisc}/bin/fuser -km /data 2>/dev/null || true
       sleep 1
 
-      # Unmount ext4 volume
       umount -l /data 2>/dev/null || true
 
       ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --logout 2>/dev/null || true
 
       echo "Shutdown complete"
     '';
-
-    # script = ''
-    #   if ${pkgs.openiscsi}/bin/iscsiadm -m session 2>/dev/null | grep -q "$TARGET_IQN"; then
-    #     echo "Already logged into iSCSI"
-    #   else
-    #     if ! ${pkgs.iputils}/bin/ping -c 1 -W 2 $TARGET_IP >/dev/null 2>&1; then
-    #       echo "Waking server-2..."
-    #       ${pkgs.wol}/bin/wol $TARGET_MAC || true
-    #
-    #       for i in {1..150}; do
-    #         if ${pkgs.iputils}/bin/ping -c 1 -W 2 $TARGET_IP >/dev/null 2>&1; then
-    #           break
-    #         fi
-    #         sleep 2
-    #       done
-    #     fi
-    #
-    #     for i in {1..60}; do
-    #       if ${pkgs.netcat}/bin/nc -z -w 2 $TARGET_IP 3260 >/dev/null 2>&1; then
-    #         break
-    #       fi
-    #       sleep 2
-    #     done
-    #
-    #     ${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p $TARGET_IP
-    #     ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --login
-    #     ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --op update -n node.startup -v automatic || true
-    #
-    #     echo "Waiting for udev to settle..."
-    #     ${pkgs.systemd}/bin/udevadm settle --timeout=30
-    #   fi
-    #
-    #   if ! ${config.boot.zfs.package}/bin/zpool list -H -o name 2>/dev/null | grep -q "^$POOL_NAME$"; then
-    #     echo "Importing ZFS pool..."
-    #     ${config.boot.zfs.package}/bin/zpool import $POOL_NAME
-    #   else
-    #     echo "Pool already imported"
-    #   fi
-    #
-    #   ${config.boot.zfs.package}/bin/zfs mount -a || true
-    #   echo "Startup complete"
-    # '';
-    #
-    # preStop = ''
-    #   timeout 30 ${pkgs.systemd}/bin/systemctl stop docker.service docker.socket 2>/dev/null || {
-    #     echo "Docker didn't stop cleanly, killing..."
-    #     ${pkgs.systemd}/bin/systemctl kill docker.service
-    #     ${pkgs.systemd}/bin/systemctl kill docker.socket
-    #     sleep 2
-    #   }
-    #
-    #   ${pkgs.psmisc}/bin/fuser -km /data 2>/dev/null || true
-    #   sleep 1
-    #
-    #   ${config.boot.zfs.package}/bin/zfs unmount -a 2>/dev/null || true
-    #   ${config.boot.zfs.package}/bin/zpool export -f $POOL_NAME 2>/dev/null || true
-    #
-    #   ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --logout 2>/dev/null || true
-    #
-    #   echo "Shutdown complete"
-    # '';
   };
 
   systemd.services.iscsi-watchdog = {

@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.dconf;
+  cfg = config.dotfiles.programs.dconf;
 in {
-  options.mod.programs.dconf = {
+  options.dotfiles.programs.dconf = {
     enable = lib.mkEnableOption "Enable dconf config";
     dark-scheme = lib.mkEnableOption "Enable dark gnome scheme";
   };

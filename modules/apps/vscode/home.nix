@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.vscode;
+  cfg = config.dotfiles.programs.vscode;
 in {
-  options.mod.programs.vscode = {
+  options.dotfiles.programs.vscode = {
     enable = lib.mkEnableOption "Enable vscode config and it's best values";
   };
 

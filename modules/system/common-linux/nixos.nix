@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{...}:
 # NOTE: You probably don't want to mess with this
 # Every setting here can be overwritten in your host/user config
 # using foo = lib.mkForce val;
@@ -53,7 +47,6 @@
       XDG_CONFIG_HOME = "\${HOME}/.config";
       XDG_CACHE_HOME = "\${HOME}/.cache";
       XDG_DATA_HOME = "\${HOME}/.local/share";
-      NIXPKGS_ALLOW_INSECURE = "1";
       NIXPKGS_ALLOW_UNFREE = "1";
     };
   };

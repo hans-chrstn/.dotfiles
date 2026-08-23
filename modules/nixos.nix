@@ -1,0 +1,28 @@
+[
+  ./desktop/greetd/nixos.nix
+  ./desktop/hyprland/nixos.nix
+  ./filesystem/btrfs/nixos.nix
+  ./filesystem/netfs/nixos.nix
+  ./filesystem/zfs/nixos.nix
+  ./gaming/ntsync/nixos.nix
+  ./gaming/steam/nixos.nix
+  ./gaming/sunshine/nixos.nix
+  ./hardware/amd/nixos.nix
+  ./hardware/audio/nixos.nix
+  ./hardware/bluetooth/nixos.nix
+  ./hardware/intel/nixos.nix
+  ./hardware/laptop/nixos.nix
+  ./hardware/nvidia/nixos.nix
+  ./hardware/opengl/nixos.nix
+  ./hardware/ups/nixos.nix
+  ./hardware/via/nixos.nix
+  ./system/clamav/nixos.nix
+  ./system/common-linux/nixos.nix
+  ./system/common-universal/nixos.nix
+  ./system/dbus/nixos.nix
+  ./system/location/nixos.nix
+  ./system/nix-ld/nixos.nix
+  ./system/secureboot/nixos.nix
+  ./system/ssh/nixos.nix
+  ./system/virtualize/nixos.nix
+]

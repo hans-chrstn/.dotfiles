@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.camera;
+  cfg = config.dotfiles.hardware.camera;
 in {
-  options.mod.programs.camera = {
+  options.dotfiles.hardware.camera = {
     enable = lib.mkEnableOption "Enable Emeet camera config and it's best values";
   };
 

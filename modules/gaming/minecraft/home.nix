@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.minecraft;
+  cfg = config.dotfiles.gaming.minecraft;
 in {
-  options.mod.programs.minecraft = {
+  options.dotfiles.gaming.minecraft = {
     enable = lib.mkEnableOption "Enable minecraft config and it's best values";
   };
 

@@ -1,0 +1,55 @@
+name: Dotfiles checks
+
+on:
+  push:
+    branches:
+      - feature/overhaul
+  pull_request:
+    branches:
+      - feature/overhaul
+  workflow_dispatch:
+
+concurrency:
+  group: dotfiles-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flake:
+    name: Nix flake
+    runs-on: nix-microvm
+    timeout-minutes: 180
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify Nix
+        run: |
+          sandbox="$(nix config show sandbox)"
+          max_jobs="$(nix config show max-jobs)"
+          printf 'sandbox=%s\n' "$sandbox"
+          printf 'max-jobs=%s\n' "$max_jobs"
+          test "$sandbox" = true
+          test "$max_jobs" = 4
+
+      - name: Authenticate to Attic
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: nix develop --command attic login forgejo-ci https://cache.hestallo.com "$ATTIC_TOKEN"
+
+      - name: Check formatting and flake
+        run: |
+          nix develop --command sh -eu -c '
+            attic watch-store forgejo-ci:homelab &
+            watcher_pid=$!
+            trap "kill $watcher_pid 2>/dev/null || true" EXIT INT TERM
+
+            nix fmt -- --check .
+            nix flake check --no-update-lock-file --print-build-logs
+
+            nix build --no-link --print-build-logs \
+              .#nixosConfigurations.jin.config.system.build.toplevel \
+              .#nixosConfigurations.makoto.config.system.build.toplevel \
+              .#nixosConfigurations.rei.config.system.build.toplevel \
+              .#nixosConfigurations.yu.config.system.build.toplevel
+          '

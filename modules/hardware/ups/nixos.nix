@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.ups;
+  cfg = config.dotfiles.hardware.ups;
 in {
-  options.mod.ups = {
+  options.dotfiles.hardware.ups = {
     enable = lib.mkEnableOption "Enable the ups feature";
 
     mode = lib.mkOption {

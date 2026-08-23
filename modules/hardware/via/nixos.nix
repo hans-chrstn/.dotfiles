@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.via;
+  cfg = config.dotfiles.hardware.via;
 in {
-  options.mod.programs.via = {
+  options.dotfiles.hardware.via = {
     enable = lib.mkEnableOption "Enable the VIA";
   };
 

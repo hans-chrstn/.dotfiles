@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.programs.obs;
+  cfg = config.dotfiles.programs.obs;
 in {
-  options.mod.programs.obs = {
+  options.dotfiles.programs.obs = {
     enable = lib.mkEnableOption "Enable the obs feature";
   };
 

@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.dbus;
+  cfg = config.dotfiles.system.dbus;
 in {
-  options.mod.programs.dbus = {
+  options.dotfiles.system.dbus = {
     enable = lib.mkEnableOption "Enable the dbus";
   };
 

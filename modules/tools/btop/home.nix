@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.btop;
+  cfg = config.dotfiles.programs.btop;
 in {
-  options.mod.programs.btop = {
+  options.dotfiles.programs.btop = {
     enable = lib.mkEnableOption "Enable btop";
     enableCustomSettings = lib.mkEnableOption "Enable btop custom settings";
   };

@@ -5,18 +5,15 @@
   inputs,
   ...
 }: let
-  cfg = config.mod.programs.widgets;
+  cfg = config.dotfiles.desktop.widgets;
 in {
-  options.mod.programs.widgets = {
-    enable = lib.mkOption {
+  options.dotfiles.desktop.widgets = {
+    enable = lib.mkEnableOption "widget dependencies";
+    quickshell.enable = lib.mkEnableOption "Quickshell widgets";
+    quickshell.systemd.enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
-      description = "Enable all widget dependencies installed";
-    };
-    enableQuickshell = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Quickshell";
+      default = true;
+      description = "Enable the Quickshell systemd service";
     };
   };
 
@@ -26,12 +23,12 @@ in {
       home.packages = with pkgs; [wl-clipboard-rs libnotify networkmanager brightnessctl upower libcava wf-recorder awww kdePackages.qtmultimedia kdePackages.qtutilities gcalcli pulseaudio];
     })
 
-    (lib.mkIf cfg.enableQuickshell {
-      mod.programs.widgets.enable = true;
+    (lib.mkIf cfg.quickshell.enable {
+      dotfiles.desktop.widgets.enable = true;
       programs.quickshell = {
         enable = true;
         package = inputs.dotquickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        systemd.enable = true;
+        systemd.enable = cfg.quickshell.systemd.enable;
       };
     })
   ];

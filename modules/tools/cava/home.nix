@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.cava;
+  cfg = config.dotfiles.programs.cava;
 in {
-  options.mod.programs.cava = {
+  options.dotfiles.programs.cava = {
     enable = lib.mkEnableOption "Enable the cava feature";
   };
 

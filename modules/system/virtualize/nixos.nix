@@ -5,13 +5,13 @@
   pkgs,
   ...
 }: let
-  cfg = config.mod.virtualize;
+  cfg = config.dotfiles.virtualization;
 in {
   imports = [
     inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
 
-  options.mod.virtualize = {
+  options.dotfiles.virtualization = {
     qemu.enable = lib.mkEnableOption "Enable virtualization modules and packages";
     incus.enable = lib.mkEnableOption "Enable incus modules and packages";
     waydroid.enable = lib.mkEnableOption "Enable waydroid modules and packages";
@@ -23,10 +23,10 @@ in {
     };
     docker = {
       enable = lib.mkEnableOption "Enable docker";
-      extraOptions = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-        description = "Extra options to add to docker service";
+      dataRoot = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "Docker data root";
       };
       enableNvidiaSupport = lib.mkOption {
         type = lib.types.bool;
@@ -99,24 +99,21 @@ in {
       virtualisation.docker = {
         enable = true;
         storageDriver = "overlay2";
-        extraOptions = cfg.docker.extraOptions;
-        daemon.settings = {
-          "default-address-pools" = [
-            {
-              "base" = "10.200.0.0/16";
-              "size" = 24;
-            }
-          ];
-          features = {
-            cdi = true;
-          };
-          runtimes = {
-            nvidia = {
+        daemon.settings =
+          {
+            "default-address-pools" = [
+              {
+                "base" = "10.200.0.0/16";
+                "size" = 24;
+              }
+            ];
+            features.cdi = true;
+            runtimes.nvidia = {
               path = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
               runtimeArgs = [];
             };
-          };
-        };
+          }
+          // lib.optionalAttrs (cfg.docker.dataRoot != null) {"data-root" = cfg.docker.dataRoot;};
       };
       environment.systemPackages = with pkgs; [docker-compose];
 

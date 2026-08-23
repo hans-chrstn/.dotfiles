@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.programs.neofetch;
+  cfg = config.dotfiles.programs.neofetch;
 in {
-  options.mod.programs.neofetch = {
+  options.dotfiles.programs.neofetch = {
     enable = lib.mkEnableOption "Enable the neofetch feature";
     # enableXserver = lib.mkOption { type = lib.types.bool; default = true; };
   };

@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.services.clamav;
+  cfg = config.dotfiles.services.clamav;
 in {
-  options.mod.services.clamav = {
+  options.dotfiles.services.clamav = {
     enable = lib.mkEnableOption "Enable the clamav feature";
     directories = lib.mkOption {
       type = lib.types.listOf lib.types.str;

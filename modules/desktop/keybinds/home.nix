@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.mod.desktop.keybinds = {
+  options.dotfiles.desktop.keybinds = {
     enable = lib.mkEnableOption "Enable generic keybinds API";
     modifier = lib.mkOption {
       type = lib.types.str;
@@ -37,9 +37,9 @@
     };
   };
 
-  config = lib.mkIf config.mod.desktop.keybinds.enable {
+  config = lib.mkIf config.dotfiles.desktop.keybinds.enable {
     # Default actions populated globally so any WM can translate them
-    mod.desktop.keybinds.actions = {
+    dotfiles.desktop.keybinds.actions = {
       "Mod+Q" = {
         action = "spawn";
         arg = "terminal";
@@ -93,6 +93,6 @@
       "Mod+T" = {action = "toggle_tabbed";};
     };
 
-    mod.desktop.keybinds.workspaces.enable = true;
+    dotfiles.desktop.keybinds.workspaces.enable = true;
   };
 }

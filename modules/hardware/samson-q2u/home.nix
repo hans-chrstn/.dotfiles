@@ -3,9 +3,9 @@
   config,
   ...
 }: let
-  cfg = config.mod.samson-q2u;
+  cfg = config.dotfiles.hardware.samson-q2u;
 in {
-  options.mod.samson-q2u = {
+  options.dotfiles.hardware.samson-q2u = {
     enable = lib.mkEnableOption "Enable the samson-q2u feature";
   };
 

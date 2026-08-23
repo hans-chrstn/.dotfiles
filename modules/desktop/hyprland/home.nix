@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  cfg = config.mod.wm.hyprland;
+  cfg = config.dotfiles.desktop.hyprland;
 
   colors =
     config.lib.stylix.colors or {
@@ -27,42 +27,36 @@
   bind = keys: disp: {_args = [keys (inline disp)];};
   bindOpts = keys: disp: opts: {_args = [keys (inline disp) opts];};
   exec = cmd: ''hl.dsp.exec_cmd("${cmd}")'';
-  multi = disps: "function() " + lib.concatStringsSep " " (map (d: "hl.dispatch(${d});") disps) + " end";
-  call = d: "hl.dispatch(${d})";
-  overview = action: ''hl.plugin.scrolloverview.overview("${action}")'';
-  soNav = d: ''hl.plugin.scrolloverview.navigate("${d}")'';
-  soWindow = action: ''hl.plugin.scrolloverview.window("${action}")'';
-  seq = stmts: "function() " + lib.concatStringsSep " " (map (s: "${s};") stmts) + " end";
 
-  modKey = lib.strings.toUpper config.mod.desktop.keybinds.modifier;
+  modKey = lib.strings.toUpper config.dotfiles.desktop.keybinds.modifier;
 in {
-  options.mod.wm.hyprland = {
+  options.dotfiles.desktop.hyprland = {
     enable = lib.mkEnableOption "Enable the hyprland feature";
     unstable = lib.mkEnableOption "Use the unstable flake input for Hyprland";
   };
 
   config = lib.mkIf cfg.enable {
-    mod.desktop.wayland.enable = true;
-    mod.desktop.keybinds.enable = true;
+    dotfiles.desktop.wayland.enable = true;
+    dotfiles.desktop.keybinds.enable = true;
 
     stylix.targets.hyprland.enable = false;
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = lib.mkIf cfg.unstable inputs.hyprland.packages.${pkgs.system}.hyprland;
+      package = lib.mkIf cfg.unstable inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       systemd.enable = true;
       configType = "lua";
 
       extraLuaFiles = {
         "hyprsplit/init" = {
           autoLoad = false;
-          content = builtins.readFile "${inputs.hyprsplit.packages.${pkgs.system}.hyprsplitlua}/share/hyprsplit/init.lua";
+          content = builtins.readFile "${inputs.hyprsplit.packages.${pkgs.stdenv.hostPlatform.system}.hyprsplitlua}/share/hyprsplit/init.lua";
         };
         "hyprload" = {
           autoLoad = true;
           content = ''
             local hs = require("hyprsplit")
-            hs.config({ num_workspaces = ${toString config.mod.desktop.keybinds.workspaces.count} })
+            hs.config({ num_workspaces = ${toString config.dotfiles.desktop.keybinds.workspaces.count} })
             hs.monitor_priority({"HDMI-A-1", "DP-1", "DP-3"})
 
             if hl.plugin.hyprexpo then
@@ -82,7 +76,7 @@ in {
       };
 
       plugins = lib.mkIf (!cfg.unstable) (let
-        customPkgs = pkgs.extend (final: prev: {
+        customPkgs = pkgs.extend (_final: _prev: {
           hyprland = config.wayland.windowManager.hyprland.package;
         });
       in [
@@ -91,7 +85,7 @@ in {
 
       settings = {
         monitor =
-          lib.mapAttrsToList (name: m: {
+          lib.mapAttrsToList (_name: m: {
             output = m.name;
             mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
             position = "${toString m.position.x}x${toString m.position.y}";
@@ -237,7 +231,7 @@ in {
         };
 
         bind = let
-          kb = config.mod.desktop.keybinds;
+          kb = config.dotfiles.desktop.keybinds;
 
           mapAction = act: arg:
             if act == "spawn"
