@@ -3,13 +3,52 @@
   lib,
   config,
   modules,
+  inputs,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
     ./sops.nix
     ./services.nix
+    # inputs.wolf.nixosModules.default
   ];
+
+  # boot.kernelModules = ["uinput" "uhid"];
+
+  # services.udev.extraRules = ''
+  #   KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess", MODE="0660", GROUP="input"
+  #   KERNEL=="uhid", SUBSYSTEM=="misc", OPTIONS+="static_node=uhid", TAG+="uaccess", MODE="0660", GROUP="input"
+  # '';
+
+  # services.wolf = {
+  #   enable = true;
+  #   uuid = "b135b335-6200-424b-9762-5ced2c25162f";
+  #   openFirewall = true;
+  #   gpu.vendor = "nvidia";
+  #   configDir = "/data/docker/data/GameServers/config/wolf";
+  #   dataDir = "/data/docker/data/GameServers/data/wolf";
+  #
+  #   appExtraEnv.steam = [
+  #     (
+  #       "DXVK_CONFIG="
+  #       + "dxgi.syncInterval = 0;"
+  #       + "dxgi.maxFrameLatency = 1;"
+  #       + "dxgi.maxFrameRate = 120"
+  #     )
+  #   ];
+  #
+  #   profiles = [
+  #     {
+  #       name = "makoto";
+  #       apps = [
+  #         {
+  #           name = "steam";
+  #           prefetch = true;
+  #         }
+  #       ];
+  #     }
+  #   ];
+  # };
 
   mod = {
     virtualize = {
@@ -49,10 +88,10 @@
       nix-ld.enable = true;
     };
     services = {
-      zfs = {
-        enable = true;
-        id = "8565dd80";
-      };
+      # zfs = {
+      #   enable = true;
+      #   id = "8565dd80";
+      # };
       greetd.enable = true;
       ssh = {
         enable = true;
@@ -103,8 +142,8 @@
       allowedTCPPortRanges = [];
       allowedUDPPortRanges = [
         {
-          from = 25550;
-          to = 25560;
+          from = 16261;
+          to = 16271;
         }
       ];
     };

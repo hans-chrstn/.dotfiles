@@ -1197,6 +1197,7 @@
           "dotstylix",
           "stylix"
         ],
+        "wolf": "wolf",
         "zen-browser": "zen-browser"
       }
     },
@@ -1450,6 +1451,52 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wolf": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "wolf-nvidia-vol": "wolf-nvidia-vol"
+      },
+      "locked": {
+        "dir": "wolf",
+        "lastModified": 1786951512,
+        "narHash": "sha256-Ci+3xsSuoCBrfj43T/on7i3SLYyx9I1ayDzCHL0FDYI=",
+        "owner": "altano",
+        "repo": "flakes",
+        "rev": "e67b96bba8809cbaf0155532ad9ca122d1dbede6",
+        "type": "github"
+      },
+      "original": {
+        "dir": "wolf",
+        "owner": "altano",
+        "repo": "flakes",
+        "type": "github"
+      }
+    },
+    "wolf-nvidia-vol": {
+      "inputs": {
+        "nixpkgs": [
+          "wolf",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "wolf-nvidia-vol",
+        "lastModified": 1774317538,
+        "narHash": "sha256-gQPI2GE9CtXpRv6YMW9u4QUOZGobv647js+IPfFuR28=",
+        "owner": "altano",
+        "repo": "flakes",
+        "rev": "1574ba0885f6e2af25df63d9140dc10384b40d2d",
+        "type": "github"
+      },
+      "original": {
+        "dir": "wolf-nvidia-vol",
+        "owner": "altano",
+        "repo": "flakes",
         "type": "github"
       }
     },

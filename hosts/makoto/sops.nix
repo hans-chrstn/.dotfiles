@@ -29,6 +29,8 @@
       "users/rei/bcsi/target_ip" = {};
       "users/rei/bcsi/wwn" = {};
       "users/rei/bcsi/chap/node" = {};
+      "users/rei/bcsi/chap/user" = {};
+      "users/rei/bcsi/chap/password" = {};
     };
     templates = {
       "wol-interface" = {
@@ -43,6 +45,8 @@
           INITIATOR_IQN=${config.sops.placeholder."users/rei/bcsi/chap/node"}
           POOL_NAME=${config.sops.placeholder."users/rei/bcsi/pool_name"}
           TARGET_MAC=${config.sops.placeholder."networks/rei/bridge/mad"}
+          CHAP_USERNAME=${config.sops.placeholder."users/rei/bcsi/chap/user"}
+          CHAP_PASSWORD=${config.sops.placeholder."users/rei/bcsi/chap/password"}
         '';
       };
       "10-lan.network" = {

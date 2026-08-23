@@ -7,20 +7,20 @@
 }: let
   cfg = config.mod.virtualize;
 in {
-  # imports = [
-  #   inputs.proxmox-nixos.nixosModules.proxmox-ve
-  # ];
+  imports = [
+    inputs.proxmox-nixos.nixosModules.proxmox-ve
+  ];
 
   options.mod.virtualize = {
     qemu.enable = lib.mkEnableOption "Enable virtualization modules and packages";
     incus.enable = lib.mkEnableOption "Enable incus modules and packages";
     waydroid.enable = lib.mkEnableOption "Enable waydroid modules and packages";
-    # proxmox.enable = lib.mkEnableOption "Enable Proxmox-Nixos modules";
-    # proxmox.ip = lib.mkOption {
-    #   type = lib.types.str;
-    #   default = "192.168.0.1";
-    #   description = "IP address to assign the the Proxmox VE service";
-    # };
+    proxmox.enable = lib.mkEnableOption "Enable Proxmox-Nixos modules";
+    proxmox.ip = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.1";
+      description = "IP address to assign the the Proxmox VE service";
+    };
     docker = {
       enable = lib.mkEnableOption "Enable docker";
       extraOptions = lib.mkOption {
@@ -88,12 +88,12 @@ in {
       };
     })
 
-    # (lib.mkIf cfg.proxmox.enable {
-    #   services.proxmox-ve = {
-    #     enable = true;
-    #     ipAddress = cfg.proxmox.ip;
-    #   };
-    # })
+    (lib.mkIf cfg.proxmox.enable {
+      services.proxmox-ve = {
+        enable = true;
+        ipAddress = cfg.proxmox.ip;
+      };
+    })
 
     (lib.mkIf cfg.docker.enable {
       virtualisation.docker = {
@@ -107,6 +107,15 @@ in {
               "size" = 24;
             }
           ];
+          features = {
+            cdi = true;
+          };
+          runtimes = {
+            nvidia = {
+              path = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
+              runtimeArgs = [];
+            };
+          };
         };
       };
       environment.systemPackages = with pkgs; [docker-compose];

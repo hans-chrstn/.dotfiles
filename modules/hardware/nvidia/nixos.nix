@@ -28,16 +28,13 @@ in {
         open = true;
         nvidiaSettings = true;
         package = let
-          # Base driver package: stable or beta
-          video = config.boot.kernelPackages.nvidiaPackages.stable;
+          video = config.boot.kernelPackages.nvidiaPackages.latest;
 
-          # Conditionally apply fbc patch if available
           pkgAfterFbc =
             if builtins.hasAttr video.version pkgs.nvidia-patch-list.fbc
             then pkgs.nvidia-patch.patch-fbc video
             else video;
 
-          # Conditionally apply nvenc patch if available
           finalPkg =
             if builtins.hasAttr video.version pkgs.nvidia-patch-list.nvenc
             then pkgs.nvidia-patch.patch-nvenc pkgAfterFbc
@@ -49,7 +46,11 @@ in {
     hardware.graphics.extraPackages = [
       pkgs.nvidia-vaapi-driver
       pkgs.libvdpau-va-gl
+      pkgs.cudaPackages.cuda_nvrtc.lib
+      pkgs.libnvidia-container
     ];
+
+    environment.systemPackages = with pkgs; [libnvidia-container];
 
     services.xserver.videoDrivers = ["nvidia"];
 

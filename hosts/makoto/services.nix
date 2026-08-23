@@ -59,6 +59,11 @@
         done
 
         ${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p $TARGET_IP
+
+        ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.authmethod -v CHAP
+        ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.username -v "$CHAP_USERNAME"
+        ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN -p $TARGET_IP --op update -n node.session.auth.password -v "$CHAP_PASSWORD"
+
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --login
         ${pkgs.openiscsi}/bin/iscsiadm -m node -T $TARGET_IQN --op update -n node.startup -v automatic || true
 
