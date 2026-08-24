@@ -99,7 +99,7 @@ jobs:
           context="$RUNNER_TEMP/ai-context.txt"
 
           tail --lines 300 "$log" \
-            | sed --extended-regexp \
+            | sed -E \
                 -e 's/(token|password|secret|authorization)[=: ][^[:space:]]+/\1=[REDACTED]/Ig' \
                 -e 's#https://[^/@[:space:]]+@#https://[REDACTED]@#g' \
             | tail --bytes 20000 > "$context"
