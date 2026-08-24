@@ -5,11 +5,13 @@ on:
     inputs:
       ref:
         description: Commit or branch to diagnose
+        type: string
         required: true
         default: feature/overhaul
       context:
-        description: Optional sanitized failure context
-        required: false
+        description: Sanitized Nix warning or failure context (never paste secrets)
+        type: string
+        required: true
 
 jobs:
   suggest:
@@ -37,23 +39,6 @@ jobs:
           pipx install aider-chat
           ln --symbolic "$HOME/.local/bin/aider" /usr/local/bin/aider
 
-      - name: Install Nix
-        uses: https://github.com/cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            sandbox = true
-            max-jobs = 1
-
-      - name: Verify Nix
-        run: |
-          sandbox="$(nix config show sandbox)"
-          max_jobs="$(nix config show max-jobs)"
-          printf 'sandbox=%s\n' "$sandbox"
-          printf 'max-jobs=%s\n' "$max_jobs"
-          test "$sandbox" = true
-          test "$max_jobs" = 1
-
       - name: Confirm local model is available
         run: |
           curl --fail --silent --show-error \
@@ -65,35 +50,27 @@ jobs:
         env:
           PROVIDED_CONTEXT: ${{ inputs.context }}
         run: |
-          set +e
-          nix flake metadata --json > /tmp/flake-metadata.json 2>/tmp/metadata-errors.log
-          nix flake check --no-update-lock-file --print-build-logs \
-            > /tmp/check.log 2>&1
-          check_status=$?
-          set -e
-
-          if [ "$check_status" -eq 0 ] && [ -z "$PROVIDED_CONTEXT" ]; then
-            echo "The selected revision currently passes flake checks; there is no failure to repair."
+          if [ -z "$PROVIDED_CONTEXT" ]; then
+            echo "Sanitized failure context is required."
             exit 1
           fi
 
           {
-            echo '# Repair request'
+            echo '# Nix configuration repair request'
             echo
-            echo 'Work only from the checked-out repository, its locked flake inputs, and the diagnostics below.'
-            echo 'Do not rely on remembered NixOS package or option names when the current flake disagrees.'
-            echo 'Make the smallest source change that addresses the failure.'
+            echo 'Work only from the checked-out repository, its locked flake inputs, and the supplied diagnostics.'
+            echo 'Treat remembered NixOS package and option names as untrusted.'
+            echo 'If the repository and diagnostics do not establish a safe correction, make no changes.'
+            echo 'Make the smallest source change that addresses the supplied warning or failure.'
             echo 'Do not edit flake.lock, secrets, encrypted files, or Forgejo workflows.'
             echo 'Do not deploy, switch, rebase, merge, or modify external systems.'
+            echo 'A separate isolated MicroVM CI job will validate any pull request.'
             echo
             echo '## User-provided context'
             printf '%s\n' "$PROVIDED_CONTEXT"
             echo
-            echo '## Current flake metadata'
-            jq '{locks: .locks, path: .path, resolvedUrl: .resolvedUrl}' /tmp/flake-metadata.json 2>/dev/null || true
-            echo
-            echo '## Current check output'
-            tail -n 500 /tmp/check.log
+            echo '## Locked flake inputs'
+            jq '{root, nodes: (.nodes | with_entries(.value |= {locked, original, inputs}))}' flake.lock
           } > /tmp/repair-prompt.md
 
       - name: Generate candidate patch
@@ -119,9 +96,7 @@ jobs:
             --chat-history-file /tmp/aider-history.md \
             --input-history-file /tmp/aider-input-history \
             --read /tmp/repair-prompt.md \
-            --test-cmd 'nix flake check --no-update-lock-file --print-build-logs' \
-            --auto-test \
-            --message 'Produce a minimal candidate fix for the supplied failure. Keep the existing architecture and explain uncertain choices in code comments only when necessary.'
+            --message 'Produce a minimal candidate patch for the supplied Nix warning or failure. Do not claim it is validated; Forgejo MicroVM CI will validate the pull request.'
 
       - name: Enforce edit boundaries
         run: |
@@ -133,17 +108,32 @@ jobs:
           fi
 
           if printf '%s\n' "$changed_files" | grep --extended-regexp --quiet \
-            '(^|/)(secrets|\.forgejo/workflows)(/|$)|(^|/)\.sops\.yaml$|\.age$|^flake\.lock$'; then
+            '(^|/)(secrets|credentials|\.forgejo/workflows)(/|$)|(^|/)(\.env|\.sops\.yaml|id_rsa)$|\.(age|key|pem)$|^flake\.lock$'; then
             echo "The agent attempted to modify a protected path:"
             printf '%s\n' "$changed_files"
             exit 1
           fi
 
-      - name: Format and preflight candidate
+          changed_count="$(printf '%s\n' "$changed_files" | wc --lines)"
+          if [ "$changed_count" -gt 10 ]; then
+            echo "The candidate exceeds the 10-file safety limit."
+            exit 1
+          fi
+
+          if git diff --numstat | grep --quiet '^-[[:space:]]'; then
+            echo "Binary changes are not permitted."
+            exit 1
+          fi
+
+          changed_lines="$(git diff --numstat | awk '{ added += $1; removed += $2 } END { print added + removed }')"
+          if [ "$changed_lines" -gt 1000 ]; then
+            echo "The candidate exceeds the 1000-line safety limit."
+            exit 1
+          fi
+
+      - name: Preflight candidate
         run: |
-          nix fmt -- .
           git diff --check
-          nix flake check --no-update-lock-file --print-build-logs
 
       - name: Create draft fix pull request
         env:
@@ -169,7 +159,8 @@ jobs:
             '' \
             "- Source revision: ${{ inputs.ref }}" \
             "- Fixer workflow run: ${FORGEJO_RUN_ID}" \
-            '- Grounding: repository flake.lock, evaluated flake diagnostics, and current Nix checks' \
+            '- Grounding: repository flake.lock and sanitized CI diagnostics' \
+            '- Local validation by fixer: whitespace and edit-boundary checks only' \
             '- Deployment performed: no' \
             '- Merge performed: no' \
             '' \

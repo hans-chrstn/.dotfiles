@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - feature/overhaul
+  schedule:
+    - cron: "0 2 * * *"
+      timezone: America/New_York
   workflow_dispatch:
 
 concurrency:
@@ -33,12 +36,17 @@ jobs:
           test "$max_jobs" = 4
 
       - name: Authenticate to Attic
+        id: attic_auth
+        continue-on-error: true
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: nix develop --command attic login forgejo-ci https://cache.hestallo.com "$ATTIC_TOKEN"
 
-      - name: Check formatting and flake
+      - name: Validate Nix configuration
+        id: nix_validation
         run: |
+          log="$RUNNER_TEMP/nix-validation.log"
+          set +e
           nix develop --command sh -eu -c '
             nix fmt -- --check .
             nix flake check --no-update-lock-file --print-build-logs
@@ -46,14 +54,72 @@ jobs:
             for system in jin makoto rei yu; do
               echo "Building $system"
               result="result-$system"
-
               nix build --print-build-logs --out-link "$result" \
                 ".#nixosConfigurations.$system.config.system.build.toplevel"
+            done
+          ' 2>&1 | tee "$log"
+          status="${PIPESTATUS[0]}"
+          set -e
 
+          if [ "$status" -eq 0 ]; then
+            echo 'failed=false' >> "$FORGEJO_OUTPUT"
+          else
+            echo 'failed=true' >> "$FORGEJO_OUTPUT"
+          fi
+
+          if grep --extended-regexp --quiet \
+            '(^|[[:space:]])(evaluation warning|warning):' "$log"; then
+            echo 'warnings=true' >> "$FORGEJO_OUTPUT"
+          else
+            echo 'warnings=false' >> "$FORGEJO_OUTPUT"
+          fi
+
+      - name: Push verified closures to Attic
+        if: ${{ steps.nix_validation.outputs.failed == 'false' && steps.attic_auth.outcome == 'success' }}
+        continue-on-error: true
+        run: |
+          nix develop --command sh -eu -c '
+            for system in jin makoto rei yu; do
+              result="result-$system"
               echo "Pushing $system closure to Attic"
-              if ! attic push --jobs 1 forgejo-ci:homelab "$result"; then
-                echo "::warning::Attic push failed for $system; build verification still succeeded"
-              fi
-              rm -f "$result"
+              attic push --jobs 1 forgejo-ci:homelab "$result" || \
+                echo "::warning::Attic push failed for $system"
             done
           '
+
+      - name: Request a draft AI suggestion
+        if: ${{ (steps.nix_validation.outputs.failed == 'true' || steps.nix_validation.outputs.warnings == 'true') && github.event_name != 'pull_request' && !startsWith(github.ref_name, 'ai/fix-run-') }}
+        env:
+          AI_FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
+          FORGEJO_API_URL: https://git.hestallo.com/api/v1
+          FORGEJO_REPOSITORY: ${{ github.repository }}
+          FAILED_REF: ${{ github.sha }}
+        run: |
+          log="$RUNNER_TEMP/nix-validation.log"
+          context="$RUNNER_TEMP/ai-context.txt"
+
+          tail --lines 300 "$log" \
+            | sed --extended-regexp \
+                -e 's/(token|password|secret|authorization)[=: ][^[:space:]]+/\1=[REDACTED]/Ig' \
+                -e 's#https://[^/@[:space:]]+@#https://[REDACTED]@#g' \
+            | tail --bytes 20000 > "$context"
+
+          payload="$(jq --null-input \
+            --arg ref "$FAILED_REF" \
+            --rawfile context "$context" \
+            '{ref: $ref, inputs: {ref: $ref, context: $context}}')"
+
+          curl --fail --silent --show-error \
+            --request POST \
+            --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+            --header 'Content-Type: application/json' \
+            --data "$payload" \
+            "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/workflows/suggest-fix.yml/dispatches"
+
+      - name: Mark Nix validation failure
+        if: ${{ steps.nix_validation.outputs.failed == 'true' }}
+        run: exit 1
+
+      - name: Remove build result links
+        if: ${{ always() }}
+        run: rm -f result-jin result-makoto result-rei result-yu
