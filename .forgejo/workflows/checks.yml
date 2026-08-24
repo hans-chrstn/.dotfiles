@@ -40,16 +40,18 @@ jobs:
       - name: Check formatting and flake
         run: |
           nix develop --command sh -eu -c '
-            attic watch-store forgejo-ci:homelab &
-            watcher_pid=$!
-            trap "kill $watcher_pid 2>/dev/null || true" EXIT INT TERM
-
             nix fmt -- --check .
             nix flake check --no-update-lock-file --print-build-logs
 
-            nix build --no-link --print-build-logs \
-              .#nixosConfigurations.jin.config.system.build.toplevel \
-              .#nixosConfigurations.makoto.config.system.build.toplevel \
-              .#nixosConfigurations.rei.config.system.build.toplevel \
-              .#nixosConfigurations.yu.config.system.build.toplevel
+            for system in jin makoto rei yu; do
+              echo "Building $system"
+              result="result-$system"
+
+              nix build --print-build-logs --out-link "$result" \
+                ".#nixosConfigurations.$system.config.system.build.toplevel"
+
+              echo "Pushing $system closure to Attic"
+              attic push forgejo-ci:homelab "$result"
+              rm -f "$result"
+            done
           '
