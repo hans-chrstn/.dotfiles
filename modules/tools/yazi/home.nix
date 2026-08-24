@@ -64,8 +64,8 @@ in {
         "compress" = pkgs.fetchFromGitHub {
           owner = "KKV9";
           repo = "compress.yazi";
-          rev = "main";
-          sha256 = "15qivl0abilp1n3193mk5h69142jpy4yhn2s3xf7y27940n3znya";
+          rev = "80e5268ec74c7ac17d4d739e13a9958cba4c70d3";
+          sha256 = "13b00agwdqys902wzygcchk1h3f448ia7vda5vf03dyk7zq41izm";
         };
         "whoosh" = pkgs.fetchFromGitHub {
           owner = "WhoSowSee";
