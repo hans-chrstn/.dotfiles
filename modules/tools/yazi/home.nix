@@ -100,8 +100,8 @@ in {
         "augment-command" = pkgs.fetchFromGitHub {
           owner = "hankertrix";
           repo = "augment-command.yazi";
-          rev = "main";
-          sha256 = "0a58afbnb7bwy5km5nydv73zxw52jlza8g71x33d6n9yd3fas7dh";
+          rev = "352dc37dd737792370e86b09099c1551162a5d43";
+          sha256 = "18b3l5wnmr9dvz0djps5b75i3hym0whb87f1hflql68cbw9hdprw";
         };
         "file-extra-metadata" = pkgs.fetchFromGitHub {
           owner = "boydaihungst";
