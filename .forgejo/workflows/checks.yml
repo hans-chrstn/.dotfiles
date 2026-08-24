@@ -51,7 +51,9 @@ jobs:
                 ".#nixosConfigurations.$system.config.system.build.toplevel"
 
               echo "Pushing $system closure to Attic"
-              attic push --jobs 1 forgejo-ci:homelab "$result"
+              if ! attic push --jobs 1 forgejo-ci:homelab "$result"; then
+                echo "::warning::Attic push failed for $system; build verification still succeeded"
+              fi
               rm -f "$result"
             done
           '
