@@ -51,7 +51,7 @@ jobs:
                 ".#nixosConfigurations.$system.config.system.build.toplevel"
 
               echo "Pushing $system closure to Attic"
-              attic push forgejo-ci:homelab "$result"
+              attic push --jobs 1 forgejo-ci:homelab "$result"
               rm -f "$result"
             done
           '
