@@ -90,7 +90,6 @@ jobs:
       - name: Request a draft AI suggestion
         if: ${{ (steps.nix_validation.outputs.failed == 'true' || steps.nix_validation.outputs.warnings == 'true') && github.event_name != 'pull_request' && !startsWith(github.ref_name, 'ai/fix-run-') }}
         env:
-          AI_FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
           FORGEJO_API_URL: https://git.hestallo.com/api/v1
           FORGEJO_REPOSITORY: ${{ github.repository }}
           FAILED_REF: ${{ github.sha }}
@@ -111,7 +110,7 @@ jobs:
 
           curl --fail --silent --show-error \
             --request POST \
-            --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+            --header "Authorization: token ${FORGEJO_TOKEN}" \
             --header 'Content-Type: application/json' \
             --data "$payload" \
             "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/workflows/suggest-fix.yml/dispatches"
