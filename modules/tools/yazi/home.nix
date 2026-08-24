@@ -57,8 +57,8 @@ in {
         aminur-plugins = pkgs.fetchFromGitHub {
           owner = "AminurAlam";
           repo = "yazi-plugins";
-          rev = "main";
-          sha256 = "06zkwpdjpjyigm62gkf39ij2nyi1wrw0w4wkski29lcnpyjsirg7";
+          rev = "8c2ce96046ba98e2471945dc031d74d2491cac73";
+          sha256 = "0wap9r8gvh95gk894hl6lpvaynhbk6ihhbhd0xz81azzxvwaqgiq";
         };
       in {
         "compress" = pkgs.fetchFromGitHub {
