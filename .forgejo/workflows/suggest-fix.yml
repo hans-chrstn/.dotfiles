@@ -25,6 +25,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Prepare tools
         run: |
@@ -36,12 +37,15 @@ jobs:
             pipx \
             python3-venv \
             sudo
-          pipx install aider-chat
+          pipx install aider-chat==0.86.2
           ln --symbolic "$HOME/.local/bin/aider" /usr/local/bin/aider
 
       - name: Confirm local model is available
         run: |
           curl --fail --silent --show-error \
+            --retry 30 \
+            --retry-all-errors \
+            --retry-delay 10 \
             http://docker-in-docker:11434/v1/models \
             | jq --exit-status '.data[] | select(.id == "qwen2.5-coder:7b")' \
             >/dev/null

@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Verify Nix
         run: |
@@ -37,10 +39,11 @@ jobs:
 
       - name: Authenticate to Attic
         id: attic_auth
+        if: ${{ github.event_name != 'pull_request' }}
         continue-on-error: true
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: nix develop --command attic login forgejo-ci https://cache.hestallo.com "$ATTIC_TOKEN"
+        run: attic login forgejo-ci https://cache.hestallo.com "$ATTIC_TOKEN"
 
       - name: Validate Nix configuration
         id: nix_validation
@@ -75,10 +78,10 @@ jobs:
           fi
 
       - name: Push verified closures to Attic
-        if: ${{ steps.nix_validation.outputs.failed == 'false' && steps.attic_auth.outcome == 'success' }}
+        if: ${{ github.event_name != 'pull_request' && steps.nix_validation.outputs.failed == 'false' && steps.attic_auth.outcome == 'success' }}
         continue-on-error: true
         run: |
-          nix develop --command sh -eu -c '
+          sh -eu -c '
             for system in jin makoto rei yu; do
               result="result-$system"
               echo "Pushing $system closure to Attic"
