@@ -1,0 +1,3 @@
+error:
+       … while evaluating definitions from `/workspace/hestallo/.dotfiles/modules/apps/neovim/home.nix`:
+       error: The option `programs.neovim.invalidExample` does not exist.

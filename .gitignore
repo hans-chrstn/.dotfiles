@@ -1,3 +1,7 @@
-.direnv/
-temp/
-result
+**/**/.direnv/
+**/**/.aider.tags.cache.v4/
+**/**/temp/
+**/**/result
+**/**/__pycache__/
+**/**/.ruff_cache/
+**/**/.shellcheckrc

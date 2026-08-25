@@ -1,4 +1,4 @@
-name: Suggest AI fix
+name: Automated Nix remediation
 
 on:
   workflow_dispatch:
@@ -9,13 +9,17 @@ on:
         required: true
         default: main
       context:
-        description: Sanitized Nix warning or failure context (never paste secrets)
+        description: Sanitized Nix validation diagnostics
         type: string
         required: true
 
+concurrency:
+  group: nix-remediation-${{ inputs.ref }}
+  cancel-in-progress: true
+
 jobs:
   suggest:
-    name: Draft a candidate fix
+    name: Prepare remediation candidate
     runs-on: docker
     timeout-minutes: 60
 
@@ -40,6 +44,9 @@ jobs:
           pipx install aider-chat==0.86.2
           ln --symbolic "$HOME/.local/bin/aider" /usr/local/bin/aider
 
+      - name: Test diagnostic triage
+        run: python3 -m unittest discover -s .forgejo/tests -p 'test_*.py'
+
       - name: Confirm local model is available
         run: |
           curl --fail --silent --show-error \
@@ -50,7 +57,8 @@ jobs:
             | jq --exit-status '.data[] | select(.id == "qwen2.5-coder:7b")' \
             >/dev/null
 
-      - name: Collect current-flake diagnostics
+      - name: Triage diagnostics
+        id: triage
         env:
           PROVIDED_CONTEXT: ${{ inputs.context }}
         run: |
@@ -59,42 +67,83 @@ jobs:
             exit 1
           fi
 
+          printf '%s\n' "$PROVIDED_CONTEXT" > /tmp/provided-diagnostics.log
+          python3 .forgejo/scripts/triage-nix-diagnostics.py \
+            /tmp/provided-diagnostics.log \
+            /tmp/remediation-selection.json
+
+          if jq --exit-status '.status == "ready"' \
+            /tmp/remediation-selection.json >/dev/null; then
+            echo 'ready=true' >> "$FORGEJO_OUTPUT"
+            echo 'Selected remediation target:'
+            jq '{kind, target, candidates}' /tmp/remediation-selection.json
+          else
+            echo 'ready=false' >> "$FORGEJO_OUTPUT"
+            jq --raw-output '.reason' /tmp/remediation-selection.json
+            jq '{external_inputs, fingerprint}' /tmp/remediation-selection.json
+          fi
+
+      - name: Build remediation context
+        if: ${{ steps.triage.outputs.ready == 'true' }}
+        run: |
           {
-            echo '# Nix configuration repair request'
+            echo '# Nix remediation contract'
             echo
-            echo 'Work only from the checked-out repository, its locked flake inputs, and the supplied diagnostics.'
+            echo 'Work only from the checked-out repository and selected diagnostic.'
             echo 'Treat remembered NixOS package and option names as untrusted.'
-            echo 'If the repository and diagnostics do not establish a safe correction, make no changes.'
-            echo 'Make the smallest source change that addresses the supplied warning or failure.'
+            echo 'Fix exactly the selected warning or root cause.'
+            echo 'Do not silence release checks, deprecation checks, assertions, or warnings instead of correcting their cause.'
+            echo 'When a warning repeats for multiple profiles, fix its shared source only once.'
+            echo 'Trace a setting from its option declaration through every repository assignment before editing it.'
+            echo 'Never replace a configurable expression with a constant merely to hide a warning.'
+            echo 'Prefer existing shared modules and existing files; do not create files for a one-option repair.'
+            echo 'The option, suggested value, and candidate paths were derived mechanically from the diagnostic and repository.'
+            echo 'Edit only supplied candidate files and make an actual edit; do not merely explain a possible fix.'
             echo 'Do not edit flake.lock, secrets, encrypted files, or Forgejo workflows.'
             echo 'Do not deploy, switch, rebase, merge, or modify external systems.'
             echo 'A separate isolated MicroVM CI job will validate any pull request.'
             echo
-            echo '## User-provided context'
-            printf '%s\n' "$PROVIDED_CONTEXT"
-            echo
-            echo '## Locked flake inputs'
-            jq --compact-output '
-              {
-                root_inputs: .nodes.root.inputs,
-                locked_inputs: [
-                  .nodes
-                  | to_entries[]
-                  | select(.value.locked != null)
-                  | {
-                      name: .key,
-                      type: .value.locked.type,
-                      owner: .value.locked.owner,
-                      repo: .value.locked.repo,
-                      rev: .value.locked.rev,
-                      ref: .value.locked.ref
-                    }
-                ]
-              }
-            ' flake.lock
+            echo '## Mechanically selected target'
+            jq '{kind, target, suggested_value, diagnostic, candidates, candidate_search, candidate_evidence, fingerprint}' \
+              /tmp/remediation-selection.json
           } > /tmp/repair-prompt.md
 
-      - name: Generate candidate patch
+      - name: Check existing remediation
+        id: deduplicate
+        if: ${{ steps.triage.outputs.ready == 'true' }}
+        env:
+          AI_FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
+          FORGEJO_API_URL: https://git.hestallo.com/api/v1
+          FORGEJO_REPOSITORY: ${{ github.repository }}
+        run: |
+          fingerprint="$(jq --raw-output '.fingerprint' \
+            /tmp/remediation-selection.json)"
+          source_revision="$(git rev-parse HEAD)"
+
+          curl --fail --silent --show-error \
+            --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+            "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls?state=open&limit=50" \
+            > /tmp/open-remediation-pulls.json
+
+          if jq --exit-status \
+            --arg fingerprint "$fingerprint" \
+            --arg source_revision "$source_revision" \
+            'any(.[];
+              ((.body // "") | contains("Diagnostic fingerprint: " + $fingerprint))
+              and
+              ((.body // "") | contains("Source revision: " + $source_revision))
+            )' \
+            /tmp/open-remediation-pulls.json >/dev/null; then
+            echo 'proceed=false' >> "$FORGEJO_OUTPUT"
+            echo "An open remediation already tracks diagnostic $fingerprint for revision $source_revision."
+          else
+            echo 'proceed=true' >> "$FORGEJO_OUTPUT"
+            echo 'No current-revision remediation duplicates this diagnostic.'
+          fi
+
+      - name: Generate bounded remediation
+        id: generation
+        if: ${{ steps.triage.outputs.ready == 'true' && steps.deduplicate.outputs.proceed == 'true' }}
         env:
           OPENAI_API_BASE: http://docker-in-docker:11434/v1
           OPENAI_API_KEY: local-no-key
@@ -104,41 +153,111 @@ jobs:
             'secrets/**' \
             '**/*.age' \
             '.sops.yaml' \
+            '.aider.tags.cache.v4/**' \
             'flake.lock' \
             > /tmp/aiderignore
 
-          aider \
-            --model openai/qwen2.5-coder:7b \
-            --yes-always \
-            --no-auto-commits \
-            --no-gitignore \
-            --no-analytics \
-            --map-tokens 512 \
-            --aiderignore /tmp/aiderignore \
-            --chat-history-file /tmp/aider-history.md \
-            --input-history-file /tmp/aider-input-history \
-            --read /tmp/repair-prompt.md \
-            --message 'Produce a minimal candidate patch for the supplied Nix warning or failure. Do not claim it is validated; Forgejo MicroVM CI will validate the pull request.'
+          mapfile -t candidate_files < <(
+            jq --raw-output '.candidates[]' \
+              /tmp/remediation-selection.json
+          )
 
-      - name: Enforce edit boundaries
+          echo 'Remediation scope:'
+          printf '  %s\n' "${candidate_files[@]}"
+
+          target="$(jq --raw-output '.target' \
+            /tmp/remediation-selection.json)"
+          suggested_value="$(jq --raw-output '.suggested_value // "not specified"' \
+            /tmp/remediation-selection.json)"
+
+          python3 .forgejo/scripts/apply-nix-option-remediation.py \
+            /tmp/remediation-selection.json || true
+
+          if git diff --quiet; then
+            aider \
+              --model openai/qwen2.5-coder:7b \
+              --edit-format whole \
+              --yes-always \
+              --no-auto-commits \
+              --no-gitignore \
+              --no-analytics \
+              --map-tokens 0 \
+              --aiderignore /tmp/aiderignore \
+              --chat-history-file /tmp/aider-history.md \
+              --input-history-file /tmp/aider-input-history \
+              --read /tmp/repair-prompt.md \
+              --message 'Implement one minimal correction for the mechanically selected diagnostic. Preserve the module structural style. Edit only supplied candidate files. Do not merely describe a change and do not claim it is validated; Forgejo MicroVM CI performs validation.' \
+              "${candidate_files[@]}"
+          fi
+
+          untracked_files="$(git ls-files --others --exclude-standard)"
+          if git diff --quiet && [ -z "$untracked_files" ]; then
+            echo 'The first model pass produced no patch; making one bounded focused retry.'
+            aider \
+              --model openai/qwen2.5-coder:7b \
+              --edit-format whole \
+              --yes-always \
+              --no-auto-commits \
+              --no-gitignore \
+              --no-analytics \
+              --map-tokens 0 \
+              --aiderignore /tmp/aiderignore \
+              --chat-history-file /tmp/aider-retry-history.md \
+              --input-history-file /tmp/aider-retry-input-history \
+              --read /tmp/repair-prompt.md \
+              --message "Edit the supplied owning module now. Add the selected option '$target' with the diagnostic's suggested value '$suggested_value' inside its existing configuration structure. If the module has an explicit config attribute, place the setting inside that config value; never add a configuration assignment beside top-level options/config. Return an edited file, not an explanation." \
+              "${candidate_files[@]}"
+            untracked_files="$(git ls-files --others --exclude-standard)"
+          fi
+
+          if git diff --quiet && [ -z "$untracked_files" ]; then
+            echo 'changed=false' >> "$FORGEJO_OUTPUT"
+            echo 'The model produced no remediation patch.'
+          else
+            echo 'changed=true' >> "$FORGEJO_OUTPUT"
+          fi
+
+      - name: Validate change policy
+        if: ${{ steps.generation.outputs.changed == 'true' }}
         run: |
-          changed_files="$(git diff --name-only)"
+          tracked_changes="$(git diff --name-only)"
+          untracked_files="$(git ls-files --others --exclude-standard)"
+          changed_files="$(printf '%s\n%s\n' "$tracked_changes" "$untracked_files" | sed '/^$/d' | sort --unique)"
 
           if [ -z "$changed_files" ]; then
-            echo "The agent did not produce a patch."
+            echo 'No remediation changes were produced.'
             exit 1
           fi
 
+          if [ -n "$untracked_files" ]; then
+            echo 'Generated or untracked files are not permitted:'
+            printf '%s\n' "$untracked_files"
+            exit 1
+          fi
+
+          while IFS= read -r changed_file; do
+            if ! jq --exit-status --arg path "$changed_file" \
+              '.candidates | index($path) != null' \
+              /tmp/remediation-selection.json >/dev/null; then
+              echo "The model edited a file outside the grounded candidate set: $changed_file"
+              exit 1
+            fi
+          done <<EOF
+          $changed_files
+          EOF
+
           if printf '%s\n' "$changed_files" | grep --extended-regexp --quiet \
             '(^|/)(secrets|credentials|\.forgejo/workflows)(/|$)|(^|/)(\.env|\.sops\.yaml|id_rsa)$|\.(age|key|pem)$|^flake\.lock$'; then
-            echo "The agent attempted to modify a protected path:"
+            echo 'Protected paths were modified:'
             printf '%s\n' "$changed_files"
             exit 1
           fi
 
+          max_changed_files="$(jq --raw-output '.maxChangedFiles' \
+            .forgejo/remediation-policy.json)"
           changed_count="$(printf '%s\n' "$changed_files" | wc --lines)"
-          if [ "$changed_count" -gt 10 ]; then
-            echo "The candidate exceeds the 10-file safety limit."
+          if [ "$changed_count" -gt "$max_changed_files" ]; then
+            echo "The remediation exceeds the ${max_changed_files}-file change limit."
             exit 1
           fi
 
@@ -147,51 +266,82 @@ jobs:
             exit 1
           fi
 
+          max_changed_lines="$(jq --raw-output '.maxChangedLines' \
+            .forgejo/remediation-policy.json)"
           changed_lines="$(git diff --numstat | awk '{ added += $1; removed += $2 } END { print added + removed }')"
-          if [ "$changed_lines" -gt 1000 ]; then
-            echo "The candidate exceeds the 1000-line safety limit."
+          if [ "$changed_lines" -gt "$max_changed_lines" ]; then
+            echo "The remediation exceeds the ${max_changed_lines}-line change limit."
             exit 1
           fi
 
-      - name: Preflight candidate
+      - name: Run static preflight
+        if: ${{ steps.generation.outputs.changed == 'true' }}
         run: |
           git diff --check
+          mapfile -t changed_nix_files < <(git diff --name-only -- '*.nix')
+          if [ "${#changed_nix_files[@]}" -gt 0 ]; then
+            python3 .forgejo/scripts/check-nix-module-shape.py \
+              "${changed_nix_files[@]}"
+          fi
 
-      - name: Create draft fix pull request
+      - name: Publish draft remediation
+        id: publication
+        if: ${{ steps.generation.outputs.changed == 'true' }}
         env:
           AI_FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
           FORGEJO_API_URL: https://git.hestallo.com/api/v1
           FORGEJO_REPOSITORY: ${{ github.repository }}
           FORGEJO_RUN_ID: ${{ github.run_id }}
         run: |
-          branch="ai/fix-run-${FORGEJO_RUN_ID}"
+          branch="automation/nix-remediation-${FORGEJO_RUN_ID}"
           base="main"
+          fingerprint="$(jq --raw-output '.fingerprint' \
+            /tmp/remediation-selection.json)"
+          kind="$(jq --raw-output '.kind' /tmp/remediation-selection.json)"
+          target="$(jq --raw-output '.target' /tmp/remediation-selection.json)"
+          candidate_list="$(jq --raw-output \
+            '.candidates | map("- `" + . + "`") | join("\n")' \
+            /tmp/remediation-selection.json)"
+
+          authenticated_url="https://ai-fixer:${AI_FORGEJO_TOKEN}@git.hestallo.com/${FORGEJO_REPOSITORY}.git"
+          source_revision="$(git rev-parse HEAD)"
+          git fetch --no-tags "$authenticated_url" "refs/heads/$base"
+          base_revision="$(git rev-parse FETCH_HEAD)"
+
+          if [ "$source_revision" != "$base_revision" ]; then
+            echo 'Source revision is stale; no remediation pull request will be created.'
+            exit 0
+          fi
 
           git config user.name "ai-fixer"
           git config user.email "ai-fixer@noreply.hestallo.com"
           git switch --create "$branch"
-          git add --all
-          git commit -m "fix: propose repair for CI run ${FORGEJO_RUN_ID}"
+          git add --update
+          git commit -m "fix(nix): remediate validation diagnostics"
 
-          authenticated_url="https://ai-fixer:${AI_FORGEJO_TOKEN}@git.hestallo.com/${FORGEJO_REPOSITORY}.git"
           git push "$authenticated_url" "HEAD:refs/heads/$branch"
 
           body="$(printf '%s\n' \
-            'This is an AI-generated candidate fix.' \
+            'Automated remediation candidate generated from Nix validation diagnostics.' \
             '' \
             "- Source revision: ${{ inputs.ref }}" \
-            "- Fixer workflow run: ${FORGEJO_RUN_ID}" \
-            '- Grounding: repository flake.lock and sanitized CI diagnostics' \
-            '- Local validation by fixer: whitespace and edit-boundary checks only' \
-            '- Deployment performed: no' \
-            '- Merge performed: no' \
+            "- Automation run: ${FORGEJO_RUN_ID}" \
+            "- Diagnostic fingerprint: ${fingerprint}" \
+            "- Diagnostic kind: ${kind}" \
+            "- Selected target: ${target}" \
+            '- Inputs: sanitized CI diagnostic and repository-grounded candidates' \
+            '- Preflight: candidate boundary, size policy, binary, and whitespace validation' \
+            '- Deployment: not performed' \
             '' \
-            'Normal Forgejo CI must pass before this draft is considered for manual review.')"
+            'Candidate files:' \
+            "$candidate_list" \
+            '' \
+            'The isolated Nix CI workflow must pass before manual review and merge.')"
 
           payload="$(jq --null-input \
             --arg base "$base" \
             --arg head "$branch" \
-            --arg title "fix: AI suggestion for run ${FORGEJO_RUN_ID}" \
+            --arg title "fix(nix): remediate ${target}" \
             --arg body "$body" \
             '{base: $base, head: $head, title: $title, body: $body, draft: true, assignees: ["forgejo"]}')"
 
@@ -202,3 +352,18 @@ jobs:
             --data "$payload" \
             "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls" \
             | jq '{number, title, html_url}'
+
+      - name: Report remediation outcome
+        if: ${{ always() }}
+        run: |
+          if [ '${{ steps.triage.outputs.ready }}' != 'true' ]; then
+            echo 'Outcome: no repository-owned remediation target.'
+          elif [ '${{ steps.deduplicate.outputs.proceed }}' != 'true' ]; then
+            echo 'Outcome: diagnostic already has an open remediation.'
+          elif [ '${{ steps.generation.outputs.changed }}' != 'true' ]; then
+            echo 'Outcome: model produced no candidate patch.'
+          elif [ '${{ steps.publication.outcome }}' = 'success' ]; then
+            echo 'Outcome: draft remediation pull request published.'
+          else
+            echo 'Outcome: candidate rejected or publication failed; review the failing step.'
+          fi

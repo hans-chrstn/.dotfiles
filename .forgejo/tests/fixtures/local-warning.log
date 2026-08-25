@@ -1,0 +1,6 @@
+evaluation warning: The default value of `programs.neovim.withRuby` has changed from `true` to `false`.
+                    You are currently using the legacy default (`true`) because `home.stateVersion` is less than "26.05".
+                    To silence this warning and keep legacy behavior, set:
+                      programs.neovim.withRuby = true;
+                    To adopt the new default behavior, set:
+                      programs.neovim.withRuby = false;

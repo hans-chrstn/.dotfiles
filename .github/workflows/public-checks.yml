@@ -1,0 +1,61 @@
+name: Public checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  hygiene:
+    name: Public repository hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Reject sensitive file types
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden="$RUNNER_TEMP/forbidden-files.txt"
+
+          git ls-files \
+            | grep --extended-regexp --ignore-case \
+                '(^|/)(\.env($|\.)|secrets?|credentials?|id_(rsa|ed25519)|.*\.(pem|key|p12|pfx|age|kdbx))$' \
+            > "$forbidden" || true
+
+          if [ -s "$forbidden" ]; then
+            echo 'Sensitive-looking tracked files are not allowed:'
+            cat "$forbidden"
+            exit 1
+          fi
+
+      - name: Install upstream Nix
+        uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Scan committed history for secrets
+        run: |
+          nix shell nixpkgs#gitleaks --command \
+            gitleaks git . \
+              --log-opts=HEAD \
+              --redact \
+              --no-banner

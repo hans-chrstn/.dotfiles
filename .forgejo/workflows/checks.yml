@@ -49,7 +49,9 @@ jobs:
         id: nix_validation
         run: |
           log="$RUNNER_TEMP/nix-validation.log"
+          warning_log="$RUNNER_TEMP/nix-validation-warnings.log"
           set +e
+          # shellcheck disable=SC2016 # Variables expand in the nested shell.
           nix develop --command sh -eu -c '
             nix fmt -- --check .
             nix flake check --no-update-lock-file --print-build-logs
@@ -70,8 +72,11 @@ jobs:
             echo 'failed=true' >> "$FORGEJO_OUTPUT"
           fi
 
+          sed '/SSH password authentication is enabled/d' \
+            "$log" > "$warning_log"
+
           if grep --extended-regexp --quiet \
-            '(^|[[:space:]])(evaluation warning|warning):' "$log"; then
+            '(^|[[:space:]])(evaluation warning|warning):' "$warning_log"; then
             echo 'warnings=true' >> "$FORGEJO_OUTPUT"
           else
             echo 'warnings=false' >> "$FORGEJO_OUTPUT"
@@ -90,21 +95,54 @@ jobs:
             done
           '
 
-      - name: Request a draft AI suggestion
-        if: ${{ (steps.nix_validation.outputs.failed == 'true' || steps.nix_validation.outputs.warnings == 'true') && github.event_name != 'pull_request' && !startsWith(github.ref_name, 'ai/fix-run-') }}
+      - name: Dispatch automated remediation
+        if: ${{ (steps.nix_validation.outputs.failed == 'true' || steps.nix_validation.outputs.warnings == 'true') && github.event_name != 'pull_request' && !startsWith(github.ref_name, 'automation/nix-remediation-') }}
         env:
           FORGEJO_API_URL: https://git.hestallo.com/api/v1
           FORGEJO_REPOSITORY: ${{ github.repository }}
+          FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
           FAILED_REF: ${{ github.sha }}
         run: |
           log="$RUNNER_TEMP/nix-validation.log"
+          diagnostic_log="$RUNNER_TEMP/nix-validation-actionable.log"
           context="$RUNNER_TEMP/ai-context.txt"
+          sanitized="$RUNNER_TEMP/ai-context-sanitized.txt"
 
-          tail --lines 120 "$log" \
+          sed '/SSH password authentication is enabled/d' \
+            "$log" > "$diagnostic_log"
+
+          {
+            printf 'validation_failed=%s\nvalidation_warnings=%s\n\n' \
+              '${{ steps.nix_validation.outputs.failed }}' \
+              '${{ steps.nix_validation.outputs.warnings }}'
+
+            if ! grep --extended-regexp \
+              --before-context 2 \
+              --after-context 14 \
+              '(^|[[:space:]])(error:|evaluation warning:|warning:)' \
+              "$diagnostic_log"; then
+              tail --lines 120 "$diagnostic_log"
+            fi
+          } \
+            | LC_ALL=C tr -d '\000-\010\013\014\016-\037\177' \
             | sed -E \
+                -e $'s/\x1B\[[0-9;?]*[ -\/]*[@-~]//g' \
+                -e '/ignore (all )?(previous|above) instructions/Id' \
+                -e '/(system|developer|assistant) prompt:/Id' \
                 -e 's/(token|password|secret|authorization)[=: ][^[:space:]]+/\1=[REDACTED]/Ig' \
                 -e 's#https://[^/@[:space:]]+@#https://[REDACTED]@#g' \
-            | tail --bytes 6000 > "$context"
+            > "$sanitized"
+
+          # Reading a completed file avoids SIGPIPE/exit 141 under pipefail when
+          # the selected diagnostics exceed the context limit.
+          # The remediation job performs deterministic selection before the
+          # model sees diagnostics, so retain enough source context to reach
+          # actionable warnings after repeated per-host messages.
+          head --bytes 24000 "$sanitized" > "$context"
+          rm -f "$sanitized"
+
+          echo 'Selected sanitized diagnostics for the fixer:'
+          cat "$context"
 
           payload="$(jq --null-input \
             --arg ref "$FAILED_REF" \
@@ -120,7 +158,19 @@ jobs:
 
       - name: Mark Nix validation failure
         if: ${{ steps.nix_validation.outputs.failed == 'true' }}
-        run: exit 1
+        run: |
+          log="$RUNNER_TEMP/nix-validation.log"
+          echo 'Nix validation failed. Relevant diagnostics:'
+
+          if ! grep --extended-regexp \
+            --before-context 3 \
+            --after-context 20 \
+            '(^|[[:space:]])(error:|failed to build|cannot build|cannot evaluate)' \
+            "$log"; then
+            tail --lines 160 "$log"
+          fi
+
+          exit 1
 
       - name: Remove build result links
         if: ${{ always() }}

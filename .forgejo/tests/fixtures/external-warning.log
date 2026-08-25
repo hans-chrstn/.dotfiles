@@ -1,0 +1,3 @@
+evaluation warning: profile: You are using different Stylix and Home Manager versions.
+                    If you accept mismatched versions, disable this warning by adding:
+                      stylix.enableReleaseChecks = false;

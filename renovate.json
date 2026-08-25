@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "baseBranchPatterns": ["main"],
+  "timezone": "America/New_York",
+  "schedule": ["after 2am and before 3am"],
+  "enabledManagers": ["nix"],
+  "nix": {
+    "enabled": true
+  },
+  "dependencyDashboard": true,
+  "draftPR": true,
+  "automerge": false,
+  "rebaseWhen": "behind-base-branch",
+  "prConcurrentLimit": 1,
+  "branchConcurrentLimit": 1,
+  "labels": ["dependencies", "nix"],
+  "packageRules": [
+    {
+      "description": "Group Nix flake input updates",
+      "matchManagers": ["nix"],
+      "groupName": "Nix flake inputs",
+        "schedule": ["after 2am and before 3am"]
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+      "schedule": ["after 2am and before 3am"],
+    "groupName": "Nix flake inputs",
+    "commitMessageAction": "refresh",
+    "commitMessageTopic": "Nix flake lock file"
+  }
+}
