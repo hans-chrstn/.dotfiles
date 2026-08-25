@@ -3,10 +3,10 @@ name: Dotfiles checks
 on:
   push:
     branches:
-      - feature/overhaul
+      - main
   pull_request:
     branches:
-      - feature/overhaul
+      - main
   schedule:
     - cron: "0 2 * * *"
       timezone: America/New_York
@@ -100,11 +100,11 @@ jobs:
           log="$RUNNER_TEMP/nix-validation.log"
           context="$RUNNER_TEMP/ai-context.txt"
 
-          tail --lines 300 "$log" \
+          tail --lines 120 "$log" \
             | sed -E \
                 -e 's/(token|password|secret|authorization)[=: ][^[:space:]]+/\1=[REDACTED]/Ig' \
                 -e 's#https://[^/@[:space:]]+@#https://[REDACTED]@#g' \
-            | tail --bytes 20000 > "$context"
+            | tail --bytes 6000 > "$context"
 
           payload="$(jq --null-input \
             --arg ref "$FAILED_REF" \

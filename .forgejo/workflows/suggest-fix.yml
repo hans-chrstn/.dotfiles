@@ -7,7 +7,7 @@ on:
         description: Commit or branch to diagnose
         type: string
         required: true
-        default: feature/overhaul
+        default: main
       context:
         description: Sanitized Nix warning or failure context (never paste secrets)
         type: string
@@ -74,7 +74,24 @@ jobs:
             printf '%s\n' "$PROVIDED_CONTEXT"
             echo
             echo '## Locked flake inputs'
-            jq '{root, nodes: (.nodes | with_entries(.value |= {locked, original, inputs}))}' flake.lock
+            jq --compact-output '
+              {
+                root_inputs: .nodes.root.inputs,
+                locked_inputs: [
+                  .nodes
+                  | to_entries[]
+                  | select(.value.locked != null)
+                  | {
+                      name: .key,
+                      type: .value.locked.type,
+                      owner: .value.locked.owner,
+                      repo: .value.locked.repo,
+                      rev: .value.locked.rev,
+                      ref: .value.locked.ref
+                    }
+                ]
+              }
+            ' flake.lock
           } > /tmp/repair-prompt.md
 
       - name: Generate candidate patch
@@ -96,6 +113,7 @@ jobs:
             --no-auto-commits \
             --no-gitignore \
             --no-analytics \
+            --map-tokens 512 \
             --aiderignore /tmp/aiderignore \
             --chat-history-file /tmp/aider-history.md \
             --input-history-file /tmp/aider-input-history \
@@ -147,7 +165,7 @@ jobs:
           FORGEJO_RUN_ID: ${{ github.run_id }}
         run: |
           branch="ai/fix-run-${FORGEJO_RUN_ID}"
-          base="feature/overhaul"
+          base="main"
 
           git config user.name "ai-fixer"
           git config user.email "ai-fixer@noreply.hestallo.com"
