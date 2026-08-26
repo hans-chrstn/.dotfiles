@@ -70,6 +70,7 @@ in {
         shellcheck
         statix
       ];
+      withRuby = true;
     };
 
     xdg.configFile."nvim" = {
