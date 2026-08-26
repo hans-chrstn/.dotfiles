@@ -76,8 +76,8 @@ in {
         "batch-rename-gui" = pkgs.fetchFromGitHub {
           owner = "pakhromov";
           repo = "batch-rename-gui.yazi";
-          rev = "main";
-          sha256 = "1cf4jq6fr6xjby4wprcy20prb7js1hb5k5v5whi2cfynilyy46yx";
+          rev = "a46a9ad34318c250efcd39148a382393d03c5269";
+          sha256 = "0ldk2xfwfn0x9xza686skbzr3skid3gq94v9gbkjha30vxva5xqv";
         };
         "sudo" = pkgs.fetchFromGitHub {
           owner = "TD-Sky";

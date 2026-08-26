@@ -126,6 +126,60 @@ class TriageTests(unittest.TestCase):
                 ["modules/config.nix", "modules/options.nix"],
             )
 
+    def test_infrastructure_failure_is_not_sent_to_fixer(self):
+        module = load_triage_module()
+        self.assertEqual(
+            module.failure_classification(
+                "error: HTTP 504 Gateway Timeout while pushing to Attic"
+            ),
+            "infrastructure",
+        )
+
+    def test_module_structure_failure_is_classified(self):
+        module = load_triage_module()
+        self.assertEqual(
+            module.failure_classification(
+                "error: Module example.nix has an unsupported attribute config"
+            ),
+            "module-structure",
+        )
+
+    def test_converts_sri_sha256_to_nix_base32(self):
+        module = load_triage_module()
+        self.assertEqual(
+            module.sri_to_nix_base32(
+                "sha256-3RviPY3WOyYi5GWXWRYMWp6VLxCe5cuJX7Kb7AyWxLE="
+            ),
+            "1cf4jq6fr6xjby4wprcy20prb7js1hb5k5v5whi2cfynilyy46yx",
+        )
+
+    def test_failed_hash_mismatch_takes_priority_over_warning(self):
+        module = load_triage_module()
+        diagnostics = """validation_failed=true
+evaluation warning: set programs.neovim.withRuby = true;
+error: hash mismatch in fixed-output derivation '/nix/store/example-source.drv':
+         specified: sha256-3RviPY3WOyYi5GWXWRYMWp6VLxCe5cuJX7Kb7AyWxLE=
+            got:    sha256-G/eidt9gKCjnemmThN9oceqR/5raIKN+Tx1Yx10Xs1E=
+"""
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            repo = Path(temporary_directory)
+            (repo / "source.nix").write_text(
+                'sha256 = "1cf4jq6fr6xjby4wprcy20prb7js1hb5k5v5whi2cfynilyy46yx";\n'
+            )
+            subprocess.run(["git", "init", "--quiet"], cwd=repo, check=True)
+            subprocess.run(["git", "add", "."], cwd=repo, check=True)
+            result = module.select_fixed_output_failure(
+                repo, diagnostics, {"maxCandidateFiles": 3}
+            )
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["classification"], "fixed-output-hash")
+        self.assertEqual(result["candidates"], ["source.nix"])
+        self.assertEqual(
+            result["suggested_value"],
+            "0ldk2xfwfn0x9xza686skbzr3skid3gq94v9gbkjha30vxva5xqv",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

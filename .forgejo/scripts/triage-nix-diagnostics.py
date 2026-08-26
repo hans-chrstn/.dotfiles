@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import re
@@ -16,6 +17,13 @@ ASSIGNMENT = re.compile(
 )
 OPTION = re.compile(r"option [`']([^`']+)[`']")
 WARNING_START = re.compile(r"(?m)^(?:evaluation )?warning:")
+FIXED_OUTPUT_MISMATCH = re.compile(
+    r"hash mismatch in fixed-output derivation.*?"
+    r"specified:\s*(?P<specified>sha256-[A-Za-z0-9+/=]+).*?"
+    r"got:\s*(?P<got>sha256-[A-Za-z0-9+/=]+)",
+    re.DOTALL,
+)
+NIX_BASE32 = "0123456789abcdfghijklmnpqrsvwxyz"
 ANSI_ESCAPE = re.compile(r"\x1b(?:\[[0-?]*[ -/]*[@-~]|[@-_])")
 CONTROL_CHARACTER = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 INSTRUCTION_LINE = re.compile(
@@ -28,6 +36,44 @@ PROTECTED = re.compile(
     r"|(?:^|/)(?:\.env|\.sops\.yaml|id_rsa)$"
     r"|\.(?:age|key|pem)$|^flake\.lock$"
 )
+INFRASTRUCTURE_FAILURE = re.compile(
+    r"(?i)(?:could not resolve host|connection (?:refused|reset|timed out)|"
+    r"gateway timeout|temporary failure in name resolution|no space left on device|"
+    r"cannot allocate memory|substituter.*failed|failed to connect|"
+    r"attic.*(?:error|failed|timeout)|http (?:499|502|503|504))"
+)
+
+
+def failure_classification(diagnostic: str) -> str:
+    lowered = diagnostic.lower()
+    if FIXED_OUTPUT_MISMATCH.search(diagnostic):
+        return "fixed-output-hash"
+    if INFRASTRUCTURE_FAILURE.search(diagnostic):
+        return "infrastructure"
+    if "does not exist" in lowered or "undefined variable" in lowered:
+        return "missing-attribute"
+    if "unsupported attribute" in lowered or "module" in lowered and "config" in lowered:
+        return "module-structure"
+    if "is not of type" in lowered or "type error" in lowered:
+        return "type-mismatch"
+    if "failed assertions" in lowered or "assertion" in lowered:
+        return "assertion"
+    if "cannot build" in lowered or "builder for" in lowered:
+        return "build"
+    return "evaluation"
+
+
+def sri_to_nix_base32(value: str) -> str:
+    raw = base64.b64decode(value.removeprefix("sha256-"), validate=True)
+    output = []
+    for n in range((len(raw) * 8 - 1) // 5, -1, -1):
+        bit = n * 5
+        index = bit // 8
+        digit = raw[index] >> (bit % 8)
+        if index + 1 < len(raw):
+            digit |= raw[index + 1] << (8 - bit % 8)
+        output.append(NIX_BASE32[digit & 0x1F])
+    return "".join(output)
 
 
 def git_matches(repo: Path, expression: str) -> list[str]:
@@ -222,6 +268,7 @@ def select_warning(
             if candidates:
                 selection: dict[str, object] = {
                     "kind": "warning",
+                    "classification": "option-warning",
                     "target": option,
                     "suggested_value": value.strip(),
                     "diagnostic": block,
@@ -262,6 +309,9 @@ def select_failure(
             if path not in candidates:
                 candidates.append(path)
 
+    classification = failure_classification(diagnostics)
+    if classification == "infrastructure":
+        return None
     if not candidates or "error:" not in diagnostics.lower():
         return None
 
@@ -271,6 +321,7 @@ def select_failure(
     diagnostic = diagnostics[excerpt_start:excerpt_end]
     selection: dict[str, object] = {
         "kind": "failure",
+        "classification": classification,
         "target": "root cause of selected Nix failure",
         "suggested_value": None,
         "diagnostic": diagnostic,
@@ -279,6 +330,55 @@ def select_failure(
     }
     selection["fingerprint"] = diagnostic_fingerprint(
         "failure", str(selection["target"]), diagnostic
+    )
+    return selection
+
+
+def select_fixed_output_failure(
+    repo: Path,
+    diagnostics: str,
+    policy: dict[str, object],
+) -> dict[str, object] | None:
+    match = FIXED_OUTPUT_MISMATCH.search(diagnostics)
+    if not match:
+        return None
+
+    specified_sri = match.group("specified")
+    got_sri = match.group("got")
+    encodings = (
+        (specified_sri, got_sri),
+        (sri_to_nix_base32(specified_sri), sri_to_nix_base32(got_sri)),
+    )
+    candidates: list[str] = []
+    selected_old = None
+    selected_new = None
+    for old_value, new_value in encodings:
+        for path in git_matches(repo, re.escape(old_value)):
+            if path not in candidates:
+                candidates.append(path)
+            selected_old = old_value
+            selected_new = new_value
+
+    if not candidates or selected_old is None or selected_new is None:
+        return None
+
+    excerpt_start = max(0, match.start() - 300)
+    excerpt_end = min(len(diagnostics), match.end() + 300)
+    diagnostic = diagnostics[excerpt_start:excerpt_end]
+    selection: dict[str, object] = {
+        "kind": "failure",
+        "classification": "fixed-output-hash",
+        "target": selected_old,
+        "suggested_value": selected_new,
+        "diagnostic": diagnostic,
+        "candidates": candidates[: int(policy.get("maxCandidateFiles", 3))],
+        "candidate_search": "exact stale fixed-output hash in repository sources",
+    }
+    selection["candidate_evidence"] = candidate_evidence(
+        repo, selection["candidates"], selected_old
+    )
+    selection["fingerprint"] = diagnostic_fingerprint(
+        "failure", selected_old, diagnostic
     )
     return selection
 
@@ -297,13 +397,31 @@ def main() -> None:
 
     diagnostics = sanitize_diagnostics(args.diagnostics.read_text(errors="replace"))
     policy = json.loads((args.repo / args.policy).read_text())
-    selection = select_warning(args.repo, diagnostics, policy)
-    if selection is None:
-        selection = select_failure(args.repo, diagnostics, policy)
+    classification = failure_classification(diagnostics)
+    infrastructure = classification == "infrastructure"
+    validation_state = re.search(
+        r"(?m)^validation_failed=(true|false)\s*$", diagnostics
+    )
+    validation_failed = (
+        validation_state.group(1) == "true"
+        if validation_state
+        else "error:" in diagnostics.lower()
+    )
+    selection = None
+    if not infrastructure and validation_failed:
+        selection = select_fixed_output_failure(args.repo, diagnostics, policy)
+        if selection is None:
+            selection = select_failure(args.repo, diagnostics, policy)
+    if selection is None and not infrastructure and not validation_failed:
+        selection = select_warning(args.repo, diagnostics, policy)
 
     if selection is None:
         owners = external_inputs(args.repo, diagnostics)
-        reason = "No repository-owned candidate was found."
+        reason = (
+            "Infrastructure failure detected; automated source remediation is not appropriate."
+            if infrastructure
+            else "No repository-owned candidate was found."
+        )
         if owners:
             reason += " The diagnostic appears to belong to an external flake input."
         result: dict[str, object] = {

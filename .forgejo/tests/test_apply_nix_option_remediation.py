@@ -64,6 +64,38 @@ class OptionRemediationTests(unittest.TestCase):
         changed, _ = self.apply("{ services.example.enable = true; }\n", "gtk.gtk4.theme", "null")
         self.assertFalse(changed)
 
+    def test_places_option_inside_mkif_parent(self) -> None:
+        changed, result = self.apply(
+            """{
+  config = {
+    programs.editor = lib.mkIf enabled {
+      enable = true;
+    };
+  };
+}
+""",
+            "programs.editor.package",
+            "pkgs.neovim",
+        )
+        self.assertTrue(changed)
+        self.assertIn("      package = pkgs.neovim;", result)
+
+    def test_ignores_braces_inside_indented_strings(self) -> None:
+        changed, result = self.apply(
+            """{
+  config = {
+    programs.editor = {
+      extraConfig = ''literal { brace }'';
+    };
+  };
+}
+""",
+            "programs.editor.enable",
+            "true",
+        )
+        self.assertTrue(changed)
+        self.assertIn("      enable = true;", result)
+
 
 if __name__ == "__main__":
     unittest.main()

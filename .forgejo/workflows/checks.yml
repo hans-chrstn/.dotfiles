@@ -17,14 +17,54 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  hygiene:
+    name: Repository hygiene
+    runs-on: nix-microvm
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate repository policy
+        run: |
+          # shellcheck disable=SC2016 # Variables expand in the nested Bash process.
+          nix shell \
+            nixpkgs#python3 \
+            nixpkgs#ruff \
+            nixpkgs#actionlint \
+            nixpkgs#gitleaks \
+            --command bash -euo pipefail -c '
+              python3 -m json.tool .forgejo/remediation-policy.json >/dev/null
+              python3 -m unittest discover -s .forgejo/tests -p "test_*.py"
+              ruff check .forgejo/scripts .forgejo/tests
+              actionlint .forgejo/workflows/*.yml .github/workflows/*.yml
+
+              forbidden="$(mktemp)"
+              git ls-files | grep --extended-regexp --ignore-case \
+                "(^|/)(\.env($|\.)|secrets?|credentials?|id_(rsa|ed25519)|.*\.(pem|key|p12|pfx|age|kdbx))$" \
+                > "$forbidden" || true
+              if [ -s "$forbidden" ]; then
+                echo "Sensitive-looking tracked files are not permitted:"
+                cat "$forbidden"
+                exit 1
+              fi
+
+              gitleaks git . --log-opts=HEAD --redact --no-banner
+            '
+
   flake:
     name: Nix flake
+    needs: hygiene
     runs-on: nix-microvm
     timeout-minutes: 180
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
 
@@ -175,3 +215,53 @@ jobs:
       - name: Remove build result links
         if: ${{ always() }}
         run: rm -f result-jin result-makoto result-rei result-yu
+
+  mirror:
+    name: Mirror verified main to GitHub
+    needs:
+      - hygiene
+      - flake
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: docker
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out verified revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Push exact main revision to GitHub
+        env:
+          MIRROR_KEY: ${{ secrets.DOTFILES_MIRROR_SSH_KEY }}
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends openssh-client
+
+          install -d -m 700 /tmp/github-mirror-ssh
+          printf '%s\n' "$MIRROR_KEY" > /tmp/github-mirror-ssh/id_ed25519
+          chmod 600 /tmp/github-mirror-ssh/id_ed25519
+          printf '%s\n' \
+            'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' \
+            > /tmp/github-mirror-ssh/known_hosts
+
+          export GIT_SSH_COMMAND='ssh -i /tmp/github-mirror-ssh/id_ed25519 -o IdentitiesOnly=yes -o UserKnownHostsFile=/tmp/github-mirror-ssh/known_hosts -o StrictHostKeyChecking=yes'
+          git remote add github-mirror git@github.com:hans-chrstn/.dotfiles.git
+          git fetch --no-tags github-mirror refs/heads/main
+          expected_remote="$(git rev-parse FETCH_HEAD)"
+          verified_revision="$(git rev-parse HEAD)"
+
+          if [ "$verified_revision" != '${{ github.sha }}' ]; then
+            echo 'Checked-out revision does not match the verified push event.'
+            exit 1
+          fi
+
+          git push \
+            --force-with-lease="refs/heads/main:${expected_remote}" \
+            github-mirror \
+            "${verified_revision}:refs/heads/main"
+
+      - name: Remove mirror credential
+        if: ${{ always() }}
+        run: rm -rf /tmp/github-mirror-ssh

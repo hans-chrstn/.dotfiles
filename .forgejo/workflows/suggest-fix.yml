@@ -12,6 +12,16 @@ on:
         description: Sanitized Nix validation diagnostics
         type: string
         required: true
+      pull_request:
+        description: Existing remediation PR to update, or zero for a new PR
+        type: string
+        required: false
+        default: "0"
+      repair_attempt:
+        description: Existing remediation repair attempt number
+        type: string
+        required: false
+        default: "0"
 
 concurrency:
   group: nix-remediation-${{ inputs.ref }}
@@ -25,7 +35,7 @@ jobs:
 
     steps:
       - name: Check out failing revision
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
@@ -38,24 +48,10 @@ jobs:
             curl \
             git \
             jq \
-            pipx \
-            python3-venv \
-            sudo
-          pipx install aider-chat==0.86.2
-          ln --symbolic "$HOME/.local/bin/aider" /usr/local/bin/aider
+            python3
 
       - name: Test diagnostic triage
         run: python3 -m unittest discover -s .forgejo/tests -p 'test_*.py'
-
-      - name: Confirm local model is available
-        run: |
-          curl --fail --silent --show-error \
-            --retry 30 \
-            --retry-all-errors \
-            --retry-delay 10 \
-            http://docker-in-docker:11434/v1/models \
-            | jq --exit-status '.data[] | select(.id == "qwen2.5-coder:7b")' \
-            >/dev/null
 
       - name: Triage diagnostics
         id: triage
@@ -76,7 +72,7 @@ jobs:
             /tmp/remediation-selection.json >/dev/null; then
             echo 'ready=true' >> "$FORGEJO_OUTPUT"
             echo 'Selected remediation target:'
-            jq '{kind, target, candidates}' /tmp/remediation-selection.json
+            jq '{kind, classification, target, candidates}' /tmp/remediation-selection.json
           else
             echo 'ready=false' >> "$FORGEJO_OUTPUT"
             jq --raw-output '.reason' /tmp/remediation-selection.json
@@ -104,7 +100,7 @@ jobs:
             echo 'A separate isolated MicroVM CI job will validate any pull request.'
             echo
             echo '## Mechanically selected target'
-            jq '{kind, target, suggested_value, diagnostic, candidates, candidate_search, candidate_evidence, fingerprint}' \
+            jq '{kind, classification, target, suggested_value, diagnostic, candidates, candidate_search, candidate_evidence, fingerprint}' \
               /tmp/remediation-selection.json
           } > /tmp/repair-prompt.md
 
@@ -125,7 +121,10 @@ jobs:
             "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls?state=open&limit=50" \
             > /tmp/open-remediation-pulls.json
 
-          if jq --exit-status \
+          if [ '${{ inputs.pull_request }}' != '0' ]; then
+            echo 'proceed=true' >> "$FORGEJO_OUTPUT"
+            echo 'Updating an existing failed remediation PR.'
+          elif jq --exit-status \
             --arg fingerprint "$fingerprint" \
             --arg source_revision "$source_revision" \
             'any(.[];
@@ -170,10 +169,29 @@ jobs:
           suggested_value="$(jq --raw-output '.suggested_value // "not specified"' \
             /tmp/remediation-selection.json)"
 
-          python3 .forgejo/scripts/apply-nix-option-remediation.py \
-            /tmp/remediation-selection.json || true
+          classification="$(jq --raw-output '.classification' \
+            /tmp/remediation-selection.json)"
+          if [ "$classification" = 'fixed-output-hash' ]; then
+            python3 .forgejo/scripts/apply-fixed-output-remediation.py \
+              /tmp/remediation-selection.json
+          else
+            python3 .forgejo/scripts/apply-nix-option-remediation.py \
+              /tmp/remediation-selection.json || true
+          fi
 
           if git diff --quiet; then
+            apt-get install --yes --no-install-recommends pipx python3-venv
+            pipx install aider-chat==0.86.2
+            ln --symbolic "$HOME/.local/bin/aider" /usr/local/bin/aider
+
+            curl --fail --silent --show-error \
+              --retry 30 \
+              --retry-all-errors \
+              --retry-delay 10 \
+              http://docker-in-docker:11434/v1/models \
+              | jq --exit-status '.data[] | select(.id == "qwen2.5-coder:7b")' \
+              >/dev/null
+
             aider \
               --model openai/qwen2.5-coder:7b \
               --edit-format whole \
@@ -298,6 +316,7 @@ jobs:
           fingerprint="$(jq --raw-output '.fingerprint' \
             /tmp/remediation-selection.json)"
           kind="$(jq --raw-output '.kind' /tmp/remediation-selection.json)"
+          classification="$(jq --raw-output '.classification' /tmp/remediation-selection.json)"
           target="$(jq --raw-output '.target' /tmp/remediation-selection.json)"
           candidate_list="$(jq --raw-output \
             '.candidates | map("- `" + . + "`") | join("\n")' \
@@ -308,18 +327,43 @@ jobs:
           git fetch --no-tags "$authenticated_url" "refs/heads/$base"
           base_revision="$(git rev-parse FETCH_HEAD)"
 
-          if [ "$source_revision" != "$base_revision" ]; then
+          if [ '${{ inputs.pull_request }}' = '0' ] && [ "$source_revision" != "$base_revision" ]; then
             echo 'Source revision is stale; no remediation pull request will be created.'
+            echo 'published=false' >> "$FORGEJO_OUTPUT"
             exit 0
           fi
 
           git config user.name "ai-fixer"
           git config user.email "ai-fixer@noreply.hestallo.com"
-          git switch --create "$branch"
+          if [ '${{ inputs.pull_request }}' = '0' ]; then
+            git switch --create "$branch"
+          fi
           git add --update
           git commit -m "fix(nix): remediate validation diagnostics"
 
+          if [ '${{ inputs.pull_request }}' != '0' ]; then
+            pull_json="$(curl --fail --silent --show-error \
+              --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${{ inputs.pull_request }}")"
+            branch="$(printf '%s' "$pull_json" | jq --raw-output '.head.ref')"
+          fi
+
           git push "$authenticated_url" "HEAD:refs/heads/$branch"
+
+          if [ '${{ inputs.pull_request }}' != '0' ]; then
+            comment="$(jq --null-input --arg body \
+              "Automated repair attempt ${{ inputs.repair_attempt }} pushed after evaluating the failed isolated CI diagnostics. The updated commit must pass normal PR validation before manual review." \
+              '{body: $body}')"
+            curl --fail --silent --show-error \
+              --request POST \
+              --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+              --header 'Content-Type: application/json' \
+              --data "$comment" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${{ inputs.pull_request }}/comments" \
+              >/dev/null
+            echo 'published=true' >> "$FORGEJO_OUTPUT"
+            exit 0
+          fi
 
           body="$(printf '%s\n' \
             'Automated remediation candidate generated from Nix validation diagnostics.' \
@@ -328,6 +372,7 @@ jobs:
             "- Automation run: ${FORGEJO_RUN_ID}" \
             "- Diagnostic fingerprint: ${fingerprint}" \
             "- Diagnostic kind: ${kind}" \
+            "- Diagnostic classification: ${classification}" \
             "- Selected target: ${target}" \
             '- Inputs: sanitized CI diagnostic and repository-grounded candidates' \
             '- Preflight: candidate boundary, size policy, binary, and whitespace validation' \
@@ -338,12 +383,50 @@ jobs:
             '' \
             'The isolated Nix CI workflow must pass before manual review and merge.')"
 
+          ensure_label() {
+            name="$1"
+            color="$2"
+            description="$3"
+            labels="$(curl --fail --silent --show-error \
+              --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/labels?limit=100")"
+            label_id="$(printf '%s' "$labels" | jq --raw-output \
+              --arg name "$name" '.[] | select(.name == $name) | .id' | head --lines 1)"
+            if [ -z "$label_id" ]; then
+              label_payload="$(jq --null-input \
+                --arg name "$name" --arg color "$color" --arg description "$description" \
+                '{name: $name, color: $color, description: $description}')"
+              label_id="$(curl --fail --silent --show-error --request POST \
+                --header "Authorization: token ${AI_FORGEJO_TOKEN}" \
+                --header 'Content-Type: application/json' \
+                --data "$label_payload" \
+                "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/labels" \
+                | jq --raw-output '.id')"
+            fi
+            printf '%s' "$label_id"
+          }
+
+          automation_label="$(ensure_label \
+            'automation' '6f42c1' 'Created and maintained by repository automation')"
+          warning_label="$(ensure_label \
+            'nix-warning' 'd4a72c' 'Remediates a Nix evaluation warning')"
+
           payload="$(jq --null-input \
             --arg base "$base" \
             --arg head "$branch" \
             --arg title "fix(nix): remediate ${target}" \
             --arg body "$body" \
-            '{base: $base, head: $head, title: $title, body: $body, draft: true, assignees: ["forgejo"]}')"
+            --argjson automation_label "$automation_label" \
+            --argjson warning_label "$warning_label" \
+            '{
+              base: $base,
+              head: $head,
+              title: $title,
+              body: $body,
+              draft: true,
+              assignees: ["forgejo"],
+              labels: [$automation_label, $warning_label]
+            }')"
 
           curl --fail --silent --show-error \
             --request POST \
@@ -352,6 +435,7 @@ jobs:
             --data "$payload" \
             "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls" \
             | jq '{number, title, html_url}'
+          echo 'published=true' >> "$FORGEJO_OUTPUT"
 
       - name: Report remediation outcome
         if: ${{ always() }}
@@ -362,7 +446,7 @@ jobs:
             echo 'Outcome: diagnostic already has an open remediation.'
           elif [ '${{ steps.generation.outputs.changed }}' != 'true' ]; then
             echo 'Outcome: model produced no candidate patch.'
-          elif [ '${{ steps.publication.outcome }}' = 'success' ]; then
+          elif [ '${{ steps.publication.outputs.published }}' = 'true' ]; then
             echo 'Outcome: draft remediation pull request published.'
           else
             echo 'Outcome: candidate rejected or publication failed; review the failing step.'

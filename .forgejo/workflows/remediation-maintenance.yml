@@ -1,0 +1,179 @@
+name: Remediation maintenance
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+      timezone: America/New_York
+  workflow_dispatch:
+
+concurrency:
+  group: remediation-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    name: Reconcile remediation pull requests
+    runs-on: docker
+    timeout-minutes: 20
+
+    steps:
+      - name: Reconcile failed automation PRs
+        env:
+          AI_FORGEJO_TOKEN: ${{ secrets.AI_FORGEJO_TOKEN }}
+          FORGEJO_API_URL: https://git.hestallo.com/api/v1
+          FORGEJO_REPOSITORY: ${{ github.repository }}
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends curl jq unzip
+
+          auth="Authorization: token ${AI_FORGEJO_TOKEN}"
+          ensure_label() {
+            name="$1"
+            color="$2"
+            description="$3"
+            labels="$(curl --fail --silent --show-error \
+              --header "$auth" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/labels?limit=100")"
+            if ! printf '%s' "$labels" | jq --exit-status --arg name "$name" \
+              'any(.[]; .name == $name)' >/dev/null; then
+              payload="$(jq --null-input \
+                --arg name "$name" --arg color "$color" --arg description "$description" \
+                '{name: $name, color: $color, description: $description}')"
+              curl --fail --silent --show-error --request POST \
+                --header "$auth" --header 'Content-Type: application/json' \
+                --data "$payload" \
+                "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/labels" \
+                >/dev/null
+            fi
+          }
+
+          add_label() {
+            number="$1"
+            name="$2"
+            payload="$(jq --null-input --arg name "$name" '{labels: [$name]}')"
+            curl --fail --silent --show-error --request POST \
+              --header "$auth" --header 'Content-Type: application/json' \
+              --data "$payload" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${number}/labels" \
+              >/dev/null
+          }
+
+          ensure_label 'ci-verified' '2da44e' 'Passed isolated Nix PR validation'
+          ensure_label 'needs-review' 'cf222e' 'Automation stopped and requires manual review'
+
+          pulls="$(curl --fail --silent --show-error \
+            --header "$auth" \
+            "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls?state=open&limit=50")"
+
+          printf '%s' "$pulls" | jq --compact-output '.[]' | while IFS= read -r pull; do
+            branch="$(printf '%s' "$pull" | jq --raw-output '.head.ref')"
+            case "$branch" in
+              automation/nix-remediation-*) ;;
+              *) continue ;;
+            esac
+
+            number="$(printf '%s' "$pull" | jq --raw-output '.number')"
+            head_sha="$(printf '%s' "$pull" | jq --raw-output '.head.sha')"
+            commits="$(curl --fail --silent --show-error \
+              --header "$auth" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${number}/commits" \
+              | jq 'length')"
+            runs="$(curl --fail --silent --show-error \
+              --header "$auth" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/runs?event=pull_request&head_sha=${head_sha}&limit=10")"
+            run="$(printf '%s' "$runs" | jq --compact-output '.workflow_runs[0] // empty')"
+            [ -n "$run" ] || continue
+            status="$(printf '%s' "$run" | jq --raw-output '.status')"
+
+            if [ "$status" = 'success' ]; then
+              add_label "$number" 'ci-verified'
+              continue
+            fi
+            [ "$status" = 'failure' ] || continue
+
+            if [ "$commits" -ge 3 ]; then
+              add_label "$number" 'needs-review'
+              marker='Automated repair limit reached'
+              comments="$(curl --fail --silent --show-error \
+                --header "$auth" \
+                "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${number}/comments")"
+              if ! printf '%s' "$comments" | jq --exit-status --arg marker "$marker" \
+                'any(.[]; (.body // "") | contains($marker))' >/dev/null; then
+                payload="$(jq --null-input --arg body \
+                  "$marker after two retries. No further automated commits will be pushed; manual review is required." \
+                  '{body: $body}')"
+                curl --fail --silent --show-error --request POST \
+                  --header "$auth" --header 'Content-Type: application/json' \
+                  --data "$payload" \
+                  "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${number}/comments" \
+                  >/dev/null
+              fi
+              continue
+            fi
+
+            repair_runs="$(curl --fail --silent --show-error \
+              --header "$auth" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/runs?event=workflow_dispatch&head_sha=${head_sha}&limit=20")"
+            prior_repair="$(printf '%s' "$repair_runs" | jq --compact-output \
+              '[.workflow_runs[] | select(.workflow_id == "suggest-fix.yml")][0] // empty')"
+            if [ -n "$prior_repair" ]; then
+              repair_status="$(printf '%s' "$prior_repair" | jq --raw-output '.status')"
+              case "$repair_status" in
+                waiting|running|blocked)
+                  continue
+                  ;;
+              esac
+
+              add_label "$number" 'needs-review'
+              marker="Automated repair produced no updated commit for ${head_sha}"
+              comments="$(curl --fail --silent --show-error \
+                --header "$auth" \
+                "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${number}/comments")"
+              if ! printf '%s' "$comments" | jq --exit-status --arg marker "$marker" \
+                'any(.[]; (.body // "") | contains($marker))' >/dev/null; then
+                payload="$(jq --null-input --arg body \
+                  "$marker. Automated retries are paused to avoid repeatedly invoking the fixer for an unchanged candidate." \
+                  '{body: $body}')"
+                curl --fail --silent --show-error --request POST \
+                  --header "$auth" --header 'Content-Type: application/json' \
+                  --data "$payload" \
+                  "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/issues/${number}/comments" \
+                  >/dev/null
+              fi
+              continue
+            fi
+
+            run_id="$(printf '%s' "$run" | jq --raw-output '.id')"
+            archive="/tmp/remediation-${number}.zip"
+            context="/tmp/remediation-${number}.log"
+            curl --fail --silent --show-error --location \
+              --header "$auth" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/runs/${run_id}/logs" \
+              > "$archive"
+            unzip -p "$archive" \
+              | LC_ALL=C tr -d '\000-\010\013\014\016-\037\177' \
+              | sed -E \
+                  -e $'s/\x1B\[[0-9;?]*[ -\/]*[@-~]//g' \
+                  -e '/ignore (all )?(previous|above) instructions/Id' \
+                  -e '/(system|developer|assistant) prompt:/Id' \
+                  -e 's/(token|password|secret|authorization)[=: ][^[:space:]]+/\1=[REDACTED]/Ig' \
+              > "${context}.full"
+            tail --bytes 24000 "${context}.full" > "$context"
+
+            attempt="$commits"
+            payload="$(jq --null-input \
+              --arg ref "$head_sha" \
+              --rawfile context "$context" \
+              --arg pull_request "$number" \
+              --arg repair_attempt "$attempt" \
+              '{ref: $ref, inputs: {
+                ref: $ref,
+                context: $context,
+                pull_request: $pull_request,
+                repair_attempt: $repair_attempt
+              }}')"
+            curl --fail --silent --show-error --request POST \
+              --header "$auth" --header 'Content-Type: application/json' \
+              --data "$payload" \
+              "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/actions/workflows/suggest-fix.yml/dispatches"
+          done
