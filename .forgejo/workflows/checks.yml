@@ -115,7 +115,7 @@ jobs:
           sed '/SSH password authentication is enabled/d' \
             "$log" > "$warning_log"
 
-          if grep --extended-regexp --quiet \
+          if grep --binary-files=text --extended-regexp --quiet \
             '(^|[[:space:]])(evaluation warning|warning):' "$warning_log"; then
             echo 'warnings=true' >> "$FORGEJO_OUTPUT"
           else
@@ -156,7 +156,7 @@ jobs:
               '${{ steps.nix_validation.outputs.failed }}' \
               '${{ steps.nix_validation.outputs.warnings }}'
 
-            if ! grep --extended-regexp \
+            if ! grep --binary-files=text --extended-regexp \
               --before-context 2 \
               --after-context 14 \
               '(^|[[:space:]])(error:|evaluation warning:|warning:)' \
@@ -202,7 +202,7 @@ jobs:
           log="$RUNNER_TEMP/nix-validation.log"
           echo 'Nix validation failed. Relevant diagnostics:'
 
-          if ! grep --extended-regexp \
+          if ! grep --binary-files=text --extended-regexp \
             --before-context 3 \
             --after-context 20 \
             '(^|[[:space:]])(error:|failed to build|cannot build|cannot evaluate)' \

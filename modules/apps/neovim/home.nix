@@ -71,6 +71,7 @@ in {
         statix
       ];
       withRuby = true;
+      withPython3 = true;
     };
 
     xdg.configFile."nvim" = {

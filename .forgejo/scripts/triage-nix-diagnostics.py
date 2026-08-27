@@ -144,6 +144,43 @@ def candidates_for_option(repo: Path, option: str) -> tuple[list[str], str | Non
     return [], None
 
 
+def policy_fallback_candidates(
+    repo: Path,
+    policy: dict[str, object],
+    scope: str,
+) -> list[str]:
+    configured = policy.get("fallbackCandidates", {})
+    if not isinstance(configured, dict):
+        return []
+    paths = configured.get(scope, [])
+    if not isinstance(paths, list):
+        return []
+
+    candidates = []
+    for value in paths:
+        path = str(value)
+        if PROTECTED.search(path) or not (repo / path).is_file():
+            continue
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", "--", path],
+            cwd=repo,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if tracked.returncode == 0:
+            candidates.append(path)
+    return candidates
+
+
+def is_home_manager_warning(block: str) -> bool:
+    return bool(
+        re.search(r"(?im)^(?:evaluation )?warning:\s+[^:\n]+ profile:", block)
+        or "home.stateVersion" in block
+        or "Home Manager" in block
+    )
+
+
 def sanitize_diagnostics(diagnostics: str) -> str:
     diagnostics = ANSI_ESCAPE.sub("", diagnostics)
     diagnostics = CONTROL_CHARACTER.sub("", diagnostics)
@@ -265,6 +302,12 @@ def select_warning(
         for match in ASSIGNMENT.finditer(block):
             option, value = match.groups()
             candidates, search_expression = candidates_for_option(repo, option)
+            if not candidates and is_home_manager_warning(block):
+                candidates = policy_fallback_candidates(
+                    repo, policy, "home-manager"
+                )
+                if candidates:
+                    search_expression = "policy-controlled Home Manager compatibility module"
             if candidates:
                 selection: dict[str, object] = {
                     "kind": "warning",

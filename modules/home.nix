@@ -12,6 +12,7 @@
   ./apps/wezterm/home.nix
   ./apps/zen/home.nix
   ./desktop/hyprland/home.nix
+  ./desktop/compatibility/home.nix
   ./desktop/keybinds/home.nix
   ./desktop/monitors/home.nix
   ./desktop/wayland/home.nix

@@ -2,6 +2,11 @@
   "maxCandidateFiles": 3,
   "maxChangedFiles": 3,
   "maxChangedLines": 250,
+  "fallbackCandidates": {
+    "home-manager": [
+      "modules/desktop/compatibility/home.nix"
+    ]
+  },
   "suppressionPhrases": [
     "disable this warning by adding",
     "disable this check by adding",

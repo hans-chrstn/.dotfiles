@@ -180,6 +180,38 @@ error: hash mismatch in fixed-output derivation '/nix/store/example-source.drv':
             "0ldk2xfwfn0x9xza686skbzr3skid3gq94v9gbkjha30vxva5xqv",
         )
 
+    def test_uses_controlled_fallback_for_unowned_home_manager_warning(self):
+        module = load_triage_module()
+        warning = """evaluation warning: test profile: Migration required.
+Please set:
+  programs.example.newSetting = true;
+"""
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            repo = Path(temporary_directory)
+            fallback = repo / "modules/desktop/compatibility/home.nix"
+            fallback.parent.mkdir(parents=True)
+            fallback.write_text("{config, ...}: { config = {}; }\n")
+            subprocess.run(["git", "init", "--quiet"], cwd=repo, check=True)
+            subprocess.run(["git", "add", "."], cwd=repo, check=True)
+            result = module.select_warning(
+                repo,
+                warning,
+                {
+                    "maxCandidateFiles": 3,
+                    "fallbackCandidates": {
+                        "home-manager": [
+                            "modules/desktop/compatibility/home.nix"
+                        ]
+                    },
+                },
+            )
+
+        self.assertIsNotNone(result)
+        self.assertEqual(
+            result["candidates"],
+            ["modules/desktop/compatibility/home.nix"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
