@@ -126,7 +126,6 @@
 
     feishin
     flatpak
-    ffmpeg
     libreoffice
     tradingview
     thunar

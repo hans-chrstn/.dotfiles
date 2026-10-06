@@ -20,7 +20,7 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       services.playerctld.enable = true;
-      home.packages = with pkgs; [wl-clipboard-rs libnotify networkmanager brightnessctl upower libcava wf-recorder kdePackages.qtmultimedia kdePackages.qtutilities gcalcli pulseaudio];
+      home.packages = with pkgs; [ffmpeg wl-clipboard-rs libnotify networkmanager brightnessctl upower libcava wf-recorder awww kdePackages.qtmultimedia kdePackages.qtutilities gcalcli pulseaudio];
     })
 
     (lib.mkIf cfg.quickshell.enable {

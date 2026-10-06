@@ -5,5 +5,5 @@
   hostName = "nixos-laptop";
   profiles = [];
   overlays = [];
-  privateCache = false;
+  privateCache = true;
 }

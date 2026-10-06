@@ -15,6 +15,11 @@
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
   services.quickshell-greeter.enable = true;
 
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql84;
+  };
+
   dotfiles = {
     hardware = {
       bluetooth.enable = true;

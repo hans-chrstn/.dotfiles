@@ -31,13 +31,15 @@
             "https://cache.nixos.org"
             "https://nix-community.cachix.org"
           ]
-          ++ lib.optionals config.dotfiles.nix.privateCache.enable ["https://cache.hestallo.com/homelab"];
+          #++ lib.optionals config.dotfiles.nix.privateCache.enable ["https://cache.hestallo.com/homelab"]
+          ;
         trusted-public-keys =
           [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           ]
-          ++ lib.optionals config.dotfiles.nix.privateCache.enable ["homelab:GvRS8Og7LYDKOL0sV2SfH2OIvwMAbGiqOj/yMh62HWc="];
+          #++ lib.optionals config.dotfiles.nix.privateCache.enable ["homelab:GvRS8Og7LYDKOL0sV2SfH2OIvwMAbGiqOj/yMh62HWc="]
+          ;
       };
       channel.enable = false;
 

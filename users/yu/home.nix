@@ -13,6 +13,8 @@
     };
   };
 
+  programs.codex.enable = true;
+
   home = {
     username = "yu";
     homeDirectory = "/home/yu";
@@ -35,6 +37,7 @@
         userName = "hayato-oo";
         userEmail = "xuhiko13@gmail.com";
       };
+      kitty.enable = true;
       lazygit.enable = true;
       neovim.enable = true;
       neofetch.enable = true;
@@ -58,6 +61,8 @@
     feishin
     moonlight-qt
     tradingview
+    antigravity-cli
+    libreoffice
   ];
 
   programs.home-manager.enable = true;
