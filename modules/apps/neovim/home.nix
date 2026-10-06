@@ -43,6 +43,9 @@
             "EndOfBuffer",
             "StatusLine",
             "StatusLineNC",
+            "WinBar",
+            "WinBarNC",
+            "WinSeparator",
             "GitSignsAdd",
             "GitSignsChange",
             "GitSignsDelete",
@@ -134,7 +137,6 @@ in {
       text = colorschemeLua;
       onChange = ''
         rm -rf "${config.xdg.cacheHome}/nvim/"
-
       '';
     };
 
