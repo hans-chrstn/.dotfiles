@@ -48,6 +48,7 @@
     homeDirectory = "/home/jin";
     sessionVariables = {
       EDITOR = "nvim";
+      WINEPREFIX = "/mnt/games/wine/default";
     };
   };
 
@@ -71,7 +72,10 @@
       kitty.enable = true;
       lazygit.enable = true;
       mpv.enable = true;
-      neovim.enable = true;
+      neovim = {
+      	enable = true;
+	discordPresence = true;
+      };
       neofetch.enable = true;
       nix-index.enable = true;
       nyxt.enable = true;
@@ -98,7 +102,6 @@
 
   programs.brave.enable = true;
 
-  services.awww.enable = true;
   services.easyeffects.enable = true;
 
   fonts.fontconfig.enable = true;
@@ -106,6 +109,7 @@
     moonlight-qt
     gamma-launcher
     mo2
+    amethyst-mod-manager-beta
     attic-client
     starsector
 
@@ -126,11 +130,6 @@
     libreoffice
     tradingview
     thunar
-
-    # AI CLI tools
-    antigravity-cli
-    claude-code
-    aider-chat
   ];
 
   programs.antigravity-cli = {

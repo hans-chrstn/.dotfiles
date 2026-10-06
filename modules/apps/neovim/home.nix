@@ -30,6 +30,39 @@
             plugins = { default = true }
 
           })
+
+          local transparent_groups = {
+            "Normal",
+            "NormalNC",
+            "SignColumn",
+            "LineNr",
+            "LineNrAbove",
+            "LineNrBelow",
+            "CursorLineNr",
+            "FoldColumn",
+            "EndOfBuffer",
+            "StatusLine",
+            "StatusLineNC",
+            "GitSignsAdd",
+            "GitSignsChange",
+            "GitSignsDelete",
+            "GitSignsUntracked",
+            "DiagnosticSignError",
+            "DiagnosticSignWarn",
+            "DiagnosticSignInfo",
+            "DiagnosticSignHint",
+            "DiagnosticSignOk",
+          }
+
+          for _, group in ipairs(transparent_groups) do
+            vim.cmd(("highlight %s guibg=NONE ctermbg=NONE"):format(group))
+          end
+
+          vim.api.nvim_set_hl(0, "PmenuSel", {
+            fg = "#${paletteAttrset.base05}",
+            bg = "#${paletteAttrset.base02}",
+            bold = true,
+          })
         end,
       },
     }
@@ -37,6 +70,7 @@
 in {
   options.dotfiles.programs.neovim = {
     enable = lib.mkEnableOption "Enable the neovim feature";
+    discordPresence = lib.mkEnableOption "opt-in Discord rich presence for Neovim";
   };
 
   config = lib.mkIf cfg.enable {
@@ -46,6 +80,7 @@ in {
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+      plugins = [pkgs.vimPlugins.lazy-nvim];
       extraPackages = with pkgs; [
         gcc
         xclip
@@ -69,9 +104,25 @@ in {
         ruff
         shellcheck
         statix
+        tree-sitter
+        lua-language-server
+        pyright
+        rust-analyzer
+        rustfmt
+        typescript-language-server
+        jdt-language-server
+        nixd
+        clang-tools
+        vscode-extensions.vadimcn.vscode-lldb.adapter
+        gopls
+        marksman
       ];
-      withRuby = true;
-      withPython3 = true;
+      withRuby = false;
+      withPython3 = false;
+    };
+
+    home.sessionVariables = lib.mkIf cfg.discordPresence {
+      NVIM_ENABLE_CORD = "1";
     };
 
     xdg.configFile."nvim" = {
@@ -83,7 +134,17 @@ in {
       text = colorschemeLua;
       onChange = ''
         rm -rf "${config.xdg.cacheHome}/nvim/"
+
       '';
     };
+
+    xdg.configFile."clangd/config.yaml".text = ''
+      Completion:
+        HeaderInsertion: Never
+      Diagnostics:
+        MissingIncludes: None
+        Includes:
+          IgnoreHeader: 'vulkan_core\.h$'
+    '';
   };
 }

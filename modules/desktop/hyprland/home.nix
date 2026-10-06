@@ -195,10 +195,14 @@ in {
             force_default_wallpaper = 0;
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
-            vrr = 1;
+            vrr = 2; # Set to 2 (fullscreen only) instead of 1 to prevent lag on desktop
           };
 
-          render.direct_scanout = 1;
+          cursor = {
+            no_hardware_cursors = true; # Forces redraws on cursor move, fixing VRR lag
+          };
+
+          render.direct_scanout = 0; # Direct scanout can cause multi-monitor lag
 
           group = {
             auto_group = true;

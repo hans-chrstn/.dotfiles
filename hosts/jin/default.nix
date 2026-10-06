@@ -16,11 +16,6 @@
 
   services.crab.enable = true;
 
-  services.mysql = {
-    enable = true;
-    package = pkgs.mysql84;
-  };
-
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
   services.flatpak.enable = true;

@@ -64,6 +64,10 @@ in {
         # bold_italic_font = "SF Mono Bold Italic";
         cursor_shape = "block";
         cursor_blink_interval = "0";
+        background_opacity = lib.mkForce "0.25";
+        # Layered Tokyo Night surfaces over Hyprland's blur:
+        # Yazi/base surfaces, floating panels and menus, selections, then focused items.
+        transparent_background_colors = "#1A1B26@0.35 #24283B@0.35 #414868@0.55 #565F89@0.65";
         tab_bar_edge = "bottom";
         tab_bar_margin_height = "0.0 4.0";
         tab_bar_style = "slant";

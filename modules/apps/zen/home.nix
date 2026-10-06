@@ -162,6 +162,8 @@ in {
           "media.mkv.enabled" = true;
           "browser.newtabpage.enabled" = false;
           "media.peerconnection.ice.no_host" = true;
+          "network.protocol-handler.expose.nxm" = false;
+          "network.protocol-handler.external.nxm" = true;
         };
 
         ExtensionSettings = mkExtensionSettings {
